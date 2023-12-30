@@ -70,4 +70,6 @@ The PostgreSQL database is containerized using [Docker](https://www.docker.com/)
 
 ![LandingPage](https://github.com/tejasthorat1549/RJPOLICE_HACK_1620_CircuitSlingers_9/blob/main/Image2)
 
+## Frontend Web Portal
 
+### Typescript in Next Js Framework
