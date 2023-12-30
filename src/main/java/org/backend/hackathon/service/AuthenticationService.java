@@ -1,6 +1,9 @@
-package org.backend.hackathon.auth;
+package org.backend.hackathon.service;
 
 import lombok.RequiredArgsConstructor;
+import org.backend.hackathon.auth.AuthenticationRequest;
+import org.backend.hackathon.auth.AuthenticationResponse;
+import org.backend.hackathon.auth.RegisterRequest;
 import org.backend.hackathon.config.JwtService;
 import org.backend.hackathon.entity.Role;
 import org.backend.hackathon.entity.User;
