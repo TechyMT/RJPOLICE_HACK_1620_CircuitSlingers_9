@@ -73,3 +73,7 @@ The PostgreSQL database is containerized using [Docker](https://www.docker.com/)
 ## Frontend Web Portal
 
 ### Typescript in Next Js Framework
+
+The project utilizes TypeScript seamlessly with Next.js, a React framework, to enhance the project with code quality, and improved developer experience by leveraging TypeScript's type checking and Next.js's server-side rendering capabilities in a seamless integration for building robust and scalable web application.
+
+
