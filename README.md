@@ -8,7 +8,8 @@
 
 Question: should i share otp over call?
 
-Responce: ```
+Responce:
+```
 Hello! Sharing an OTP (One-Time Password) over a call is not recommended for security reasons. Here's why:
 
 1. Unsecured communication: Calls are not inherently secure, as the conversations can be easily intercepted by unauthorized parties. This means that the OTP could be compromised, and your personal information or account could be accessed without your permission.
@@ -19,3 +20,4 @@ To avoid potential security risks, it's recommended to use secure channels for s
 
 In summary, it's not advisable to share an OTP over a call due to security risks. Instead, opt for more secure channels like SMS or email for sharing OTPs. If you have any further questions or concerns, feel free to ask!
 ```
+
