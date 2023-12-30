@@ -18,8 +18,8 @@ export const Cards = () => {
           href="/report"
           className="col-span-12 sm:col-span-4 h-[300px] overflow-hidden"
         >
-          <CardHeader className="absolute z-10 top-1 flex items-center justify-center w-full h-full">
-            <h4 className="text-white font-bold text-lg font-sans border border-white p-2">
+          <CardHeader className="absolute z-10 top-1 flex-col !items-center">
+            <h4 className="text-blue-500 font-bold text-lg font-sans border border-white p-2 bg-blue-200">
               Report a crime
             </h4>
           </CardHeader>
@@ -38,7 +38,7 @@ export const Cards = () => {
           className="col-span-12 sm:col-span-4 h-[300px] overflow-hidden"
         >
           <CardHeader className="absolute z-10 top-1 flex-col !items-start">
-            <h4 className="text-black font-medium text-large">
+            <h4 className="text-blue-500 font-bold text-lg font-sans border border-white p-2 bg-blue-200">
               Check application status
             </h4>
           </CardHeader>
@@ -56,8 +56,8 @@ export const Cards = () => {
           href="#"
           className="col-span-12 sm:col-span-4 h-[300px] overflow-hidden"
         >
-          <CardHeader className="absolute z-10 top-1 flex-col !items-start">
-            <h4 className="text-black font-medium text-large">
+          <CardHeader className="absolute z-10 top-1 flex-col !items-center">
+            <h4 className="text-blue-500 font-bold text-lg font-sans border border-white p-2 bg-blue-200">
               Awareness and Training
             </h4>
           </CardHeader>
@@ -77,8 +77,10 @@ export const Cards = () => {
           href="#"
           className="col-span-12 sm:col-span-4 h-[300px] overflow-hidden"
         >
-          <CardHeader className="absolute z-10 top-1 flex-col items-start">
-            <h4 className="text-black font-medium text-2xl">Latest News</h4>
+          <CardHeader className="absolute z-10 top-1 flex-col !items-center">
+            <h4 className="text-blue-500 font-bold text-lg font-sans border border-white p-2 bg-blue-200">
+              Latest News
+            </h4>
           </CardHeader>
           <Image
             removeWrapper
@@ -96,8 +98,8 @@ export const Cards = () => {
           href="#"
           className="col-span-12 sm:col-span-4 h-[300px] overflow-hidden"
         >
-          <CardHeader className="absolute z-10 top-1 flex-col items-start">
-            <h4 className="text-black/90 font-medium text-xl">
+          <CardHeader className="absolute z-10 top-1 flex-col !items-center">
+            <h4 className="text-blue-500 font-bold text-lg font-sans border border-white p-2 bg-blue-200">
               Locate Nearest Cyber Police Station
             </h4>
           </CardHeader>
