@@ -43,9 +43,31 @@ Using a gift card to pay taxes may seem like a convenient option, but it is not 
 3. No traceability: Gift cards do not provide a traceable record of the transaction, making it challenging to track your tax payments or verify that the payment was received.
 
 ```
+## Backend
+
+### Spring Boot
+
+The backend of this project is built using [Spring Boot](https://spring.io/projects/spring-boot). It provides a robust and flexible framework for building Java-based enterprise applications.
+
+### JWT Authentication
+
+We use JSON Web Tokens (JWT) for authentication. JWT is a compact, URL-safe means of representing claims to be transferred between two parties. It's commonly used for securing communication between a client and a server.
+
+### Database
+
+#### PostgreSQL
+
+The project uses a PostgreSQL database to store and retrieve data. PostgreSQL is a powerful, open-source relational database system known for its reliability and performance.
+
+#### Dockerized Database
+
+The PostgreSQL database is containerized using [Docker](https://www.docker.com/), making it easy to manage and deploy across different environments.
+
 
 ## Overview Of the App 
 
-![LandingPage]()
+![LandingPage](https://github.com/tejasthorat1549/RJPOLICE_HACK_1620_CircuitSlingers_9/blob/main/Image1)
 
-![LandingPage]()
+![LandingPage](https://github.com/tejasthorat1549/RJPOLICE_HACK_1620_CircuitSlingers_9/blob/main/Image2)
+
+
