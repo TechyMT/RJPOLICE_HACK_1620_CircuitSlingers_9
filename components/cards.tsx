@@ -74,7 +74,7 @@ export const Cards = () => {
         className="w-full h-[300px] col-span-12 sm:col-span-5 transition-transform transform hover:scale-105"
       >
         <Link
-          href="#"
+          href="/news"
           className="col-span-12 sm:col-span-4 h-[300px] overflow-hidden"
         >
           <CardHeader className="absolute z-10 top-1 flex-col !items-center">
