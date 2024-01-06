@@ -1,5 +1,5 @@
-import 'package:circuitslingers/views/Register.dart';
-import 'package:circuitslingers/views/login.dart';
+import 'package:circuitslingers/views/register_login/Register.dart';
+import 'package:circuitslingers/views/register_login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,7 +42,7 @@ class LandingPage extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.fromLTRB(16.0, 8, 20, 20),
                 child: Text(
-                  "Your Energy",
+                  "Your Safety",
                   style: TextStyle(fontSize: 50, color: Colors.white),
                 ),
               ),
@@ -59,7 +59,7 @@ class LandingPage extends StatelessWidget {
                       bottomLeft: Radius.circular(20.0),
                     ),
                   ),
-                  child: ElevatedButton(
+                  child: ElevatedButton(  
                     onPressed: () {
                       Get.to(
                         () => Register(),

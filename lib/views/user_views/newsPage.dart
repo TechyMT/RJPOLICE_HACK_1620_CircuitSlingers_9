@@ -2,7 +2,7 @@
 
 import 'package:circuitslingers/models/Article.dart';
 import 'package:circuitslingers/models/CustomListTile.dart';
-import 'package:circuitslingers/networking.dart';
+import 'package:circuitslingers/views/networking/networking.dart';
 import 'package:flutter/material.dart';
 
 class NewsPage extends StatelessWidget {

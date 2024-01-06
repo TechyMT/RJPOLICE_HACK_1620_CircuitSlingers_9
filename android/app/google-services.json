@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "943669126284",
+    "project_id": "rjpolicehackathon",
+    "storage_bucket": "rjpolicehackathon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943669126284:android:0f26b9b378667ea17e87a9",
+        "android_client_info": {
+          "package_name": "com.example.circuitslingers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943669126284-qhic4h5jq0khv4s7deicq9eq68gp9k9b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.circuitslingers",
+            "certificate_hash": "f40a384626584a8b7b826034ee3e0806de68f894"
+          }
+        },
+        {
+          "client_id": "943669126284-2ur9a9ujcm91l5v5qpb52jvue4ito9id.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxoGfrty6QsmwnkeKkkkqto5QIQaVD0mM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943669126284-2ur9a9ujcm91l5v5qpb52jvue4ito9id.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "943669126284-o0jqomgnq5ploa05clgsqusmdkgl43vh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.circuitslingers.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

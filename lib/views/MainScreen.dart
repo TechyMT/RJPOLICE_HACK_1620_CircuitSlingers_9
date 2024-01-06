@@ -2,13 +2,14 @@ import 'package:circuitslingers/controller/credentialcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class MainScreen extends StatelessWidget {
   final CredentialController controller = Get.put(CredentialController());
   MainScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
+    
+    print(controller.isAuthenticated.value);
     return Scaffold(
       body: Stack(
         children: [

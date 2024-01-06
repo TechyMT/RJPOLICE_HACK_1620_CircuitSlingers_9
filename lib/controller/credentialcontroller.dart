@@ -1,9 +1,10 @@
-import 'package:circuitslingers/views/ApplicationStatus.dart';
-import 'package:circuitslingers/views/Awareness.dart';
-import 'package:circuitslingers/views/NearbyStation.dart';
-import 'package:circuitslingers/views/ReportCrime.dart';
-import 'package:circuitslingers/views/chat.dart';
-import 'package:circuitslingers/views/newsPage.dart';
+import 'package:circuitslingers/views/MainView.dart';
+import 'package:circuitslingers/views/user_views/ApplicationStatus.dart';
+import 'package:circuitslingers/views/user_views/Awareness.dart';
+import 'package:circuitslingers/views/user_views/NearbyStation.dart';
+import 'package:circuitslingers/views/user_views/ReportCrime.dart';
+import 'package:circuitslingers/views/chatbot/chat.dart';
+import 'package:circuitslingers/views/user_views/newsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +18,11 @@ class CredentialController extends GetxController {
   final TextEditingController cityController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  RxBool isAuthenticated = false.obs;
+  void setAuthenticated(bool value) {
+    isAuthenticated.value = value;
+  }
+
   final routes = <String>[
     'Report A Crime',
     'Chat With Our Bot',
@@ -27,7 +33,7 @@ class CredentialController extends GetxController {
   ];
 
   final widgets = <Widget>[
-    ReportCrime(),
+    MainView(),
     ChatPage(),
     NewsPage(),
     ApplicationStatus(),

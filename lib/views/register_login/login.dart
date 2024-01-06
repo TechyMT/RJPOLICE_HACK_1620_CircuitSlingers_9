@@ -1,13 +1,21 @@
-import 'package:circuitslingers/views/Weather.dart';
+import 'package:circuitslingers/controller/credentialcontroller.dart';
+import 'package:circuitslingers/firebase/firebase_auth_servies.dart';
+import 'package:circuitslingers/firebase/firebase_messaging.dart';
+import 'package:circuitslingers/views/MainScreen.dart';
+import 'package:circuitslingers/views/MainView.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Login extends StatelessWidget {
+  final FirebaseAuthServices _auth = FirebaseAuthServices();
+  final FirebaseMessagingService _messagingService = FirebaseMessagingService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final CredentialController controller = Get.put(CredentialController());
 
-  Login({super.key});
+  Login({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,13 +89,22 @@ class Login extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          final email = _emailController.text;
-                          final password = _passwordController.text;
-                          //       login(email, password);
-                          Get.offAll(() => MainScreen());
+                          await _login();
                         }
                       },
                       child: const Text("Login"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await _signInWithGoogle();
+                      },
+                      child: const Text("Sign in with Google"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await _loginWithFacebook();
+                      },
+                      child: const Text("Login with Facebook"),
                     ),
                     const SizedBox(height: 10),
                   ],
@@ -98,5 +115,46 @@ class Login extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _login() async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    User? user = await _auth.signinWithEmailandPassword(email, password);
+    if (user != null) {
+      controller.setAuthenticated(true);
+      print(controller.isAuthenticated.value);
+      await _messagingService.getFirebaseToken();
+      Get.offAll(() => MainScreen());
+
+      Get.snackbar("Success", "Login Successful");
+    } else {
+      Get.snackbar("Error", "Invalid credentials");
+    }
+  }
+
+  Future<void> _signInWithGoogle() async {
+    User? user = await _auth.signInWithGoogle();
+    if (user != null) {
+      controller.setAuthenticated(true);
+      print(controller.isAuthenticated.value);
+      Get.offAll(() => MainScreen());
+      Get.snackbar("Success", "Google Sign-In Successful");
+    } else {
+      Get.snackbar("Error", "Google Sign-In Failed");
+    }
+  }
+
+  Future<void> _loginWithFacebook() async {
+    User? user = await _auth.loginWithFacebook();
+    if (user != null) {
+      controller.setAuthenticated(true);
+      print(controller.isAuthenticated.value);
+      Get.offAll(() => MainScreen());
+      Get.snackbar("Success", "Facebook Login Successful");
+    } else {
+      Get.snackbar("Error", "Facebook Login Failed");
+    }
   }
 }
