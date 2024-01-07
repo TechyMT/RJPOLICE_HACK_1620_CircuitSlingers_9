@@ -15,7 +15,7 @@ const HomeNav = () => {
   const pathname = usePathname();
   return (
     <div className="flex  h-[10vh]  bg-primary-foreground">
-      <div className="flex ml-[38vw] gap-20">
+      <div className="flex ml-[38vw] gap-10">
         <div className="flex">
           <Link
             href="/"
@@ -75,6 +75,34 @@ const HomeNav = () => {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
+        </div>
+        <div className="flex">
+          <Link
+            href="/checkfakeaccount"
+            className={`flex items-center ${
+              pathname === "/checkfakeaccount"
+                ? "underline underline-offset-8 decoration-red-500 decoration-4"
+                : ""
+            }`}
+          >
+            <div className="flex items-center text-white cursor-pointer text-lg font-semibold">
+              Check fake number
+            </div>
+          </Link>
+        </div>
+        <div className="flex">
+          <Link
+            href="/checkfakeaccount"
+            className={`flex items-center ${
+              pathname === "/checkfakeaccount"
+                ? "underline underline-offset-8 decoration-red-500 decoration-4"
+                : ""
+            }`}
+          >
+            <div className="flex items-center text-white cursor-pointer text-lg font-semibold">
+              Check fake account
+            </div>
+          </Link>
         </div>
         <div className="flex">
           <Link

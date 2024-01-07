@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import Navbar from "./components/Navbar";
 import HomeNav from "./components/HomeNav";
+import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           <Navbar />
           <HomeNav />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>

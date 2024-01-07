@@ -29,7 +29,8 @@ const config: Config = {
             DEFAULT: "#355D86",
             foreground: "#070288",
             white: "#000000",
-            green: "#00D964"
+            green: "#00D964",
+            red: "#FD0101"
           },
           placeholder: {
             DEFAULT: "#9B9B9A",
