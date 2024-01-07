@@ -27,7 +27,7 @@ const Navbar = () => {
                 <div>
                   <Icon icon="mail" />
                 </div>
-                <div>Call Us</div>
+                <div>Email us</div>
               </div>
             </div>
             <Link href={"mailto:sp.cybercrime@rajpolic.gov.in"}>
