@@ -1,8 +1,8 @@
 import 'package:circuitslingers/controller/credentialcontroller.dart';
 import 'package:circuitslingers/firebase/firebase_auth_servies.dart';
 import 'package:circuitslingers/firebase/firebase_messaging.dart';
-import 'package:circuitslingers/views/MainScreen.dart';
-import 'package:circuitslingers/views/MainView.dart';
+import 'package:circuitslingers/views/Home.dart';
+import 'package:circuitslingers/views/networking/networking.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -123,10 +123,9 @@ class Login extends StatelessWidget {
 
     User? user = await _auth.signinWithEmailandPassword(email, password);
     if (user != null) {
-      controller.setAuthenticated(true);
-      print(controller.isAuthenticated.value);
+      await controller.sign_login();
       await _messagingService.getFirebaseToken();
-      Get.offAll(() => MainScreen());
+      Get.offAll(() => Home());
 
       Get.snackbar("Success", "Login Successful");
     } else {
@@ -137,9 +136,9 @@ class Login extends StatelessWidget {
   Future<void> _signInWithGoogle() async {
     User? user = await _auth.signInWithGoogle();
     if (user != null) {
-      controller.setAuthenticated(true);
-      print(controller.isAuthenticated.value);
-      Get.offAll(() => MainScreen());
+      await controller.sign_login();
+      await _messagingService.getFirebaseToken();
+      Get.offAll(() => Home());
       Get.snackbar("Success", "Google Sign-In Successful");
     } else {
       Get.snackbar("Error", "Google Sign-In Failed");
@@ -149,9 +148,9 @@ class Login extends StatelessWidget {
   Future<void> _loginWithFacebook() async {
     User? user = await _auth.loginWithFacebook();
     if (user != null) {
-      controller.setAuthenticated(true);
-      print(controller.isAuthenticated.value);
-      Get.offAll(() => MainScreen());
+      await controller.sign_login();
+      await _messagingService.getFirebaseToken();
+      Get.offAll(() => Home());
       Get.snackbar("Success", "Facebook Login Successful");
     } else {
       Get.snackbar("Error", "Facebook Login Failed");

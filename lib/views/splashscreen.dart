@@ -1,5 +1,4 @@
 import 'package:circuitslingers/controller/credentialcontroller.dart';
-import 'package:circuitslingers/views/MainScreen.dart';
 // import 'package:circuitslingers/views/landingpage.dart';
 // import 'package:circuitslingers/views/Register.dart';
 // import 'package:flutter/material.dart';
