@@ -78,10 +78,10 @@ const HomeNav = () => {
         </div>
         <div className="flex">
           <Link
-            href="/checkfakeaccount"
+            href="/checkfakenumber"
             className={`flex items-center ${
-              pathname === "/checkfakeaccount"
-                ? "underline underline-offset-8 decoration-red-500 decoration-4"
+              pathname === "/checkfakenumber"
+                ? "underline underline-offset-8 decoration-primary-red decoration-4"
                 : ""
             }`}
           >

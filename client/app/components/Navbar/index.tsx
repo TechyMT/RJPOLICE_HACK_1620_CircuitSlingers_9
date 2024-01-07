@@ -12,25 +12,30 @@ const Navbar = () => {
         <div className="flex ml-[38vw] gap-36 my-3">
           <div className="flex flex-col">
             <div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center">
                 <div>
                   <Icon icon="phone" />
                 </div>
                 <div>Call Us</div>
               </div>
             </div>
-            <div>(+91) 9876543210</div>
+            <div className="underline decoration-primary-red decoration-2 underline-offset-4">
+              (+91) 9876543210
+            </div>
           </div>
           <div className="flex flex-col">
             <div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center">
                 <div>
                   <Icon icon="mail" />
                 </div>
-                <div>Email us</div>
+                <div className="flex">Email us</div>
               </div>
             </div>
-            <Link href={"mailto:sp.cybercrime@rajpolic.gov.in"}>
+            <Link
+              href={"mailto:sp.cybercrime@rajpolic.gov.in"}
+              className="underline decoration-primary-red decoration-2 underline-offset-4"
+            >
               sp.cybercrime@rajpolic.gov.in
             </Link>
           </div>
