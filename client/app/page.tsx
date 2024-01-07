@@ -21,14 +21,14 @@ export default function Home() {
               width={1920}
             />
           </div>
-          <div className="flex gap-20 justify-evenly z-10 relative mt-[-40px]">
-            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary-foreground rounded-3xl">
+          <div className="flex gap-20 justify-evenly z-10 relative mt-[-40px] bg-primary-foreground py-4 mx-8 rounded-3xl">
+            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary-foreground rounded-3xl border-2 border-white cursor-pointer">
               <div>
                 <Icon icon="report" width={130} />
               </div>
               <div className="text-2xl text-white">Report a crime.</div>
             </div>
-            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] bg-primary-foreground rounded-3xl">
+            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary-foreground rounded-3xl border-2 border-white cursor-pointer">
               <div>
                 <Icon icon="location" width={130} />
               </div>
@@ -36,7 +36,7 @@ export default function Home() {
                 Find nearest Station
               </div>
             </div>
-            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] bg-primary-foreground rounded-3xl">
+            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary-foreground rounded-3xl border-2 border-white cursor-pointer">
               <div>
                 <Icon icon="outreach" width={130} />
               </div>
@@ -44,7 +44,7 @@ export default function Home() {
                 Awareness and Training
               </div>
             </div>
-            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] bg-primary-foreground rounded-3xl">
+            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary-foreground rounded-3xl border-2 border-white cursor-pointer">
               <div>
                 <Icon icon="news" width={130} />
               </div>
