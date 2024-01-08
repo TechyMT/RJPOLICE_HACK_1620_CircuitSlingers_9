@@ -90,14 +90,14 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
               onTap: () {
                 if (allTermsChecked) {
                   widget.controller.nextPage(
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 500),
                     curve: Curves.ease,
                   );
                 } else {
                   Get.snackbar('Error', 'All boxes must be Checked');
                 }
               },
-              child: Text(
+              child: const Text(
                 "Accept And Continue ",
                 style: TextStyle(fontSize: 17),
               ),

@@ -1,5 +1,7 @@
 import 'package:circuitslingers/models/constants.dart';
 import 'package:circuitslingers/views/crime_report/file_a_report.dart';
+import 'package:circuitslingers/views/crime_report/questionnaire_format.dart';
+import 'package:circuitslingers/views/crime_report/report_form.dart';
 import 'package:circuitslingers/views/crime_report/terms_conditions.dart';
 import 'package:circuitslingers/views/register_login/landingpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,8 +28,12 @@ class _ReportCrimeState extends State<ReportCrime> {
       TermsAndConditions(
         controller: _pageController,
       ),
-      Container(color: Colors.orange, child: Center(child: Text("Page 3"))),
-      Container(color: Colors.red, child: Center(child: Text("Page 4"))),
+      ReportForm(
+        pageController: _pageController,
+      ),
+      QuestionnaireFormat(
+        pageController: _pageController,
+      )
     ];
     return Scaffold(
       appBar: AppBar(

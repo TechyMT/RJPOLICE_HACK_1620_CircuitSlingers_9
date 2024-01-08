@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     List<Widget> widgetOptions = <Widget>[
       const ReportCrime(),
-      const ApplicationStatus(),
+      ApplicationStatus(),
       MainView(),
       const Awareness(),
       ChatPage()
