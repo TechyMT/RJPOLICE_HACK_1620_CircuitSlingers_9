@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,10 +28,12 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
     private final UserRepository userRepository;
     private final FirebaseMessagingService messagingService;
     private final ReportStatusRepository statusRepository;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     @Override
     public IncidentReportDto createReport(IncidentReportDto incidentReportDto) {
-        String userId = incidentReportDto.getUserId();
+
+        String userId = incidentReportDto.getUserIdentification();
         UserEntity user = userRepository.findByUserUID(userId)
                 .orElseThrow(() -> new NotFoundException("User with ID " + userId + " not found"));
 
@@ -40,17 +45,28 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         reportStatusEntity.setCurrentStatus("Case Register , E-FIR filed");
         Integer track_id = (int)(Math.random()*1000);
         reportStatusEntity.setTrackId(track_id);
+        reportStatusEntity.setPending(true);
+        reportStatusEntity.setUserId(userId);
+        reportStatusEntity.setCity(incidentReportEntity.getCity());
         createdReport.setTrackId(track_id);
         reportStatusEntity.setIncidentReport(createdReport);
         ReportStatusEntity savedReportStatus = statusRepository.save(reportStatusEntity);
         createdReport.getReports().add(savedReportStatus);
         reportRepository.save(createdReport);
+        scheduler.schedule(() -> {
+            if (createdReport.isBankAccInvolved()) {
+                System.out.println("Sending bank-related notification...");
+                messagingService.sendNotificationByToken(new Notifications(incidentReportDto.getRecipientToken()));
+            }
+            System.out.println("Sending FIR notification...");
+            messagingService.sendFIRnotification(new FIRClass(incidentReportDto.getRecipientToken()));
+        }, 5, TimeUnit.SECONDS);
 
-        if (createdReport.isBankAccInvolved()){
-            System.out.println("Yes");
-            messagingService.sendNotificationByToken(new Notifications(incidentReportDto.getRecipientToken()));
-        }
-        messagingService.sendFIRnotification(new FIRClass(incidentReportDto.getRecipientToken()));
+//        if (createdReport.isBankAccInvolved()){
+//            System.out.println("Yes");
+//            messagingService.sendNotificationByToken(new Notifications(incidentReportDto.getRecipientToken()));
+//        }
+//        messagingService.sendFIRnotification(new FIRClass(incidentReportDto.getRecipientToken()));
         return reportMapper.mapFrom(createdReport);
     }
 
@@ -67,10 +83,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         existingReport.setDateOfBirth(reportDto.getDateOfBirth());
         existingReport.setAadharNumber(reportDto.getAadharNumber());
         existingReport.setIncidentDescription(reportDto.getIncidentDescription());
-        existingReport.setDigitalEvidenceUrl(reportDto.getDigitalEvidenceUrl());
         existingReport.setOnlineAccountInformation(reportDto.getOnlineAccountInformation());
-        existingReport.setWitnesses(reportDto.getWitnesses());
-
         IncidentReportEntity updatedReport = reportRepository.save(existingReport);
         return reportMapper.mapFrom(updatedReport);
     }

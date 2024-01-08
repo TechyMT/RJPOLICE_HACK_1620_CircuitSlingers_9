@@ -19,9 +19,15 @@ public class ReportStatusEntity {
     @DBRef
     private IncidentReportEntity incidentReport;
 
+    private String userId;
+
     private Integer trackId;
 
     private String currentStatus;
+
+    private String city;
+
+    private boolean pending;
 
 
 }

@@ -18,6 +18,8 @@ public class IncidentReportEntity {
     @Id
     private String id;
 
+    private String userIdentification;
+
     private String recipientToken;
 
     private String fullName;
@@ -30,13 +32,17 @@ public class IncidentReportEntity {
 
     private String incidentDescription;
 
-    private String digitalEvidenceUrl;
+    private String category;
+
+    private String transaction;
+
+    private String suspectPhoneNumber;
+
+    private String suspectAccDetails;
 
     private String city;
 
     private String onlineAccountInformation;
-
-    private List<String> witnesses;
 
     private List<Questionnaire> questionnaire;
 

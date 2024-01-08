@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class IncidentReportDto {
 
-    private String userId;
+    private String userIdentification;
 
     @NotBlank(message = "Full name cannot be blank")
     private String fullName;
@@ -40,15 +40,19 @@ public class IncidentReportDto {
     @JsonProperty("isBankAccInvolved")
     private boolean isBankAccInvolved;
 
+    @NotBlank(message = "Required Field")
+    private String category;
+
+    private String transaction;
+
+    private String suspectPhoneNumber;
+
+    private String suspectAccDetails;
+
     @NotBlank(message = "Error Detected")
     private String recipientToken;
 
-    @NotBlank(message = "Digital evidence URL cannot be blank")
-    private String digitalEvidenceUrl;
-
     private String onlineAccountInformation;
-
-    private List<String> witnesses;
 
     private List<Questionnaire> questionnaire;
 

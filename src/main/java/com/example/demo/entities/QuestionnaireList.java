@@ -18,7 +18,6 @@ public class QuestionnaireList {
     public static class Question {
         private String type;
         private String question;
-        private String expected_answer;
-
+        private String answer;
     }
 }

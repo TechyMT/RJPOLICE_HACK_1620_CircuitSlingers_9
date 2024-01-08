@@ -9,6 +9,7 @@ import com.example.demo.mappers.impl.IncidentReportMapperImpl;
 import com.example.demo.mappers.impl.ReportStatusMapperImpl;
 import com.example.demo.repository.IncidentReportRepository;
 import com.example.demo.repository.ReportStatusRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.services.ReportStatusServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class ReportStatusImpl implements ReportStatusServices {
     private final ReportStatusMapperImpl reportMapper;
     private final IncidentReportRepository reportRepository;
     private final IncidentReportMapperImpl incidentMapper;
+    private  final UserRepository userRepository;
     @Override
     public ReportStatusDto createReportStatus(ReportStatusDto reportStatusDto) {
         ReportStatusEntity reportEntity = reportMapper.mapTo(reportStatusDto);
@@ -37,7 +39,13 @@ public class ReportStatusImpl implements ReportStatusServices {
         Optional<ReportStatusEntity> reportStatus = statusRepository.findByTrackId(reportStatusDto.getTrackId());
         if(reportStatus.isPresent()){
             ReportStatusEntity existingStatus = reportStatus.get();
-            existingStatus.setCurrentStatus(reportStatusDto.getCurrentStatus());
+            if(!reportStatusDto.isPending()){
+                existingStatus.setCurrentStatus("Case Completed");
+            }
+            else {
+                existingStatus.setCurrentStatus(reportStatusDto.getCurrentStatus());
+            }
+            existingStatus.setPending(reportStatusDto.isPending());
             ReportStatusEntity updatedReport = statusRepository.save(existingStatus);
             return reportMapper.mapFrom(updatedReport);
         }
@@ -59,6 +67,17 @@ public class ReportStatusImpl implements ReportStatusServices {
         }
         else{
             throw new NotFoundException("Not Found");
+        }
+    }
+
+    @Override
+    public List<ReportStatusDto> getReportsById(String id) {
+        if(userRepository.findByUserUID(id).isPresent()){
+            List<ReportStatusEntity> reportStatusEntities = statusRepository.findAllByUserId(id);
+            return reportStatusEntities.stream().map(reportMapper::mapFrom).collect(Collectors.toList());
+        }
+        else{
+            throw new NotFoundException("User with "+id+" not found");
         }
     }
 }

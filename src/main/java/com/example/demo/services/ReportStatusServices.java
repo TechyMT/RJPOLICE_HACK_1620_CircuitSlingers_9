@@ -14,4 +14,6 @@ public interface ReportStatusServices {
     List<ReportStatusDto> getAllReports();
 
     IncidentReportDto getSingleReport(Integer track);
+
+    List<ReportStatusDto> getReportsById(String id);
 }

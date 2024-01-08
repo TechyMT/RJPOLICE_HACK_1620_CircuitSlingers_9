@@ -38,4 +38,12 @@ public class ReportStatusController {
         IncidentReportDto reportDto = reportStatusServices.getSingleReport(track);
         return new ResponseEntity<>(reportDto,HttpStatus.OK);
     }
+
+    @GetMapping(path = "/reports/{user_id}")
+    public ResponseEntity<List<ReportStatusDto>> getReportForUser(
+            @PathVariable("user_id") String id
+    ){
+        List<ReportStatusDto> statusDtoList = reportStatusServices.getReportsById(id);
+        return  new ResponseEntity<>(statusDtoList,HttpStatus.OK);
+    }
 }

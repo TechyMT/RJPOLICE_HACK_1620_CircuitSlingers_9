@@ -41,9 +41,9 @@ public class IncidentReportController {
         return new ResponseEntity<>(listOfReports,HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getReports/{city}")
+    @GetMapping(path = "/getReport")
     public ResponseEntity<List<IncidentReportDto>> getReportForCity(
-            @PathVariable("city") String city
+            @RequestParam("city") String city
     ){
         List<IncidentReportDto> reportEntities = reportServices.getReportsbyCity(city);
         return new ResponseEntity<>(reportEntities,HttpStatus.OK);
