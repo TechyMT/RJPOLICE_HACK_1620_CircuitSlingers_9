@@ -74,7 +74,7 @@ const Chatbot: React.FC = () => {
             </div>
             <div
               onClick={toggleChatbox}
-              className="cursor-pointer text-primary-foreground"
+              className="cursor-pointer text-primary"
             >
               Close
             </div>
@@ -134,7 +134,7 @@ const Chatbot: React.FC = () => {
             <Button
               type="submit"
               onClick={handleSubmit}
-              className="w-4 bg-primary-foreground text-white"
+              className="w-4 bg-primary text-white"
             >
               Send
             </Button>

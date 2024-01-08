@@ -14,7 +14,7 @@ import Icon from "../Icon";
 const HomeNav = () => {
   const pathname = usePathname();
   return (
-    <div className="flex  h-[10vh]  bg-primary-foreground">
+    <div className="flex  h-[10vh]  bg-primary">
       <div className="flex ml-[38vw] gap-10">
         <div className="flex">
           <Link
@@ -33,7 +33,7 @@ const HomeNav = () => {
         <div className="flex items-center">
           <Dropdown
             classNames={{
-              trigger: "bg-primary-foreground",
+              trigger: "bg-primary",
             }}
           >
             <DropdownTrigger>

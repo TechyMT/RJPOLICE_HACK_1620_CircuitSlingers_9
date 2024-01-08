@@ -16,6 +16,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
+import Link from "next/link";
 
 const HeroImages = [HeroImage_1, HeroImage_2, HeroImage_3, HeroImage_4];
 
@@ -60,14 +61,17 @@ export default function Home() {
             })}
           </Swiper>
           <div></div>
-          <div className="flex gap-20 justify-evenly z-10 relative mt-[-150px] bg-primary-foreground py-4 mx-8 rounded-3xl">
-            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary-foreground rounded-3xl border-2 border-white cursor-pointer">
-              <div>
-                <Icon icon="report" width={130} />
+          <div className="flex gap-20 justify-evenly z-10 relative mt-[-150px] bg-primary py-4 mx-8 rounded-3xl">
+            <Link href={"/online-reporting"}>
+              <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white">
+                <div>
+                  <Icon icon="report" width={130} />
+                </div>
+                <div className="text-2xl text-white">Report a crime.</div>
               </div>
-              <div className="text-2xl text-white">Report a crime.</div>
-            </div>
-            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary-foreground rounded-3xl border-2 border-white cursor-pointer">
+            </Link>
+
+            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
               <div>
                 <Icon icon="location" width={130} />
               </div>
@@ -75,7 +79,7 @@ export default function Home() {
                 Find nearest Station
               </div>
             </div>
-            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary-foreground rounded-3xl border-2 border-white cursor-pointer">
+            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
               <div>
                 <Icon icon="outreach" width={130} />
               </div>
@@ -83,7 +87,7 @@ export default function Home() {
                 Awareness and Training
               </div>
             </div>
-            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary-foreground rounded-3xl border-2 border-white cursor-pointer">
+            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
               <div>
                 <Icon icon="news" width={130} />
               </div>
@@ -93,10 +97,10 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-12">
-          <Heading content="Cybercrime Guidelines" />
+          <Heading>Cybercrime Guidelines </Heading>
           <AwarenessMarquee />
         </div>
-        <div className="flex bg-primary-foreground my-8">
+        <div className="flex bg-primary my-8">
           <Image src={PM} alt="PM" width={600} height={200} />
           <div className="border-2 border-white rounded-3xl w-[50vw] flex justify-center items-center mx-auto m-8">
             <figure className="max-w-screen-md mx-auto text-center">

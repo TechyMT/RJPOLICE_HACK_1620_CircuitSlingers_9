@@ -40,12 +40,14 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="flex items-center">
-            <Button
-              className="w-52 text-lg font-semibold bg-primary-foreground text-white"
-              color="primary"
-            >
-              Report a crime
-            </Button>
+            <Link href={"/online-reporting"}>
+              <Button
+                className="w-52 text-lg font-semibold bg-primary text-white"
+                color="primary"
+              >
+                Report a crime
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

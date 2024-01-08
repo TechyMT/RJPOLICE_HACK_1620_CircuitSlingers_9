@@ -26,10 +26,8 @@ const config: Config = {
             700: "#FCADF9",
             800: "#FDD5F9",
             900: "#FEECFE",
-            DEFAULT: "#355D86",
-            foreground: "#070288",
-            white: "#000000",
-            green: "#00D964",
+            DEFAULT: "#070288",
+            foreground: "#ffffff",
             red: "#FD0101"
           },
           placeholder: {
