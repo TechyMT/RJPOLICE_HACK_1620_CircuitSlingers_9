@@ -50,12 +50,16 @@ const Navbar = () => {
         </div>
       </div>
       <div className="flex items-center w-[31vw] h-[15vh] absolute bg-white">
-        <div className="flex justify-around items-center">
-          <div className="flex">
-            <Image src={RjLogo} height={80} alt="police-logo" />
+        <Link href={"/"}>
+          <div className="flex justify-around items-center">
+            <div className="flex">
+              <Image src={RjLogo} height={80} alt="police-logo" />
+            </div>
+            <div className="text-2xl font-bold">
+              Rajasthan Police Cyber Crime
+            </div>
           </div>
-          <div className="text-2xl font-bold">Rajasthan Police Cyber Crime</div>
-        </div>
+        </Link>
       </div>
       <div className="w-[2vw] h-[17vh] left-[35vw] absolute origin-top-left rotate-[45deg] bg-white"></div>
     </div>

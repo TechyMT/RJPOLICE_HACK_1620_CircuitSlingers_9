@@ -58,7 +58,7 @@ const Chatbot: React.FC = () => {
     <div>
       {/* Chatbot Icon */}
       <div
-        className="chatbot-icon w-20 h-20 text-2xl bg-primary rounded-full flex items-center justify-center fixed bottom-10 right-10 cursor-pointer"
+        className="chatbot-icon w-20 h-20 text-2xl bg-primary-red rounded-full flex items-center justify-center fixed bottom-10 right-10 cursor-pointer"
         onClick={toggleChatbox}
       >
         🤖
@@ -68,13 +68,13 @@ const Chatbot: React.FC = () => {
       {showChatbox && (
         <div className="chatbox fixed bottom-10 right-10 w-[25vw] h-[70vh] bg-white rounded-2xl shadow-lg flex flex-col justify-between">
           {/* Chatbox Header */}
-          <div className="flex justify-between mb-2 p-4 bg-primary-foreground rounded-t-2xl">
+          <div className="flex justify-between mb-2 p-4 bg-primary-red rounded-t-2xl">
             <div className="text-lg font-semibold text-white">
               Chat with Expert
             </div>
             <div
               onClick={toggleChatbox}
-              className="cursor-pointer text-primary-red"
+              className="cursor-pointer text-primary-foreground"
             >
               Close
             </div>

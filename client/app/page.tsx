@@ -1,27 +1,66 @@
+"use client";
 import Image from "next/image";
-import HeroImage from "./assets/images/hero.jpg";
+import HeroImage_1 from "./assets/images/hero.jpg";
+import HeroImage_2 from "./assets/images/hero_1.jpg";
+import HeroImage_3 from "./assets/images/hero_2.jpg";
+import HeroImage_4 from "./assets/images/hero_3.jpeg";
 import Icon from "./components/Icon";
 import Marquee from "react-fast-marquee";
 import AwarenessMarquee from "./components/Awareness";
 import Logo from "./assets/brand/logo.png";
 import PM from "./assets/images/pm.png";
 import Chatbot from "./components/Chatbot";
+import Heading from "./components/Heading";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+
+const HeroImages = [HeroImage_1, HeroImage_2, HeroImage_3, HeroImage_4];
 
 export default function Home() {
   return (
     <main>
       <div className="flex flex-col gap-20">
         <div className="flex flex-col w-full relative">
-          <div>
-            <Image
-              className="object-cover w-full h-[70vh]"
-              src={HeroImage}
-              alt="hero"
-              loading="lazy"
-              width={1920}
-            />
+          <div className="flex absolute z-10 top-56 cursor-pointer right-4 hover:bg-white bg-black bg-opacity-25 p-4 rounded-full image-swiper-button-next ">
+            <Icon icon="navright" width={30} />
           </div>
-          <div className="flex gap-20 justify-evenly z-10 relative mt-[-40px] bg-primary-foreground py-4 mx-8 rounded-3xl">
+          <div className="flex absolute z-10 top-56 cursor-pointer left-4 hover:bg-white bg-black bg-opacity-25 p-4 rounded-full image-swiper-button-prev">
+            <Icon icon="navleft" />
+          </div>
+          <Swiper
+            slidesPerView={1}
+            loop={true}
+            autoplay={{
+              delay: 4500,
+              disableOnInteraction: false,
+            }}
+            navigation={{
+              nextEl: ".image-swiper-button-next",
+              prevEl: ".image-swiper-button-prev",
+              disabledClass: "swiper-button-disabled",
+            }}
+            modules={[Navigation, Autoplay]}
+            className="mySwiper w-full"
+          >
+            {HeroImages.map((image, index) => {
+              return (
+                <SwiperSlide>
+                  <Image
+                    className="object-fill w-full h-[80vh]"
+                    src={image}
+                    alt="hero"
+                    loading="lazy"
+                    width={1920}
+                  />
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+          <div></div>
+          <div className="flex gap-20 justify-evenly z-10 relative mt-[-150px] bg-primary-foreground py-4 mx-8 rounded-3xl">
             <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary-foreground rounded-3xl border-2 border-white cursor-pointer">
               <div>
                 <Icon icon="report" width={130} />
@@ -54,9 +93,7 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-12">
-          <div className="flex text-4xl justify-center font-bold">
-            Cybercrime Guidelines
-          </div>
+          <Heading content="Cybercrime Guidelines" />
           <AwarenessMarquee />
         </div>
         <div className="flex bg-primary-foreground my-8">

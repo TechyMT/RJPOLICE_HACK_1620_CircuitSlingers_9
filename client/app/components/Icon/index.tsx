@@ -36,6 +36,8 @@ import Location from "./svg/locations-white-icon.svg";
 import Report from "./svg/reports-white-icon.svg";
 import Outreach from "./svg/outreach-white-icon.svg";
 import Quote from "./svg/quote.svg";
+import NavRight from "./svg/navright.svg";
+import NavLeft from "./svg/navleft.svg";
 
 interface IconProps {
   icon: string;
@@ -86,6 +88,8 @@ const Icon: React.FC<IconProps> = ({
     report: Report,
     outreach: Outreach,
     quote: Quote,
+    navright: NavRight,
+    navleft: NavLeft,
   };
 
   const IconComponent = icons[icon];
