@@ -1,5 +1,6 @@
 package com.example.demo.services.impl;
 
+import com.example.demo.dto.DetailsDto;
 import com.example.demo.dto.IncidentReportDto;
 import com.example.demo.dto.ReportStatusDto;
 import com.example.demo.entities.IncidentReportEntity;
@@ -79,5 +80,15 @@ public class ReportStatusImpl implements ReportStatusServices {
         else{
             throw new NotFoundException("User with "+id+" not found");
         }
+    }
+
+    @Override
+    public DetailsDto getAllDetails(String city) {
+        DetailsDto detailsDto = new DetailsDto();
+        detailsDto.setTotalCases((int)reportRepository.count());
+        detailsDto.setPending(statusRepository.countAllByPending(true));
+        detailsDto.setCompleted((int)reportRepository.count()-statusRepository.countAllByPending(true));
+        detailsDto.setCountByCities(statusRepository.countByCity(city));
+        return detailsDto;
     }
 }

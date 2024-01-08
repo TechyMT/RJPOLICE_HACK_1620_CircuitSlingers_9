@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.dto.DetailsDto;
 import com.example.demo.dto.IncidentReportDto;
 import com.example.demo.dto.ReportStatusDto;
 
@@ -16,4 +17,6 @@ public interface ReportStatusServices {
     IncidentReportDto getSingleReport(Integer track);
 
     List<ReportStatusDto> getReportsById(String id);
+
+    DetailsDto getAllDetails(String city);
 }

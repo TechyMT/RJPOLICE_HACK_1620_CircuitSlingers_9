@@ -14,4 +14,7 @@ public interface IncidentReportRepository extends MongoRepository<IncidentReport
     List<IncidentReportEntity> findByCity(String city);
 
     IncidentReportEntity findByTrackId(Integer id);
+
+    @Override
+    long count();
 }

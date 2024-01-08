@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.DetailsDto;
 import com.example.demo.dto.IncidentReportDto;
 import com.example.demo.dto.ReportStatusDto;
 import com.example.demo.entities.ReportStatusEntity;
@@ -45,5 +46,13 @@ public class ReportStatusController {
     ){
         List<ReportStatusDto> statusDtoList = reportStatusServices.getReportsById(id);
         return  new ResponseEntity<>(statusDtoList,HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/allDetails")
+    public ResponseEntity<DetailsDto> getDetails(
+            @RequestParam("city") String city
+    ){
+        DetailsDto details = reportStatusServices.getAllDetails(city);
+        return new ResponseEntity<>(details,HttpStatus.OK);
     }
 }
