@@ -1,6 +1,9 @@
+import 'package:circuitslingers/controller/ReportStatusController.dart';
 import 'package:circuitslingers/controller/detailsController.dart';
 import 'package:circuitslingers/controller/functionController.dart';
 import 'package:circuitslingers/models/Article.dart';
+import 'package:circuitslingers/models/ReportData.dart';
+import 'package:circuitslingers/models/ReportStatus.dart';
 import 'package:circuitslingers/models/questionnaire.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -93,7 +96,7 @@ Future<void> fetchQuestions(String description) async {
   }
 }
 
-Future<void> submitReport() async {
+Future<int> submitReport() async {
   final DetailsController controller = Get.put(DetailsController());
   final FunctionController functionController = Get.put(FunctionController());
   const url = 'http://192.168.1.5:8080/api/report/add';
@@ -101,17 +104,20 @@ Future<void> submitReport() async {
   String? uid = sharedPreferences.getString('userId');
   String? token = sharedPreferences.getString('recipientToken');
   final Map<String, dynamic> requestBody = {
-    "userId": uid,
+    "userIdentification": uid,
     "fullName": controller.fullNameController.text,
     "recipientToken": token,
     "dateOfBirth": controller.dateOfBirthController.text,
     "aadharNumber": controller.aadharNumberController.text,
     "incidentDescription": controller.incidentDescriptionController.text,
+    "city": controller.cityController.text,
     "isBankAccInvolved": controller.isBankAccInvolved,
-    "digitalEvidenceUrl": 'Links will be provided',
+    "category": controller.categoryController.text,
+    "transaction": controller.transactionIdController.text,
+    "suspectPhoneNumber": controller.suspectNumberController.text,
+    "suspectAccDetails": controller.suspectAccController.text,
     "onlineAccountInformation":
         controller.onlineAccountInformationController.text,
-    "witnesses": null,
     "questionnaire": functionController.answersList,
   };
 
@@ -125,10 +131,46 @@ Future<void> submitReport() async {
 
   if (response.statusCode == 201) {
     functionController.isReportSubmitted.value = true;
-    print('Response: ${response.body}');
+    final Map<String, dynamic> responseData = jsonDecode(response.body);
+    var track_id = responseData['trackId'];
+    return track_id;
   } else {
     print('Error: ${response.statusCode}');
-    print('Error Body: ${response.body}');
     throw Exception('Failed to submit report');
+  }
+}
+
+Future<void> fetchReportStatusList() async {
+  final ReportStatusController reportStatusController = Get.find();
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  String? uid = sharedPreferences.getString('userId');
+
+  final response = await http
+      .get(Uri.parse('http://192.168.1.5:8080/api/admin/reports/$uid'));
+
+  if (response.statusCode == 200) {
+    print(response.body);
+    List<dynamic> data = jsonDecode(response.body);
+
+    reportStatusController.reportStatusList.value = data
+        .map((json) => ReportStatusDto(
+            trackId: json['trackId'],
+            currentStatus: json['currentStatus'],
+            city: json['city'],
+            pending: json['pending']))
+        .toList();
+  } else {
+    throw Exception('Failed to load report status list');
+  }
+}
+
+Future<ReportData> getReportData(int trackId) async {
+  final response = await http
+      .get(Uri.parse('http://192.168.1.5:8080/api/admin/status/$trackId'));
+
+  if (response.statusCode == 200) {
+    return welcomeFromJson(response.body);
+  } else {
+    throw Exception('Failed to load report data');
   }
 }

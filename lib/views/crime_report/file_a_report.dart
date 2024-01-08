@@ -1,10 +1,8 @@
-import 'package:circuitslingers/views/crime_report/terms_conditions.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class FileAReport extends StatelessWidget {
   final PageController pageController;
-  FileAReport({super.key, required this.pageController});
+  const FileAReport({super.key, required this.pageController});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +12,10 @@ class FileAReport extends StatelessWidget {
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.5,
-            child: Image.asset('assets/Illustration.jpg'),
+            child: Image.asset(
+              'assets/Illustration.jpg',
+              height: MediaQuery.of(context).size.height * 0.5,
+            ),
           ),
           const SizedBox(
             height: 40,
@@ -47,19 +48,19 @@ class FileAReport extends StatelessWidget {
             'It will take you less',
             style: TextStyle(
                 decoration: TextDecoration.underline,
-                decorationColor: Colors.white,
+                decorationColor: Colors.black,
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
-                color: Colors.white),
+                color: Colors.black),
           ),
           const Text(
             'than 2 minutes to report your crime',
             style: TextStyle(
                 decoration: TextDecoration.underline,
-                decorationColor: Colors.white,
+                decorationColor: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
-                color: Colors.white),
+                color: Colors.black),
           ),
           const SizedBox(
             height: 30,

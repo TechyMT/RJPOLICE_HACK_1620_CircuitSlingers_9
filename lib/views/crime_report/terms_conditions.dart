@@ -10,17 +10,8 @@ class TermsAndConditions extends StatefulWidget {
 }
 
 class _TermsAndConditionsState extends State<TermsAndConditions> {
-  List<bool> termsChecklist = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  ];
-  bool allTermsChecked = false;
+  List<bool> termsChecklist = [true, true, true, true, true, true, true, true];
+  bool allTermsChecked = true;
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +22,11 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
           children: [
             const Text(
               "Before proceeding, please acknowledge the",
-              style: TextStyle(fontSize: 17),
+              style: TextStyle(fontSize: 17, color: Colors.black),
             ),
             const Text(
               "following guidlines : ",
-              style: TextStyle(fontSize: 17),
+              style: TextStyle(fontSize: 17, color: Colors.black),
             ),
             const Divider(
               height: 10,
@@ -99,7 +90,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
               },
               child: const Text(
                 "Accept And Continue ",
-                style: TextStyle(fontSize: 17),
+                style: TextStyle(fontSize: 17, color: Colors.black),
               ),
             ),
             const SizedBox(
@@ -116,13 +107,13 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
         title: Text(
           title,
           style: const TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               decoration: TextDecoration.underline,
-              decorationColor: Colors.white),
+              decorationColor: Colors.black),
         ),
         subtitle: Text(
           subtitle,
-          style: const TextStyle(color: Colors.white38),
+          style: const TextStyle(color: Colors.black),
         ),
         value: termsChecklist[index],
         onChanged: (val) {

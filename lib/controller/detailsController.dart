@@ -9,6 +9,10 @@ class DetailsController extends GetxController {
   TextEditingController cityController = TextEditingController();
   TextEditingController onlineAccountInformationController =
       TextEditingController();
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController transactionIdController = TextEditingController();
+  TextEditingController suspectNumberController = TextEditingController();
+  TextEditingController suspectAccController = TextEditingController();
   bool isBankAccInvolved = false;
 
   Future<void> clearControllers() async {
@@ -18,6 +22,10 @@ class DetailsController extends GetxController {
     cityController.text = '';
     incidentDescriptionController.text = '';
     aadharNumberController.text = '';
+    categoryController.text = '';
+    transactionIdController.text = '';
+    suspectAccController.text = '';
+    suspectAccController.text = '';
     isBankAccInvolved = false;
   }
 }

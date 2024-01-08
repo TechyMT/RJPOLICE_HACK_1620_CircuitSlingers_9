@@ -7,6 +7,8 @@ class CredentialController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  List<int> tracking_ids = [];
+
   Future<void> sign_login() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
 
@@ -14,7 +16,7 @@ class CredentialController extends GetxController {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       sharedPreferences.setString('userId', currentUser.uid);
-    //  print(sharedPreferences.getString('userId'));
+      //  print(sharedPreferences.getString('userId'));
     }
   }
 }

@@ -18,7 +18,6 @@ class AppGradients {
 class CustomAppBar extends AppBar {
   CustomAppBar({Key? key}) : super(key: key);
 
-  @override
   Widget build(BuildContext context) {
     return AppBar(
       flexibleSpace: Container(
