@@ -83,7 +83,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         existingReport.setDateOfBirth(reportDto.getDateOfBirth());
         existingReport.setAadharNumber(reportDto.getAadharNumber());
         existingReport.setIncidentDescription(reportDto.getIncidentDescription());
-        existingReport.setOnlineAccountInformation(reportDto.getOnlineAccountInformation());
+  //      existingReport.setOnlineAccountInformation(reportDto.getOnlineAccountInformation());
         IncidentReportEntity updatedReport = reportRepository.save(existingReport);
         return reportMapper.mapFrom(updatedReport);
     }

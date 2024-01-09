@@ -26,6 +26,10 @@ public class IncidentReportEntity {
 
     private String dateOfBirth;
 
+    private String dateOfCrime;
+
+    private String dateOfReport;
+
     private String aadharNumber;
 
     private boolean isBankAccInvolved;
@@ -34,15 +38,13 @@ public class IncidentReportEntity {
 
     private String category;
 
-    private String transaction;
+    private SuspectInfo suspectInfo;
 
-    private String suspectPhoneNumber;
+    private UserAccountInfo userAccountInfo;
 
-    private String suspectAccDetails;
+    private List<String> evidencesURL;
 
     private String city;
-
-    private String onlineAccountInformation;
 
     private List<Questionnaire> questionnaire;
 

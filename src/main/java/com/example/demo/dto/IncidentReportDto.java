@@ -1,6 +1,8 @@
 package com.example.demo.dto;
 
 import com.example.demo.entities.Questionnaire;
+import com.example.demo.entities.SuspectInfo;
+import com.example.demo.entities.UserAccountInfo;
 import com.example.demo.entities.UserEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -33,6 +35,13 @@ public class IncidentReportDto {
     @NotBlank(message = "Incident description cannot be blank")
     private String incidentDescription;
 
+    @NotBlank(message = "This cannot be empty")
+    private String dateOfCrime;
+
+    private String dateOfReport;
+
+    private List<String> evidencesURL;
+
     @NotBlank(message = "City has to be entered")
     private String city;
 
@@ -43,16 +52,12 @@ public class IncidentReportDto {
     @NotBlank(message = "Required Field")
     private String category;
 
-    private String transaction;
+    private UserAccountInfo userAccountInfo;
 
-    private String suspectPhoneNumber;
-
-    private String suspectAccDetails;
+    private SuspectInfo suspectInfo;
 
     @NotBlank(message = "Error Detected")
     private String recipientToken;
-
-    private String onlineAccountInformation;
 
     private List<Questionnaire> questionnaire;
 
