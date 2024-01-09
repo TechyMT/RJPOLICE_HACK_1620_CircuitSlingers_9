@@ -16,6 +16,7 @@ class ReportForm extends StatefulWidget {
 }
 
 class _ReportFormState extends State<ReportForm> {
+  var selectedCategory = 'Online Bank Fraud';
   final FunctionController controller = Get.put(FunctionController());
   final DetailsController detailsController = Get.put(DetailsController());
   final _formKey = GlobalKey<FormState>();
@@ -216,7 +217,7 @@ class _ReportFormState extends State<ReportForm> {
                       hintText: "Bank Account Number ",
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
-                      labelText: 'Online Account Information',
+                      labelText: 'Bank Account Information',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.black),
@@ -240,10 +241,53 @@ class _ReportFormState extends State<ReportForm> {
                     height: 8,
                   ),
                   TextFormField(
-                    controller: detailsController.categoryController,
+                    controller: detailsController.dateOfTransactionController,
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
-                      hintText: 'Category - Online or Other Fraud',
+                      hintText: "dd-mm-yyyy Format",
+                      hintStyle:
+                          const TextStyle(color: Colors.black, fontSize: 15),
+                      labelText: 'Date of Crime',
+                      labelStyle: const TextStyle(color: Colors.black),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onSaved: (value) => detailsController
+                        .dateOfTransactionController.text = value!,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Date of Transaction has to be entered';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  DropdownButtonFormField<String>(
+                    value: selectedCategory,
+                    onChanged: (newValue) {
+                      detailsController.categoryController.text = newValue!;
+                      selectedCategory = newValue;
+                    },
+                    items: const [
+                      DropdownMenuItem(
+                        value: 'Online Bank Fraud',
+                        child: Text('Online Bank Fraud'),
+                      ),
+                      DropdownMenuItem(
+                        value: 'Other Fraud',
+                        child: Text('Other Fraud'),
+                      ),
+                    ],
+                    decoration: InputDecoration(
+                      hintText: 'Category - Online Bank or Other Fraud',
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
                       labelText: 'Category',
@@ -257,8 +301,6 @@ class _ReportFormState extends State<ReportForm> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    onSaved: (value) =>
-                        detailsController.categoryController.text = value!,
                   ),
                   const SizedBox(
                     height: 8,
@@ -287,6 +329,62 @@ class _ReportFormState extends State<ReportForm> {
                   const SizedBox(
                     height: 8,
                   ),
+                  TextFormField(
+                    controller: detailsController.amountLostController,
+                    style: const TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      hintText: "Type NA if not Applicable",
+                      hintStyle:
+                          const TextStyle(color: Colors.black, fontSize: 15),
+                      labelText: 'Amount Lost',
+                      labelStyle: const TextStyle(color: Colors.black),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onSaved: (value) =>
+                        detailsController.amountLostController.text = value!,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Amount Lost has to be entered';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: detailsController.dateOfTransactionController,
+                    style: const TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      hintText: "dd-mm-yyyy Format/NA",
+                      hintStyle:
+                          const TextStyle(color: Colors.black, fontSize: 15),
+                      labelText: 'Date of Transaction',
+                      labelStyle: const TextStyle(color: Colors.black),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onSaved: (value) => detailsController
+                        .dateOfTransactionController.text = value!,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Date of Transaction has to be entered';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 10),
                   TextFormField(
                     controller: detailsController.suspectNumberController,
                     style: const TextStyle(color: Colors.black),
@@ -332,7 +430,19 @@ class _ReportFormState extends State<ReportForm> {
                     onSaved: (value) =>
                         detailsController.suspectAccController.text = value!,
                   ),
-                  const SizedBox(height: 16.0),
+                  const SizedBox(height: 8.0),
+                  Obx(
+                    () => ListTile(
+                      leading: const Icon(Icons.add),
+                      title: detailsController.filesAdded.value
+                          ? const Text('Files Added')
+                          : const Text('Add Files'),
+                      onTap: () async {
+                        await detailsController.pickAndUploadFiles();
+                        print(detailsController.evidenceURLs);
+                      },
+                    ),
+                  ),
                   Obx(
                     () => ElevatedButton(
                       onPressed: () async {

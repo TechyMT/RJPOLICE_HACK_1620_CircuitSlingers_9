@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,7 +34,7 @@ Future<List<Article>> fetchNewsArticles() async {
 }
 
 Future<void> fetchData() async {
-  final url = 'http://192.168.1.4:8080/api/admin/status/715';
+  final url = 'http://192.168.1.2:8080/api/admin/status/715';
 
   try {
     final response = await http.get(Uri.parse(url));
@@ -49,7 +50,7 @@ Future<void> createUser() async {
   User? user = FirebaseAuth.instance.currentUser;
 
   if (user != null) {
-    final url = 'http://192.168.1.4:8080/api/add';
+    final url = 'http://192.168.1.2:8080/api/add';
     final headers = {'Content-Type': 'application/json'};
 
     final userData = {
@@ -75,7 +76,7 @@ Future<void> createUser() async {
 
 Future<void> fetchQuestions(String description) async {
   final FunctionController functionController = Get.put(FunctionController());
-  final url = Uri.parse("http://192.168.1.5:8080/api/report/generateQuestions");
+  final url = Uri.parse("http://192.168.1.2:8080/api/report/generateQuestions");
   try {
     functionController.isLoading.value = true;
     final response = await http.post(
@@ -99,10 +100,25 @@ Future<void> fetchQuestions(String description) async {
 Future<int> submitReport() async {
   final DetailsController controller = Get.put(DetailsController());
   final FunctionController functionController = Get.put(FunctionController());
-  const url = 'http://192.168.1.5:8080/api/report/add';
+  const url = 'http://192.168.1.2:8080/api/report/add';
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String? uid = sharedPreferences.getString('userId');
   String? token = sharedPreferences.getString('recipientToken');
+
+  final Map<String, dynamic> userAccInfo = {
+    "amountLost": controller.amountLostController.text,
+    "dateOfTransaction": controller.dateOfTransactionController.text,
+    "transaction": controller.transactionIdController.text,
+    "accountNumber": controller.onlineAccountInformationController.text,
+  };
+  final Map<String, dynamic> suspectInfo = {
+    "suspectPhoneNumber": controller.suspectNumberController.text,
+    "suspectAccountNumber": controller.suspectAccController.text,
+  };
+  final now = DateTime.now();
+  final formatter = DateFormat('dd-MM-yyyy');
+  String date = formatter.format(now);
+
   final Map<String, dynamic> requestBody = {
     "userIdentification": uid,
     "fullName": controller.fullNameController.text,
@@ -110,14 +126,14 @@ Future<int> submitReport() async {
     "dateOfBirth": controller.dateOfBirthController.text,
     "aadharNumber": controller.aadharNumberController.text,
     "incidentDescription": controller.incidentDescriptionController.text,
+    "suspectInfo": suspectInfo,
+    "userAccountInfo": userAccInfo,
+    "evidencesURL": controller.evidenceURLs,
+    "dateOfReport": date,
+    "dateOfCrime": controller.dateOfCrimeController.text,
     "city": controller.cityController.text,
     "isBankAccInvolved": controller.isBankAccInvolved,
     "category": controller.categoryController.text,
-    "transaction": controller.transactionIdController.text,
-    "suspectPhoneNumber": controller.suspectNumberController.text,
-    "suspectAccDetails": controller.suspectAccController.text,
-    "onlineAccountInformation":
-        controller.onlineAccountInformationController.text,
     "questionnaire": functionController.answersList,
   };
 
@@ -146,10 +162,9 @@ Future<void> fetchReportStatusList() async {
   String? uid = sharedPreferences.getString('userId');
 
   final response = await http
-      .get(Uri.parse('http://192.168.1.5:8080/api/admin/reports/$uid'));
+      .get(Uri.parse('http://192.168.1.2:8080/api/admin/reports/$uid'));
 
   if (response.statusCode == 200) {
-    print(response.body);
     List<dynamic> data = jsonDecode(response.body);
 
     reportStatusController.reportStatusList.value = data
@@ -166,7 +181,7 @@ Future<void> fetchReportStatusList() async {
 
 Future<ReportData> getReportData(int trackId) async {
   final response = await http
-      .get(Uri.parse('http://192.168.1.5:8080/api/admin/status/$trackId'));
+      .get(Uri.parse('http://192.168.1.2:8080/api/admin/status/$trackId'));
 
   if (response.statusCode == 200) {
     return welcomeFromJson(response.body);

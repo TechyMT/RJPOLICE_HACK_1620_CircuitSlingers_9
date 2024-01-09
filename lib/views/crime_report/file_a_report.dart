@@ -15,6 +15,8 @@ class FileAReport extends StatelessWidget {
             child: Image.asset(
               'assets/Illustration.jpg',
               height: MediaQuery.of(context).size.height * 0.5,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
           ),
           const SizedBox(
