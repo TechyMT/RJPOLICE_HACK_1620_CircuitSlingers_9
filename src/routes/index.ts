@@ -3,14 +3,10 @@ import ECommerce from '../pages/Dashboard/ECommerce';
 
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
-const FormElements = lazy(() => import('../pages/Form/FormElements'));
 const FormLayout = lazy(() => import('../pages/Form/FormLayout'));
 const Profile = lazy(() => import('../pages/Profile'));
 const Settings = lazy(() => import('../pages/Settings'));
 const Tables = lazy(() => import('../pages/Tables'));
-const Alerts = lazy(() => import('../pages/UiElements/Alerts'));
-const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
-
 const coreRoutes = [
   {
     path: '/',
@@ -26,11 +22,6 @@ const coreRoutes = [
     path: '/profile',
     title: 'Profile',
     component: Profile,
-  },
-  {
-    path: '/forms/form-elements',
-    title: 'Forms Elements',
-    component: FormElements,
   },
   {
     path: '/forms/form-layout',
@@ -51,16 +42,6 @@ const coreRoutes = [
     path: '/chart',
     title: 'Chart',
     component: Chart,
-  },
-  {
-    path: '/ui/alerts',
-    title: 'Alerts',
-    component: Alerts,
-  },
-  {
-    path: '/ui/buttons',
-    title: 'Buttons',
-    component: Buttons,
   },
 ];
 

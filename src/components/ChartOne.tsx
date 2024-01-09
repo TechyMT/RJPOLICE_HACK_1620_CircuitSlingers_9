@@ -122,24 +122,98 @@ interface ChartOneState {
   }[];
 }
 
-const ChartOne: React.FC = () => {
-  const [state, setState] = useState<ChartOneState>({
-    series: [
-      {
-        name: 'Case One',
-        data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45],
-      },
 
-      {
-        name: 'Case Two',
-        data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 51],
-      },
-    ],
+const ChartOne: React.FC = () => {
+  const initialData = {
+    month: {
+      series: [
+        {
+          name: 'Case One',
+          data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45],
+        },
+        {
+          name: 'Case Two',
+          data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 51],
+        },
+      ],
+      categories: [
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+      ],
+    },
+    week: {
+      series: [
+        {
+          name: 'Case One',
+          data: [10, 15, 8, 20, 18, 12, 15],
+        },
+        {
+          name: 'Case Two',
+          data: [8, 12, 10, 18, 15, 9, 13],
+        },
+      ],
+      categories: [
+        'Week 1',
+        'Week 2',
+        'Week 3',
+        'Week 4',
+        'Week 5',
+        'Week 6',
+        'Week 7',
+      ],
+    },
+    day: {
+      series: [
+        {
+          name: 'Case One',
+          data: [5, 3, 7, 6, 8, 4, 9, 5, 6, 7, 4, 6, 8, 10, 12],
+        },
+        {
+          name: 'Case Two',
+          data: [4, 6, 5, 8, 7, 3, 6, 4, 5, 6, 3, 5, 7, 9, 10],
+        },
+      ],
+      categories: [
+        'Day 1',
+        'Day 2',
+        'Day 3',
+        'Day 4',
+        'Day 5',
+        'Day 6',
+        'Day 7',
+        'Day 8',
+        'Day 9',
+        'Day 10',
+        'Day 11',
+        'Day 12',
+        'Day 13',
+        'Day 14',
+        'Day 15',
+      ],
+    },
+  };
+
+  const [state, setState] = useState<ChartOneState>({
+    series: initialData.month.series,
   });
+  
+  const handleButtonClick = (dataKey: keyof typeof initialData) => {
+    setState({ series: initialData[dataKey].series });
+  };
 
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-8">
-      <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
+    <div className="col-span-12 rounded-sm border border-stroke bg-white px-9 pt-9 pb-7 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-12">
+
         <div className="flex w-full flex-wrap gap-3 sm:gap-5">
           <div className="flex min-w-47.5">
             <span className="mt-1 mr-2 flex h-4 w-full max-w-4 items-center justify-center rounded-full border border-primary">
@@ -161,20 +235,27 @@ const ChartOne: React.FC = () => {
           </div>
         </div>
         <div className="flex w-full max-w-45 justify-end">
-          <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
-            <button className="rounded bg-white py-1 px-3 text-xs font-medium text-black shadow-card hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark">
-              Day
-            </button>
-            <button className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
-              Week
-            </button>
-            <button className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
-              Month
-            </button>
-          </div>
-        </div>
+      <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
+        <button
+          className="rounded bg-white py-1 px-3 text-xs font-medium text-black shadow-card hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark"
+          onClick={() => handleButtonClick('day')}
+        >
+          Day
+        </button>
+        <button
+          className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark"
+          onClick={() => handleButtonClick('week')}
+        >
+          Week
+        </button>
+        <button
+          className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark"
+          onClick={() => handleButtonClick('month')}
+        >
+          Month
+        </button>
       </div>
-
+      </div>
       <div>
         <div id="chartOne" className="-ml-5">
           <ReactApexChart
@@ -182,11 +263,17 @@ const ChartOne: React.FC = () => {
             series={state.series}
             type="area"
             height={350}
+            options={options}
+            type="area"
+            height={350}
+            categories={initialData.month.categories}
           />
         </div>
       </div>
-    </div>
+      </div>
+
   );
 };
 
 export default ChartOne;
+

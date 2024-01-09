@@ -4,7 +4,8 @@ import CardThree from '../../components/CardThree.tsx';
 import CardTwo from '../../components/CardTwo.tsx';
 import ChartOne from '../../components/ChartOne.tsx';
 import ChartThree from '../../components/ChartThree.tsx';
-import ChartTwo from '../../components/ChartTwo.tsx';
+// import ChartTwo from '../../components/ChartTwo.tsx';
+// import ChartFour from '../../components/ChartFour.tsx';
 // import ChatCard from '../../components/ChatCard.tsx';
 import MapOne from '../../components/MapOne.tsx';
 // import TableOne from '../../components/TableOne.tsx';
@@ -21,9 +22,10 @@ const ECommerce = () => {
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         <ChartOne />
-        <ChartTwo />
+        {/* <ChartTwo /> */}
         <ChartThree />
         <MapOne />
+        {/* <ChartFour/> */}
         <div className="col-span-12 xl:col-span-8">
           {/* <TableOne /> */}
         </div>
