@@ -2,56 +2,56 @@ import React, { useState } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 
 const Calendar = () => {
-  // State to manage the selected date
+  const [selectedMonth, setSelectedMonth] = useState(1); // Initially month set to January
   const [selectedDate, setSelectedDate] = useState(null);
+  const [taskName, setTaskName] = useState('');
+  const [scheduledTasks, setScheduledTasks] = useState({});
 
-  const generateMonths = () => {
-    const months = [];
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
 
-    const monthNames = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
+  const generateMonthsDropdown = () => {
+    const options = monthNames.map((month, index) => (
+      <option key={index + 1} value={index + 1}>
+        {month}
+      </option>
+    ));
 
-    for (let i = 0; i < 12; i++) {
-      months.push(
-        <div key={i} className="w-full max-w-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <h2 className="text-center text-lg font-semibold py-3 bg-primary text-white rounded-t-sm">
-            {monthNames[i]}
-          </h2>
-          <div className="grid grid-cols-7">
-            {generateDays(i + 1)} {/* Passing the month index for the schedule */}
-          </div>
-        </div>
-      );
-    }
-
-    return months;
+    return (
+      <select
+        value={selectedMonth}
+        onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
+        className="my-4 p-2 border border-stroke rounded"
+      >
+        {options}
+      </select>
+    );
   };
 
-  const generateDays = (monthIndex) => {
+  const generateDays = () => {
     const days = [];
+    const totalDays = new Date(2024, selectedMonth, 0).getDate();
 
-    // For simplicity, generating placeholders for 30 days
-    for (let i = 1; i <= 30; i++) {
-      const date = new Date(2024, monthIndex - 1, i); // Creating a Date object for the current day
+    for (let i = 1; i <= totalDays; i++) {
+      const date = new Date(2024, selectedMonth - 1, i);
+      const dateString = date.toDateString();
 
       days.push(
         <div
           key={i}
-          className={`ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31 ${
-            selectedDate && date.toDateString() === selectedDate.toDateString() ? 'bg-primary text-white' : ''
-          }`}
+          className={`ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31`}
           onClick={() => handleDateSelection(date)}
         >
           <span className="font-medium text-black dark:text-white">{i}</span>
-          {selectedDate && date.toDateString() === selectedDate.toDateString() && (
+          {scheduledTasks[dateString] && (
             <div className="event invisible absolute left-2 z-99 mb-1 flex w-[200%] flex-col rounded-sm border-l-[3px] border-primary bg-gray px-3 py-1 text-left opacity-0 md:visible md:w-[190%] md:opacity-100">
               <span className="event-name text-sm font-semibold text-black dark:text-white">
-                Update Files
+                {scheduledTasks[dateString]}
               </span>
               <span className="time text-sm font-medium text-black dark:text-white">
-                {selectedDate.toLocaleDateString()}
+                {dateString}
               </span>
             </div>
           )}
@@ -66,11 +66,37 @@ const Calendar = () => {
     setSelectedDate(date);
   };
 
+  const handleTaskSubmission = () => {
+    if (selectedDate && taskName) {
+      const dateString = selectedDate.toDateString();
+      setScheduledTasks({ ...scheduledTasks, [dateString]: taskName });
+      setTaskName('');
+    }
+  };
+
   return (
     <>
       <Breadcrumb pageName="Calendar" />
-      <div className="flex flex-wrap justify-center">
-        {generateMonths()}
+      <div className="w-full max-w-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        {generateMonthsDropdown()}
+        <div className="grid grid-cols-7">
+          {generateDays()}
+        </div>
+        <div className="mt-4">
+          <input
+            type="text"
+            placeholder="Task Name"
+            value={taskName}
+            onChange={(e) => setTaskName(e.target.value)}
+            className="border border-stroke p-2 rounded"
+          />
+          <button
+            onClick={handleTaskSubmission}
+            className="ml-2 px-4 py-2 bg-primary text-white rounded"
+          >
+            Schedule Task
+          </button>
+        </div>
       </div>
     </>
   );
