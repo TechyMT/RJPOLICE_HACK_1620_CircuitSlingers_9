@@ -14,8 +14,6 @@ public class FraudEmails {
 
     @Id
     private String id;
-
-
     private String email;
 
 }

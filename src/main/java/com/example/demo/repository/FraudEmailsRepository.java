@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FraudEmailsRepository extends MongoRepository<FraudEmails,String> {
 
-    boolean findByEmail(String email);
+    FraudEmails findByEmail(String email);
 }

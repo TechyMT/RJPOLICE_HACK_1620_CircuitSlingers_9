@@ -6,15 +6,22 @@ import com.example.demo.services.FraudNumbersServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class FraudNumberImpl implements FraudNumbersServices {
 
     private final FraudNumbersRepository numbersRepository;
     @Override
-    public boolean isNumberFraud(String number) {
-        FraudNumbers fraudNumbers = numbersRepository.findByPhoneNumber(number);
-        return fraudNumbers != null;
+    public String isNumberFraud(String number) {
+        Optional<FraudNumbers> fraudNumbers = Optional.ofNullable(numbersRepository.findByPhoneNumber(number));
+        if(fraudNumbers.isPresent()){
+            return "Beware!! Phishing Phone Number ";
+        }
+        else {
+            return "Not In our Database";
+        }
     }
     @Override
     public FraudNumbers addFraudNumber(FraudNumbers number) {

@@ -6,14 +6,23 @@ import com.example.demo.services.FraudEmailServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class FraudEmailServicesImpl implements FraudEmailServices {
 
     private final FraudEmailsRepository emailsRepository;
     @Override
-    public boolean isEmailFraud(String email) {
-        return emailsRepository.findByEmail(email);
+    public String isEmailFraud(String email)
+    {
+        Optional<FraudEmails> emails = Optional.ofNullable(emailsRepository.findByEmail(email));
+        if(emails.isPresent()){
+            return "Beware! Phishing Email";
+        }
+        else{
+            return "Not in our Database";
+        }
     }
 
     @Override

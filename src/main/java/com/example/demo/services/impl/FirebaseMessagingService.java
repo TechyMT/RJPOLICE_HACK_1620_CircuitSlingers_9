@@ -2,6 +2,7 @@ package com.example.demo.services.impl;
 
 import com.example.demo.entities.FIRClass;
 import com.example.demo.entities.Notifications;
+import com.example.demo.entities.UpdateNotifications;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
@@ -46,6 +47,21 @@ public class FirebaseMessagingService {
                 .build();
         Message message = Message.builder()
                 .setToken(firClass.getRecipientToken())
+                .setNotification(notification)
+                .build();
+        try{
+            firebaseMessaging.send(message);
+        }catch (FirebaseMessagingException e){
+            e.printStackTrace();
+        }
+    }
+    public void sendUpdateNotifications(UpdateNotifications updateNotifications){
+        Notification notification  = Notification.builder()
+                .setBody(updateNotifications.getBody())
+                .setTitle(updateNotifications.getTitle())
+                .build();
+        Message message = Message.builder()
+                .setToken(updateNotifications.getRecipientToken())
                 .setNotification(notification)
                 .build();
         try{

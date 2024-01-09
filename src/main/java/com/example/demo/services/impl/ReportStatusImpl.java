@@ -5,6 +5,7 @@ import com.example.demo.dto.IncidentReportDto;
 import com.example.demo.dto.ReportStatusDto;
 import com.example.demo.entities.IncidentReportEntity;
 import com.example.demo.entities.ReportStatusEntity;
+import com.example.demo.entities.UpdateNotifications;
 import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.mappers.impl.IncidentReportMapperImpl;
 import com.example.demo.mappers.impl.ReportStatusMapperImpl;
@@ -28,6 +29,7 @@ public class ReportStatusImpl implements ReportStatusServices {
     private final IncidentReportRepository reportRepository;
     private final IncidentReportMapperImpl incidentMapper;
     private  final UserRepository userRepository;
+    private final FirebaseMessagingService messagingService;
     @Override
     public ReportStatusDto createReportStatus(ReportStatusDto reportStatusDto) {
         ReportStatusEntity reportEntity = reportMapper.mapTo(reportStatusDto);
@@ -46,6 +48,12 @@ public class ReportStatusImpl implements ReportStatusServices {
             else {
                 existingStatus.setCurrentStatus(reportStatusDto.getCurrentStatus());
             }
+            IncidentReportEntity incidentReportEntity = reportRepository.findByTrackId(reportStatusDto.getTrackId());
+            messagingService.sendUpdateNotifications(new
+                    UpdateNotifications(
+                    incidentReportEntity.getRecipientToken(),
+                    existingStatus.getCurrentStatus(),
+                    "Update on your Track Id : "+reportStatusDto.getTrackId()));
             existingStatus.setPending(reportStatusDto.isPending());
             ReportStatusEntity updatedReport = statusRepository.save(existingStatus);
             return reportMapper.mapFrom(updatedReport);

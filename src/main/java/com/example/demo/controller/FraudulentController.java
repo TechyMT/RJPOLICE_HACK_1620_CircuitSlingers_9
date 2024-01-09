@@ -20,15 +20,15 @@ public class FraudulentController {
 
 
     @GetMapping(path = "/emails/{email}")
-    public ResponseEntity<Boolean> checkEmail(
+    public ResponseEntity<String> checkEmail(
             @PathVariable("email") String email
     ){
-        Boolean isFraud = fraudEmailServices.isEmailFraud(email);
+        String isFraud = fraudEmailServices.isEmailFraud(email);
         return new ResponseEntity<>(isFraud, HttpStatus.OK);
     }
     @GetMapping(path = "/numbers/{number}")
-    public ResponseEntity<Boolean> checkPhoneNumber(@PathVariable("number") String number) {
-        boolean isFraud = fraudNumbersServices.isNumberFraud(number);
+    public ResponseEntity<String> checkPhoneNumber(@PathVariable("number") String number) {
+        String isFraud = fraudNumbersServices.isNumberFraud(number);
         return new ResponseEntity<>(isFraud, HttpStatus.OK);
     }
 
