@@ -10,12 +10,15 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
+    "axios": "^1.6.5",
     "firebase": "^10.7.1",
     "framer-motion": "^10.17.9",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
     "react-fast-marquee": "^1.6.2",
+    "react-visibility-sensor": "^5.1.1",
+    "react-youtube": "^10.1.0",
     "swiper": "^11.0.5",
     "zustand": "^4.4.7"
   },

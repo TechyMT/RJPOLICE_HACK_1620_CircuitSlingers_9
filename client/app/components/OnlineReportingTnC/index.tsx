@@ -16,7 +16,7 @@ const CybercrimeReportingSystem = () => {
         <div className="flex-col flex justify-center gap-2">
           <SubHeading>
             If this is an Emergency, please call{" "}
-            <span className="text-red-600 font-bold">{'\u00A0'}1430</span>.
+            <span className="text-red-600 font-bold">{'\u00A0'}1930</span>.
           </SubHeading>
 
           <SubHeading>
@@ -80,7 +80,7 @@ const CybercrimeReportingSystem = () => {
             {`Please review the entire list with definitions and examples on the
             following page. If your incident doesn't fall under the provided
             categories, contact the Rajasthan Police Department (Emergency:`}
-            <span className="text-red-600 font-bold">{'\u00A0'}1430</span>{`)`} to file
+            <span className="text-red-600 font-bold">{'\u00A0'}1930</span>{`)`} to file
             your report.
           </p>
 

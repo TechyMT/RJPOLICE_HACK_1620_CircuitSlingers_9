@@ -71,15 +71,17 @@ export default function Home() {
                 <div className="text-2xl text-white">Report a crime.</div>
               </div>
             </Link>
-
-            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
+            <Link href={"/nearest-station"}>
+              <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
               <div>
-                <Icon icon="location" width={130} />
+                  <Icon icon="location" width={130} />
               </div>
-              <div className="text-2xl text-white flex justify-center">
-                Find nearest Station
+                <div className="text-2xl text-white flex justify-center">
+                  Find nearest Station
+                </div>
               </div>
-            </div>
+            </Link>
+            <Link href={"/awareness-training"}>
             <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
               <div>
                 <Icon icon="outreach" width={130} />
@@ -87,13 +89,16 @@ export default function Home() {
               <div className="text-2xl text-white flex justify-center text-center">
                 Awareness and Training
               </div>
-            </div>
+              </div>
+            </Link>
+            <Link href={"/news"}>
             <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
               <div>
                 <Icon icon="news" width={130} />
               </div>
               <div className="text-2xl text-white">News</div>
-            </div>
+              </div>
+            </Link>
           </div>
         </div>
 
