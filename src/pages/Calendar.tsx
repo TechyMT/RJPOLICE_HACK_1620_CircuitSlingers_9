@@ -8,8 +8,18 @@ const Calendar = () => {
   const [scheduledTasks, setScheduledTasks] = useState({});
 
   const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
   const generateMonthsDropdown = () => {
@@ -30,10 +40,36 @@ const Calendar = () => {
     );
   };
 
+  // ... (previous code)
+
   const generateDays = () => {
     const days = [];
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const totalDays = new Date(2024, selectedMonth, 0).getDate();
+    const firstDay = new Date(2024, selectedMonth - 1, 1).getDay();
 
+    // Add day names above the calendar grid
+    const dayNameHeaders = dayNames.map((dayName, index) => (
+      <div
+        key={index}
+        className="text-center text-xs font-medium text-black dark:text-white"
+      >
+        {dayName}
+      </div>
+    ));
+
+    days.push(...dayNameHeaders);
+
+    // Add empty cells for the days before the first day of the month
+    for (let i = 0; i < firstDay; i++) {
+      days.push(
+        <div key={`empty-${i}`} className="h-20 opacity-50 cursor-not-allowed">
+          <span className="font-medium text-gray dark:text-gray">-</span>
+        </div>,
+      );
+    }
+
+    // Generate days for the month
     for (let i = 1; i <= totalDays; i++) {
       const date = new Date(2024, selectedMonth - 1, i);
       const dateString = date.toDateString();
@@ -44,7 +80,13 @@ const Calendar = () => {
           className={`ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31`}
           onClick={() => handleDateSelection(date)}
         >
-          <span className="font-medium text-black dark:text-white">{i}</span>
+          <span
+            className={`font-medium text-black dark:text-white ${
+              scheduledTasks[dateString] ? 'opacity-80' : ''
+            }`}
+          >
+            {i}
+          </span>
           {scheduledTasks[dateString] && (
             <div className="event invisible absolute left-2 z-99 mb-1 flex w-[200%] flex-col rounded-sm border-l-[3px] border-primary bg-gray px-3 py-1 text-left opacity-0 md:visible md:w-[190%] md:opacity-100">
               <span className="event-name text-sm font-semibold text-black dark:text-white">
@@ -55,12 +97,14 @@ const Calendar = () => {
               </span>
             </div>
           )}
-        </div>
+        </div>,
       );
     }
 
     return days;
   };
+
+  // ... (remaining code)
 
   const handleDateSelection = (date) => {
     setSelectedDate(date);
@@ -79,9 +123,7 @@ const Calendar = () => {
       <Breadcrumb pageName="Calendar" />
       <div className="w-full max-w-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         {generateMonthsDropdown()}
-        <div className="grid grid-cols-7">
-          {generateDays()}
-        </div>
+        <div className="grid grid-cols-7">{generateDays()}</div>
         <div className="mt-4">
           <input
             type="text"

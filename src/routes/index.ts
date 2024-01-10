@@ -1,12 +1,14 @@
 import { lazy } from 'react';
 import ECommerce from '../pages/Dashboard/ECommerce';
 
+
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
 const FormLayout = lazy(() => import('../pages/Form/FormLayout'));
 const Profile = lazy(() => import('../pages/Profile'));
 const Settings = lazy(() => import('../pages/Settings'));
 const Tables = lazy(() => import('../pages/Tables'));
+const Report = lazy(() => import('../pages/Report'));
 const coreRoutes = [
   {
     path: '/',
@@ -43,6 +45,12 @@ const coreRoutes = [
     title: 'Chart',
     component: Chart,
   },
+  {
+    title: "/report",
+    path: "/report",
+    components: Report,
+    
+  }
 ];
 
 const routes = [...coreRoutes];

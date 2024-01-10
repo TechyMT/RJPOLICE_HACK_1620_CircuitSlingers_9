@@ -18,7 +18,7 @@ const PackageItem = ({ eFir, date, status }) => {
         <h5 className="font-medium text-black dark:text-white">{eFir}</h5>
       </td>
       <td className="py-5 px-4 dark:text-white">{date}</td>
-      <td className={`py-2 px-7 dark:text-white ${getStatusClass()} inline-flex rounded-full py-1 px-5 text-sm font-medium`}>
+      <td className={`py-2 px-7 dark:text-white ${getStatusClass()} inline-flex rounded-full px-5 text-sm font-medium my-7`}>
         {status}
       </td>
       <td className="py-5 px-4 dark:border-strokedark">
