@@ -76,6 +76,18 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
             labelPlacement="outside"
             size="lg"
           />
+          <Input
+            label="Pincode"
+            placeholder="Enter your Pincode"
+            type="number"
+            value={formData.pincode}
+            onChange={(e) => onChange("pincode", e.target.value)}
+            isRequired
+            variant="bordered"
+            color="primary"
+            labelPlacement="outside"
+            size="lg"
+          />
         </div>
       </div>
     </>
