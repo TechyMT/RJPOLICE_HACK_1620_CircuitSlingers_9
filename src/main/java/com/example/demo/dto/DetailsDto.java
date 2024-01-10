@@ -15,4 +15,8 @@ public class DetailsDto {
     private Integer completed;
 
     private Integer countByCities;
+
+    private double percentageCompleted;
+
+    private double percentagePending;
 }

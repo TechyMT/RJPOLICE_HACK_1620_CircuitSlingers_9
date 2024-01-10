@@ -20,4 +20,6 @@ public class ReportStatusDto {
 
     private boolean pending;
 
+    private String reportDate;
+
 }

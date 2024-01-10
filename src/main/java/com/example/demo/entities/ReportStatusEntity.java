@@ -29,5 +29,5 @@ public class ReportStatusEntity {
 
     private boolean pending;
 
-
+    private String reportDate;
 }

@@ -40,6 +40,8 @@ public class IncidentReportDto {
 
     private String dateOfReport;
 
+    private String phoneNumber;
+
     private List<String> evidencesURL;
 
     @NotBlank(message = "City has to be entered")
@@ -51,6 +53,8 @@ public class IncidentReportDto {
 
     @NotBlank(message = "Required Field")
     private String category;
+
+    private String pincode;
 
     private UserAccountInfo userAccountInfo;
 

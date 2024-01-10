@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserAccountInfo {
     private String amountLost;
+    private String bankName;
     private String dateOfTransaction;
     private String transaction;
     private String accountNumber;

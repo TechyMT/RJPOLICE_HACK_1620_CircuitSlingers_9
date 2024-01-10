@@ -28,9 +28,13 @@ public class IncidentReportEntity {
 
     private String dateOfCrime;
 
+    private String phoneNumber;
+
     private String dateOfReport;
 
     private String aadharNumber;
+
+    private String pincode;
 
     private boolean isBankAccInvolved;
 

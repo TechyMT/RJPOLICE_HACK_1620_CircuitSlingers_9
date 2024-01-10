@@ -21,7 +21,9 @@ public class UserServicesImpl implements UserServices {
     @Override
     public UserDto createUser(UserDto userDto) {
         String id = userDto.getUserUID();
-        if(userRepository.findById(id).isPresent()){
+        System.out.println(id);
+        if(userRepository.findByUserUID(id).isPresent()){
+            System.out.println("error");
             throw new AlreadyExistsException("User with"+userDto.getEmail()+" already exists");
         }
         else{

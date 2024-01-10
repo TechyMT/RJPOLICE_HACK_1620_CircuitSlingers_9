@@ -18,6 +18,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserServices userServices;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path = "/add")
     public ResponseEntity<UserDto> adduser(
             @Validated
@@ -35,5 +36,10 @@ public class UserController {
     ){
        UserDto userDto1 = userServices.updateUser(uid,userDto);
        return new ResponseEntity<>(userDto1,HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/ping")
+    public ResponseEntity<String> pong(){
+        return new ResponseEntity<>("pong",HttpStatus.OK);
     }
 }

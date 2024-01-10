@@ -19,6 +19,7 @@ public class IncidentReportController {
     private final IncidentReportServices reportServices;
     private final FirebaseMessagingService messagingService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path = "/add")
     public ResponseEntity<IncidentReportDto> createReport(
         @RequestBody IncidentReportDto reportDto

@@ -5,6 +5,7 @@ import com.example.demo.dto.IncidentReportDto;
 import com.example.demo.dto.ReportStatusDto;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ReportStatusServices {
 
@@ -19,4 +20,5 @@ public interface ReportStatusServices {
     List<ReportStatusDto> getReportsById(String id);
 
     DetailsDto getAllDetails(String city);
+    List<Map<String, Object>> processData();
 }

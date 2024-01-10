@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -53,6 +54,12 @@ public class ReportStatusController {
             @RequestParam("city") String city
     ){
         DetailsDto details = reportStatusServices.getAllDetails(city);
+        return new ResponseEntity<>(details,HttpStatus.OK);
+    }
+    @GetMapping(path = "/all")
+    public ResponseEntity< List<Map<String, Object>>> getDetails(
+    ){
+        List<Map<String, Object>> details = reportStatusServices.processData();
         return new ResponseEntity<>(details,HttpStatus.OK);
     }
 }

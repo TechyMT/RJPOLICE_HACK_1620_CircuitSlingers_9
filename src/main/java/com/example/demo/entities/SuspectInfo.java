@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SuspectInfo {
 
+    private String suspectBankName;
     private String suspectPhoneNumber;
-        private String suspectAccountNumber;
+    private String suspectAccountNumber;
 }
