@@ -46,33 +46,33 @@ const HomeNav = () => {
             </DropdownTrigger>
             <DropdownMenu>
               <DropdownItem color="primary">
-                <Link href="/services">
+                <Link href="/track-case">
                   <div className="flex items-center cursor-pointer text-md">
-                    Services
+                    Track Case
                   </div>
                 </Link>
               </DropdownItem>
               <DropdownItem color="primary">
-                <Link href="/services">
+                <Link href="/awareness-training">
                   <div className="flex items-center cursor-pointer text-md">
-                    Services
+                    Awareness
                   </div>
                 </Link>
               </DropdownItem>
               <DropdownItem color="primary">
+                <Link href="/news">
+                  <div className="flex items-center cursor-pointer text-md">
+                    Latest News
+                  </div>
+                </Link>
+              </DropdownItem>
+              {/* <DropdownItem color="primary">
                 <Link href="/services">
                   <div className="flex items-center cursor-pointer text-md">
                     Services
                   </div>
                 </Link>
-              </DropdownItem>
-              <DropdownItem color="primary">
-                <Link href="/services">
-                  <div className="flex items-center cursor-pointer text-md">
-                    Services
-                  </div>
-                </Link>
-              </DropdownItem>
+              </DropdownItem> */}
             </DropdownMenu>
           </Dropdown>
         </div>
@@ -120,21 +120,21 @@ const HomeNav = () => {
         </div>
         <div className="flex items-center gap-4">
           <div>
-            <Link href="/about" className={`flex items-center`}>
+            <Link href="https://www.instagram.com/PoliceRajasthan/ " target='_blank' className={`flex items-center`}>
               <div>
                 <Icon icon="instagram" width={30} />
               </div>
             </Link>
           </div>
           <div>
-            <Link href="/about" className={`flex items-center`}>
+            <Link href="https://www.facebook.com/PoliceRajasthan/?locale=hi_IN" target='_blank' className={`flex items-center`}>
               <div>
-                <Icon icon="whatsapp" width={30} />
+                <Icon icon="facebook" width={30} />
               </div>
             </Link>
           </div>
           <div>
-            <Link href="/about" className={`flex items-center`}>
+            <Link href="https://twitter.com/PoliceRajasthan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target='_blank' className={`flex items-center`}>
               <div>
                 <Icon icon="twitter" width={30} />
               </div>

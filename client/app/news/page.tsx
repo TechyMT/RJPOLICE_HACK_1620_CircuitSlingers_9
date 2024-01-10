@@ -61,7 +61,7 @@ const Home: React.FC = () => {
                   href={article.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-500"
+                  className="underline text-blue-500 hover:text-blue-900"
                 >
                   Read more
                 </a>

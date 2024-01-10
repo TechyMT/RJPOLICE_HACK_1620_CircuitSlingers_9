@@ -71,13 +71,13 @@ export default function Home() {
                 <div className="text-2xl text-white">Report a crime.</div>
               </div>
             </Link>
-            <Link href={"/nearest-station"}>
+            <Link href={"/track-case"}>
               <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
               <div>
                   <Icon icon="location" width={130} />
               </div>
                 <div className="text-2xl text-white flex justify-center">
-                  Find nearest Station
+                  Track your case
                 </div>
               </div>
             </Link>
