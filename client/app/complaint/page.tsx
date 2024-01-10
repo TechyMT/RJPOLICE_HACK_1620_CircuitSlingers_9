@@ -3,16 +3,23 @@ import React, { useEffect, useState } from "react";
 import ComplaintForm from "../components/ComplaintForm";
 import useAuthStore from "../utils/auth";
 import { useRouter } from "next/navigation";
+import usePush from "../components/usePush";
 
 const Complaint = () => {
   const router = useRouter();
+  const push = usePush();
   const loggedIn = useAuthStore((state) => state.isLogedIn);
   const user = useAuthStore((state) => state.user);
-  const [loading, setLoading] = useState(false);
+
+  const alertUser = (e: any) => {
+    e.preventDefault();
+    console.log("Hello")
+    e.returnValue = "Hello";
+  };
 
   useEffect(() => {
+    // if (!user) push("/signin");
     const addUser = () => {
-      setLoading(true);
       fetch("http://192.168.181.81:8080/api/add", {
         method: "POST",
         headers: {
@@ -33,24 +40,16 @@ const Complaint = () => {
         })
         .catch((error) => {
           console.error("Error adding user:", error);
-        })
+        });
     };
 
     if (user) {
       addUser();
     }
+
+    window.addEventListener("beforeunload", alertUser);
+    return () => window.removeEventListener("beforeunload", alertUser);
   }, [user]);
-
-  if (loading) {
-    // You can render a loading spinner or message here
-    return <div>Loading...</div>;
-  }
-
-  if (!loggedIn) {
-    // Redirect to the signin page if not logged in
-    router.push("/signin");
-    return null;
-  }
 
   return <ComplaintForm />;
 };

@@ -12,6 +12,9 @@ import {
 import VictimForm from "../VictimForm";
 import SuspectForm from "../SuspectForm";
 import { categories } from "../../data/constants";
+import EvidenceBox from "../EvidentBox";
+import { uploadFiles } from "../../utils/firebase";
+import useAuthStore from "../../utils/auth";
 
 interface FormProps {
   formData: any;
@@ -21,6 +24,8 @@ interface FormProps {
 const Form: React.FC<FormProps> = ({ formData, onChange }) => {
   const [lostMoney, setLostMoney] = React.useState(false);
   const [suspectAccount, setSuspectAccount] = React.useState(false);
+  const [loading,setLoading] = React.useState(false);
+  const user = useAuthStore((state) => state.user);
   const handleChange = (value: string) => {
     onChange("isMoneyLost", value === "yes");
     setLostMoney(value === "yes");
@@ -30,6 +35,27 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
     setSuspectAccount(value === "yes");
   };
 
+  const handleUpload = async (selectedFiles: any) => {
+    try {
+      if (selectedFiles.length === 0) {
+        alert("No Evidence Selected!");
+        return;
+      }
+      setLoading(true);
+      const urlList = await uploadFiles(selectedFiles, user);
+      onChange("evidencesURL", urlList);
+      if (formData.evidencesURL) {
+        alert("Evidence Uploaded!");
+        setLoading(false);
+      }
+      else {
+        alert("Error in uploading evidence!");
+        setLoading(false);
+      }
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
   return (
     <>
       <div className="flex flex-col gap-10 items-center">
@@ -138,6 +164,16 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               labelPlacement="outside"
               size="lg"
               minRows={8}
+            />
+          </div>
+        </div>
+        <div>
+          <div className="w-full">
+            <EvidenceBox
+              onChange={onChange}
+              formData={formData}
+              handleClick={handleUpload}
+              loading={loading}
             />
           </div>
         </div>

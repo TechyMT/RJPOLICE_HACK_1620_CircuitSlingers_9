@@ -6,6 +6,7 @@ import Heading from "../Heading";
 import Form from "../IncidentForm";
 import ComplaintInfoForm from "../ComplaintInfoForm";
 import { publicUrl } from "../../utils/publicURL";
+import ConfirmForm from "../ConfirmForm";
 
 export const categories = [
   "Identity Fraud",
@@ -23,14 +24,15 @@ export const stepperTitles = [
 
 const ComplaintForm = () => {
   const user = useAuthStore((state) => state.user);
-  
 
   const [formData, setFormData] = useState({
     name: "",
     phoneNumber: "",
     location: "",
+    pincode: "",
     description: "",
     categoryOfComplaint: "root",
+    evidencesURL: [],
     isMoneyLost: false,
     victimBank: "root",
     victimAccountNumber: "NA",
@@ -45,6 +47,7 @@ const ComplaintForm = () => {
     crimeDate: "",
     dob: "",
     adhaarNumber: "",
+    evidencesList: [],
   });
 
   const [step, setStep] = useState(1);
@@ -72,6 +75,10 @@ const ComplaintForm = () => {
       //     console.log(res);
       //     setDynamicForm(res);
       //   });
+      if(formData.evidencesURL.length === 0){
+        alert("Please upload evidence");
+        return;
+      }
     } else if (step === 4) {
       // Handle form submission logic here
       console.log("Form Data:", formData);
@@ -88,21 +95,22 @@ const ComplaintForm = () => {
         phoneNumber: formData.phoneNumber,
         evidencesURL: [],
         city: formData.location,
+        pincode: formData.pincode,
         category: formData.categoryOfComplaint,
-        userAccoundInfo: {
+        userAccountInfo: {
           amountLost: formData.victimAmountLost,
-          // bankName: formData.victimBank,
+          bankName: formData.victimBank,
           accountNumber: formData.victimAccountNumber,
           dateOfTransaction: formData.transactionDate,
           transaction: formData.victimTransactionId,
         },
         suspectInfo: {
-          // suspectBankName: formData.suspectBank,
+          suspectBankName: formData.suspectBank,
           suspectAccountNumber: formData.suspectAccountNumber,
           suspectPhoneNumber: formData.suspectPhoneNumber,
-          // suspectTransactionId: formData.suspectTransactionId,
+          suspectTransactionId: formData.suspectTransactionId,
         },
-        recepientToken: "",
+        recipientToken: "",
         isBankInvolved: formData.isMoneyLost,
         questionnaire: [
           {
@@ -134,6 +142,7 @@ const ComplaintForm = () => {
         name: "",
         phoneNumber: "",
         location: "",
+        pincode: "",
         description: "",
         categoryOfComplaint: "root",
         isMoneyLost: false,
@@ -147,9 +156,11 @@ const ComplaintForm = () => {
         suspectPhoneNumber: "NA",
         suspectTransactionId: "NA",
         transactionDate: "NA",
+        evidencesURL: [],
         crimeDate: "",
         dob: "",
         adhaarNumber: "",
+        evidencesList: [],
       });
     }
     // Move to the next step or submit the form
@@ -231,11 +242,7 @@ const ComplaintForm = () => {
                 onChange={handleInputChange}
               />
             )}
-            {step === 4 && (
-              <div>
-                <p>Confirmation Content Goes Here</p>
-              </div>
-            )}
+            {step === 4 && <ConfirmForm formData={formData} />}
             <div className="flex justify-between">
               {step > 1 && step <= 4 && (
                 <div className="flex py-10">

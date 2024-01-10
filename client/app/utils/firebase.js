@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,5 +20,36 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+const storage = getStorage(app);
+const uploadFiles = async (files, user) =>
+{
+    try
+    {
+        const urlList = [];
+        console.log("uploading files", files);
+        console.log(user);
+        // Iterate over the array of files and upload each one
+        for (const file of files)
+        {
+            const storageRef = ref(storage, `1234/${file.name}`);
+            const uploadTask = await uploadBytesResumable(storageRef, file);
+            const url = await getDownloadURL(uploadTask.ref);
+            urlList.push(url);
+            console.log("uploading state", uploadTask.state);
+            
 
-export { app, auth };
+        }
+        console.log("urlList", urlList);
+        return urlList;
+    }
+    catch (error)
+    {
+        console.log(error);
+        throw error;
+    }
+};
+
+
+
+
+export { app, auth, uploadFiles };
