@@ -23,11 +23,16 @@ const awarenessImages = [
   AwarenessImage_8,
 ];
 
+interface modalProps {
+  image: string;
+  closeModal: () => void;
+}
+
 const AwarenessMarquee = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const isOpen = selectedImage ? true : false;
 
-  const openModal = (image) => {
+  const openModal = (image:any) => {
     setSelectedImage(image);
   };
 

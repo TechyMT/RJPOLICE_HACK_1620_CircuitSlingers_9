@@ -40,8 +40,8 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
             label="City"
             placeholder="Enter your city"
             type="text"
-            value={formData.city}
-            onChange={(e) => onChange("city", e.target.value)}
+            value={formData.location}
+            onChange={(e) => onChange("location", e.target.value)}
             isRequired
             variant="bordered"
             color="primary"

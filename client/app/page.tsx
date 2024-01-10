@@ -48,8 +48,9 @@ export default function Home() {
           >
             {HeroImages.map((image, index) => {
               return (
-                <SwiperSlide>
+                <SwiperSlide key={index}>
                   <Image
+                    key={index}
                     className="object-fill w-full h-[80vh]"
                     src={image}
                     alt="hero"
@@ -108,11 +109,11 @@ export default function Home() {
                 <Icon icon="quote" width={50} />
               </div>
               <blockquote>
-                <p className="text-2xl italic font-medium text-white">
-                  Can we secure the world from a bloodless war? I'm talking
+                <div className="text-2xl italic font-medium text-white">
+                  {`Can we secure the world from a bloodless war? I'm talking
                   about Cyber Security. India must take the lead in cyber
-                  security through innovation.
-                </p>
+                  security through innovation.`}
+                </div>
               </blockquote>
               <figcaption className="flex items-center justify-center mt-6 space-x-3">
                 <div className="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">

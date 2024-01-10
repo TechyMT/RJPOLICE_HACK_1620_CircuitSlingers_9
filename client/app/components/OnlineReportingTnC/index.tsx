@@ -16,7 +16,7 @@ const CybercrimeReportingSystem = () => {
         <div className="flex-col flex justify-center gap-2">
           <SubHeading>
             If this is an Emergency, please call{" "}
-            <span className="text-red-600 font-bold">&nbsp;1430</span>.
+            <span className="text-red-600 font-bold">{'\u00A0'}1430</span>.
           </SubHeading>
 
           <SubHeading>
@@ -77,10 +77,10 @@ const CybercrimeReportingSystem = () => {
           </ul>
 
           <p className="mt-4 text-lg">
-            Please review the entire list with definitions and examples on the
+            {`Please review the entire list with definitions and examples on the
             following page. If your incident doesn't fall under the provided
-            categories, contact the Rajasthan Police Department (Emergency:{" "}
-            <span className="text-red-600 font-bold">&nbsp;1430</span>) to file
+            categories, contact the Rajasthan Police Department (Emergency:`}
+            <span className="text-red-600 font-bold">{'\u00A0'}1430</span>{`)`} to file
             your report.
           </p>
 
@@ -90,8 +90,8 @@ const CybercrimeReportingSystem = () => {
 
           <ul className="list-disc list-inside mt-4">
             <li>
-              Receive a confirmation message stating, "Your online cybercrime
-              report has been submitted."
+              {`Receive a confirmation message stating, "Your online cybercrime
+              report has been submitted."`}
             </li>
             <li>
               Be provided with a temporary case number. This serves as

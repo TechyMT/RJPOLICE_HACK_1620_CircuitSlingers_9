@@ -11,6 +11,7 @@ import {
 } from "@nextui-org/react";
 import VictimForm from "../VictimForm";
 import SuspectForm from "../SuspectForm";
+import { categories } from "@/app/data/constants";
 
 interface FormProps {
   formData: any;
@@ -48,17 +49,12 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
             }}
             name="categoryOfComplaint"
             selectedKeys={new Set([formData.categoryOfComplaint])}
-            disabledKeys={new Set(["--Select--"])}
+            disabledKeys={new Set(["root"])}
+            items={categories}
           >
-            <SelectItem key="--Select--" value={"hello"}>
-              --Select--
-            </SelectItem>
-            <SelectItem key="hello" value={"hello"}>
-              Hello
-            </SelectItem>
-            <SelectItem key="wow" value={"hello"}>
-              Wow
-            </SelectItem>
+            {(category) => (
+              <SelectItem key={category.value}>{category.name}</SelectItem>
+            )}
           </Select>
         </div>
         <div className="flex w-full">

@@ -1,6 +1,6 @@
 import React from "react";
 import { Input, Select, SelectItem } from "@nextui-org/react";
-
+import { banks } from "@/app/data/constants";
 const SuspectForm = ({ formData, onChange }: any) => {
   return (
     <div className="flex flex-col gap-10">
@@ -18,12 +18,9 @@ const SuspectForm = ({ formData, onChange }: any) => {
           onChange={(value) => onChange("suspectBank", value.target.value)}
           selectedKeys={new Set([formData.suspectBank])}
           disabledKeys={new Set(["--Select--"])}
+          items={banks}
         >
-          <SelectItem key="--Select--" value={"hello"}>
-            --Select--
-          </SelectItem>
-
-          <SelectItem key={1}>Hello</SelectItem>
+          {(bank) => <SelectItem key={bank.value}>{bank.name}</SelectItem>}
         </Select>
       </div>
       <div className="flex gap-6">

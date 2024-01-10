@@ -1,11 +1,12 @@
 "use client";
 import { Input, Button, Select, Textarea, SelectItem } from "@nextui-org/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useAuthStore from "@/app/utils/auth";
 import { useRouter } from "next/navigation";
 import Heading from "../Heading";
 import Form from "../IncidentForm";
 import ComplaintInfoForm from "../ComplaintInfoForm";
+import { publicUrl } from "@/app/utils/publicURL";
 
 const categories = [
   "Identity Fraud",
@@ -22,36 +23,34 @@ const stepperTitles = [
 ];
 
 const ComplaintForm = () => {
-  //   const router = useRouter();
-  //   const loggedIn = useAuthStore((state) => state.isLogedIn);
-
-  //   if (!loggedIn) {
-  //     // Redirect to the signin page if not logged in
-  //     router.push("/signin");
-  //     return null;
-  //   }
+  const router = useRouter();
+  const loggedIn = useAuthStore((state) => state.isLogedIn);
+  const user = useAuthStore((state) => state.user);
+  
 
   const [formData, setFormData] = useState({
     name: "",
     phoneNumber: "",
     location: "",
     description: "",
-    categoryOfComplaint: "--Select--",
+    categoryOfComplaint: "root",
     isMoneyLost: false,
-    victimBank: "NA",
+    victimBank: "root",
     victimAccountNumber: "NA",
     victimTransactionId: "NA",
     victimAmountLost: "NA",
     suspect: false,
-    suspectBank: "NA",
+    suspectBank: "root",
     suspectAccountNumber: "NA",
     suspectPhoneNumber: "NA",
     suspectTransactionId: "NA",
     transactionDate: "NA",
     crimeDate: "",
+    dob: "",
+    adhaarNumber: "",
   });
 
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const [dynamicForm, setDynamicForm] = useState(null);
 
   const handleInputChange = (field: string, value: string) => {
@@ -79,24 +78,81 @@ const ComplaintForm = () => {
     } else if (step === 4) {
       // Handle form submission logic here
       console.log("Form Data:", formData);
+      console.log("user", user);
       // Reset the form after submission if needed
+      const body = {
+        userIdentification: user.uid,
+        fullName: formData.name,
+        dateOfBirth: formData.dob,
+        aadharNumber: formData.adhaarNumber,
+        incidentDescription: formData.description,
+        dateOfCrime: formData.crimeDate,
+        dateOfReport: new Date().toISOString(),
+        phoneNumber: formData.phoneNumber,
+        evidencesURL: [],
+        city: formData.location,
+        category: formData.categoryOfComplaint,
+        userAccoundInfo: {
+          amountLost: formData.victimAmountLost,
+          // bankName: formData.victimBank,
+          accountNumber: formData.victimAccountNumber,
+          dateOfTransaction: formData.transactionDate,
+          transaction: formData.victimTransactionId,
+        },
+        suspectInfo: {
+          // suspectBankName: formData.suspectBank,
+          suspectAccountNumber: formData.suspectAccountNumber,
+          suspectPhoneNumber: formData.suspectPhoneNumber,
+          // suspectTransactionId: formData.suspectTransactionId,
+        },
+        recepientToken: "",
+        isBankInvolved: formData.isMoneyLost,
+        questionnaire: [
+          {
+            type: "clarify",
+            question: "Can you provide more details about the incident?",
+            answer: "Additional details provided",
+          },
+          {
+            type: "specifics",
+            question:
+              "What specific information do you have about the incident?",
+            answer: "Specific information provided",
+          },
+        ],
+      };
+      console.log("body", body);
+      const data = fetch(`http://192.168.181.81:8080/api/report/add`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(body),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+        });
       setFormData({
         name: "",
         phoneNumber: "",
         location: "",
         description: "",
-        categoryOfComplaint: "",
-        isMoneyLost: "",
-        victimBank: "NA",
+        categoryOfComplaint: "root",
+        isMoneyLost: false,
+        victimBank: "root",
         victimAccountNumber: "NA",
         victimTransactionId: "NA",
         victimAmountLost: "NA",
-        suspectBank: "NA",
+        suspect: false,
+        suspectBank: "root",
         suspectAccountNumber: "NA",
         suspectPhoneNumber: "NA",
         suspectTransactionId: "NA",
         transactionDate: "NA",
         crimeDate: "",
+        dob: "",
+        adhaarNumber: "",
       });
     }
     // Move to the next step or submit the form
@@ -168,30 +224,7 @@ const ComplaintForm = () => {
 
             {step === 2 && (
               <>
-                <Select
-                  label="Category"
-                  placeholder="Select a category"
-                  value={formData.category}
-                  onChange={(value) => handleInputChange("category", value)}
-                  required
-                  variant="bordered"
-                  color="primary"
-                >
-                  {categories.map((category) => (
-                    <SelectItem key={category}>{category}</SelectItem>
-                  ))}
-                </Select>
-                <Textarea
-                  label="Description of Crime"
-                  placeholder="Describe the crime"
-                  value={formData.description}
-                  onChange={(e) =>
-                    handleInputChange("description", e.target.value)
-                  }
-                  required
-                  variant="bordered"
-                  color="primary"
-                />
+                <div>Hello</div>
               </>
             )}
 
@@ -207,15 +240,15 @@ const ComplaintForm = () => {
               </div>
             )}
             <div className="flex justify-between">
-              {step > 1 && step < 4 && (
+              {step > 1 && step <= 4 && (
                 <div className="flex py-10">
-                  <Button color="primary" onClick={handlePrev}>
+                  <Button color="primary" size="lg" onClick={handlePrev}>
                     Prev
                   </Button>
                 </div>
               )}
               <div className="flex py-10">
-                <Button color="primary" type="submit">
+                <Button color="primary" type="submit" size="lg">
                   {step < 4 ? "Next" : "Submit Complaint"}
                 </Button>
               </div>

@@ -28,7 +28,6 @@ const useAuthStore = create<State & Action>((set) => ({
   isLogedIn: auth.currentUser !== null,
   setUser: (user) => set({ user, isLogedIn: user !== null }),
   googleSignIn: async () => {
-  
     const googleProvider = new GoogleAuthProvider();
     try {
       const res = await signInWithPopup(auth, googleProvider);
@@ -36,13 +35,11 @@ const useAuthStore = create<State & Action>((set) => ({
       console.log(res.user);
       localStorage.setItem("user", JSON.stringify(res.user));
       set({ user: res.user, isLogedIn: true });
-     
     } catch (error) {
       console.error((error as Error).message);
     }
   },
   emailSignIn: async (email, password) => {
-    const router = useRouter();
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -54,7 +51,6 @@ const useAuthStore = create<State & Action>((set) => ({
       console.log(user);
       localStorage.setItem("user", JSON.stringify(user));
       set({ user, isLogedIn: true });
-      router.push("/dashboard");
     } catch (signInError) {
       if ((signInError as any).code === "auth/user-not-found") {
         try {
@@ -67,7 +63,6 @@ const useAuthStore = create<State & Action>((set) => ({
           console.log("User Signed Up!!!");
           console.log(newUser);
           set({ user: newUser, isLogedIn: true });
-          router.push("/dashboard");
         } catch (signUpError) {
           console.error((signUpError as Error).message);
         }
@@ -77,13 +72,11 @@ const useAuthStore = create<State & Action>((set) => ({
     }
   },
   signOut: async () => {
-    const router = useRouter();
     try {
       await signOut(auth);
       console.log("User Signed Out!!!");
       localStorage.removeItem("user");
       set({ user: null, isLogedIn: false });
-      router.push("/");
     } catch (error) {
       console.error((error as Error).message);
     }

@@ -1,5 +1,6 @@
 import React from "react";
 import { Input, Select, SelectItem } from "@nextui-org/react";
+import { banks } from "@/app/data/constants";
 
 const VictimForm = ({ formData, onChange }: any) => {
   return (
@@ -17,11 +18,10 @@ const VictimForm = ({ formData, onChange }: any) => {
           classNames={{
             trigger: "bg-white",
           }}
+          variant="bordered"
+          items={banks}
         >
-          <SelectItem key="--Select--" value={"hello"}>
-            --Select--
-          </SelectItem>
-          <SelectItem key={1}>Hello</SelectItem>
+          {(bank) => <SelectItem key={bank.value}>{bank.name}</SelectItem>}
         </Select>
       </div>
       <div className="flex gap-6">
@@ -57,7 +57,7 @@ const VictimForm = ({ formData, onChange }: any) => {
           type="number"
           value={formData.victimAmountLost}
           onChange={(e) => onChange("victimAmountLost", e.target.value)}
-          required
+          isRequired
           variant="bordered"
           color="primary"
           labelPlacement="outside"
