@@ -19,7 +19,7 @@ const Navbar = () => {
                 <div>Call Us</div>
               </div>
             </div>
-            <div className="underline decoration-primary-red decoration-2 underline-offset-4">
+            <div className="underline decoration-primaryRed decoration-2 underline-offset-4">
               (+91) 9876543210
             </div>
           </div>
@@ -34,7 +34,7 @@ const Navbar = () => {
             </div>
             <Link
               href={"mailto:sp.cybercrime@rajpolic.gov.in"}
-              className="underline decoration-primary-red decoration-2 underline-offset-4"
+              className="underline decoration-primaryRed decoration-2 underline-offset-4"
             >
               sp.cybercrime@rajpolic.gov.in
             </Link>

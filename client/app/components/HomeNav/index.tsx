@@ -81,7 +81,7 @@ const HomeNav = () => {
             href="/checkfakenumber"
             className={`flex items-center ${
               pathname === "/checkfakenumber"
-                ? "underline underline-offset-8 decoration-primary-red decoration-4"
+                ? "underline underline-offset-8 decoration-primaryRed decoration-4"
                 : ""
             }`}
           >

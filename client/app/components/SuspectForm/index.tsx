@@ -1,6 +1,6 @@
 import React from "react";
 import { Input, Select, SelectItem } from "@nextui-org/react";
-import { banks } from "@/app/data/constants";
+import { banks } from "../../data/constants";
 const SuspectForm = ({ formData, onChange }: any) => {
   return (
     <div className="flex flex-col gap-10">

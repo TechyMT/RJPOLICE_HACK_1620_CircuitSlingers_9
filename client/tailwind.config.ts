@@ -8,7 +8,13 @@ const config: Config = {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primaryRed: "#FD0101",
+        placeholder: "#9B9B9A",
+
+      }
+    },
   },
   darkMode: "class",
   plugins: [nextui({
@@ -28,10 +34,7 @@ const config: Config = {
             900: "#FEECFE",
             DEFAULT: "#070288",
             foreground: "#ffffff",
-            red: "#FD0101"
-          },
-          placeholder: {
-            DEFAULT: "#9B9B9A",
+
           },
           focus: "#F182F6",
         },

@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 import VictimForm from "../VictimForm";
 import SuspectForm from "../SuspectForm";
-import { categories } from "@/app/data/constants";
+import { categories } from "../../data/constants";
 
 interface FormProps {
   formData: any;

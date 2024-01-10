@@ -1,21 +1,20 @@
 "use client";
 import { Input, Button, Select, Textarea, SelectItem } from "@nextui-org/react";
-import { useState, useEffect } from "react";
-import useAuthStore from "@/app/utils/auth";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import useAuthStore from "../../utils/auth";
 import Heading from "../Heading";
 import Form from "../IncidentForm";
 import ComplaintInfoForm from "../ComplaintInfoForm";
-import { publicUrl } from "@/app/utils/publicURL";
+import { publicUrl } from "../../utils/publicURL";
 
-const categories = [
+export const categories = [
   "Identity Fraud",
   "Criminal Trespass",
   "Cyber Threats",
   "Other",
 ];
 
-const stepperTitles = [
+export const stepperTitles = [
   "Incident Details",
   "Questionare",
   "Complaint Details",
@@ -23,8 +22,6 @@ const stepperTitles = [
 ];
 
 const ComplaintForm = () => {
-  const router = useRouter();
-  const loggedIn = useAuthStore((state) => state.isLogedIn);
   const user = useAuthStore((state) => state.user);
   
 
