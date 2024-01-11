@@ -1,5 +1,6 @@
 import Breadcrumb from '../components/Breadcrumb';
 import userThree from '../images/user/user-03.png';
+import DGP from '../images/user/dgp.jpeg';
 import fireToast from '../hooks/fireToast';
 import { Table } from "../components/TableSettings";
 import { Modal } from "../components/ModalSettings";
@@ -90,8 +91,8 @@ const Settings = () => {
                           type="text"
                           name="fullName"
                           id="fullName"
-                          placeholder="Devid Jhon"
-                          defaultValue="Devid Jhon"
+                          placeholder="UMESH MISHRA"
+                          defaultValue="UMESH MISHRA"
                         />
                       </div>
                     </div>
@@ -152,8 +153,8 @@ const Settings = () => {
                         type="email"
                         name="emailAddress"
                         id="emailAddress"
-                        placeholder="devidjond45@gmail.com"
-                        defaultValue="devidjond45@gmail.com"
+                        placeholder="umeshmishra@gmail.com"
+                        defaultValue="umeshmishra@gmail.com"
                       />
                     </div>
                   </div>
@@ -170,8 +171,8 @@ const Settings = () => {
                       type="text"
                       name="Username"
                       id="Username"
-                      placeholder="devidjhon24"
-                      defaultValue="devidjhon24"
+                      placeholder="umesh_mishra_dgp"
+                      defaultValue="umesh_mishra_dgp"
                     />
                   </div>
 
@@ -220,7 +221,8 @@ const Settings = () => {
                         id="bio"
                         rows={6}
                         placeholder="Write your bio here"
-                        defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere fermentum urna, eu condimentum mauris tempus ut. Donec fermentum blandit aliquet."
+                        defaultValue=" It is our constant endeavour to fulfill expectations of tech savvy citizens and provide as many internet-based services as possible. With sole aims of enhancing our reponsiveness, promoting transparency in police work and making life easier for service seekers from Rajasthan Police, this website provides variety of informations and our online services likely to be useful to the common public. Your valuable suggestions to improve this site are always welcome. I sincerely hope that you will find this website useful.
+                        Jai Hind"
                       ></textarea>
                     </div>
                   </div>
@@ -254,8 +256,8 @@ const Settings = () => {
               <div className="p-7">
                 <form action="#">
                   <div className="mb-4 flex items-center gap-3">
-                    <div className="h-14 w-14 rounded-full">
-                      <img src={userThree} alt="User" />
+                    <div className="h-14 w-14 rounded-full overflow-hidden">
+                      <img src={DGP} alt="User" />
                     </div>
                     <div>
                       <span className="mb-1.5 text-black dark:text-white">
