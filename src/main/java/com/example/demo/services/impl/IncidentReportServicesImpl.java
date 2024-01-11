@@ -49,6 +49,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         reportStatusEntity.setTrackId(track_id);
         reportStatusEntity.setPending(true);
         reportStatusEntity.setUserId(userId);
+        reportStatusEntity.setFlag(0);
         reportStatusEntity.setReportDate(incidentReportDto.getDateOfReport());
         reportStatusEntity.setCity(incidentReportEntity.getCity());
         createdReport.setTrackId(track_id);

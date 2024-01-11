@@ -44,8 +44,10 @@ public class ReportStatusImpl implements ReportStatusServices {
         if (reportStatus.isPresent()) {
             ReportStatusEntity existingStatus = reportStatus.get();
             if (!reportStatusDto.isPending()) {
+                existingStatus.setFlag(2);
                 existingStatus.setCurrentStatus("Case Completed");
             } else {
+                existingStatus.setFlag(1);
                 existingStatus.setCurrentStatus(reportStatusDto.getCurrentStatus());
             }
             IncidentReportEntity incidentReportEntity = reportRepository.findByTrackId(reportStatusDto.getTrackId());

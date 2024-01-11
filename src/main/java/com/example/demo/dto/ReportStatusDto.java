@@ -18,6 +18,8 @@ public class ReportStatusDto {
 
     private String city;
 
+    private Integer flag;
+
     private boolean pending;
 
     private String reportDate;
