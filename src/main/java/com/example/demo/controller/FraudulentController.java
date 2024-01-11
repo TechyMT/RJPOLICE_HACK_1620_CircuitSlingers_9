@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.entities.fraudlent.FraudAccNumbers;
 import com.example.demo.entities.fraudlent.FraudEmails;
 import com.example.demo.entities.fraudlent.FraudNumbers;
+import com.example.demo.services.FraudAccountServices;
 import com.example.demo.services.FraudEmailServices;
 import com.example.demo.services.FraudNumbersServices;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +23,17 @@ public class FraudulentController {
 
     private final FraudEmailServices fraudEmailServices;
 
+    private final FraudAccountServices fraudAccountServices;
 
     @GetMapping(path = "/emails/{email}")
-    public ResponseEntity<String> checkEmail(
+    public ResponseEntity<Map<String,Integer>> checkEmail(
             @PathVariable("email") String email
     ){
-        String isFraud = fraudEmailServices.isEmailFraud(email);
-        return new ResponseEntity<>(isFraud, HttpStatus.OK);
+        boolean isFraud = fraudEmailServices.isEmailFraud(email);
+        int response = isFraud ? 1:0;
+        Map<String,Integer> resultMap  = new HashMap<>();
+        resultMap.put("isFraud",response);
+        return new ResponseEntity<>(resultMap,HttpStatus.OK);
     }
     @GetMapping(path = "/numbers/{number}")
     public ResponseEntity<Map<String, Integer>> checkPhoneNumber(@PathVariable("number") String number) {
@@ -53,5 +59,24 @@ public class FraudulentController {
     ){
         FraudNumbers savedNumber = fraudNumbersServices.addFraudNumber(number);
         return new ResponseEntity<>(savedNumber,HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/accNumbers/{acc}")
+    public ResponseEntity<Map<String,Integer>> getAccNumber(
+            @PathVariable("acc") String accNumber
+    ){
+        Map<String,Integer> resultMap = new HashMap<>();
+        boolean isFraud = fraudAccountServices.isNumberFraud(accNumber);
+        int response = isFraud ? 1 : 0;
+        resultMap.put("isFraud", response);
+        return new ResponseEntity<>(resultMap,HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/addAccNumber")
+    public ResponseEntity<FraudAccNumbers> addAccNumber(
+            @RequestBody FraudAccNumbers fraudAccNumber
+    ){
+        FraudAccNumbers fraudAccNumbers = fraudAccountServices.addFraudAcc(fraudAccNumber);
+        return new ResponseEntity<>(fraudAccNumbers,HttpStatus.OK);
     }
 }

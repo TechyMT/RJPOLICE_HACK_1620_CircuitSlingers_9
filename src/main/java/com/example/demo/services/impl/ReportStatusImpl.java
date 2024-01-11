@@ -103,7 +103,7 @@ public class ReportStatusImpl implements ReportStatusServices {
         detailsDto.setCompleted(completedCases);
         detailsDto.setPercentageCompleted(percentageCompleted);
         detailsDto.setPercentagePending(percentagePending);
-        processData();
+     //   processData();
         detailsDto.setCountByCities(statusRepository.countByCity(city));
         return detailsDto;
     }

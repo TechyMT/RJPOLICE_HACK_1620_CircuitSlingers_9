@@ -14,15 +14,10 @@ public class FraudEmailServicesImpl implements FraudEmailServices {
 
     private final FraudEmailsRepository emailsRepository;
     @Override
-    public String isEmailFraud(String email)
+    public boolean isEmailFraud(String email)
     {
         Optional<FraudEmails> emails = Optional.ofNullable(emailsRepository.findByEmail(email));
-        if(emails.isPresent()){
-            return "Beware! Phishing Email";
-        }
-        else{
-            return "Not in our Database";
-        }
+       return emails.isPresent();
     }
 
     @Override
