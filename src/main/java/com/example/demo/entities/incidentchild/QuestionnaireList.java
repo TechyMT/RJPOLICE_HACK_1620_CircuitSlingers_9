@@ -16,8 +16,7 @@ public class QuestionnaireList {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Question {
-        private String type;
         private String question;
-        private String answer;
+        private String response;
     }
 }

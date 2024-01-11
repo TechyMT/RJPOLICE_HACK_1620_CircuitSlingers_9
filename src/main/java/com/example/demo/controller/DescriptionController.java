@@ -9,6 +9,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -34,15 +37,20 @@ public class DescriptionController {
     public ResponseEntity<QuestionnaireList> generateDesc(
             @RequestBody String description
     ){
-        String urlAPI = "https://your-ngrok-url.com/api/generateDescription";
-   //     String output = restTemplate.postForObject(urlAPI,description,String.class);
-        String output = "{\"questions\":[{\"type\":\"clarify\",\"question\":\"Can you provide more details about the suspicious emails you received? (e.g. How often did you receive them, what did they Look like, were they personalized or generic?)\",\"answer\":\"Screenshot attached\"},{\"type\":\"specifics\",\"question\":\"Can you describe any patterns or behaviors you noticed in your online accounts that could indicate a breach? (e.g. Unusual login activity, unfamiliar device access, changes in password or security questions)\",\"answer\":\"I noticed some unusual login activity on my bank account and social media profiles\"}]}";
+        String urlAPI = "http://a03f-35-245-174-48.ngrok-free.app/home";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> requestEntity = new HttpEntity<>(description, headers);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> output = restTemplate.postForEntity(urlAPI, requestEntity, String.class);
 
-        try{
-            return ResponseEntity.ok(objectMapper.readValue(output, QuestionnaireList.class));
+        try {
+            QuestionnaireList questionnaireList = objectMapper.readValue(output.getBody(), QuestionnaireList.class);
+            return ResponseEntity.ok(questionnaireList);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+
     }
 
 }
