@@ -90,8 +90,9 @@ const VideoDescriptionUI = () => {
               src={video.url}
               type="video/mp4"
             /> */}
-            <video className="w-full h-auto">
+            <video className="w-full h-auto" controls>
               <source src={video.url} type="video/mp4" />
+              
 
             </video>
 
