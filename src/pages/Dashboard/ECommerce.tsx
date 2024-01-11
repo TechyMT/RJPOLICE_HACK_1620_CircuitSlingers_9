@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import WidgetPlaceholder from '../../components/WidgetPlaceholder.tsx';
 import { publicUrl } from '../../utils/publicUrl.ts';
-import TablePlaceholder from '../../components/TablePlaceholder.tsx';
+
 
 const ECommerce = () => {
   const [data, setData] = useState<any>(null);
@@ -62,12 +62,12 @@ const ECommerce = () => {
             </>
           )
         )}
-      </div> 
+      </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         {loading ? (
-          <div className='col-span-12 rounded-sm border border-stroke bg-white px-9 pt-9 pb-7 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-12'>
-            <WidgetPlaceholder /> 
+          <div className="col-span-12 rounded-sm border border-stroke bg-white px-9 pt-9 pb-7 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-12">
+            <WidgetPlaceholder />
           </div>
         ) : (
           chartData && (
