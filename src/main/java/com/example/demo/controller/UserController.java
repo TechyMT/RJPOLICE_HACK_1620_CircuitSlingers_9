@@ -18,7 +18,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserServices userServices;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+
     @PostMapping(path = "/add")
     public ResponseEntity<UserDto> adduser(
             @Validated

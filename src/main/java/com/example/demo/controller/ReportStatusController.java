@@ -28,7 +28,7 @@ public class ReportStatusController {
         return new ResponseEntity<>(updatedReportStatus, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+
     @GetMapping(path = "/allStatus")
     public ResponseEntity<List<ReportStatusDto>> getAllStatuses(){
         List<ReportStatusDto> allReports = reportStatusServices.getAllReports();
@@ -51,7 +51,7 @@ public class ReportStatusController {
         return  new ResponseEntity<>(statusDtoList,HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+
     @GetMapping(path = "/allDetails")
     public ResponseEntity<DetailsDto> getDetails(
             @RequestParam("city") String city
@@ -67,7 +67,6 @@ public class ReportStatusController {
         return new ResponseEntity<>(details,HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(path = "/chart-data")
     public Map<String,Object> getChartData(){
          final Map<String, Object> initialData = Map.of(
