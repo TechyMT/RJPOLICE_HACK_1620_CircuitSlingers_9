@@ -78,17 +78,22 @@ const VideoDescriptionUI = () => {
 
   return (
     <>
-      <Heading children="Awareness and Training" />
+      <Heading>Awareness and Training</Heading>
+
       <div className="flex flex-wrap p-8">
         {videos.map((video, index) => (
           <div key={index} className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
             {/* Video Section */}
-            <video
+            {/* <video
               className="w-full h-auto"
               controls
               src={video.url}
               type="video/mp4"
-            />
+            /> */}
+            <video className="w-full h-auto">
+              <source src={video.url} type="video/mp4" />
+
+            </video>
 
             {/* Description Section */}
             <div className="p-4">
