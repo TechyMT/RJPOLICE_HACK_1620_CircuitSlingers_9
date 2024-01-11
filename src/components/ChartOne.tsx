@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
-import { initialData } from '../data/constants';
+import { data } from '../data/constants';
 
 const options: ApexOptions = {
   legend: {
@@ -144,7 +144,7 @@ interface ChartOneState {
   };
 }
 
-const ChartOne: React.FC = () => {
+const ChartOne: React.FC<any> = ({ data }) => {
   const [selected, setSelected] = useState('day');
   const [state, setState] = useState<ChartOneState>({
     month: {
@@ -163,16 +163,13 @@ const ChartOne: React.FC = () => {
   const [chartOptions, setChartOptions] = useState<ApexOptions>(options);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData =  () => {
       try {
-        // Replace YOUR_BACKEND_API_ENDPOINT with the actual endpoint
-        // const response = await fetch(`YOUR_BACKEND_API_ENDPOINT/${selected}`);
-        // const data = await response.json();
-
-        setState(initialData);
+       
+        setState(data);
 
         const maxDataValue = Math.max(
-          ...initialData[selected].series.flatMap((serie) => serie.data),
+          ...data[selected].series.flatMap((serie) => serie.data),
         );
 
         // Update chart options
@@ -184,7 +181,7 @@ const ChartOne: React.FC = () => {
           },
           xaxis: {
             type: 'category',
-            categories: initialData[selected].categories,
+            categories: data[selected].categories,
             axisBorder: {
               show: false,
             },
