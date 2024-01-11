@@ -2,17 +2,19 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import fakeNumberImage from "../assets/images/rbiguidelines.png";
+import { publicUrl } from "../utils/publicURL";
 
 const FakeNumberChecker: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [isFake, setIsFake] = useState<boolean>(false);
 
-  const checkNumber = () => {
+  const checkNumber = async() => {
     // Basic logic to determine if a number is fake or not (you can replace this with your own logic)
-    const fakePrefixes = ["555", "777", "123"]; // Example fake prefixes
-    const isFakeNumber = fakePrefixes.some((prefix) =>
-      phoneNumber.startsWith(prefix)
+    const response = await fetch(
+      `${publicUrl()}/fraud_search/numbers/${phoneNumber}`
     );
+    const { isFraud: isFakeNumber } = await response.json();
+
     setIsFake(isFakeNumber);
   };
 
