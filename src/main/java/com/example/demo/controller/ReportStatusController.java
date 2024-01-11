@@ -62,4 +62,45 @@ public class ReportStatusController {
         List<Map<String, Object>> details = reportStatusServices.processData();
         return new ResponseEntity<>(details,HttpStatus.OK);
     }
+
+    @GetMapping(path = "/chart-data")
+    public Map<String,Object> getChartData(){
+         final Map<String, Object> initialData = Map.of(
+                "month", Map.of(
+                        "series", List.of(
+                                Map.of("name", "Pending", "data", List.of(23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45)),
+                                Map.of("name", "Completed", "data", List.of(30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 51))
+                        ),
+                        "categories", List.of(
+                                "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"
+                        )
+                ),
+                "week", Map.of(
+                        "series",List.of(
+                                Map.of("name","Pending","data",List.of(10, 15, 8, 20, 18, 12, 15)),
+                                 Map.of("name", "Completed", "data",List.of(8, 12, 10, 18, 15, 9, 13))
+                         ),
+                         "categories",List.of("Week 1",
+                                 "Week 2",
+                                 "Week 3",
+                                 "Week 4",
+                                 "Week 5",
+                                 "Week 6",
+                                 "Week 7"
+                                 )
+                ),
+                "day", Map.of(
+                         "series",List.of(
+                                 Map.of("name","Pending","data",List.of(5, 3, 7, 6, 8, 4, 9, 5, 6, 7, 4, 6, 8, 10, 12)),
+                                 Map.of("name", "Completed", "data",List.of(4, 6, 5, 8, 7, 3, 6, 4, 5, 6, 3, 5, 7, 9, 10))
+                         ),
+                         "categories",List.of( "Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7",
+                                 "Day 8", "Day 9", "Day 10", "Day 11", "Day 12", "Day 13", "Day 14", "Day 15"
+                         )
+                         )
+        );
+    return initialData;
+
+}
+
 }
