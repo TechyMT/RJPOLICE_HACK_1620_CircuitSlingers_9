@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const TrackStatus = () => {
   const [trackId, setTrackId] = useState('');
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState<any>(null);
 
   const handleSearch = async () => {
     try {

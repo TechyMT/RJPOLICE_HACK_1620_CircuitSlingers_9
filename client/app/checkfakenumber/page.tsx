@@ -5,7 +5,7 @@ import fakeNumberImage from '../assets/images/rbiguidelines.png';
 
 const FakeNumberChecker = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [isFake, setIsFake] = useState(null);
+  const [isFake, setIsFake] = useState<any>(null);
 
   const checkNumber = () => {
     // Basic logic to determine if a number is fake or not (you can replace this with your own logic)
