@@ -15,6 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
+
 @RequestMapping(path = "/api/admin")
 public class ReportStatusController {
     private final ReportStatusServices reportStatusServices;
@@ -27,6 +28,7 @@ public class ReportStatusController {
         return new ResponseEntity<>(updatedReportStatus, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(path = "/allStatus")
     public ResponseEntity<List<ReportStatusDto>> getAllStatuses(){
         List<ReportStatusDto> allReports = reportStatusServices.getAllReports();
@@ -49,6 +51,7 @@ public class ReportStatusController {
         return  new ResponseEntity<>(statusDtoList,HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(path = "/allDetails")
     public ResponseEntity<DetailsDto> getDetails(
             @RequestParam("city") String city
@@ -56,6 +59,7 @@ public class ReportStatusController {
         DetailsDto details = reportStatusServices.getAllDetails(city);
         return new ResponseEntity<>(details,HttpStatus.OK);
     }
+
     @GetMapping(path = "/all")
     public ResponseEntity< List<Map<String, Object>>> getDetails(
     ){
@@ -63,6 +67,7 @@ public class ReportStatusController {
         return new ResponseEntity<>(details,HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(path = "/chart-data")
     public Map<String,Object> getChartData(){
          final Map<String, Object> initialData = Map.of(
@@ -91,11 +96,11 @@ public class ReportStatusController {
                 ),
                 "day", Map.of(
                          "series",List.of(
-                                 Map.of("name","Pending","data",List.of(5, 3, 7, 6, 8, 4, 9, 5, 6, 7, 4, 6, 8, 10, 12)),
-                                 Map.of("name", "Completed", "data",List.of(4, 6, 5, 8, 7, 3, 6, 4, 5, 6, 3, 5, 7, 9, 10))
+                                 Map.of("name","Pending","data",List.of(5, 3, 7, 6, 8, 4, 9, 5, 6, 7, 4, 6, 8, 10, 12,45,13)),
+                                 Map.of("name", "Completed", "data",List.of(4, 6, 5, 8, 7, 3, 6, 4, 5, 6, 3, 5, 7, 9, 10,12,23))
                          ),
                          "categories",List.of( "Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7",
-                                 "Day 8", "Day 9", "Day 10", "Day 11", "Day 12", "Day 13", "Day 14", "Day 15"
+                                 "Day 8", "Day 9", "Day 10", "Day 11", "Day 12", "Day 13", "Day 14", "Day 15","Day 16","Day 17"
                          )
                          )
         );
