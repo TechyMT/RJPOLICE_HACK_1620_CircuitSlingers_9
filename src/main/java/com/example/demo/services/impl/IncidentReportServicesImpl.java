@@ -2,6 +2,8 @@ package com.example.demo.services.impl;
 
 import com.example.demo.dto.IncidentReportDto;
 import com.example.demo.entities.*;
+import com.example.demo.entities.notifications.FIRClass;
+import com.example.demo.entities.notifications.Notifications;
 import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.exceptions.UnauthorizedException;
 import com.example.demo.mappers.impl.IncidentReportMapperImpl;

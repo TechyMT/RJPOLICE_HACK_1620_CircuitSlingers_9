@@ -1,5 +1,8 @@
 package com.example.demo.entities;
 
+import com.example.demo.entities.incidentchild.Questionnaire;
+import com.example.demo.entities.incidentchild.SuspectInfo;
+import com.example.demo.entities.incidentchild.UserAccountInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

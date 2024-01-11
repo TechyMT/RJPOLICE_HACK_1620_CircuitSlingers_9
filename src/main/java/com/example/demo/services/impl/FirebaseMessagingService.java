@@ -1,13 +1,12 @@
 package com.example.demo.services.impl;
 
-import com.example.demo.entities.FIRClass;
-import com.example.demo.entities.Notifications;
-import com.example.demo.entities.UpdateNotifications;
+import com.example.demo.entities.notifications.FIRClass;
+import com.example.demo.entities.notifications.Notifications;
+import com.example.demo.entities.notifications.UpdateNotifications;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

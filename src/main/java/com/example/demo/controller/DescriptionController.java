@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.entities.Questionnaire;
-import com.example.demo.entities.QuestionnaireList;
+import com.example.demo.entities.incidentchild.Questionnaire;
+import com.example.demo.entities.incidentchild.QuestionnaireList;
 import com.example.demo.services.IncidentReportServices;
 import com.fasterxml.jackson.core.JsonProcessingException;
 

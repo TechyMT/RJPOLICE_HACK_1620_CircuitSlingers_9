@@ -1,4 +1,4 @@
-package com.example.demo.entities;
+package com.example.demo.entities.fraudlent;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,12 +9,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "fraudulent_number")
-public class FraudNumbers {
+@Document(collection = "fraudulent_mails")
+public class FraudEmails {
 
     @Id
     private String id;
-
-    private String phoneNumber;
+    private String email;
 
 }

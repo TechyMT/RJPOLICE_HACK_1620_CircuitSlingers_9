@@ -1,6 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.entities.FraudNumbers;
+import com.example.demo.entities.fraudlent.FraudNumbers;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

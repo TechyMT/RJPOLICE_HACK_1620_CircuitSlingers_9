@@ -1,14 +1,12 @@
 package com.example.demo.dto;
 
-import com.example.demo.entities.Questionnaire;
-import com.example.demo.entities.SuspectInfo;
-import com.example.demo.entities.UserAccountInfo;
-import com.example.demo.entities.UserEntity;
+import com.example.demo.entities.incidentchild.Questionnaire;
+import com.example.demo.entities.incidentchild.SuspectInfo;
+import com.example.demo.entities.incidentchild.UserAccountInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

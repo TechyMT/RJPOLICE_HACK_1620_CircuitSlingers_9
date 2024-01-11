@@ -5,7 +5,7 @@ import com.example.demo.dto.IncidentReportDto;
 import com.example.demo.dto.ReportStatusDto;
 import com.example.demo.entities.IncidentReportEntity;
 import com.example.demo.entities.ReportStatusEntity;
-import com.example.demo.entities.UpdateNotifications;
+import com.example.demo.entities.notifications.UpdateNotifications;
 import com.example.demo.entities.UserEntity;
 import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.mappers.impl.IncidentReportMapperImpl;
@@ -17,8 +17,6 @@ import com.example.demo.services.ReportStatusServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 

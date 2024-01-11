@@ -1,13 +1,16 @@
 package com.example.demo.controller;
 
-import com.example.demo.entities.FraudEmails;
-import com.example.demo.entities.FraudNumbers;
+import com.example.demo.entities.fraudlent.FraudEmails;
+import com.example.demo.entities.fraudlent.FraudNumbers;
 import com.example.demo.services.FraudEmailServices;
 import com.example.demo.services.FraudNumbersServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api/fraud_search/")
@@ -27,10 +30,14 @@ public class FraudulentController {
         return new ResponseEntity<>(isFraud, HttpStatus.OK);
     }
     @GetMapping(path = "/numbers/{number}")
-    public ResponseEntity<String> checkPhoneNumber(@PathVariable("number") String number) {
-        String isFraud = fraudNumbersServices.isNumberFraud(number);
-        return new ResponseEntity<>(isFraud, HttpStatus.OK);
+    public ResponseEntity<Map<String, Integer>> checkPhoneNumber(@PathVariable("number") String number) {
+        boolean isFraud = fraudNumbersServices.isNumberFraud(number);
+        int response = isFraud ? 1 : 0;
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("isFraud", response);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
+
 
     @PostMapping(path = "/addEmail")
     public ResponseEntity<FraudEmails> addFraudEmail(
