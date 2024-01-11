@@ -9,6 +9,7 @@ const PackageItem: React.FC<any> = ({
   reportDate,
   currentStatus,
   city,
+  isStripped = false,
 }) => {
   const getcurrentStatusClass = () => {
     if (currentStatus === 'Case Completed') {
@@ -20,7 +21,11 @@ const PackageItem: React.FC<any> = ({
   };
 
   return (
-    <tr className="border-b border-[#eee] dark:border-strokedark">
+    <tr
+      className={`border-b border-[#eee] dark:border-strokedark ${
+        isStripped ? 'bg-gray' : ''
+      }`}
+    >
       <td className="py-5 px-4 xl:pl-11">
         <h5 className="font-medium text-black dark:text-white">{trackId}</h5>
       </td>
@@ -36,7 +41,7 @@ const PackageItem: React.FC<any> = ({
           {/* Buttons here */}
           <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
             <div className="flex items-center space-x-3.5">
-              <button className="hover:text-primary">
+              <button className="hover:text-primary" title="View Report">
                 <svg
                   className="fill-current"
                   width="18"
@@ -55,7 +60,7 @@ const PackageItem: React.FC<any> = ({
                   />
                 </svg>
               </button>
-              <button className="hover:text-primary">
+              <button className="hover:text-primary" title="Delete Report">
                 <svg
                   className="fill-current"
                   width="18"
@@ -82,7 +87,7 @@ const PackageItem: React.FC<any> = ({
                   />
                 </svg>
               </button>
-              <button className="hover:text-primary">
+              <button className="hover:text-primary" title="Download Report">
                 <svg
                   className="fill-current"
                   width="18"
@@ -148,7 +153,7 @@ const TableThree = () => {
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-      <div className="max-w-full overflow-x-auto mb-6">
+      <div className="max-w-full overflow-x-hidden mb-6">
         <table className="w-full table-auto mb-12">
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
@@ -170,16 +175,45 @@ const TableThree = () => {
             </tr>
           </thead>
           {loading ? (
-            <TablePlaceholder />
+            <tbody>
+              <tr className="border-b border-[#eee] dark:border-strokedark">
+                <td colSpan={5}>
+                  <TablePlaceholder />
+                </td>
+              </tr>
+              <tr className="border-b border-[#eee] dark:border-strokedark">
+                <td colSpan={5}>
+                  <TablePlaceholder />
+                </td>
+              </tr>
+              <tr className="border-b border-[#eee] dark:border-strokedark">
+                <td colSpan={5}>
+                  <TablePlaceholder />
+                </td>
+              </tr>
+              <tr className="border-b border-[#eee] dark:border-strokedark">
+                <td colSpan={5}>
+                  <TablePlaceholder />
+                </td>
+              </tr>
+              <tr className="border-b border-[#eee] dark:border-strokedark">
+                <td colSpan={5}>
+                  <TablePlaceholder />
+                </td>
+              </tr>
+            </tbody>
           ) : (
             <tbody>
-              {displayedPackages.map((pkg, index) => (
-                <PackageItem key={index} {...pkg} />
-              ))}
+              {displayedPackages.map((pkg, index) => {
+                if (index % 2 == 0) {
+                  return <PackageItem key={index} {...pkg} isStripped={true} />;
+                } else {
+                  return <PackageItem key={index} {...pkg} />;
+                }
+              })}
             </tbody>
           )}
         </table>
-        <TablePlaceholder />
 
         <div className="flex flex-col items-center">
           <span className="text-sm text-gray-700 dark:text-gray-400">
