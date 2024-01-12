@@ -17,12 +17,16 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import Link from "next/link";
+import Alert from "./components/AlertMaqrquee";
 
 const HeroImages = [HeroImage_1, HeroImage_2, HeroImage_3, HeroImage_4];
 
 export default function Home() {
   return (
     <main>
+      <div className="absolute z-20 w-full">
+        <Alert />
+      </div>
       <div className="flex flex-col gap-20">
         <div className="flex flex-col w-full relative">
           <div className="flex absolute z-10 top-56 cursor-pointer right-4 hover:bg-white bg-black bg-opacity-25 p-4 rounded-full image-swiper-button-next ">
@@ -73,30 +77,30 @@ export default function Home() {
             </Link>
             <Link href={"/track-case"}>
               <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
-              <div>
+                <div>
                   <Icon icon="location" width={130} />
-              </div>
+                </div>
                 <div className="text-2xl text-white flex justify-center">
                   Track your case
                 </div>
               </div>
             </Link>
             <Link href={"/awareness-training"}>
-            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
-              <div>
-                <Icon icon="outreach" width={130} />
-              </div>
-              <div className="text-2xl text-white flex justify-center text-center">
-                Awareness and Training
-              </div>
+              <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
+                <div>
+                  <Icon icon="outreach" width={130} />
+                </div>
+                <div className="text-2xl text-white flex justify-center text-center">
+                  Awareness and Training
+                </div>
               </div>
             </Link>
             <Link href={"/news"}>
-            <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
-              <div>
-                <Icon icon="news" width={130} />
-              </div>
-              <div className="text-2xl text-white">News</div>
+              <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
+                <div>
+                  <Icon icon="news" width={130} />
+                </div>
+                <div className="text-2xl text-white">News</div>
               </div>
             </Link>
           </div>
