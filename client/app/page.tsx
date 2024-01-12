@@ -18,6 +18,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Link from "next/link";
 import Alert from "./components/AlertMaqrquee";
+import FAQComponent from "./components/FAQComponent";
 
 const HeroImages = [HeroImage_1, HeroImage_2, HeroImage_3, HeroImage_4];
 
@@ -136,6 +137,9 @@ export default function Home() {
               </figcaption>
             </figure>
           </div>
+        </div>
+        <div>
+          <FAQComponent />
         </div>
         <div className="fixed bottom-[20px] right-[20px] z-20">
           <Chatbot />

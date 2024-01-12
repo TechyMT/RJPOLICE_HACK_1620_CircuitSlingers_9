@@ -156,3 +156,53 @@ export const questionaire = {
         }
     ]
 }
+
+export const faqs =
+    [
+        {
+            "question": "How to report a cyber security incident in India?",
+            "answer": "Contact CERT-In (Indian Computer Emergency Response Team) and follow their guidelines."
+        },
+        {
+            "question": "What information should be included in a cyber security incident report?",
+            "answer": "Include details such as date, time, nature of the incident, affected systems, and any evidence you may have."
+        },
+        {
+            "question": "How long does it take to retrieve funds after a cyber attack in India?",
+            "answer": "The timeline varies based on the nature of the attack and the investigation process; it may take weeks to months."
+        },
+        {
+            "question": "Are there legal steps to take for fund recovery in cyber crime cases?",
+            "answer": "Yes, file a complaint with the local law enforcement and seek legal assistance for the recovery process."
+        },
+        {
+            "question": "Can I get insurance for cyber attacks in India?",
+            "answer": "Yes, consider cyber insurance to mitigate financial losses in case of a cyber security incident."
+        },
+
+        {
+            "question": "Is there a helpline or emergency contact for reporting cyber threats in India?",
+            "answer": "Yes, you can contact the National Cyber Crime Reporting Portal (NCCRP) helpline at 1930 or visit their website to report incidents online."
+        },
+        {
+            "question": "How can individuals protect their personal information online in India?",
+            "answer": "Use strong, unique passwords, enable two-factor authentication, be cautious about sharing personal information, and regularly monitor financial transactions for any suspicious activity."
+        },
+        {
+            "question": "What role do cybersecurity professionals play in supporting organizations during a cyber attack?",
+            "answer": "Cybersecurity professionals analyze and mitigate the impact of attacks, investigate security incidents, and implement measures to prevent future breaches, safeguarding organizational assets and data."
+        },
+        {
+            "question": "Are there government initiatives in India to promote cybersecurity awareness?",
+            "answer": "Yes, the government runs awareness campaigns, workshops, and training programs to educate individuals, businesses, and government entities about cybersecurity best practices."
+        },
+        {
+            "question": "How can businesses conduct a post-incident analysis to improve their cybersecurity resilience?",
+            "answer": "Review the incident response process, identify weaknesses, update security policies, and provide additional training to employees. Continuous improvement is crucial for enhancing cybersecurity resilience."
+        },
+        {
+            "question": "What role does international collaboration play in addressing cyber threats in the Indian context?",
+            "answer": "International collaboration involves sharing threat intelligence, best practices, and coordinating efforts to combat cross-border cybercrime, contributing to a more secure cyberspace for all nations involved."
+        }
+
+    ]

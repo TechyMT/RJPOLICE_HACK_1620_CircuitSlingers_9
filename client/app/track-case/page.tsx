@@ -1,44 +1,75 @@
-"use client"
-import React, { useState } from 'react';
-import axios from 'axios'; 
+"use client";
+import React, { useState } from "react";
+import axios from "axios";
+import { publicUrl } from "../utils/publicURL";
+import Heading from "../components/Heading";
+import { Button, Input, Progress, Textarea } from "@nextui-org/react";
+import FAQComponent from "../components/FAQComponent";
 
 const TrackStatus = () => {
-  const [trackId, setTrackId] = useState('');
-  const [status, setStatus] = useState<any>(null);
+  const [trackId, setTrackId] = useState<any>(null);
+  const [status, setStatus] = useState<any>("");
 
   const handleSearch = async () => {
     try {
       // Replace the API_URL with the actual URL for fetching the status
-      const response = await axios.get(`API_URL/track/${trackId}`);
-      setStatus(response.data.status);
+      // const response = await axios.get(`${publicUrl()}/track/${trackId}`);
+      // setStatus(response.data.status);
+      if (trackId === "1") {
+        setStatus("Pending");
+      } else if (trackId === "2") {
+        setStatus("Approved");
+      }
     } catch (error) {
-      console.error('Error fetching track status:', error);
-      setStatus('Error fetching status');
+      console.error("Error fetching track status:", error);
+      setStatus("Error fetching status");
     }
   };
 
   return (
-      <div className="container mx-auto mt-8  mb-48">
-          <h1 className='text-3xl font-bold mb-4 text-black justify-center'>Track your complaint</h1>
-      <div className="flex items-center justify-center">
-        <input
-          type="text"
-          placeholder="Enter Track ID"
-          value={trackId}
-          onChange={(e) => setTrackId(e.target.value)}
-          className="border border-gray-300 px-4 py-2 rounded-l-md focus:outline-none focus:border-blue-500"
-        />
-        <button
-          onClick={handleSearch}
-          className="bg-blue-900 text-white px-4 py-2 rounded-r-md hover:bg-blue-500 focus:outline-none"
-        >
-          Search
-        </button>
+    <div className="container mx-auto mt-8  mb-48">
+      <div className="my-12">
+        <Heading>Track your complaint</Heading>
       </div>
-      {status !== null && (
-        <div className="mt-4">
-          <p>Status: {status}</p>
+      <div className="flex items-center justify-center gap-4">
+        <div className="w-96">
+          <Input
+            type="number"
+            placeholder="Enter Track ID"
+            value={trackId}
+            onChange={(e) => setTrackId(e.target.value)}
+            variant="bordered"
+            color="primary"
+          />
         </div>
+        <Button onClick={handleSearch} color="primary" size="lg">
+          Search
+        </Button>
+      </div>
+      {status && (
+        <>
+          <div className="flex flex-col border-gray border-2 w-unit-9xl items-center mx-auto p-4 gap-8 mt-20">
+            <div className="flex justify-center mx-auto w-unit-8xl ">
+              <Progress
+                label={"Current Status: " + status}
+                value={status === "Pending" ? 25 : 100}
+                color={status === "Pending" ? "warning" : "success"}
+              />
+            </div>
+            <div className="flex w-full">
+              <Textarea
+                label="Comments"
+                value={"Your case is very difficult will do it later"}
+                placeholder="Your Response"
+                minRows={4}
+                variant="bordered"
+                color="primary"
+                disabled
+              />
+            </div>
+          </div>
+          <FAQComponent />
+        </>
       )}
     </div>
   );

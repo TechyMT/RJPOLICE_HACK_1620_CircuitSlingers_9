@@ -56,6 +56,7 @@ const ComplaintForm = () => {
     dob: "",
     adhaarNumber: "",
     evidencesList: [],
+    selfFill: false,
   });
 
   const [step, setStep] = useState(1);
@@ -156,7 +157,7 @@ const ComplaintForm = () => {
         ],
       };
       console.log("body", body);
-      const data = fetch(`http://192.168.181.81:8080/api/report/add`, {
+      const data = fetch(`${publicUrl()}/report/add`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -191,6 +192,7 @@ const ComplaintForm = () => {
         adhaarNumber: "",
         evidencesList: [],
         questionnaire: [],
+        selfFill: false,
       });
     }
     // Move to the next step or submit the form

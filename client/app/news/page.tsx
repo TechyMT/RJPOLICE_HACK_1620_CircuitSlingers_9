@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-import 'tailwindcss/tailwind.css';
+import "tailwindcss/tailwind.css";
+import Heading from "../components/Heading";
 
 interface Article {
   title: string;
@@ -21,24 +22,24 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const apiKey = '780bfe8c9b6c4e08bd1e755df0cc8ef7';
-        const query = 'cybercrime in india'; 
+        const apiKey = "780bfe8c9b6c4e08bd1e755df0cc8ef7";
+        const query = "cybercrime in india";
         const apiUrl = `https://newsapi.org/v2/everything?q=${query}&language=en&apiKey=${apiKey}`;
 
-        console.log('API Request URL:', apiUrl);
+        console.log("API Request URL:", apiUrl);
 
         const response = await axios.get<NewsResponse>(apiUrl);
 
-        console.log('API Response:', response.data);
+        console.log("API Response:", response.data);
 
         if (response.data.articles && response.data.articles.length > 0) {
           setNews(response.data.articles);
         } else {
-          setError('No articles found in the response');
+          setError("No articles found in the response");
         }
       } catch (error) {
-        console.error('Error fetching news:', error);
-        setError('Error fetching news. Please try again later.');
+        console.error("Error fetching news:", error);
+        setError("Error fetching news. Please try again later.");
       }
     };
 
@@ -47,7 +48,9 @@ const Home: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4 text-black">Cyber Crime News</h1>
+      <div className="p-6">
+        <Heading>Cybercrime News</Heading>
+      </div>
       {error ? (
         <p className="text-red-500">{error}</p>
       ) : (

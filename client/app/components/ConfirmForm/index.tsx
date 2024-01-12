@@ -120,6 +120,19 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
         <Divider />
 
         <SubHeading>Questionnaire</SubHeading>
+        {formData.questionnaire.map((question: any, index: number) => (
+          <div className="flex gap-6 w-full" key={index}>
+            <Textarea
+              label={question.question}
+              value={question.response}
+              disabled
+              variant="bordered"
+              color="primary"
+              size="lg"
+              labelPlacement="outside"
+            />
+          </div>
+        ))}
         <Divider />
         {formData.isMoneyLost && (
           <div className="flex flex-col gap-10 items-center w-full">

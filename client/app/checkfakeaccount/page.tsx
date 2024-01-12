@@ -1,21 +1,32 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import fakeNumberImage from "../assets/images/rbiguidelines.png";
+import fakeNumberImage from "../assets/images/fake.jpg";
 import { publicUrl } from "../utils/publicURL";
+import Heading from "../components/Heading";
+import { Button, Input } from "@nextui-org/react";
+import { Spinner } from "@nextui-org/react";
 
 const FakeNumberChecker: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [isFake, setIsFake] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const checkNumber = async() => {
+  const checkNumber = async () => {
     // Basic logic to determine if a number is fake or not (you can replace this with your own logic)
-    const response = await fetch(
-      `${publicUrl()}/fraud_search/numbers/${phoneNumber}`
-    );
-    const { isFraud: isFakeNumber } = await response.json();
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `${publicUrl()}/fraud_search/accounts/${phoneNumber}`
+      );
+      const { isFraud: isFakeNumber } = await response.json();
 
-    setIsFake(isFakeNumber);
+      setIsFake(isFakeNumber);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
   };
 
   return (
@@ -26,9 +37,9 @@ const FakeNumberChecker: React.FC = () => {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <h1 style={{ fontSize: "2em", marginBottom: "20px", color: "#333" }}>
-        Fake Bank Account Checker
-      </h1>
+      <div className="my-4">
+        <Heading>Fake Bank Account Checker</Heading>
+      </div>
       <div
         style={{
           display: "flex",
@@ -46,39 +57,39 @@ const FakeNumberChecker: React.FC = () => {
         >
           <Image src={fakeNumberImage} alt="RBI guidelines" width={1920} />
         </div>
-        <input
-          type="text"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          placeholder="Enter bank account"
-          style={{
-            padding: "10px",
-            margin: "10px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            width: "300px",
-            fontSize: "1em",
-          }}
-        />
-        <button
+        <div className="w-96">
+          <Input
+            type="text"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            placeholder="Enter bank account"
+            color="primary"
+            variant="bordered"
+          />
+        </div>
+        <Button
           onClick={checkNumber}
-          style={{
-            padding: "10px 20px",
-            margin: "10px",
-            fontSize: "1em",
-            backgroundColor: "#070288",
-            color: "#fff",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
+          color="primary"
+          className="my-12"
+          size="lg"
         >
           Check
-        </button>
-        {isFake && (
+        </Button>
+        {loading && (
           <p
             style={{
-              marginTop: "20px",
+              margin: "20px",
+              fontSize: "1.2em",
+              color: isFake ? "red" : "green",
+            }}
+          >
+            <Spinner color="primary" size="lg" />
+          </p>
+        )}
+        {isFake && !loading && (
+          <p
+            style={{
+              margin: "20px",
               fontSize: "1.2em",
               color: isFake ? "red" : "green",
             }}

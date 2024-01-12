@@ -14,8 +14,8 @@ import Icon from "../Icon";
 const HomeNav = () => {
   const pathname = usePathname();
   return (
-    <div className="flex  h-[10vh]  bg-primary">
-      <div className="flex ml-[38vw] gap-10">
+    <div className="flex h-[10vh]  bg-primary">
+      <div className="flex ml-[34vw] w-full justify-around">
         <div className="flex">
           <Link
             href="/"
@@ -31,9 +31,23 @@ const HomeNav = () => {
           </Link>
         </div>
         <div className="flex items-center">
+          <Link
+            href="/track-case"
+            className={`flex items-center font-semibold ${
+              pathname === "/track-case"
+                ? "underline underline-offset-8 decoration-red-500 decoration-4"
+                : ""
+            }`}
+          >
+            <div className="flex items-center text-white cursor-pointer text-lg">
+              Track Case
+            </div>
+          </Link>
+        </div>
+        <div className="flex items-center">
           <Dropdown
             classNames={{
-              trigger: "bg-primary",
+              trigger: "bg-primary p-0",
             }}
           >
             <DropdownTrigger>
@@ -46,16 +60,9 @@ const HomeNav = () => {
             </DropdownTrigger>
             <DropdownMenu>
               <DropdownItem color="primary">
-                <Link href="/track-case">
-                  <div className="flex items-center cursor-pointer text-md">
-                    Track Case
-                  </div>
-                </Link>
-              </DropdownItem>
-              <DropdownItem color="primary">
                 <Link href="/awareness-training">
                   <div className="flex items-center cursor-pointer text-md">
-                    Awareness
+                    Awareness and training
                   </div>
                 </Link>
               </DropdownItem>
@@ -120,21 +127,33 @@ const HomeNav = () => {
         </div>
         <div className="flex items-center gap-4">
           <div>
-            <Link href="https://www.instagram.com/PoliceRajasthan/ " target='_blank' className={`flex items-center`}>
+            <Link
+              href="https://www.instagram.com/PoliceRajasthan/ "
+              target="_blank"
+              className={`flex items-center`}
+            >
               <div>
                 <Icon icon="instagram" width={30} />
               </div>
             </Link>
           </div>
           <div>
-            <Link href="https://www.facebook.com/PoliceRajasthan/?locale=hi_IN" target='_blank' className={`flex items-center`}>
+            <Link
+              href="https://www.facebook.com/PoliceRajasthan/?locale=hi_IN"
+              target="_blank"
+              className={`flex items-center`}
+            >
               <div>
                 <Icon icon="facebook" width={30} />
               </div>
             </Link>
           </div>
           <div>
-            <Link href="https://twitter.com/PoliceRajasthan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target='_blank' className={`flex items-center`}>
+            <Link
+              href="https://twitter.com/PoliceRajasthan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+              target="_blank"
+              className={`flex items-center`}
+            >
               <div>
                 <Icon icon="twitter" width={30} />
               </div>

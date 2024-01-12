@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import ConfirmationBox from "../components/ConfirmationBox";
 
 const Confirmation = () => {
   return (
-    <div>Confirmation</div>
-  )
-}
+    <div className="flex justify-center m-12">
+      <ConfirmationBox />
+    </div>
+  );
+};
 
-export default Confirmation
+export default Confirmation;

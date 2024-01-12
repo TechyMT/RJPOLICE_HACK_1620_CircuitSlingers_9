@@ -8,6 +8,7 @@ import {
   SelectItem,
   Divider,
   Textarea,
+  Checkbox,
 } from "@nextui-org/react";
 import VictimForm from "../VictimForm";
 import SuspectForm from "../SuspectForm";
@@ -24,7 +25,7 @@ interface FormProps {
 const Form: React.FC<FormProps> = ({ formData, onChange }) => {
   const [lostMoney, setLostMoney] = React.useState(false);
   const [suspectAccount, setSuspectAccount] = React.useState(false);
-  const [loading,setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const user = useAuthStore((state) => state.user);
   const handleChange = (value: string) => {
     onChange("isMoneyLost", value === "yes");
@@ -47,8 +48,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
       if (formData.evidencesURL) {
         alert("Evidence Uploaded!");
         setLoading(false);
-      }
-      else {
+      } else {
         alert("Error in uploading evidence!");
         setLoading(false);
       }
@@ -59,6 +59,12 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
   return (
     <>
       <div className="flex flex-col gap-10 items-center">
+        <div className="flex justify-start w-full">
+          <Checkbox onChange={(e) => onChange("selfFill", e.target.checked)}>
+            I am filling the form for myself (keep this unchecked if you are
+            not)
+          </Checkbox>
+        </div>
         <div className="flex w-full">
           <Select
             label="Category of complaint"
