@@ -49,6 +49,8 @@ public class IncidentReportEntity {
 
     private UserAccountInfo userAccountInfo;
 
+    private String email;
+
     private List<String> evidencesURL;
 
     private String city;

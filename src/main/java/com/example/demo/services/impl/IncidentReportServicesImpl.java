@@ -56,14 +56,19 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         IncidentReportEntity createdReport = reportRepository.save(incidentReportEntity);
         createReport(userId,incidentReportDto,createdReport);
         createPdf(incidentReportDto);
-        senderService.sendSimpleEmail("cboys39123@gmail.com","Why are you gay","Why Gay");
+        senderService.sendCaseRegistrationEmail(incidentReportDto.getEmail());
         scheduler.schedule(() -> {
-            if (createdReport.isBankAccInvolved()) {
-                System.out.println("Sending bank-related notification...");
-                messagingService.sendNotificationByToken(new Notifications(incidentReportDto.getRecipientToken()));
+            String recipientToken = incidentReportDto.getRecipientToken();
+            if (recipientToken != null && !recipientToken.isEmpty()) {
+                if (createdReport.isBankAccInvolved()) {
+                    System.out.println("Sending bank-related notification...");
+                    messagingService.sendNotificationByToken(new Notifications(recipientToken));
+                }
+                System.out.println("Sending FIR notification...");
+                messagingService.sendFIRnotification(new FIRClass(recipientToken));
+            } else {
+                System.out.println("Recipient token not present. No notifications will be sent.");
             }
-            System.out.println("Sending FIR notification...");
-            messagingService.sendFIRnotification(new FIRClass(incidentReportDto.getRecipientToken()));
         }, 5, TimeUnit.SECONDS);
         return reportMapper.mapFrom(createdReport);
     }

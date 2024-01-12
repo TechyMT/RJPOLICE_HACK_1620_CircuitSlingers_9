@@ -31,6 +31,7 @@ public class ReportStatusImpl implements ReportStatusServices {
     private final IncidentReportMapperImpl incidentMapper;
     private final UserRepository userRepository;
     private final FirebaseMessagingService messagingService;
+    private final EmailSenderService senderService;
 
     @Override
     public ReportStatusDto createReportStatus(ReportStatusDto reportStatusDto) {
@@ -44,21 +45,27 @@ public class ReportStatusImpl implements ReportStatusServices {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Optional<ReportStatusEntity> reportStatus = statusRepository.findByTrackId(reportStatusDto.getTrackId());
         if (reportStatus.isPresent()) {
+            IncidentReportEntity incidentReportEntity = reportRepository.findByTrackId(reportStatusDto.getTrackId());
+            String recipientToken = incidentReportEntity.getRecipientToken();
             ReportStatusEntity existingStatus = reportStatus.get();
             if (!reportStatusDto.isPending()) {
+                senderService.sendCaseCompletionEmail(incidentReportEntity.getEmail());
                 existingStatus.setFlag(2);
                 existingStatus.setCurrentStatus("Case Completed");
             } else {
+                senderService.sendCaseUnderInvestigationEmail(incidentReportEntity.getEmail());
                 existingStatus.setFlag(1);
                 existingStatus.setCurrentStatus(reportStatusDto.getCurrentStatus());
             }
             existingStatus.setUpdatedDate(sdf.format(new Date()));
-            IncidentReportEntity incidentReportEntity = reportRepository.findByTrackId(reportStatusDto.getTrackId());
-            messagingService.sendUpdateNotifications(new
-                    UpdateNotifications(
-                    incidentReportEntity.getRecipientToken(),
-                    existingStatus.getCurrentStatus(),
-                    "Update on your Track Id : " + reportStatusDto.getTrackId()));
+            if (recipientToken != null && !recipientToken.isEmpty()) {
+                messagingService.sendUpdateNotifications(new UpdateNotifications(
+                        recipientToken,
+                        existingStatus.getCurrentStatus(),
+                        "Update on your Track Id : " + reportStatusDto.getTrackId()));
+            } else {
+                System.out.println("Recipient token not present. No update notification will be sent.");
+            }
             existingStatus.setPending(reportStatusDto.isPending());
             ReportStatusEntity updatedReport = statusRepository.save(existingStatus);
             return reportMapper.mapFrom(updatedReport);

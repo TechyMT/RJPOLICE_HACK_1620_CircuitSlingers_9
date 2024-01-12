@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Questionnaire {
-    private String type;
+
     private String question;
     private String answer;
 }

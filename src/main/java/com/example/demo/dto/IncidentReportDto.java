@@ -40,6 +40,8 @@ public class IncidentReportDto {
 
     private String phoneNumber;
 
+    private String email;
+
     private List<String> evidencesURL;
 
     @NotBlank(message = "City has to be entered")
