@@ -21,7 +21,11 @@ class DetailsController extends GetxController {
   TextEditingController dateOfCrimeController = TextEditingController();
   TextEditingController dateOfReportController = TextEditingController();
   TextEditingController dateOfTransactionController = TextEditingController();
+  TextEditingController userBankNameController = TextEditingController();
+  TextEditingController suspectBankNameController = TextEditingController();
+  TextEditingController pincodeController = TextEditingController();
   bool isBankAccInvolved = false;
+  bool isSuspectDetailsInvolved = false;
   List<String> evidenceURLs = [];
 
   Future<void> clearControllers() async {
@@ -73,5 +77,33 @@ class DetailsController extends GetxController {
         filesAdded.value = true;
       });
     }
+  }
+
+  Future<void> controllerInitialization() async {
+      List<TextEditingController> controllers = [
+          fullNameController,
+          dateOfBirthController,
+          aadharNumberController,
+          incidentDescriptionController,
+          cityController,
+          onlineAccountInformationController,
+          categoryController,
+          transactionIdController,
+          suspectNumberController,
+          suspectAccController,
+          amountLostController,
+          dateOfCrimeController,
+          dateOfReportController,
+          dateOfTransactionController,
+          userBankNameController,
+          suspectBankNameController,
+          pincodeController,
+        ];
+
+        controllers.forEach((controller) {
+          if (controller.text.isEmpty) {
+            controller.text = "NA";
+          }
+        });
   }
 }

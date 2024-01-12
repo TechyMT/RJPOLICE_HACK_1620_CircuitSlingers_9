@@ -50,7 +50,7 @@ Future<void> createUser() async {
   User? user = FirebaseAuth.instance.currentUser;
 
   if (user != null) {
-    final url = 'http://192.168.1.2:8080/api/add';
+    final url = 'http://192.168.181.81:8080/api/add';
     final headers = {'Content-Type': 'application/json'};
 
     final userData = {
@@ -66,7 +66,7 @@ Future<void> createUser() async {
       headers: headers,
       body: jsonEncode(userData),
     );
-    if (response.statusCode != 200) {
+    if (response.statusCode == 200) {
       print('API call failed with status code: ${response.statusCode}');
     } else {
       print('User not authenticated.');
@@ -76,7 +76,8 @@ Future<void> createUser() async {
 
 Future<void> fetchQuestions(String description) async {
   final FunctionController functionController = Get.put(FunctionController());
-  final url = Uri.parse("http://192.168.1.2:8080/api/report/generateQuestions");
+  final url =
+      Uri.parse("http://192.168.181.81:8080/api/report/generateQuestions");
   try {
     functionController.isLoading.value = true;
     final response = await http.post(
@@ -100,18 +101,20 @@ Future<void> fetchQuestions(String description) async {
 Future<int> submitReport() async {
   final DetailsController controller = Get.put(DetailsController());
   final FunctionController functionController = Get.put(FunctionController());
-  const url = 'http://192.168.1.2:8080/api/report/add';
+  const url = 'http://192.168.181.81:8080/api/report/add';
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String? uid = sharedPreferences.getString('userId');
   String? token = sharedPreferences.getString('recipientToken');
 
   final Map<String, dynamic> userAccInfo = {
     "amountLost": controller.amountLostController.text,
+    "bankName":controller.userBankNameController,
     "dateOfTransaction": controller.dateOfTransactionController.text,
     "transaction": controller.transactionIdController.text,
     "accountNumber": controller.onlineAccountInformationController.text,
   };
   final Map<String, dynamic> suspectInfo = {
+    "suspectBankName":controller.suspectBankNameController.text,
     "suspectPhoneNumber": controller.suspectNumberController.text,
     "suspectAccountNumber": controller.suspectAccController.text,
   };
@@ -126,6 +129,7 @@ Future<int> submitReport() async {
     "dateOfBirth": controller.dateOfBirthController.text,
     "aadharNumber": controller.aadharNumberController.text,
     "incidentDescription": controller.incidentDescriptionController.text,
+    "pincode":controller.pincodeController,
     "suspectInfo": suspectInfo,
     "userAccountInfo": userAccInfo,
     "evidencesURL": controller.evidenceURLs,
@@ -162,7 +166,7 @@ Future<void> fetchReportStatusList() async {
   String? uid = sharedPreferences.getString('userId');
 
   final response = await http
-      .get(Uri.parse('http://192.168.1.2:8080/api/admin/reports/$uid'));
+      .get(Uri.parse('http://192.168.181.81:8080/api/admin/reports/$uid'));
 
   if (response.statusCode == 200) {
     List<dynamic> data = jsonDecode(response.body);
@@ -175,13 +179,14 @@ Future<void> fetchReportStatusList() async {
             pending: json['pending']))
         .toList();
   } else {
+    print(response.statusCode);
     throw Exception('Failed to load report status list');
   }
 }
 
 Future<ReportData> getReportData(int trackId) async {
   final response = await http
-      .get(Uri.parse('http://192.168.1.2:8080/api/admin/status/$trackId'));
+      .get(Uri.parse('http://192.168.181.81:8080/api/admin/status/$trackId'));
 
   if (response.statusCode == 200) {
     return welcomeFromJson(response.body);
@@ -189,3 +194,65 @@ Future<ReportData> getReportData(int trackId) async {
     throw Exception('Failed to load report data');
   }
 }
+
+Future<void> checkEmail(String email) async {
+  final ReportStatusController controller = Get.put(ReportStatusController());
+  final response = await http.get(
+      Uri.parse('http://192.168.181.81:8080/api/fraud_search/emails/$email'));
+  controller.isEmailchecked.value = true;
+  if (response.statusCode == 200) {
+    Map<String, dynamic> jsonResponse = json.decode(response.body);
+    if (jsonResponse.containsKey('isFraud') && jsonResponse['isFraud'] == 1) {
+      controller.setPhishingText('Phishing Email');
+    } else {
+      controller.setPhishingText('Data not in our database');
+    }
+    print(response.statusCode);
+  } else {
+    print(response.statusCode);
+    throw Exception('Failed to Load Data');
+  }
+}
+
+Future<void> checkPhoneNumber(String phoneNumber) async {
+  final ReportStatusController controller = Get.put(ReportStatusController());
+  final response = await http.get(
+      Uri.parse('http://192.168.181.81:8080/api/fraud_search/numbers/$phoneNumber'));
+  controller.isPhoneNumberChecked.value = true;
+  if (response.statusCode == 200) {
+    Map<String, dynamic> jsonResponse = json.decode(response.body);
+
+    if (jsonResponse.containsKey('isFraud') && jsonResponse['isFraud'] == 1) {
+      controller.setPhoneNumberPhishingText('Phishing Phone Number');
+    } else {
+      controller.setPhoneNumberPhishingText('Data not in our database');
+    }
+
+    print(response.statusCode);
+  } else {
+    print(response.statusCode);
+    throw Exception('Failed to Load Data');
+  }
+}
+
+Future<void> checkAccountNumber(String accountNumber) async {
+  final ReportStatusController controller = Get.put(ReportStatusController());
+  final response = await http.get(
+      Uri.parse('http://192.168.181.81:8080/api/fraud_search/accountNumbers/$accountNumber'));
+  controller.isAccountNumberChecked.value = true;
+  if (response.statusCode == 200) {
+    Map<String, dynamic> jsonResponse = json.decode(response.body);
+
+    if (jsonResponse.containsKey('isFraud') && jsonResponse['isFraud'] == 1) {
+      controller.setAccountNumberPhishingText('Phishing Account Number');
+    } else {
+      controller.setAccountNumberPhishingText('Data not in our database');
+    }
+
+    print(response.statusCode);
+  } else {
+    print(response.statusCode);
+    throw Exception('Failed to Load Data');
+  }
+}
+

@@ -13,10 +13,7 @@ class FirebaseMessagingService {
         provisional: false,
         sound: true,
       );
-      print('User granted permission: ${settings.authorizationStatus}');
-      // Get the registration token
       String? token = await _firebaseMessaging.getToken();
-
       if (token != null) {
         SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
