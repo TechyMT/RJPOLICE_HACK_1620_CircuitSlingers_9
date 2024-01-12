@@ -1,14 +1,21 @@
 import { lazy } from 'react';
 import ECommerce from '../pages/Dashboard/ECommerce';
 
+// const Calendar = lazy(() => import('../pages/Calendar'));
+// const Chart = lazy(() => import('../pages/Chart'));
+// const FormLayout = lazy(() => import('../pages/Form/FormLayout'));
+// const Profile = lazy(() => import('../pages/Profile'));
+// const Settings = lazy(() => import('../pages/Settings'));
+// const Tables = lazy(() => import('../pages/Tables'));
+// const Report = lazy(() => import('../pages/Report'));
+import Calendar from '../pages/Calendar';
+import Chart from '../pages/Chart';
+import FormLayout from '../pages/Form/FormLayout';
+import Profile from '../pages/Profile';
+import Settings from '../pages/Settings';
+import Tables from '../pages/Tables';
+import Report from '../pages/Report';
 
-const Calendar = lazy(() => import('../pages/Calendar'));
-const Chart = lazy(() => import('../pages/Chart'));
-const FormLayout = lazy(() => import('../pages/Form/FormLayout'));
-const Profile = lazy(() => import('../pages/Profile'));
-const Settings = lazy(() => import('../pages/Settings'));
-const Tables = lazy(() => import('../pages/Tables'));
-const Report = lazy(() => import('../pages/Report'));
 const coreRoutes = [
   {
     path: '/',
