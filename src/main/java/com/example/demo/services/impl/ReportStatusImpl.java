@@ -17,6 +17,7 @@ import com.example.demo.services.ReportStatusServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,7 @@ public class ReportStatusImpl implements ReportStatusServices {
 
     @Override
     public ReportStatusDto updateReportStatus(ReportStatusDto reportStatusDto) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Optional<ReportStatusEntity> reportStatus = statusRepository.findByTrackId(reportStatusDto.getTrackId());
         if (reportStatus.isPresent()) {
             ReportStatusEntity existingStatus = reportStatus.get();
@@ -50,6 +52,7 @@ public class ReportStatusImpl implements ReportStatusServices {
                 existingStatus.setFlag(1);
                 existingStatus.setCurrentStatus(reportStatusDto.getCurrentStatus());
             }
+            existingStatus.setUpdatedDate(sdf.format(new Date()));
             IncidentReportEntity incidentReportEntity = reportRepository.findByTrackId(reportStatusDto.getTrackId());
             messagingService.sendUpdateNotifications(new
                     UpdateNotifications(

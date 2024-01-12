@@ -27,6 +27,8 @@ public class ReportStatusEntity {
 
     private String city;
 
+    private String updatedDate;
+
     private Integer flag;
 
     private boolean pending;

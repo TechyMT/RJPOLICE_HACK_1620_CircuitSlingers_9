@@ -1,6 +1,7 @@
 package com.example.demo.services.impl;
 
 import com.example.demo.dto.IncidentReportDto;
+import com.example.demo.dto.ReportTemplate;
 import com.example.demo.entities.*;
 import com.example.demo.entities.notifications.FIRClass;
 import com.example.demo.entities.notifications.Notifications;
@@ -11,7 +12,6 @@ import com.example.demo.mappers.impl.IncidentReportMapperImpl;
 import com.example.demo.repository.IncidentReportRepository;
 import com.example.demo.repository.ReportStatusRepository;
 import com.example.demo.repository.UserRepository;
-//import com.example.demo.services.FirebaseStorageService;
 import com.example.demo.services.IncidentReportServices;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +20,8 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Executors;
@@ -35,11 +37,9 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
     private final IncidentReportRepository reportRepository;
     private final UserRepository userRepository;
     private final FirebaseMessagingService messagingService;
-  //  private final FirebaseStorageService firebaseStorageService;
     private final DocumentGenerator documentGenerator;
     private final ReportStatusRepository statusRepository;
     private final TemplateEngine templateEngine;
- //   private final PdfGenerationService pdfGenerationService;
     private final DataMapper dataMapper;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
@@ -53,22 +53,8 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         IncidentReportEntity incidentReportEntity = reportMapper.mapTo(incidentReportDto);
         incidentReportEntity.setUser(user);
         IncidentReportEntity createdReport = reportRepository.save(incidentReportEntity);
-        ReportStatusEntity reportStatusEntity = new ReportStatusEntity();
-        reportStatusEntity.setCurrentStatus("Case Register , E-FIR filed");
-        Integer track_id = (int)(Math.random()*1000);
-        reportStatusEntity.setTrackId(track_id);
-        reportStatusEntity.setPending(true);
-        reportStatusEntity.setUserId(userId);
-        reportStatusEntity.setFlag(0);
-        reportStatusEntity.setReportDate(incidentReportDto.getDateOfReport());
-        reportStatusEntity.setCity(incidentReportEntity.getCity());
-        createdReport.setTrackId(track_id);
-        reportStatusEntity.setIncidentReport(createdReport);
-        ReportStatusEntity savedReportStatus = statusRepository.save(reportStatusEntity);
-        createdReport.getReports().add(savedReportStatus);
-        reportRepository.save(createdReport);
+        createReport(userId,incidentReportDto,createdReport);
         createPdf(incidentReportDto);
-        //pdfGenerationService.generateAndSavePdf(incidentReportDto);
         scheduler.schedule(() -> {
             if (createdReport.isBankAccInvolved()) {
                 System.out.println("Sending bank-related notification...");
@@ -124,34 +110,31 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
     }
 
     public void createPdf(IncidentReportDto incidentReportDto){
-        String finalHtml = null;
+        String finalHtml;
         Context dataContext = dataMapper.setData(incidentReportDto);
-        String templateContent = "<!DOCTYPE html>\n" +
-                "<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\n" +
-                "<head>\n" +
-                "    <meta charset=\"UTF-8\"/>\n" +
-                "    <title>Incident Report</title>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "<h1>User Information</h1>\n" +
-                "<p th:text=\"${fullName}\">Full Name: </p>\n" +
-                "<p th:text=\"${dateOfBirth}\">Date of Birth: </p>\n" +
-                "<h1>Incident Details</h1>\n" +
-                "<p th:text=\"${dateOfCrime}\">Date of Crime: </p>\n" +
-                "<p th:text=\"${dateOfReport}\">Date of Report: </p>\n" +
-                "\n" +
-                "<h1>Evidences</h1>\n" +
-                "<ul>\n" +
-                "    <li th:each=\"evidence : ${evidencesURL}\" th:text=\"${evidence}\">Evidences URL: </li>\n" +
-                "</ul>\n" +
-                "\n" +
-                "<h1>City</h1>\n" +
-                "<p th:text=\"${city}\">City: </p>\n" +
-                "</body>\n" +
-                "</html>\n";
-        finalHtml = templateEngine.process(templateContent, dataContext);
+        ReportTemplate reportTemplate = new ReportTemplate();
+        finalHtml = templateEngine.process(reportTemplate.templateContent, dataContext);
         documentGenerator.htmlToPdf(finalHtml);
     }
 
+    public void createReport(String userId,IncidentReportDto incidentReportDto,IncidentReportEntity createdReport){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = sdf.format(new Date());
 
+        ReportStatusEntity reportStatusEntity = new ReportStatusEntity();
+        reportStatusEntity.setCurrentStatus("Case Register , E-FIR filed");
+        Integer track_id = (int)(Math.random()*1000);
+        reportStatusEntity.setTrackId(track_id);
+        reportStatusEntity.setPending(true);
+        reportStatusEntity.setUserId(userId);
+        reportStatusEntity.setFlag(0);
+        reportStatusEntity.setUpdatedDate(formattedDate);
+        reportStatusEntity.setReportDate(incidentReportDto.getDateOfReport());
+        reportStatusEntity.setCity(incidentReportDto.getCity());
+        createdReport.setTrackId(track_id);
+        reportStatusEntity.setIncidentReport(createdReport);
+        ReportStatusEntity savedReportStatus = statusRepository.save(reportStatusEntity);
+        createdReport.getReports().add(savedReportStatus);
+        reportRepository.save(createdReport);
+    }
 }

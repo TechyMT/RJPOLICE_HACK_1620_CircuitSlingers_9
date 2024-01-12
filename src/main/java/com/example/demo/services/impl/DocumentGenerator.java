@@ -28,7 +28,7 @@ public class DocumentGenerator {
 
             HtmlConverter.convertToPdf(processedHtml, pdfwriter, converterProperties);
 
-            String outputPath = "output.pdf";
+            String outputPath = "report.pdf";
 
             try (FileOutputStream fout = new FileOutputStream(outputPath)) {
                 byteArrayOutputStream.writeTo(fout);
