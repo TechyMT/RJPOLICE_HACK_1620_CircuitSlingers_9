@@ -9,11 +9,11 @@ import routes from './routes';
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 
 function App() {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  // useEffect(() => {
-  //   setTimeout(() => setLoading(false), 1000);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
 
   return loading ? (
     <Loader />
@@ -31,7 +31,17 @@ function App() {
           <Route index element={<ECommerce />} />
           {routes.map((routes, index) => {
             const { path, component: Component } = routes;
-            return <Route key={index} path={path} element={<Component />} />;
+            return (
+              <Route
+                key={index}
+                path={path}
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <Component />
+                  </Suspense>
+                }
+              />
+            );
           })}
         </Route>
       </Routes>
