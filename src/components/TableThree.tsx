@@ -114,31 +114,9 @@ const PackageItem: React.FC<any> = ({
   );
 };
 
-const TableThree = () => {
+const TableThree:React.FC<any> = ({packages,loading}) => {
   const entriesPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  const [packages, setPackages] = useState<any>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(`${publicUrl()}/admin/allStatus`, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        console.log(response.data);
-        setPackages(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching data', error);
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
 
   const totalEntries = packages.length;
   const totalPages = Math.ceil(totalEntries / entriesPerPage);
