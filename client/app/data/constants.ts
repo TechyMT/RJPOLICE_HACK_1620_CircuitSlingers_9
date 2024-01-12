@@ -107,3 +107,52 @@ export const videos = [
             "While the flexibility of working from home offers convenience, it's essential to be vigilant against potential pitfalls. Verify the legitimacy of remote job opportunities, be cautious of unsolicited offers, and never share sensitive information without proper authentication. Prioritize secure communication channels and stay informed about common work-from-home scams to ensure a safe and productive remote work experience. Your diligence is key to navigating the digital workspace securely.",
     },
 ];
+
+export const questionaire = {
+    "questions": [
+        {
+            "question": "Who or what was the target of the cyber attack?",
+            "response": ""
+        },
+        {
+            "question": "Please provide the contact information of the affected victims.",
+            "response": ""
+        },
+        {
+            "question": "Can you describe the methods used by the perpetrator(s) during the cyber crime?",
+            "response": ""
+        },
+        {
+            "question": "Do you have any digital evidence related to the incident, such as screenshots, emails, or log files?",
+            "response": ""
+        },
+        {
+            "question": "Which devices or systems were implicated in the cyber attack?",
+            "response": ""
+        },
+        {
+            "question": "Do you have any information about potential suspects, including names, aliases, or any identifiable information?",
+            "response": ""
+        },
+        {
+            "question": "Are there any connections or motives that might assist in identifying the perpetrator(s)?",
+            "response": ""
+        },
+        {
+            "question": "What was the impact of the cyber crime on individuals or organizations?",
+            "response": ""
+        },
+        {
+            "question": "Can you provide specifics regarding financial losses, data breaches, or disruptions caused?",
+            "response": ""
+        },
+        {
+            "question": "What preventive measures have been implemented to mitigate ongoing damage or prevent future cyber attacks?",
+            "response": ""
+        },
+        {
+            "question": "Are there any additional details or observations that might assist in the investigation?",
+            "response": ""
+        }
+    ]
+}

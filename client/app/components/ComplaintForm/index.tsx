@@ -7,6 +7,8 @@ import Form from "../IncidentForm";
 import ComplaintInfoForm from "../ComplaintInfoForm";
 import { publicUrl } from "../../utils/publicURL";
 import ConfirmForm from "../ConfirmForm";
+import { questionaire } from "../../data/constants";
+import DynamicForm from "../DynamicForm";
 
 export const categories = [
   "Identity Fraud",
@@ -25,13 +27,19 @@ export const stepperTitles = [
 const ComplaintForm = () => {
   const user = useAuthStore((state) => state.user);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<any>({
     name: "",
     phoneNumber: "",
     location: "",
     pincode: "",
     description: "",
     categoryOfComplaint: "root",
+    questionnaire: [
+      {
+        question: "Can you provide more details about the incident?",
+        answer: "Additional details provided",
+      },
+    ],
     evidencesURL: [],
     isMoneyLost: false,
     victimBank: "root",
@@ -51,10 +59,20 @@ const ComplaintForm = () => {
   });
 
   const [step, setStep] = useState(1);
-  const [dynamicForm, setDynamicForm] = useState(null);
+  const [dynamicForm, setDynamicForm] = useState<any>(null);
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData((prevData) => ({
+  const handleInputChange = (field: string, value: string, index?: number) => {
+    if (index !== undefined) {
+      const { questionnaire } = formData;
+      console.log("questionnare value", questionnaire[index]);
+      questionnaire[index].response = value;
+      setFormData((prevData: any) => ({
+        ...prevData,
+        questionnaire,
+      }));
+      return;
+    }
+    setFormData((prevData: any) => ({
       ...prevData,
       [field]: value,
     }));
@@ -75,10 +93,18 @@ const ComplaintForm = () => {
       //     console.log(res);
       //     setDynamicForm(res);
       //   });
-      if(formData.evidencesURL.length === 0){
+
+      if (formData.evidencesURL.length === 0) {
         alert("Please upload evidence");
         return;
       }
+      const { questions } = questionaire;
+      // console.log("questions", questions);
+      setFormData((prevData: any) => ({
+        ...prevData,
+        questionnaire: questions,
+      }));
+      setDynamicForm(questions);
     } else if (step === 4) {
       // Handle form submission logic here
       console.log("Form Data:", formData);
@@ -161,6 +187,7 @@ const ComplaintForm = () => {
         dob: "",
         adhaarNumber: "",
         evidencesList: [],
+        questionnaire: [],
       });
     }
     // Move to the next step or submit the form
@@ -232,7 +259,12 @@ const ComplaintForm = () => {
 
             {step === 2 && (
               <>
-                <div>Hello</div>
+                {formData.questionnaire && (
+                  <DynamicForm
+                    formData={formData}
+                    onChange={handleInputChange}
+                  />
+                )}
               </>
             )}
 
