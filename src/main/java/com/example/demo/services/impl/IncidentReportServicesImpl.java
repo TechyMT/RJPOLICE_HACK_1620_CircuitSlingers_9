@@ -41,6 +41,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
     private final ReportStatusRepository statusRepository;
     private final TemplateEngine templateEngine;
     private final DataMapper dataMapper;
+    private final EmailSenderService senderService;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     @Override
@@ -55,6 +56,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         IncidentReportEntity createdReport = reportRepository.save(incidentReportEntity);
         createReport(userId,incidentReportDto,createdReport);
         createPdf(incidentReportDto);
+        senderService.sendSimpleEmail("cboys39123@gmail.com","Why are you gay","Why Gay");
         scheduler.schedule(() -> {
             if (createdReport.isBankAccInvolved()) {
                 System.out.println("Sending bank-related notification...");

@@ -58,7 +58,7 @@ public class IncidentReportDto {
 
     private SuspectInfo suspectInfo;
 
-    @NotBlank(message = "Error Detected")
+
     private String recipientToken;
 
     private List<Questionnaire> questionnaire;
