@@ -1,6 +1,7 @@
 // authStore.ts
 "use client";
 import create from "zustand";
+
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -33,6 +34,8 @@ const useAuthStore = create<State & Action>((set) => ({
       const res = await signInWithPopup(auth, googleProvider);
       console.log("User Signed In!!!");
       console.log(res.user);
+
+      // Continue with your other logic
       localStorage.setItem("user", JSON.stringify(res.user));
       set({ user: res.user, isLogedIn: true });
     } catch (error) {
@@ -84,3 +87,6 @@ const useAuthStore = create<State & Action>((set) => ({
 }));
 
 export default useAuthStore;
+function importScripts(arg0: string) {
+  throw new Error("Function not implemented.");
+}

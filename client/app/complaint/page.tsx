@@ -13,7 +13,6 @@ const Complaint = () => {
 
   const alertUser = (e: any) => {
     e.preventDefault();
-    console.log("Hello")
     e.returnValue = "Hello";
   };
 

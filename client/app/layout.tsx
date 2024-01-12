@@ -5,6 +5,7 @@ import { Providers } from "./providers";
 import Navbar from "./components/Navbar";
 import HomeNav from "./components/HomeNav";
 import Footer from "./components/Footer";
+import Alert from "./components/AlertMaqrquee";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           <HomeNav />
+          <Alert />
           {children}
           <Footer />
         </Providers>

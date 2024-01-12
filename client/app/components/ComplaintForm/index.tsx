@@ -94,7 +94,10 @@ const ComplaintForm = () => {
       //     setDynamicForm(res);
       //   });
 
-      if (formData.evidencesURL.length === 0) {
+      if (
+        formData.evidencesURL.length === 0 &&
+        formData.evidencesList.length !== 0
+      ) {
         alert("Please upload evidence");
         return;
       }

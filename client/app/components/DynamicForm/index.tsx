@@ -6,7 +6,7 @@ const DynamicForm: React.FC<any> = ({ onChange, formData }) => {
   return (
     <div className="flex flex-col gap-10 items-center">
       {formData.questionnaire.map((item: any, index: number) => (
-        <div className="flex w-full">
+        <div className="flex w-full" key={index}>
           <Textarea
             key={index} // Added a unique key for each Textarea
             width="80%"

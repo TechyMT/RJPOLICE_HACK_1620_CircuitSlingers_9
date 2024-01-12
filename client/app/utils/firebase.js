@@ -2,6 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { getToken } from "firebase/messaging";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -36,7 +38,7 @@ const uploadFiles = async (files, user) =>
             const url = await getDownloadURL(uploadTask.ref);
             urlList.push(url);
             console.log("uploading state", uploadTask.state);
-            
+
 
         }
         console.log("urlList", urlList);
