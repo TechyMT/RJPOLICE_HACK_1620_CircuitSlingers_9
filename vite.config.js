@@ -7,6 +7,6 @@ export default defineConfig(({ command }) =>
   const isProduction = command === 'build';
   return {
     plugins: [react()],
-    base: isProduction ? '/' : '/',
+    base: isProduction ? '/dist/' : '/dist/',
   };
 });
