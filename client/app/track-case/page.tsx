@@ -68,7 +68,9 @@ const TrackStatus = () => {
               />
             </div>
           </div>
-          <FAQComponent />
+          <div>
+            <FAQComponent/>
+         </div>
         </>
       )}
     </div>
