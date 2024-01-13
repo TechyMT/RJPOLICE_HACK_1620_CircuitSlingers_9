@@ -56,7 +56,7 @@ const Complaint = () => {
     return <ComplaintForm />;
   }
   else {
-    router.push("/");
+    push("/signin");
   }
   
 };
