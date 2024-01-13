@@ -23,16 +23,6 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const apiKey = "780bfe8c9b6c4e08bd1e755df0cc8ef7";
-        const query = "cybercrime in india";
-        const apiUrl = `https://newsapi.org/v2/everything?q=${query}&language=en&apiKey=${apiKey}`;
-
-        console.log("API Request URL:", apiUrl);
-
-        const response = await axios.get<NewsResponse>(apiUrl);
-
-        console.log("API Response:", response.data);
-
         if (newsData && newsData.length > 0) {
           setNews(newsData);
         } else {
