@@ -1,25 +1,63 @@
-import React from "react";
-import Heading from "../Heading";
-import { faqs } from "../../data/constants";
+import React, { useState } from 'react';
 
-const FAQComponent = () => {
-  return (
-    <section className="bg-white dark:bg-gray-900">
-      <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-        <Heading>Frequently asked questions</Heading>
-        <div className="grid pt-8 text-left border-t border-gray-200 md:gap-16 dark:border-gray-700 md:grid-cols-2">
-          {faqs.map((faq, index) => (
-            <div key={index}>
-              <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
-                {faq.question}
-              </h3>
-              <p className="text-gray-500 dark:text-gray-300">{faq.answer}</p>
-            </div>
-          ))}
-        </div>
+const FaqItem = ({ question, answer, isOpen, toggle }) => (
+  <div className="border-t">
+    <div
+      className="flex justify-between items-center p-4 cursor-pointer bg-gray-200"
+      onClick={toggle}
+    >
+      <div className="font-semibold text-blue-600">{question}</div>
+      <div className={`transform ${isOpen ? 'rotate-180' : 'rotate-0'}`}>
+        &#x25BE;
       </div>
-    </section>
+    </div>
+    {isOpen && (
+      <div className="p-4 bg-gray-100">
+        <p className="text-gray-700">{answer}</p>
+      </div>
+    )}
+  </div>
+);
+
+const App = () => {
+  const faqData = [
+    {
+      id: 1,
+      question: 'What is Lorem Ipsum?',
+      answer:
+        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    },
+    {
+      id: 2,
+      question: 'Why do we use it?',
+      answer:
+        'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
+    },
+    // Add more FAQ items as needed
+  ];
+
+  const [openFaq, setOpenFaq] = useState(null);
+
+  const toggleFaq = (id) => {
+    setOpenFaq((prevOpenFaq) => (prevOpenFaq === id ? null : id));
+  };
+
+  return (
+    <div className="max-w-md mx-auto mt-8">
+      <h1 className="text-3xl font-bold mb-6 text-center text-blue-600">
+        Frequently Asked Questions
+      </h1>
+      {faqData.map((faq) => (
+        <FaqItem
+          key={faq.id}
+          question={faq.question}
+          answer={faq.answer}
+          isOpen={openFaq === faq.id}
+          toggle={() => toggleFaq(faq.id)}
+        />
+      ))}
+    </div>
   );
 };
 
-export default FAQComponent;
+export default App;
