@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.dto.SuggestionDto;
 import com.example.demo.entities.incidentchild.Questionnaire;
 import com.example.demo.entities.incidentchild.QuestionnaireList;
 import com.example.demo.services.IncidentReportServices;
@@ -9,14 +10,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/report/")
@@ -86,4 +85,61 @@ public class DescriptionController {
 
     }
 
+    @PostMapping(path = "/getInformation")
+    public ResponseEntity<String> getInformationOnCategoryAndDescription(
+            @RequestBody SuggestionDto suggestionDto
+            ){
+
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        String urlAPI = "https://your-ngrok-url.com/api/generateDescription";
+//        HttpEntity<SuggestionDto> requestEntity = new HttpEntity<>(suggestionDto, headers);
+//        ResponseEntity<String> responseEntity = new RestTemplate().postForEntity(urlAPI, requestEntity, String.class);
+//        String apiResponse = responseEntity.getBody();
+
+        String output ="Step 1: Secure Your Account and Personal Information\n" +
+                "\n" +
+                "1.1.1 Immediately notify your bank about the incident and provide them with the necessary details to investigate and take action. This will help them identify and freeze any fraudulent accounts associated with your personal information.\n" +
+                "\n" +
+                "1.1.2 Change your bank's login credentials and update your multi-factor authentication (MFA) settings to further secure your account.\n" +
+                "\n" +
+                "1.1.3 Place a fraud alert on your credit reports to prevent any unauthorized usage of your personal information, such as opening new bank accounts or credit cards.\n" +
+                "\n" +
+                "1.1.4 Review your bank statements and transaction history to identify any suspicious activity. Notify your bank and report any unauthorized transactions to the relevant authorities.\n" +
+                "\n" +
+                "Step 2: Protect Your Digital Assets\n" +
+                "\n" +
+                "2.1.1 Update your devices' operating system and software to ensure you have the latest security patches and virus definitions.\n" +
+                "\n" +
+                "2.1.2 Use a robust antivirus program to scan your system for malware and vulnerabilities.\n" +
+                "\n" +
+                "2.1.3 Consider investing in cybersecurity software that offers enhanced protection for your digital assets, such as encryption tools or identity theft protection services.\n" +
+                "\n" +
+                "Step 3: Seek Legal Support\n" +
+                "\n" +
+                "3.1.1 Familiarize yourself with Indian laws and regulations regarding cybercrime, such as the Information Technology Act, 2000 (IT Act) and the Indian Penal Code. Understand your rights and options for seeking legal recourse.\n" +
+                "\n" +
+                "3.1.2 Consider consulting with a cybercrime lawyer who is knowledgeable about Indian laws and can provide personalized guidance on legal matters.\n" +
+                "\n" +
+                "Step 4: Monitor Your Personal Information\n" +
+                "\n" +
+                "4.1.1 Regularly check your credit reports and financial statements to detect any suspicious activity or unauthorized usage of your personal information.\n" +
+                "\n" +
+                "4.1.2 Monitor your bank accounts and credit cards for any unusual transactions, and report any discrepancies to the relevant authorities.\n" +
+                "\n" +
+                "4.1.3 Keep a close eye on your social media accounts and email addresses for any suspicious activity or phishing attempts.\n" +
+                "\n" +
+                "Additional Tips:\n" +
+                "\n" +
+                "* Document any correspondence or communication with the fraudsters, including screenshots and logs of their actions.\n" +
+                "* Report the incident to the relevant authorities, such as the police or the Federal Bureau of Investigation (FBI).\n" +
+                "* Consider joining a cybercrime support group to connect with others who have experienced similar situations.\n" +
+                "\n" +
+                "Remember, you're not alone in this fight. There are various resources available to help you recover from cyber fraud and protect your personal information. Please feel free to reach out to me if you have any further questions or concerns.\n" +
+                "\n" +
+                "---\n" +
+                "\n" +
+                "As an empathetic and capable AI assistant for the cyber police in India, I understand the gravity of the situation and am committed to providing personalized guidance to help you recover from the cyber fraud. Please feel free to reach out to me if you have any further questions or concerns, and I will do my best to assist you.";
+        return new ResponseEntity<>(output, HttpStatus.OK);
+    }
 }

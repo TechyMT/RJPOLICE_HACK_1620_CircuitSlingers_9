@@ -25,6 +25,8 @@ public class ReportStatusEntity {
 
     private String reportURL;
 
+    private String suggestions;
+
     private String currentStatus;
 
     private String city;

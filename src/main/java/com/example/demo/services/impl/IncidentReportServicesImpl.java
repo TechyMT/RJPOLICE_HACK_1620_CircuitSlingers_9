@@ -4,6 +4,8 @@ import com.example.demo.dto.IncidentReportDto;
 import com.example.demo.dto.ReportStatusDto;
 import com.example.demo.dto.ReportTemplate;
 import com.example.demo.entities.*;
+import com.example.demo.entities.incidentchild.SuspectInfo;
+import com.example.demo.entities.incidentchild.UserAccountInfo;
 import com.example.demo.entities.notifications.FIRClass;
 import com.example.demo.entities.notifications.Notifications;
 import com.example.demo.exceptions.NotFoundException;
@@ -20,9 +22,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -120,10 +120,39 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
     }
 
     public void createPdf(IncidentReportDto incidentReportDto,ReportStatusDto reportStatusDto){
+        Map<String, Object> placeholders = new HashMap<>();
+        placeholders.put("userId", incidentReportDto.getUserIdentification());
+        placeholders.put("fullName", incidentReportDto.getFullName());
+        placeholders.put("dateOfBirth", incidentReportDto.getDateOfBirth());
+        placeholders.put("aadharNumber", incidentReportDto.getAadharNumber());
+        placeholders.put("incidentDescription", incidentReportDto.getIncidentDescription());
+        placeholders.put("email", incidentReportDto.getEmail());
+        placeholders.put("isBankAccInvolved", String.valueOf(incidentReportDto.isBankAccInvolved()));
+        placeholders.put("phoneNumber", incidentReportDto.getPhoneNumber());
+        placeholders.put("dateOfCrime", incidentReportDto.getDateOfCrime());
+        placeholders.put("city",incidentReportDto.getCity());
+        placeholders.put("pincode",incidentReportDto.getPincode());
+        placeholders.put("category",incidentReportDto.getCategory());
+        placeholders.put("dateOfReport",incidentReportDto.getDateOfReport());
+        placeholders.put("evidencesURL",incidentReportDto.getEvidencesURL());
+        placeholders.put("questionnaire",incidentReportDto.getQuestionnaire());
+
+        UserAccountInfo userAccountInfo = incidentReportDto.getUserAccountInfo();
+        placeholders.put("bankName", userAccountInfo.getBankName());
+        placeholders.put("amountLost", String.valueOf(userAccountInfo.getAmountLost()));
+        placeholders.put("dateOfTransaction", userAccountInfo.getDateOfTransaction());
+        placeholders.put("transaction", userAccountInfo.getTransaction());
+        placeholders.put("accountNumber", userAccountInfo.getAccountNumber());
+
+        SuspectInfo suspectInfo = incidentReportDto.getSuspectInfo();
+        placeholders.put("suspectBankName", suspectInfo.getSuspectBankName());
+        placeholders.put("suspectPhoneNumber", suspectInfo.getSuspectPhoneNumber());
+        placeholders.put("suspectAccountNumber", suspectInfo.getSuspectAccountNumber());
+
         String finalHtml;
         Context dataContext = dataMapper.setData(incidentReportDto);
         ReportTemplate reportTemplate = new ReportTemplate();
-        finalHtml = templateEngine.process(reportTemplate.templateContent, dataContext);
+        finalHtml = replacePlaceholders(reportTemplate.templateContent, placeholders);
         documentGenerator.htmlToPdf(finalHtml,reportStatusDto);
     }
 
@@ -147,5 +176,14 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         createdReport.getReports().add(savedReportStatus);
         reportRepository.save(createdReport);
         return statusMapper.mapFrom(savedReportStatus);
+    }
+    public String replacePlaceholders(String template, Map<String, Object> placeholders) {
+        String result = template;
+        for (Map.Entry<String, Object> entry : placeholders.entrySet()) {
+            String placeholder = "${" + entry.getKey() + "}";
+            CharSequence replacement = entry.getValue().toString();
+            result = result.replace(placeholder, replacement);
+        }
+        return result;
     }
 }

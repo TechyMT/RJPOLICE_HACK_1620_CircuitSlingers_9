@@ -47,54 +47,54 @@ public class ReportTemplate {
             "    <table>\n" +
             "        <tr>\n" +
             "            <th>User Identification</th>\n" +
-            "            <td>zBwRffRwdANSB1jsTgbee4zfF392</td>\n" +
+            "            <td>${userId}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>Full Name</th>\n" +
-            "            <td>John Doe</td>\n" +
+            "            <td>${fullName}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>Date of Birth</th>\n" +
-            "            <td>1234567</td>\n" +
+            "            <td>${dateOfBirth}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>Aadhar Card No.</th>\n" +
-            "            <td>1234567</td>\n" +
+            "            <td>${aadharNumber}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>Incident Description</th>\n" +
-            "            <td>xyz</td>\n" +
+            "            <td>${incidentDescription}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>Is Bank Involved?</th>\n" +
-            "            <td>Yes</td>\n" +
+            "            <td>${isBankAccInvolved}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>Phone Number</th>\n" +
-            "            <td>1234567890</td>\n" +
+            "            <td>${phoneNumber}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>Date of Crime</th>\n" +
-            "            <td>12-3-23</td>\n" +
+            "            <td>${dateOfCrime}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>User Account Info</th>\n" +
             "            <td>\n" +
             "                <ul>\n" +
             "                    <li>\n" +
-            "                        <strong>Bank Name :</strong> John\n" +
+            "                        <strong>Bank Name :</strong> ${bankName}\n" +
             "                    </li>\n" +
             "                    <li>\n" +
-            "                        <strong>Amount Lost :</strong> 25000\n" +
+            "                        <strong>Amount Lost :</strong> ${amountLost}\n" +
             "                    </li>\n" +
             "                    <li>\n" +
-            "                        <strong>Date of Transcation :</strong> NA\n" +
+            "                        <strong>Date of Transaction :</strong> ${dateOfTransaction}\n" +
             "                    </li>\n" +
             "                    <li>\n" +
-            "                        <strong>Transaction :</strong> NA\n" +
+            "                        <strong>Transaction :</strong> ${transaction}\n" +
             "                    </li>\n" +
             "                    <li>\n" +
-            "                        <strong>Account Number :</strong> NA\n" +
+            "                        <strong>Account Number :</strong> ${accountNumber}\n" +
             "                    </li>\n" +
             "                </ul>\n" +
             "            </td>\n" +
@@ -104,43 +104,42 @@ public class ReportTemplate {
             "            <td>\n" +
             "                <ul>\n" +
             "                    <li>\n" +
-            "                        <strong>Suspect Bank Name :</strong> John\n" +
+            "                        <strong>Suspect Bank Name :</strong> ${suspectBankName}\n" +
             "                    </li>\n" +
             "                    <li>\n" +
-            "                        <strong>Suspect Phone No. :</strong> 123456789\n" +
+            "                        <strong>Suspect Phone No. :</strong> ${suspectPhoneNumber}\n" +
             "                    </li>\n" +
             "                    <li>\n" +
-            "                        <strong>Suspect Account No. :</strong> 123456789987654\n" +
+            "                        <strong>Suspect Account No. :</strong> ${suspectAccountNumber}\n" +
             "                    </li>\n" +
             "                </ul>\n" +
             "            </td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>Date of Report</th>\n" +
-            "            <td>4-4-23</td>\n" +
+            "            <td>${dateOfReport}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>Pincode</th>\n" +
-            "            <td>411043</td>\n" +
+            "            <td>${pincode}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>Evidence URL</th>\n" +
-            "            <td>xyz</td>\n" +
+            "            <td>${evidencesURL}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>Category</th>\n" +
-            "            <td>Online Bank</td>\n" +
+            "            <td>${category}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>City</th>\n" +
-            "            <td>Pune</td>\n" +
+            "            <td>${city}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <th>Questionnaire</th>\n" +
             "            <td>\n" +
             "                <ul>\n" +
-            "                    <li><strong>Clarify:</strong> Can you provide more details about the incident? - Additional details provided</li>\n" +
-            "                    <li><strong>Specifics:</strong> What specific information do you have about the incident? - Specific information provided</li>\n" +
+            "                    <li>${questionnaire}</li>\n" +
             "                </ul>\n" +
             "            </td>\n" +
             "        </tr>\n" +
