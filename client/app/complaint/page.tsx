@@ -52,11 +52,13 @@ const Complaint = () => {
     window.addEventListener("beforeunload", alertUser);
     return () => window.removeEventListener("beforeunload", alertUser);
   }, []);
-  if (!loggedIn) {
-    router.push("/");
-    return null;
+  if (user && loggedIn) {
+    return <ComplaintForm />;
   }
-  return <ComplaintForm />;
+  else {
+    router.push("/");
+  }
+  
 };
 
 export default Complaint;
