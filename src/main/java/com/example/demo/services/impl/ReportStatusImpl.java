@@ -107,7 +107,7 @@ public class ReportStatusImpl implements ReportStatusServices {
     public DetailsDto getAllDetails(String city) {
         DetailsDto detailsDto = new DetailsDto();
         int totalCases = (int) reportRepository.count();
-        int pendingCases = (int) statusRepository.countAllByPending(true);
+        int pendingCases = statusRepository.countAllByPending(true);
         int completedCases = totalCases - pendingCases;
         double percentageCompleted = ((double) completedCases / totalCases) * 100;
         double percentagePending = ((double) pendingCases / totalCases) * 100;
@@ -162,6 +162,17 @@ public class ReportStatusImpl implements ReportStatusServices {
                 existingStatus.setReportURL(reportStatusDto.getReportURL());
                 statusRepository.save(existingStatus);
             }
+        }
+    }
+
+    @Override
+    public ReportStatusDto findReportByTrack(Integer id){
+        Optional<ReportStatusEntity> reportStatusEntity = statusRepository.findByTrackId(id);
+        if(reportStatusEntity.isPresent()){
+            return reportMapper.mapFrom(reportStatusEntity.get());
+        }
+        else{
+            throw new NotFoundException("No Report with track"+id+" was found");
         }
     }
 }

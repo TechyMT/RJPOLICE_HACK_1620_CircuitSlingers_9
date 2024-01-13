@@ -12,5 +12,6 @@ import java.util.List;
 public class Questionnaire {
 
     private String question;
-    private String answer;
+    private String response;
+
 }

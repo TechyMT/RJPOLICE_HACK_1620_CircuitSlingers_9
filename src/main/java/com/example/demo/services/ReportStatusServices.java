@@ -21,6 +21,7 @@ public interface ReportStatusServices {
 
     DetailsDto getAllDetails(String city);
     List<Map<String, Object>> processData();
+    public ReportStatusDto findReportByTrack(Integer id);
 
 
 }

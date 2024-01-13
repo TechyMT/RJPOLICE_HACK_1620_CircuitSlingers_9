@@ -39,10 +39,11 @@ public class ReportStatusController {
     }
 
     @GetMapping(path = "/status/{track_id}")
-    public ResponseEntity<IncidentReportDto> getReportForTrack(
+    public ResponseEntity<ReportStatusDto> getReportForTrack(
             @PathVariable("track_id") Integer track
     ){
-        IncidentReportDto reportDto = reportStatusServices.getSingleReport(track);
+//        IncidentReportDto reportDto = reportStatusServices.getSingleReport(track);
+        ReportStatusDto reportDto = reportStatusServices.findReportByTrack(track);
         return new ResponseEntity<>(reportDto,HttpStatus.OK);
     }
 

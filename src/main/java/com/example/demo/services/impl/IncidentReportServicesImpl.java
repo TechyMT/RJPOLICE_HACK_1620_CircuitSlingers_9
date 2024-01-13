@@ -15,21 +15,15 @@ import com.example.demo.repository.IncidentReportRepository;
 import com.example.demo.repository.ReportStatusRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.services.IncidentReportServices;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,10 +40,8 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
     private final TemplateEngine templateEngine;
     private final DataMapper dataMapper;
     private final EmailSenderService senderService;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
     @Override
-    public IncidentReportDto createReport(IncidentReportDto incidentReportDto) throws IOException {
+    public IncidentReportDto createReport(IncidentReportDto incidentReportDto) {
 
         String userId = incidentReportDto.getUserIdentification();
         UserEntity user = userRepository.findByUserUID(userId)
@@ -58,9 +50,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         incidentReportEntity.setUser(user);
         IncidentReportEntity createdReport = reportRepository.save(incidentReportEntity);
         ReportStatusDto reportStatusDto = createReport(userId,incidentReportDto,createdReport);
-        CompletableFuture<Void> createPdfFuture = CompletableFuture.runAsync(() ->
-                createPdf(incidentReportDto, reportStatusDto)
-        );
+        createPdf(incidentReportDto, reportStatusDto);
         CompletableFuture<Void> emailCompletionFuture = CompletableFuture.runAsync(() ->
                 senderService.sendCaseRegistrationCompletionEmail(incidentReportDto.getEmail(), reportStatusDto.getTrackId(), reportStatusDto.getReportURL())
         );
@@ -81,7 +71,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         CompletableFuture<Void> efirConfirmationEmailFuture = CompletableFuture.runAsync(() ->
                 senderService.sendEFIRFilingConfirmationEmail(incidentReportDto.getEmail(), reportStatusDto.getTrackId())
         );
-        CompletableFuture.allOf(createPdfFuture,emailCompletionFuture, notificationAndEmailFutures, efirConfirmationEmailFuture).join();
+        CompletableFuture.allOf(emailCompletionFuture, notificationAndEmailFutures, efirConfirmationEmailFuture).join();
 
         return reportMapper.mapFrom(createdReport);
     }
