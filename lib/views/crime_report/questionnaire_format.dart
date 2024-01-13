@@ -97,6 +97,7 @@ class QuestionnaireFormat extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () async {
+                  print(functionController.answersList);
                   await functionController.submitAnswers();
                   int track_id = await submitReport();
                   if (functionController.isReportSubmitted.value) {
@@ -140,7 +141,7 @@ class QuestionTile extends StatelessWidget {
             style: const TextStyle(color: Colors.black),
             maxLines: 6,
             onChanged: (value) {
-              question.userAnswer = value;
+              question.response = value;
             },
             decoration: const InputDecoration(
               labelStyle: TextStyle(color: Colors.black),

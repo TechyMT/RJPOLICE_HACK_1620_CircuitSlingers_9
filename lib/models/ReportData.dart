@@ -82,25 +82,25 @@ class ReportData {
 }
 
 class Questionnaire {
-    String type;
+
     String question;
-    String answer;
+    String response;
 
     Questionnaire({
-        required this.type,
+   
         required this.question,
-        required this.answer,
+        required this.response,
     });
 
     factory Questionnaire.fromJson(Map<String, dynamic> json) => Questionnaire(
-        type: json["type"],
+
         question: json["question"],
-        answer: json["answer"],
+        response: json["response"],
     );
 
     Map<String, dynamic> toJson() => {
-        "type": type,
+
         "question": question,
-        "answer": answer,
+        "respnse": response,
     };
 }

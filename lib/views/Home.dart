@@ -61,8 +61,8 @@ class _HomeState extends State<Home> {
               backgroundColor: Color(0xFF0F0529),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: 'Notifications',
+              icon: Icon(Icons.phishing),
+              label: 'Fraud Check',
               backgroundColor: Color(0xFF0F0529),
             ),
             BottomNavigationBarItem(

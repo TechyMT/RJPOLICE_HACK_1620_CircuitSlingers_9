@@ -1,6 +1,7 @@
 import 'package:circuitslingers/controller/credentialcontroller.dart';
 import 'package:circuitslingers/firebase/firebase_auth_servies.dart';
 import 'package:circuitslingers/firebase/firebase_messaging.dart';
+import 'package:circuitslingers/models/constants.dart';
 import 'package:circuitslingers/views/Home.dart';
 import 'package:circuitslingers/views/networking/networking.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,16 +21,35 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: AppGradients.linearGradient,
+          ),
+        ),
+        title: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(50, 0, 0, 0),
+              child: Image.asset("assets/cyber.png", height: 60, width: 50),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            const Text(
+              "Dial 1930",
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            ),
+          ],
+        ),
+      ),
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          Image.asset(
-            'assets/background.jpg',
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
-            color: Colors.black.withOpacity(0.2),
-            colorBlendMode: BlendMode.darken,
+          Container(
+            decoration: const BoxDecoration(
+              gradient: AppGradients.linearGradient,
+            ),
           ),
           Center(
             child: Padding(
@@ -43,8 +63,9 @@ class Login extends StatelessWidget {
                     const Text(
                       "Welcome back",
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -52,7 +73,8 @@ class Login extends StatelessWidget {
                     const Text(
                       "Log in to your account",
                       style: TextStyle(
-                        fontSize: 14,
+                        color: Colors.white,
+                        fontSize: 20,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -85,20 +107,54 @@ class Login extends StatelessWidget {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 30),
                     ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           await _login();
                         }
                       },
-                      child: const Text("Login"),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Login"),
+                          Icon(Icons.login),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Row(children: <Widget>[
+                      Expanded(child: Divider()),
+                      Text(
+                        "OR",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Expanded(child: Divider()),
+                    ]),
+                    const SizedBox(
+                      height: 20,
                     ),
                     ElevatedButton(
                       onPressed: () async {
                         await _signInWithGoogle();
                       },
                       child: const Text("Sign in with Google"),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Row(children: <Widget>[
+                      Expanded(child: Divider()),
+                      Text(
+                        "OR",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Expanded(child: Divider()),
+                    ]),
+                    const SizedBox(
+                      height: 20,
                     ),
                     ElevatedButton(
                       onPressed: () async {

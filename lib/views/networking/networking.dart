@@ -34,7 +34,7 @@ Future<List<Article>> fetchNewsArticles() async {
 }
 
 Future<void> fetchData() async {
-  final url = 'http://192.168.1.2:8080/api/admin/status/715';
+  final url = 'http://192.168.1.5:8080/api/admin/status/715';
 
   try {
     final response = await http.get(Uri.parse(url));
@@ -50,7 +50,7 @@ Future<void> createUser() async {
   User? user = FirebaseAuth.instance.currentUser;
 
   if (user != null) {
-    final url = 'http://192.168.181.81:8080/api/add';
+    final url = 'http://192.168.1.5:8080/api/add';
     final headers = {'Content-Type': 'application/json'};
 
     final userData = {
@@ -76,8 +76,7 @@ Future<void> createUser() async {
 
 Future<void> fetchQuestions(String description) async {
   final FunctionController functionController = Get.put(FunctionController());
-  final url =
-      Uri.parse("http://192.168.181.81:8080/api/report/generateQuestions");
+  final url = Uri.parse("http://192.168.1.5:8080/api/report/generateQuestions");
   try {
     functionController.isLoading.value = true;
     final response = await http.post(
@@ -101,20 +100,20 @@ Future<void> fetchQuestions(String description) async {
 Future<int> submitReport() async {
   final DetailsController controller = Get.put(DetailsController());
   final FunctionController functionController = Get.put(FunctionController());
-  const url = 'http://192.168.181.81:8080/api/report/add';
+  const url = 'http://192.168.1.5:8080/api/report/add';
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String? uid = sharedPreferences.getString('userId');
   String? token = sharedPreferences.getString('recipientToken');
 
   final Map<String, dynamic> userAccInfo = {
     "amountLost": controller.amountLostController.text,
-    "bankName":controller.userBankNameController,
+    "bankName": controller.userBankNameController.text,
     "dateOfTransaction": controller.dateOfTransactionController.text,
     "transaction": controller.transactionIdController.text,
     "accountNumber": controller.onlineAccountInformationController.text,
   };
   final Map<String, dynamic> suspectInfo = {
-    "suspectBankName":controller.suspectBankNameController.text,
+    "suspectBankName": controller.suspectBankNameController.text,
     "suspectPhoneNumber": controller.suspectNumberController.text,
     "suspectAccountNumber": controller.suspectAccController.text,
   };
@@ -129,8 +128,9 @@ Future<int> submitReport() async {
     "dateOfBirth": controller.dateOfBirthController.text,
     "aadharNumber": controller.aadharNumberController.text,
     "incidentDescription": controller.incidentDescriptionController.text,
-    "pincode":controller.pincodeController,
+    "pincode": controller.pincodeController.text,
     "suspectInfo": suspectInfo,
+    "email": controller.emailController.text,
     "userAccountInfo": userAccInfo,
     "evidencesURL": controller.evidenceURLs,
     "dateOfReport": date,
@@ -156,49 +156,46 @@ Future<int> submitReport() async {
     return track_id;
   } else {
     print('Error: ${response.statusCode}');
+    print(response.body);
     throw Exception('Failed to submit report');
   }
 }
 
-Future<void> fetchReportStatusList() async {
-  final ReportStatusController reportStatusController = Get.find();
+Future<List<ReportStatusDto>> fetchReportStatusList() async {
+  // final ReportStatusController reportStatusController = Get.find();
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String? uid = sharedPreferences.getString('userId');
 
   final response = await http
-      .get(Uri.parse('http://192.168.181.81:8080/api/admin/reports/$uid'));
+      .get(Uri.parse('http://192.168.1.5:8080/api/admin/reports/$uid'));
 
   if (response.statusCode == 200) {
-    List<dynamic> data = jsonDecode(response.body);
+    List<dynamic> jsonList = json.decode(response.body);
+    List<ReportStatusDto> reportList =
+        jsonList.map((json) => ReportStatusDto.fromJson(json)).toList();
 
-    reportStatusController.reportStatusList.value = data
-        .map((json) => ReportStatusDto(
-            trackId: json['trackId'],
-            currentStatus: json['currentStatus'],
-            city: json['city'],
-            pending: json['pending']))
-        .toList();
+    return reportList;
   } else {
     print(response.statusCode);
     throw Exception('Failed to load report status list');
   }
 }
 
-Future<ReportData> getReportData(int trackId) async {
-  final response = await http
-      .get(Uri.parse('http://192.168.181.81:8080/api/admin/status/$trackId'));
+// Future<ReportData> getReportData(int trackId) async {
+//   final response = await http
+//       .get(Uri.parse('http://192.168.181.81:8080/api/admin/status/$trackId'));
 
-  if (response.statusCode == 200) {
-    return welcomeFromJson(response.body);
-  } else {
-    throw Exception('Failed to load report data');
-  }
-}
+//   if (response.statusCode == 200) {
+//     return welcomeFromJson(response.body);
+//   } else {
+//     throw Exception('Failed to load report data');
+//   }
+// }
 
 Future<void> checkEmail(String email) async {
   final ReportStatusController controller = Get.put(ReportStatusController());
-  final response = await http.get(
-      Uri.parse('http://192.168.181.81:8080/api/fraud_search/emails/$email'));
+  final response = await http
+      .get(Uri.parse('http://192.168.1.5:8080/api/fraud_search/emails/$email'));
   controller.isEmailchecked.value = true;
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
@@ -216,8 +213,8 @@ Future<void> checkEmail(String email) async {
 
 Future<void> checkPhoneNumber(String phoneNumber) async {
   final ReportStatusController controller = Get.put(ReportStatusController());
-  final response = await http.get(
-      Uri.parse('http://192.168.181.81:8080/api/fraud_search/numbers/$phoneNumber'));
+  final response = await http.get(Uri.parse(
+      'http://192.168.1.5:8080/api/fraud_search/numbers/$phoneNumber'));
   controller.isPhoneNumberChecked.value = true;
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
@@ -237,8 +234,8 @@ Future<void> checkPhoneNumber(String phoneNumber) async {
 
 Future<void> checkAccountNumber(String accountNumber) async {
   final ReportStatusController controller = Get.put(ReportStatusController());
-  final response = await http.get(
-      Uri.parse('http://192.168.181.81:8080/api/fraud_search/accountNumbers/$accountNumber'));
+  final response = await http.get(Uri.parse(
+      'http://192.168.1.5:8080/api/fraud_search/accountNumbers/$accountNumber'));
   controller.isAccountNumberChecked.value = true;
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
@@ -255,4 +252,3 @@ Future<void> checkAccountNumber(String accountNumber) async {
     throw Exception('Failed to Load Data');
   }
 }
-

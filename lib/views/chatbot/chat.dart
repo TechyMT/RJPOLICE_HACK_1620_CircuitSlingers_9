@@ -1,7 +1,12 @@
 import 'dart:convert';
+import 'package:circuitslingers/models/constants.dart';
+import 'package:circuitslingers/views/user_views/onboarding.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -45,8 +50,50 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat With Bot'),
-        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: AppGradients.linearGradient,
+          ),
+        ),
+        leading: Builder(builder: (BuildContext context) {
+          return IconButton(
+            iconSize: 30,
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+          );
+        }),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/cyber.png", height: 60, width: 50),
+            const SizedBox(
+              width: 20,
+            ),
+            const Text(
+              "Dial 1930",
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+            iconSize: 40,
+            color: Colors.white,
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              SharedPreferences sharedPreferences =
+                  await SharedPreferences.getInstance();
+              sharedPreferences.clear();
+              Get.offAll(() => OnBoarding());
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(

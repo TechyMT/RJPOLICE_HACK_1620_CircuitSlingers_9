@@ -106,6 +106,30 @@ class _ReportFormState extends State<ReportForm> {
                     height: 8,
                   ),
                   TextFormField(
+                      controller: detailsController.emailController,
+                      style: const TextStyle(color: Colors.black),
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: const Color(0xFFCBD5E1),
+                        hintStyle:
+                            const TextStyle(color: Colors.black, fontSize: 15),
+                        labelText: 'E-Mail',
+                        labelStyle: const TextStyle(color: Colors.black),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      onSaved: (value) => detailsController
+                          .suspectNumberController.text = value!,
+                    ),
+                    const SizedBox(height: 8.0),
+                  TextFormField(
                     controller: detailsController.aadharNumberController,
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(

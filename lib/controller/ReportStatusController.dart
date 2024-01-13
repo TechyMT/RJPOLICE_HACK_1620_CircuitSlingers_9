@@ -21,4 +21,8 @@ class ReportStatusController extends GetxController {
   void setAccountNumberPhishingText(String text) {
     accountNumberPhishingText.value = text;
   }
+  void setReportStatusList(List<ReportStatusDto> newList) {
+    reportStatusList.assignAll(newList);
+  }
+
 }

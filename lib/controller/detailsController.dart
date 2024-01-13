@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:file_picker/file_picker.dart';
@@ -24,6 +25,7 @@ class DetailsController extends GetxController {
   TextEditingController userBankNameController = TextEditingController();
   TextEditingController suspectBankNameController = TextEditingController();
   TextEditingController pincodeController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   bool isBankAccInvolved = false;
   bool isSuspectDetailsInvolved = false;
   List<String> evidenceURLs = [];
@@ -44,6 +46,7 @@ class DetailsController extends GetxController {
     dateOfCrimeController.text = '';
     dateOfReportController.text = '';
     dateOfTransactionController.text = '';
+    emailController.text = '';
     evidenceURLs.clear();
     filesAdded.value = false;
   }
@@ -80,30 +83,31 @@ class DetailsController extends GetxController {
   }
 
   Future<void> controllerInitialization() async {
-      List<TextEditingController> controllers = [
-          fullNameController,
-          dateOfBirthController,
-          aadharNumberController,
-          incidentDescriptionController,
-          cityController,
-          onlineAccountInformationController,
-          categoryController,
-          transactionIdController,
-          suspectNumberController,
-          suspectAccController,
-          amountLostController,
-          dateOfCrimeController,
-          dateOfReportController,
-          dateOfTransactionController,
-          userBankNameController,
-          suspectBankNameController,
-          pincodeController,
-        ];
+    List<TextEditingController> controllers = [
+      fullNameController,
+      dateOfBirthController,
+      aadharNumberController,
+      incidentDescriptionController,
+      cityController,
+      onlineAccountInformationController,
+      categoryController,
+      transactionIdController,
+      suspectNumberController,
+      suspectAccController,
+      amountLostController,
+      dateOfCrimeController,
+      dateOfReportController,
+      dateOfTransactionController,
+      emailController,
+      userBankNameController,
+      suspectBankNameController,
+      pincodeController,
+    ];
 
-        controllers.forEach((controller) {
-          if (controller.text.isEmpty) {
-            controller.text = "NA";
-          }
-        });
+    controllers.forEach((controller) {
+      if (controller.text.isEmpty) {
+        controller.text = "NA";
+      }
+    });
   }
 }

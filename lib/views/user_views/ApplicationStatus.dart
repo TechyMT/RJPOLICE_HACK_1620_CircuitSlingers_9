@@ -1,14 +1,17 @@
 import 'package:circuitslingers/controller/ReportStatusController.dart';
 import 'package:circuitslingers/controller/functionController.dart';
+import 'package:circuitslingers/models/ReportStatus.dart';
 import 'package:circuitslingers/models/constants.dart';
 import 'package:circuitslingers/models/question.dart';
 import 'package:circuitslingers/models/showDetailsBox.dart';
 import 'package:circuitslingers/views/networking/networking.dart';
 import 'package:circuitslingers/views/register_login/landingpage.dart';
+import 'package:circuitslingers/views/user_views/onboarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ApplicationStatus extends StatelessWidget {
   final FunctionController functionController = Get.put(FunctionController());
@@ -59,9 +62,9 @@ class ApplicationStatus extends StatelessWidget {
               SharedPreferences sharedPreferences =
                   await SharedPreferences.getInstance();
               sharedPreferences.clear();
-              Get.offAll(() => const LandingPage());
+              Get.offAll(() =>  OnBoarding());
             },
-            icon: const Icon(Icons.account_circle),
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),
@@ -69,7 +72,7 @@ class ApplicationStatus extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FutureBuilder(
+            FutureBuilder<List<ReportStatusDto>>(
               future: fetchReportStatusList(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -77,25 +80,29 @@ class ApplicationStatus extends StatelessWidget {
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else {
+                  reportStatusController.setReportStatusList(snapshot.data!);
+
                   return Expanded(
                     child: ListView.builder(
                       itemCount: reportStatusController.reportStatusList.length,
                       itemBuilder: (context, index) {
                         final reportStatus =
                             reportStatusController.reportStatusList[index];
-                        return ListTile(
-                          leading: IconButton(
-                            icon: Icon(Icons.arrow_right),
-                            onPressed: ()async {
-                              await showReportDetailsDialog(
-                                  context, reportStatus.trackId);
-                            },
-                          ),
-                          title: Text('Track ID: ${reportStatus.trackId}'),
-                          subtitle: Text(
-                              'Status: ${reportStatus.currentStatus ?? 'N/A'}'),
-                          onTap: () {},
-                        );
+                          return ListTile(
+                            leading: IconButton(
+                              icon: Icon(Icons.download),
+                              onPressed: () async {
+                                  Uri uri = Uri.parse(reportStatusController.reportStatusList[index].reportUrl);
+                                      if (!await launchUrl(uri)) {
+                                                throw Exception('Could not launch $uri');
+                                        }
+                              },
+                            ),
+                            title: Text('Track ID: ${reportStatus.trackId}'),
+                            subtitle: Text(
+                                'Status: ${reportStatus.currentStatus ?? 'N/A'}'),
+                            onTap: () {},
+                          );
                       },
                     ),
                   );

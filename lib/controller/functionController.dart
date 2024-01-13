@@ -22,21 +22,19 @@ class FunctionController extends GetxController {
   Future<void> submitAnswers() async {
     for (final question in questionnaireList.value!.questions) {
       final Map<String, dynamic> answerMap = {
-        "type": question.type,
         "question": question.question,
-        "answer": question.userAnswer,
+        "response": question.response,
       };
 
       answersList.add(answerMap);
     }
 
     print(answersList);
-
-   
   }
-   Future<void> clearList() async {
-      answerQuestions.value = false;
-      answerQuestions.value = false;
-      answersList.clear();
-    }
+
+  Future<void> clearList() async {
+    answerQuestions.value = false;
+    answerQuestions.value = false;
+    answersList.clear();
+  }
 }

@@ -2,6 +2,7 @@ import 'package:circuitslingers/controller/credentialcontroller.dart';
 import 'package:circuitslingers/controller/functionController.dart';
 import 'package:circuitslingers/views/Home.dart';
 import 'package:circuitslingers/views/register_login/landingpage.dart';
+import 'package:circuitslingers/views/user_views/onboarding.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -12,7 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase/firebase_options.dart';
 
 void main() async {
-    
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
               useMaterial3: true,
             ),
-            home: snapshot.data == true ? Home() : const LandingPage(),
+            home: snapshot.data == true ? Home() : OnBoarding(),
           );
         }
       },

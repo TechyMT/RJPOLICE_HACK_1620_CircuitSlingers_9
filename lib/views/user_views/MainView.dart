@@ -2,6 +2,7 @@ import 'package:circuitslingers/controller/functionController.dart';
 import 'package:circuitslingers/models/NewsList.dart';
 import 'package:circuitslingers/models/constants.dart';
 import 'package:circuitslingers/views/register_login/landingpage.dart';
+import 'package:circuitslingers/views/user_views/onboarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -56,9 +57,9 @@ class MainView extends StatelessWidget {
               SharedPreferences sharedPreferences =
                   await SharedPreferences.getInstance();
               sharedPreferences.clear();
-              Get.offAll(() => const LandingPage());
+              Get.offAll(() =>  OnBoarding());
             },
-            icon: const Icon(Icons.account_circle),
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),

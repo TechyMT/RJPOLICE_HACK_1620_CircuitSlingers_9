@@ -4,6 +4,7 @@ import 'package:circuitslingers/views/crime_report/questionnaire_format.dart';
 import 'package:circuitslingers/views/crime_report/report_form.dart';
 import 'package:circuitslingers/views/crime_report/terms_conditions.dart';
 import 'package:circuitslingers/views/register_login/landingpage.dart';
+import 'package:circuitslingers/views/user_views/onboarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -76,9 +77,9 @@ class _ReportCrimeState extends State<ReportCrime> {
               SharedPreferences sharedPreferences =
                   await SharedPreferences.getInstance();
               sharedPreferences.clear();
-              Get.offAll(() => const LandingPage());
+              Get.offAll(() => OnBoarding());
             },
-            icon: const Icon(Icons.account_circle),
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),
