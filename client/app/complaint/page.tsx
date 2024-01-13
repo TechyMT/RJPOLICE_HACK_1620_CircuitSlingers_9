@@ -51,7 +51,7 @@ const Complaint = () => {
 
     window.addEventListener("beforeunload", alertUser);
     return () => window.removeEventListener("beforeunload", alertUser);
-  }, [user]);
+  }, [user, loggedIn]);
 
   return <ComplaintForm />;
 };
