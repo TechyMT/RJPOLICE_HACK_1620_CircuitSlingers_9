@@ -43,7 +43,7 @@ const Complaint = () => {
 
     if (user) {
       addUser();
-    } else {
+    } else if(!loggedIn){
       // If no user is present, redirect to the signin page
       push("/signin");
     }
