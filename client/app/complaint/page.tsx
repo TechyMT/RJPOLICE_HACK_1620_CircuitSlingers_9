@@ -17,6 +17,10 @@ const Complaint = () => {
   };
 
   useEffect(() => {
+    if (!loggedIn) {
+      push("/signin");
+      return;
+    }
     const addUser = () => {
       fetch("http://192.168.181.81:8080/api/add", {
         method: "POST",
