@@ -10,6 +10,9 @@ const Complaint = () => {
   const push = usePush();
   const loggedIn = useAuthStore((state) => state.isLogedIn);
   const user = useAuthStore((state) => state.user);
+  console.log("user", user);
+  console.log("loggedIn", loggedIn);
+
 
   const alertUser = (e: any) => {
     e.preventDefault();
@@ -17,10 +20,7 @@ const Complaint = () => {
   };
 
   useEffect(() => {
-    if (!loggedIn) {
-      push("/signin");
-      return;
-    }
+    
     const addUser = () => {
       fetch("http://192.168.181.81:8080/api/add", {
         method: "POST",
@@ -51,8 +51,11 @@ const Complaint = () => {
 
     window.addEventListener("beforeunload", alertUser);
     return () => window.removeEventListener("beforeunload", alertUser);
-  }, [loggedIn]);
-
+  }, []);
+  if (!loggedIn) {
+    router.push("/");
+    return null;
+  }
   return <ComplaintForm />;
 };
 
