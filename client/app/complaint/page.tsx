@@ -17,10 +17,7 @@ const Complaint = () => {
   };
 
   useEffect(() => {
-    if (!loggedIn) {
-      push("/signin");
-      return;
-    }
+    
     const addUser = () => {
       fetch("http://192.168.181.81:8080/api/add", {
         method: "POST",
@@ -52,7 +49,10 @@ const Complaint = () => {
     window.addEventListener("beforeunload", alertUser);
     return () => window.removeEventListener("beforeunload", alertUser);
   }, [user, loggedIn]);
-
+  if (!loggedIn) {
+    push("/login");
+    return null;
+  }
   return <ComplaintForm />;
 };
 
