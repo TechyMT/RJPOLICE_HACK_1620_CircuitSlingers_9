@@ -3,15 +3,19 @@ import React from "react";
 import ConfirmationBox from "../components/ConfirmationBox";
 import useAuthStore from "../utils/auth";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import usePush from "../components/usePush";
 const Confirmation = () => {
-  const router = useRouter();
+  const router = usePush();
   const caseDetails = useAuthStore((state) => state.caseDetails);
   console.log("caseDetails", caseDetails);
-  if (!caseDetails) {
-    router.push("/");
-    return;
-  }
-  return (
+  useEffect(() => {
+    if (!caseDetails) {
+      router("/");
+      return;
+    }
+  }, []);
+  caseDetails && (
     <div className="flex justify-center m-12">
       <ConfirmationBox trackId={caseDetails.trackId} />
     </div>

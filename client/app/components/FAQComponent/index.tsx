@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const FaqItem = ({ question, answer, isOpen, toggle }) => (
+const FaqItem: React.FC<any> = ({ question, answer, isOpen, toggle }) => (
   <div className="border-t">
     <div
       className="flex justify-between items-center p-4 cursor-pointer bg-gray-200"
       onClick={toggle}
     >
       <div className="font-semibold text-blue-600">{question}</div>
-      <div className={`transform ${isOpen ? 'rotate-180' : 'rotate-0'}`}>
+      <div className={`transform ${isOpen ? "rotate-180" : "rotate-0"}`}>
         &#x25BE;
       </div>
     </div>
@@ -23,23 +23,23 @@ const App = () => {
   const faqData = [
     {
       id: 1,
-      question: 'What is Lorem Ipsum?',
+      question: "What is Lorem Ipsum?",
       answer:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
     {
       id: 2,
-      question: 'Why do we use it?',
+      question: "Why do we use it?",
       answer:
-        'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
+        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
     },
     // Add more FAQ items as needed
   ];
 
-  const [openFaq, setOpenFaq] = useState(null);
+  const [openFaq, setOpenFaq] = useState<any>(null);
 
-  const toggleFaq = (id) => {
-    setOpenFaq((prevOpenFaq) => (prevOpenFaq === id ? null : id));
+  const toggleFaq = (id: number | null) => {
+    setOpenFaq((prevOpenFaq: number | null) => (prevOpenFaq === id ? null : id));
   };
 
   return (
