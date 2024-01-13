@@ -15,6 +15,7 @@ import { auth } from "./firebase";
 interface State {
   user: any;
   isLogedIn: boolean;
+  caseDetails: any;
 }
 
 interface Action {
@@ -22,11 +23,14 @@ interface Action {
   googleSignIn: () => Promise<void>;
   emailSignIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
+  setCaseDetails: (caseDetails: any) => void;
 }
 
 const useAuthStore = create<State & Action>((set) => ({
   user: auth.currentUser, // Set initial user state based on current user
   isLogedIn: auth.currentUser !== null,
+  caseDetails: null,
+  setCaseDetails: (caseDetails) => set({ caseDetails }),
   setUser: (user) => set({ user, isLogedIn: user !== null }),
   googleSignIn: async () => {
     const googleProvider = new GoogleAuthProvider();

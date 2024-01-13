@@ -1,5 +1,12 @@
 "use client";
-import { Input, Button, Select, Textarea, SelectItem } from "@nextui-org/react";
+import {
+  Input,
+  Button,
+  Select,
+  Textarea,
+  SelectItem,
+  Spinner,
+} from "@nextui-org/react";
 import { useState } from "react";
 import useAuthStore from "../../utils/auth";
 import Heading from "../Heading";
@@ -9,6 +16,7 @@ import { publicUrl } from "../../utils/publicURL";
 import ConfirmForm from "../ConfirmForm";
 import { questionaire } from "../../data/constants";
 import DynamicForm from "../DynamicForm";
+import { useRouter } from "next/navigation";
 
 export const categories = [
   "Identity Fraud",
@@ -25,8 +33,10 @@ export const stepperTitles = [
 ];
 
 const ComplaintForm = () => {
+  const setCaseDetails = useAuthStore((state) => state.setCaseDetails);
+  const router = useRouter();
   const user = useAuthStore((state) => state.user);
-
+  const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<any>({
     name: "",
     phoneNumber: "",
@@ -34,12 +44,7 @@ const ComplaintForm = () => {
     pincode: "",
     description: "",
     categoryOfComplaint: "root",
-    questionnaire: [
-      {
-        question: "Can you provide more details about the incident?",
-        answer: "Additional details provided",
-      },
-    ],
+    questionnaire: [],
     evidencesURL: [],
     isMoneyLost: false,
     victimBank: "root",
@@ -58,7 +63,6 @@ const ComplaintForm = () => {
     evidencesList: [],
     selfFill: false,
   });
-
   const [step, setStep] = useState(1);
   const [dynamicForm, setDynamicForm] = useState<any>(null);
 
@@ -82,19 +86,9 @@ const ComplaintForm = () => {
   const handlePrev = () => {
     setStep((prevStep) => (prevStep > 1 ? prevStep - 1 : prevStep));
   };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (step === 1) {
-      // const data = fetch("http://localhost:3000/api/complaints", {
-      //   method: "POST",
-      //   body: JSON.stringify(formData),
-      // })
-      //   .then((res) => res.json())
-      //   .then((res) => {
-      //     console.log(res);
-      //     setDynamicForm(res);
-      //   });
-
       if (
         formData.evidencesURL.length === 0 &&
         formData.evidencesList.length !== 0
@@ -102,20 +96,29 @@ const ComplaintForm = () => {
         alert("Please upload evidence");
         return;
       }
-      const { questions } = questionaire;
+
+      const data = await fetch(`${publicUrl()}/report/generateQuestions`, {
+        method: "POST",
+        body: JSON.stringify(formData.description),
+      });
+      const { questions } = await data.json();
+
       // console.log("questions", questions);
-      setFormData((prevData: any) => ({
-        ...prevData,
-        questionnaire: questions,
-      }));
-      setDynamicForm(questions);
+
+      questions &&
+        setFormData((prevData: any) => ({
+          ...prevData,
+          questionnaire: questions,
+        }));
     } else if (step === 4) {
       // Handle form submission logic here
       console.log("Form Data:", formData);
       console.log("user", user);
+      setSubmitLoading(true);
       // Reset the form after submission if needed
       const body = {
-        userIdentification: user.uid,
+        email: user.email,
+        userIdentification: "zBwRffRwdANSB1jsTgbee4zfF392",
         fullName: formData.name,
         dateOfBirth: formData.dob,
         aadharNumber: formData.adhaarNumber,
@@ -138,36 +141,22 @@ const ComplaintForm = () => {
           suspectBankName: formData.suspectBank,
           suspectAccountNumber: formData.suspectAccountNumber,
           suspectPhoneNumber: formData.suspectPhoneNumber,
-          suspectTransactionId: formData.suspectTransactionId,
         },
         recipientToken: "",
-        isBankInvolved: formData.isMoneyLost,
-        questionnaire: [
-          {
-            type: "clarify",
-            question: "Can you provide more details about the incident?",
-            answer: "Additional details provided",
-          },
-          {
-            type: "specifics",
-            question:
-              "What specific information do you have about the incident?",
-            answer: "Specific information provided",
-          },
-        ],
+        isBankAccInvolved: formData.isMoneyLost,
+        questionnaire: formData.questionnaire,
       };
       console.log("body", body);
-      const data = fetch(`${publicUrl()}/report/add`, {
+
+      const data = await fetch(`${publicUrl()}/report/add`, {
         headers: {
           "Content-Type": "application/json",
         },
         method: "POST",
         body: JSON.stringify(body),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          console.log(res);
-        });
+      });
+      const response = await data.json();
+
       setFormData({
         name: "",
         phoneNumber: "",
@@ -194,7 +183,11 @@ const ComplaintForm = () => {
         questionnaire: [],
         selfFill: false,
       });
+      setSubmitLoading(false);
+      setCaseDetails(response);
+      router.push(`/confirm`);
     }
+
     // Move to the next step or submit the form
     setStep((prevStep) => (prevStep < 4 ? prevStep + 1 : prevStep));
   };
@@ -290,7 +283,13 @@ const ComplaintForm = () => {
               )}
               <div className="flex py-10">
                 <Button color="primary" type="submit" size="lg">
-                  {step < 4 ? "Next" : "Submit Complaint"}
+                  {step < 4 ? (
+                    "Next"
+                  ) : submitLoading ? (
+                    <Spinner />
+                  ) : (
+                    "Submit Complaint"
+                  )}
                 </Button>
               </div>
             </div>

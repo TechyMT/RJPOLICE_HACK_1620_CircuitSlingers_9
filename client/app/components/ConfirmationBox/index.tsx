@@ -2,7 +2,7 @@ import React from "react";
 import Logo from "../../assets/brand/logo.png";
 import Image from "next/image";
 
-const ConfirmationBox = () => {
+const ConfirmationBox:React.FC<any> = ({trackId}) => {
   return (
     <div className="flex flex-col gap-10 bg-green-50 w-[70vw] justify-center items-center py-20">
       <div className="flex items-center text-3xl font-extrabold">
@@ -21,12 +21,9 @@ const ConfirmationBox = () => {
         You will receive a confirmation email shortly.
       </div>
       <div className="flex text-xl font-semibold">
-        Your case ID is: 123456789
+        Your case ID is: <span className="text-primary">{trackId}</span>
       </div>
-      <div className="flex text-xl font-semibold">
-        Your current case status is:
-        <span className="text-primary"> Pending</span>
-      </div>
+     
     </div>
   );
 };
