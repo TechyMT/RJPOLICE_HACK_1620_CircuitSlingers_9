@@ -1,6 +1,7 @@
 package com.example.demo.services.impl;
 
 import com.example.demo.dto.IncidentReportDto;
+import com.example.demo.dto.ReportStatusDto;
 import com.example.demo.dto.ReportTemplate;
 import com.example.demo.entities.*;
 import com.example.demo.entities.notifications.FIRClass;
@@ -9,6 +10,7 @@ import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.exceptions.UnauthorizedException;
 import com.example.demo.mappers.impl.DataMapper;
 import com.example.demo.mappers.impl.IncidentReportMapperImpl;
+import com.example.demo.mappers.impl.ReportStatusMapperImpl;
 import com.example.demo.repository.IncidentReportRepository;
 import com.example.demo.repository.ReportStatusRepository;
 import com.example.demo.repository.UserRepository;
@@ -24,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -39,6 +42,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
     private final FirebaseMessagingService messagingService;
     private final DocumentGenerator documentGenerator;
     private final ReportStatusRepository statusRepository;
+    private final ReportStatusMapperImpl statusMapper;
     private final TemplateEngine templateEngine;
     private final DataMapper dataMapper;
     private final EmailSenderService senderService;
@@ -50,14 +54,17 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         String userId = incidentReportDto.getUserIdentification();
         UserEntity user = userRepository.findByUserUID(userId)
                 .orElseThrow(() -> new NotFoundException("User with ID " + userId + " not found"));
-
         IncidentReportEntity incidentReportEntity = reportMapper.mapTo(incidentReportDto);
         incidentReportEntity.setUser(user);
         IncidentReportEntity createdReport = reportRepository.save(incidentReportEntity);
-        createReport(userId,incidentReportDto,createdReport);
-        createPdf(incidentReportDto);
-        senderService.sendCaseRegistrationEmail(incidentReportDto.getEmail());
-        scheduler.schedule(() -> {
+        ReportStatusDto reportStatusDto = createReport(userId,incidentReportDto,createdReport);
+        CompletableFuture<Void> createPdfFuture = CompletableFuture.runAsync(() ->
+                createPdf(incidentReportDto, reportStatusDto)
+        );
+        CompletableFuture<Void> emailCompletionFuture = CompletableFuture.runAsync(() ->
+                senderService.sendCaseRegistrationCompletionEmail(incidentReportDto.getEmail(), reportStatusDto.getTrackId(), reportStatusDto.getReportURL())
+        );
+        CompletableFuture<Void> notificationAndEmailFutures = CompletableFuture.runAsync(() -> {
             String recipientToken = incidentReportDto.getRecipientToken();
             if (recipientToken != null && !recipientToken.isEmpty()) {
                 if (createdReport.isBankAccInvolved()) {
@@ -65,11 +72,17 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
                     messagingService.sendNotificationByToken(new Notifications(recipientToken));
                 }
                 System.out.println("Sending FIR notification...");
+                senderService.sendAccountFreezeNotificationEmail(incidentReportDto.getEmail(), incidentReportDto.getUserAccountInfo().getAccountNumber());
                 messagingService.sendFIRnotification(new FIRClass(recipientToken));
             } else {
                 System.out.println("Recipient token not present. No notifications will be sent.");
             }
-        }, 5, TimeUnit.SECONDS);
+        });
+        CompletableFuture<Void> efirConfirmationEmailFuture = CompletableFuture.runAsync(() ->
+                senderService.sendEFIRFilingConfirmationEmail(incidentReportDto.getEmail(), reportStatusDto.getTrackId())
+        );
+        CompletableFuture.allOf(createPdfFuture,emailCompletionFuture, notificationAndEmailFutures, efirConfirmationEmailFuture).join();
+
         return reportMapper.mapFrom(createdReport);
     }
 
@@ -116,15 +129,15 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         return reportEntity.stream().map(reportMapper::mapFrom).collect(Collectors.toList());
     }
 
-    public void createPdf(IncidentReportDto incidentReportDto){
+    public void createPdf(IncidentReportDto incidentReportDto,ReportStatusDto reportStatusDto){
         String finalHtml;
         Context dataContext = dataMapper.setData(incidentReportDto);
         ReportTemplate reportTemplate = new ReportTemplate();
         finalHtml = templateEngine.process(reportTemplate.templateContent, dataContext);
-        documentGenerator.htmlToPdf(finalHtml);
+        documentGenerator.htmlToPdf(finalHtml,reportStatusDto);
     }
 
-    public void createReport(String userId,IncidentReportDto incidentReportDto,IncidentReportEntity createdReport){
+    public ReportStatusDto createReport(String userId, IncidentReportDto incidentReportDto, IncidentReportEntity createdReport){
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = sdf.format(new Date());
 
@@ -143,5 +156,6 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         ReportStatusEntity savedReportStatus = statusRepository.save(reportStatusEntity);
         createdReport.getReports().add(savedReportStatus);
         reportRepository.save(createdReport);
+        return statusMapper.mapFrom(savedReportStatus);
     }
 }

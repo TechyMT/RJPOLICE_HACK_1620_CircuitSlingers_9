@@ -5,11 +5,13 @@ import com.example.demo.dto.IncidentReportDto;
 import com.example.demo.dto.ReportStatusDto;
 import com.example.demo.entities.ReportStatusEntity;
 import com.example.demo.services.ReportStatusServices;
+import com.example.demo.services.impl.EmailSenderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ import java.util.Map;
 @RequestMapping(path = "/api/admin")
 public class ReportStatusController {
     private final ReportStatusServices reportStatusServices;
+    private final EmailSenderService senderService;
 
     @PatchMapping(path = "/update")
     public ResponseEntity<ReportStatusDto> updateReport(
@@ -106,5 +109,16 @@ public class ReportStatusController {
     return initialData;
 
 }
+    @PostMapping(path = "/assignCase")
+    public ResponseEntity<Map<String,String>> assignCase(@RequestBody Map<String, Object> requestBody) {
+        String policePersonnel = (String) requestBody.get("policePersonnel");
+        String recipientEmail = (String) requestBody.get("email");
+        Integer id = (Integer) requestBody.get("trackId");
+        String url = (String) requestBody.get("reportURL");
+        senderService.sendPoliceAssignEmail(recipientEmail, policePersonnel, id, url);
+        Map<String, String> resultMap = new HashMap<>();
+        resultMap.put("success", "Case Assigned");
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
 
 }

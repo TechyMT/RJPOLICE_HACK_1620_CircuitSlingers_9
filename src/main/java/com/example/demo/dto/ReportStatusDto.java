@@ -20,6 +20,8 @@ public class ReportStatusDto {
 
     private Integer flag;
 
+    private String reportURL;
+
     private String updatedDate;
 
     private boolean pending;

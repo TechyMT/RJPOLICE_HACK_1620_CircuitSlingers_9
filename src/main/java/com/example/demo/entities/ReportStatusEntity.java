@@ -23,6 +23,8 @@ public class ReportStatusEntity {
 
     private Integer trackId;
 
+    private String reportURL;
+
     private String currentStatus;
 
     private String city;

@@ -42,6 +42,7 @@ public class ReportStatusImpl implements ReportStatusServices {
 
     @Override
     public ReportStatusDto updateReportStatus(ReportStatusDto reportStatusDto) {
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Optional<ReportStatusEntity> reportStatus = statusRepository.findByTrackId(reportStatusDto.getTrackId());
         if (reportStatus.isPresent()) {
@@ -151,5 +152,16 @@ public class ReportStatusImpl implements ReportStatusServices {
             }
         }
         return resultMap;
+    }
+
+    public void addURLtoReport(ReportStatusDto reportStatusDto) {
+        Optional<ReportStatusEntity> reportStatus = statusRepository.findByTrackId(reportStatusDto.getTrackId());
+        if (reportStatus.isPresent()) {
+            ReportStatusEntity existingStatus = reportStatus.get();
+            if (!reportStatusDto.getReportURL().isEmpty()) {
+                existingStatus.setReportURL(reportStatusDto.getReportURL());
+                statusRepository.save(existingStatus);
+            }
+        }
     }
 }
