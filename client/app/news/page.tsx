@@ -4,6 +4,7 @@ import axios from "axios";
 
 import "tailwindcss/tailwind.css";
 import Heading from "../components/Heading";
+import { newsData } from "../data/constants";
 
 interface Article {
   title: string;
@@ -32,8 +33,8 @@ const Home: React.FC = () => {
 
         console.log("API Response:", response.data);
 
-        if (response.data.articles && response.data.articles.length > 0) {
-          setNews(response.data.articles);
+        if (newsData && newsData.length > 0) {
+          setNews(newsData);
         } else {
           setError("No articles found in the response");
         }
