@@ -9,8 +9,12 @@ import useAuthStore from "../utils/auth";
 import usePush from "../components/usePush";
 
 const SignInPage: FC = function () {
-  const googleSignIn = useAuthStore((state) => state.googleSignIn);
-  const isLoggedIn = useAuthStore((state) => state.isLogedIn);
+  const googleSignIn = useAuthStore(
+    (state: { googleSignIn: any }) => state.googleSignIn
+  );
+  const isLoggedIn = useAuthStore(
+    (state: { isLogedIn: any }) => state.isLogedIn
+  );
   const push = usePush();
 
   useEffect(() => {

@@ -26,7 +26,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
   const [lostMoney, setLostMoney] = React.useState(false);
   const [suspectAccount, setSuspectAccount] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const user = useAuthStore((state) => state.user);
+  const user = useAuthStore((state: { user: any; }) => state.user);
   const handleChange = (value: string) => {
     onChange("isMoneyLost", value === "yes");
     setLostMoney(value === "yes");

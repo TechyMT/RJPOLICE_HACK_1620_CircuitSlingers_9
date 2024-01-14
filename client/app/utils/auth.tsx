@@ -1,7 +1,12 @@
 // authStore.ts
 "use client";
 import create from "zustand";
-import { devtools, persist, createJSONStorage } from "zustand/middleware";
+import {
+  devtools,
+  persist,
+  createJSONStorage,
+  PersistOptions,
+} from "zustand/middleware";
 
 import {
   GoogleAuthProvider,
@@ -22,9 +27,8 @@ interface State {
   emailSignIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   setCaseDetails: (caseDetails: any) => void;
+  persist: any;
 }
-
-interface Action {}
 
 const useAuthStore = create<any>(
   persist(
@@ -102,4 +106,3 @@ export default useAuthStore;
 function importScripts(arg0: string) {
   throw new Error("Function not implemented.");
 }
-

@@ -16,7 +16,7 @@ const EvidenceBox: React.FC<EvidenceBoxProps> = ({
   handleClick,
   loading,
 }) => {
-  const user = useAuthStore((state) => state.user);
+  const user = useAuthStore((state: { user: any }) => state.user);
   const [selectedFiles, setSelectedFiles] = useState<File[]>(
     formData.evidencesList || []
   );
@@ -103,7 +103,7 @@ const EvidenceBox: React.FC<EvidenceBoxProps> = ({
           className="px-4 py-2 mt-5 font-medium focus:outline-none"
           color="primary"
         >
-          {loading ? <Spinner size="sm" color="white"  /> : "Upload"}
+          {loading ? <Spinner size="sm" color="white" /> : "Upload"}
         </Button>
       </div>
     </>

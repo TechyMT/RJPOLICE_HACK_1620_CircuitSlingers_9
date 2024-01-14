@@ -9,8 +9,8 @@ import { publicUrl } from "../utils/publicURL";
 const Complaint = () => {
   const router = useRouter();
   const push = usePush();
-  const loggedIn = useAuthStore((state) => state.isLogedIn);
-  const user = useAuthStore((state) => state.user);
+  const loggedIn = useAuthStore((state: { isLogedIn: any }) => state.isLogedIn);
+  const user = useAuthStore((state: { user: any }) => state.user);
 
   const alertUser = (e: any) => {
     e.preventDefault();

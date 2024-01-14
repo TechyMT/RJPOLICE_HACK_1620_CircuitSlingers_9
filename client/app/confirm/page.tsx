@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import usePush from "../components/usePush";
 const Confirmation = () => {
   const router = usePush();
-  const caseDetails = useAuthStore((state) => state.caseDetails);
+  const caseDetails = useAuthStore((state: { caseDetails: any; }) => state.caseDetails);
   console.log("caseDetails", caseDetails);
   useEffect(() => {
     if (!caseDetails) {

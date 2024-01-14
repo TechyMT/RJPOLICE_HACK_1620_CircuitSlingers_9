@@ -33,9 +33,11 @@ export const stepperTitles = [
 ];
 
 const ComplaintForm = () => {
-  const setCaseDetails = useAuthStore((state) => state.setCaseDetails);
+  const setCaseDetails = useAuthStore(
+    (state: { setCaseDetails: any }) => state.setCaseDetails
+  );
   const router = useRouter();
-  const user = useAuthStore((state) => state.user);
+  const user = useAuthStore((state: { user: any }) => state.user);
   console.log("final user", user);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<any>({
@@ -148,7 +150,7 @@ const ComplaintForm = () => {
         questionnaire: formData.questionnaire,
       };
       console.log("body", body);
-      console.log("okay user", user)
+      console.log("okay user", user);
 
       const data = await fetch(`${publicUrl()}/report/add`, {
         headers: {
