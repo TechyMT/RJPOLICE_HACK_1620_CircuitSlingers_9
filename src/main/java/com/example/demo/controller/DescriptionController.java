@@ -36,52 +36,51 @@ public class DescriptionController {
     public ResponseEntity<QuestionnaireList> generateDesc(
             @RequestBody String description
     ){
-//        String urlAPI = "http://a03f-35-245-174-48.ngrok-free.app/home";
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        HttpEntity<String> requestEntity = new HttpEntity<>(description, headers);
-//        RestTemplate restTemplate = new RestTemplate();
-//        ResponseEntity<String> output = restTemplate.postForEntity(urlAPI, requestEntity, String.class);
-        String urlAPI = "https://your-ngrok-url.com/api/generateDescription";
-        //     String output = restTemplate.postForObject(urlAPI,description,String.class);
-        String output = "  {\n" +
-                "  \"questions\": [\n" +
-                "    {\n" +
-                "      \"question\": \"Can you describe the email you received from your bank, including any distinctive features or language used?\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"question\": \"Did you notice any inconsistencies or red flags when reviewing the email?\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"question\": \"How did you verify the authenticity of the email before providing your personal information?\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"question\": \"Can you provide more details on the unauthorized transactions made on your account?\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"question\": \"Have you experienced any other suspicious activity on your accounts since the initial incident?\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"question\": \"What steps have you taken to protect your personal information and prevent similar incidents in the future?\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"question\": \"Are there any additional details or concerns you would like to share regarding this incident?\"\n" +
-                "}\n" +
-                "]\n" +
-                "}";
-
-//        try {
-//            QuestionnaireList questionnaireList = objectMapper.readValue(output.getBody(), QuestionnaireList.class);
-//            return ResponseEntity.ok(questionnaireList);
-//        } catch (JsonProcessingException e) {
-//            throw new RuntimeException(e);
-//        }
+        String urlAPI = "http://a03f-35-245-174-48.ngrok-free.app/home";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> requestEntity = new HttpEntity<>(description, headers);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> output = restTemplate.postForEntity(urlAPI, requestEntity, String.class);
+//              output = restTemplate.postForObject(urlAPI,description,String.class);
+//        String output = "  {\n" +
+//                "  \"questions\": [\n" +
+//                "    {\n" +
+//                "      \"question\": \"Can you describe the email you received from your bank, including any distinctive features or language used?\"\n" +
+//                "    },\n" +
+//                "    {\n" +
+//                "      \"question\": \"Did you notice any inconsistencies or red flags when reviewing the email?\"\n" +
+//                "    },\n" +
+//                "    {\n" +
+//                "      \"question\": \"How did you verify the authenticity of the email before providing your personal information?\"\n" +
+//                "    },\n" +
+//                "    {\n" +
+//                "      \"question\": \"Can you provide more details on the unauthorized transactions made on your account?\"\n" +
+//                "    },\n" +
+//                "    {\n" +
+//                "      \"question\": \"Have you experienced any other suspicious activity on your accounts since the initial incident?\"\n" +
+//                "    },\n" +
+//                "    {\n" +
+//                "      \"question\": \"What steps have you taken to protect your personal information and prevent similar incidents in the future?\"\n" +
+//                "    },\n" +
+//                "    {\n" +
+//                "      \"question\": \"Are there any additional details or concerns you would like to share regarding this incident?\"\n" +
+//                "}\n" +
+//                "]\n" +
+//                "}";
+        System.out.println(output.getBody());
         try {
-            QuestionnaireList questionnaireList = objectMapper.readValue(output, QuestionnaireList.class);
+            QuestionnaireList questionnaireList = objectMapper.readValue(output.getBody(), QuestionnaireList.class);
             return ResponseEntity.ok(questionnaireList);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+//        try {
+//            QuestionnaireList questionnaireList = objectMapper.readValue(output, QuestionnaireList.class);
+//            return ResponseEntity.ok(questionnaireList);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
 
     }
 
@@ -141,5 +140,22 @@ public class DescriptionController {
                 "\n" +
                 "As an empathetic and capable AI assistant for the cyber police in India, I understand the gravity of the situation and am committed to providing personalized guidance to help you recover from the cyber fraud. Please feel free to reach out to me if you have any further questions or concerns, and I will do my best to assist you.";
         return new ResponseEntity<>(output, HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/generateAnalysis")
+    public ResponseEntity<String> generateAnalytics(
+            @RequestBody String message
+    ){
+        String urlAPI = "http://044c-34-136-27-38.ngrok-free.app/analysis";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> requestEntity = new HttpEntity<>(message, headers);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity(urlAPI, requestEntity, String.class);
+
+        String responseBody = responseEntity.getBody();
+        System.out.println(responseBody);
+
+        return ResponseEntity.ok(responseBody);
     }
 }
