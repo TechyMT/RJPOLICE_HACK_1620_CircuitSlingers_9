@@ -120,7 +120,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
     }
 
     public void createPdf(IncidentReportDto incidentReportDto,ReportStatusDto reportStatusDto){
-        Map<String, Object> placeholders = new HashMap<>();
+        Map<String, String> placeholders = new HashMap<>();
         placeholders.put("userId", incidentReportDto.getUserIdentification());
         placeholders.put("fullName", incidentReportDto.getFullName());
         placeholders.put("dateOfBirth", incidentReportDto.getDateOfBirth());
@@ -134,8 +134,8 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         placeholders.put("pincode",incidentReportDto.getPincode());
         placeholders.put("category",incidentReportDto.getCategory());
         placeholders.put("dateOfReport",incidentReportDto.getDateOfReport());
-        placeholders.put("evidencesURL",incidentReportDto.getEvidencesURL());
-        placeholders.put("questionnaire",incidentReportDto.getQuestionnaire());
+        placeholders.put("evidencesURL",incidentReportDto.getEvidencesURL().toString());
+        placeholders.put("questionnaire",incidentReportDto.getQuestionnaire().toString());
 
         UserAccountInfo userAccountInfo = incidentReportDto.getUserAccountInfo();
         placeholders.put("bankName", userAccountInfo.getBankName());
@@ -177,12 +177,14 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         reportRepository.save(createdReport);
         return statusMapper.mapFrom(savedReportStatus);
     }
-    public String replacePlaceholders(String template, Map<String, Object> placeholders) {
+    public static String replacePlaceholders(String template, Map<String, String> placeholders) {
         String result = template;
-        for (Map.Entry<String, Object> entry : placeholders.entrySet()) {
+        for (Map.Entry<String, String> entry : placeholders.entrySet()) {
             String placeholder = "${" + entry.getKey() + "}";
-            CharSequence replacement = entry.getValue().toString();
-            result = result.replace(placeholder, replacement);
+            String replacement = entry.getValue();
+            if (replacement != null) {
+                result = result.replace(placeholder, replacement);
+            }
         }
         return result;
     }
