@@ -234,7 +234,7 @@ const ComplaintForm = () => {
           {/* Updated class to items-end */}
           <div>
             Now signed in as:{" "}
-            {user && user.displayName === null && (
+            {user && (
               <span className="text-primary">{user.displayName}</span>
             )}
                 
