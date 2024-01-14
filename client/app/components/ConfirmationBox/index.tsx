@@ -3,6 +3,7 @@ import Logo from "../../assets/brand/logo.png";
 import Image from "next/image";
 
 const ConfirmationBox: React.FC<any> = ({ trackId }) => {
+  console.log("trackId", trackId);
   return (
     <div className="flex flex-col items-center justify-center bg-green-50 p-10 rounded-lg shadow-md w-[70vw] max-w-screen-md mx-auto">
       <div className="flex items-center text-3xl font-extrabold mb-6">

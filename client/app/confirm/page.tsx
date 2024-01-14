@@ -17,10 +17,11 @@ const Confirmation = () => {
       return;
     }
   }, []);
-
-  <div className="flex justify-center m-12">
-    <ConfirmationBox trackId={caseDetails.trackId} />
-  </div>;
+  caseDetails && (
+    <div className="flex justify-center m-12">
+      <ConfirmationBox trackId={caseDetails.trackId} />
+    </div>
+  );
 };
 
 export default Confirmation;
