@@ -20,6 +20,10 @@ const Complaint = () => {
   useEffect(() => {
     console.log("user", user);
     console.log("loggedIn", loggedIn);
+    if (!loggedIn) {
+      push("/signin");
+      return;
+    }
     const addUser = async () => {
       const addUser = await fetch(`${publicUrl()}/add`, {
         method: "POST",
