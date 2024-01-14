@@ -7,7 +7,7 @@ import {
   SelectItem,
   Spinner,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useAuthStore from "../../utils/auth";
 import Heading from "../Heading";
 import Form from "../IncidentForm";
@@ -38,7 +38,9 @@ const ComplaintForm = () => {
   );
   const router = useRouter();
   const user = useAuthStore((state: { user: any }) => state.user);
+  const signOut = useAuthStore((state: { signOut: any }) => state.signOut);
   console.log("final user", user);
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
 
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<any>({
@@ -87,6 +89,11 @@ const ComplaintForm = () => {
     }));
   };
 
+  const handleSignOut = async () => {
+    await signOut();
+    router.push("/");
+  };
+
   const handlePrev = () => {
     setStep((prevStep) => (prevStep > 1 ? prevStep - 1 : prevStep));
   };
@@ -122,7 +129,7 @@ const ComplaintForm = () => {
       // Reset the form after submission if needed
       const body = {
         email: user.email,
-        userIdentification: "zBwRffRwdANSB1jsTgbee4zfF392",
+        userIdentification: user.uid,
         fullName: formData.name,
         dateOfBirth: formData.dob,
         aadharNumber: formData.adhaarNumber,
@@ -190,6 +197,7 @@ const ComplaintForm = () => {
       });
       setSubmitLoading(false);
       setCaseDetails(response);
+      setFormSubmitted(true);
       router.push(`/confirm`);
     }
 
@@ -197,11 +205,48 @@ const ComplaintForm = () => {
     setStep((prevStep) => (prevStep < 4 ? prevStep + 1 : prevStep));
   };
 
+  useEffect(() => {
+    const alertUser = (e: any) => {
+      if (!formSubmitted) {
+        const message = "Are you sure you want to leave?";
+        e.returnValue = message;
+        return message;
+      }
+    };
+
+    window.addEventListener("beforeunload", alertUser);
+
+    return () => {
+      window.removeEventListener("beforeunload", alertUser);
+    };
+  }, [formSubmitted]);
   return (
     <div className="flex flex-col justify-around items-center gap-10 py-8 ">
-      <div className="flex">
-        <Heading>Complaint Form</Heading>
+      <div className="flex justify-center items-center w-full">
+        <div className="flex items-center">
+          {/* Adjusted styles for centering Heading */}
+          <div className="flex items-center justify-center">
+            <Heading>Complaint Form</Heading>
+          </div>
+        </div>
+        <div className="flex flex-col absolute right-20 items-center">
+          {" "}
+          {/* Updated class to items-end */}
+          <div>
+            Now signed in as:{" "}
+            {user && user.displayName === null && (
+              <span className="text-primary">{user.displayName}</span>
+            )}
+                
+          </div>
+          <div>
+            <Button onClick={handleSignOut} color="danger">
+              Logout
+            </Button>
+          </div>
+        </div>
       </div>
+
       <div className="flex flex-col w-[80vw] gap-10">
         <div className="flex-1 ">
           <ol className="flex items-center w-full text-sm font-medium text-center text-gray-500 dark:text-gray-400 sm:text-base">

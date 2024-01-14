@@ -12,11 +12,6 @@ const Complaint = () => {
   const loggedIn = useAuthStore((state: { isLogedIn: any }) => state.isLogedIn);
   const user = useAuthStore((state: { user: any }) => state.user);
 
-  const alertUser = (e: any) => {
-    e.preventDefault();
-    e.returnValue = "Hello";
-  };
-
   useEffect(() => {
     console.log("user", user);
     console.log("loggedIn", loggedIn);
@@ -46,9 +41,6 @@ const Complaint = () => {
       addUser();
       console.log("addedUser");
     }
-
-    window.addEventListener("beforeunload", alertUser);
-    return () => window.removeEventListener("beforeunload", alertUser);
   }, [user, push]);
 
   return <ComplaintForm />;
