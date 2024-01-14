@@ -18,6 +18,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -165,6 +168,17 @@ public class ReportStatusImpl implements ReportStatusServices {
         }
     }
 
+    public void addSuggestionToReport(ReportStatusDto reportStatusDto){
+        Optional<ReportStatusEntity> reportStatus = statusRepository.findByTrackId(reportStatusDto.getTrackId());
+        if (reportStatus.isPresent()) {
+            ReportStatusEntity existingStatus = reportStatus.get();
+            if (!reportStatusDto.getSuggestions().isEmpty()) {
+                existingStatus.setSuggestions(reportStatusDto.getSuggestions());
+                statusRepository.save(existingStatus);
+            }
+        }
+    }
+
     @Override
     public ReportStatusDto findReportByTrack(Integer id){
         Optional<ReportStatusEntity> reportStatusEntity = statusRepository.findByTrackId(id);
@@ -175,4 +189,90 @@ public class ReportStatusImpl implements ReportStatusServices {
             throw new NotFoundException("No Report with track"+id+" was found");
         }
     }
+
+    @Override
+    public void addSuggestions(ReportStatusDto reportStatusDto){
+        //        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        String urlAPI = "https://your-ngrok-url.com/api/generateDescription";
+//        HttpEntity<SuggestionDto> requestEntity = new HttpEntity<>(suggestionDto, headers);
+//        ResponseEntity<String> responseEntity = new RestTemplate().postForEntity(urlAPI, requestEntity, String.class);
+//        String apiResponse = responseEntity.getBody();
+
+        String output ="Step 1: Secure Your Account and Personal Information\n" +
+                "\n" +
+                "1.1.1 Immediately notify your bank about the incident and provide them with the necessary details to investigate and take action. This will help them identify and freeze any fraudulent accounts associated with your personal information.\n" +
+                "\n" +
+                "1.1.2 Change your bank's login credentials and update your multi-factor authentication (MFA) settings to further secure your account.\n" +
+                "\n" +
+                "1.1.3 Place a fraud alert on your credit reports to prevent any unauthorized usage of your personal information, such as opening new bank accounts or credit cards.\n" +
+                "\n" +
+                "1.1.4 Review your bank statements and transaction history to identify any suspicious activity. Notify your bank and report any unauthorized transactions to the relevant authorities.\n" +
+                "\n" +
+                "Step 2: Protect Your Digital Assets\n" +
+                "\n" +
+                "2.1.1 Update your devices' operating system and software to ensure you have the latest security patches and virus definitions.\n" +
+                "\n" +
+                "2.1.2 Use a robust antivirus program to scan your system for malware and vulnerabilities.\n" +
+                "\n" +
+                "2.1.3 Consider investing in cybersecurity software that offers enhanced protection for your digital assets, such as encryption tools or identity theft protection services.\n" +
+                "\n" +
+                "Step 3: Seek Legal Support\n" +
+                "\n" +
+                "3.1.1 Familiarize yourself with Indian laws and regulations regarding cybercrime, such as the Information Technology Act, 2000 (IT Act) and the Indian Penal Code. Understand your rights and options for seeking legal recourse.\n" +
+                "\n" +
+                "3.1.2 Consider consulting with a cybercrime lawyer who is knowledgeable about Indian laws and can provide personalized guidance on legal matters.\n" +
+                "\n" +
+                "Step 4: Monitor Your Personal Information\n" +
+                "\n" +
+                "4.1.1 Regularly check your credit reports and financial statements to detect any suspicious activity or unauthorized usage of your personal information.\n" +
+                "\n" +
+                "4.1.2 Monitor your bank accounts and credit cards for any unusual transactions, and report any discrepancies to the relevant authorities.\n" +
+                "\n" +
+                "4.1.3 Keep a close eye on your social media accounts and email addresses for any suspicious activity or phishing attempts.\n" +
+                "\n" +
+                "Additional Tips:\n" +
+                "\n" +
+                "* Document any correspondence or communication with the fraudsters, including screenshots and logs of their actions.\n" +
+                "* Report the incident to the relevant authorities, such as the police or the Federal Bureau of Investigation (FBI).\n" +
+                "* Consider joining a cybercrime support group to connect with others who have experienced similar situations.\n" +
+                "\n" +
+                "Remember, you're not alone in this fight. There are various resources available to help you recover from cyber fraud and protect your personal information. Please feel free to reach out to me if you have any further questions or concerns.\n" +
+                "\n" +
+                "---\n" +
+                "\n";
+        reportStatusDto.setSuggestions(output);
+        addSuggestionToReport(reportStatusDto);
+    }
+
+    @Override
+    public Map<String, List<ReportStatusDto>> sortReportByDates() {
+        Map<String, List<ReportStatusDto>> categorizedReports = new HashMap<>();
+        List<ReportStatusEntity> allReports = statusRepository.findAll();
+
+        for (ReportStatusEntity report : allReports) {
+            LocalDate reportLocalDate = LocalDate.parse(report.getReportDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            LocalDate currentDate = LocalDate.now();
+            long daysDifference = ChronoUnit.DAYS.between(reportLocalDate, currentDate);
+
+            String category;
+            if (daysDifference <= 1) {
+                category = "Last Day Reports";
+            } else if (daysDifference <= 7) {
+                category = "Last 7 Days Reports";
+            } else if (daysDifference <= 30) {
+                category = "Last 30 Days Reports";
+            } else {
+                category = "Old Reports";
+            }
+
+            categorizedReports
+                    .computeIfAbsent(category, k -> new ArrayList<>())
+                    .add(reportMapper.mapFrom(report));
+        }
+
+        return categorizedReports;
+    }
+
+
 }

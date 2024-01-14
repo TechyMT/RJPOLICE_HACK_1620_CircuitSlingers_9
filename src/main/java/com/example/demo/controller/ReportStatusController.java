@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.AnalyticsDto;
 import com.example.demo.dto.DetailsDto;
 import com.example.demo.dto.IncidentReportDto;
 import com.example.demo.dto.ReportStatusDto;
 import com.example.demo.entities.ReportStatusEntity;
+import com.example.demo.services.AnalysisServices;
 import com.example.demo.services.ReportStatusServices;
 import com.example.demo.services.impl.EmailSenderService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import java.util.Map;
 public class ReportStatusController {
     private final ReportStatusServices reportStatusServices;
     private final EmailSenderService senderService;
+    private final AnalysisServices analysisServices;
 
     @PatchMapping(path = "/update")
     public ResponseEntity<ReportStatusDto> updateReport(
@@ -120,6 +123,20 @@ public class ReportStatusController {
         Map<String, String> resultMap = new HashMap<>();
         resultMap.put("success", "Case Assigned");
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/getAnalysis")
+    public ResponseEntity<AnalyticsDto> getMessageAndDate(
+            @RequestBody AnalyticsDto analyticsDto
+    ){
+        AnalyticsDto createdDto = analysisServices.createAnalysis(analyticsDto);
+        return new ResponseEntity<>(createdDto,HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/getSortedReports")
+    public ResponseEntity<Map<String,List<ReportStatusDto>>> getSortedReports(){
+        Map<String,List<ReportStatusDto>>  sortedReports = reportStatusServices.sortReportByDates();
+        return new ResponseEntity<>(sortedReports,HttpStatus.OK);
     }
 
 }

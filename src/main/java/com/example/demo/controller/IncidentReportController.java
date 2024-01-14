@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.IncidentReportDto;
+import com.example.demo.dto.IncidentResponseDto;
 import com.example.demo.entities.IncidentReportEntity;
 import com.example.demo.services.impl.FirebaseMessagingService;
 import com.example.demo.services.IncidentReportServices;
@@ -22,10 +23,10 @@ public class IncidentReportController {
 
 
     @PostMapping(path = "/add")
-    public ResponseEntity<IncidentReportDto> createReport(
+        public ResponseEntity<IncidentResponseDto> createReport(
         @RequestBody IncidentReportDto reportDto
     ) throws IOException {
-        IncidentReportDto createdReport = reportServices.createReport(reportDto);
+        IncidentResponseDto createdReport = reportServices.createReport(reportDto);
         return new ResponseEntity<>(createdReport, HttpStatus.CREATED);
     }
 

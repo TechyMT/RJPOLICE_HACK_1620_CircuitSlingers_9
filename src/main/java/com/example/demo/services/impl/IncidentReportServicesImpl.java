@@ -1,6 +1,7 @@
 package com.example.demo.services.impl;
 
 import com.example.demo.dto.IncidentReportDto;
+import com.example.demo.dto.IncidentResponseDto;
 import com.example.demo.dto.ReportStatusDto;
 import com.example.demo.dto.ReportTemplate;
 import com.example.demo.entities.*;
@@ -17,6 +18,7 @@ import com.example.demo.repository.IncidentReportRepository;
 import com.example.demo.repository.ReportStatusRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.services.IncidentReportServices;
+import com.example.demo.services.ReportStatusServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
@@ -37,11 +39,11 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
     private final DocumentGenerator documentGenerator;
     private final ReportStatusRepository statusRepository;
     private final ReportStatusMapperImpl statusMapper;
-    private final TemplateEngine templateEngine;
+    private final ReportStatusServices reportStatusServices;
     private final DataMapper dataMapper;
     private final EmailSenderService senderService;
     @Override
-    public IncidentReportDto createReport(IncidentReportDto incidentReportDto) {
+    public IncidentResponseDto createReport(IncidentReportDto incidentReportDto) {
 
         String userId = incidentReportDto.getUserIdentification();
         UserEntity user = userRepository.findByUserUID(userId)
@@ -51,6 +53,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         IncidentReportEntity createdReport = reportRepository.save(incidentReportEntity);
         ReportStatusDto reportStatusDto = createReport(userId,incidentReportDto,createdReport);
         createPdf(incidentReportDto, reportStatusDto);
+        CompletableFuture<Void> addSuggestionsFuture = addSuggestionsAsync(reportStatusDto);
         CompletableFuture<Void> emailCompletionFuture = CompletableFuture.runAsync(() ->
                 senderService.sendCaseRegistrationCompletionEmail(incidentReportDto.getEmail(), reportStatusDto.getTrackId(), reportStatusDto.getReportURL())
         );
@@ -71,9 +74,17 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         CompletableFuture<Void> efirConfirmationEmailFuture = CompletableFuture.runAsync(() ->
                 senderService.sendEFIRFilingConfirmationEmail(incidentReportDto.getEmail(), reportStatusDto.getTrackId())
         );
-        CompletableFuture.allOf(emailCompletionFuture, notificationAndEmailFutures, efirConfirmationEmailFuture).join();
+        CompletableFuture.allOf(addSuggestionsFuture,emailCompletionFuture, notificationAndEmailFutures, efirConfirmationEmailFuture).join();
+        IncidentResponseDto incidentResponseDto = new IncidentResponseDto();
+        incidentResponseDto.setTrack(reportStatusDto.getTrackId());
+        incidentResponseDto.setSuggestions(reportStatusDto.getSuggestions());
+        return incidentResponseDto;
+    }
 
-        return reportMapper.mapFrom(createdReport);
+    public CompletableFuture<Void> addSuggestionsAsync(ReportStatusDto reportStatusDto) {
+        return CompletableFuture.runAsync(() -> {
+            reportStatusServices.addSuggestions(reportStatusDto);
+        });
     }
 
     @Override
@@ -136,14 +147,12 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         placeholders.put("dateOfReport",incidentReportDto.getDateOfReport());
         placeholders.put("evidencesURL",incidentReportDto.getEvidencesURL().toString());
         placeholders.put("questionnaire",incidentReportDto.getQuestionnaire().toString());
-
         UserAccountInfo userAccountInfo = incidentReportDto.getUserAccountInfo();
         placeholders.put("bankName", userAccountInfo.getBankName());
         placeholders.put("amountLost", String.valueOf(userAccountInfo.getAmountLost()));
         placeholders.put("dateOfTransaction", userAccountInfo.getDateOfTransaction());
         placeholders.put("transaction", userAccountInfo.getTransaction());
         placeholders.put("accountNumber", userAccountInfo.getAccountNumber());
-
         SuspectInfo suspectInfo = incidentReportDto.getSuspectInfo();
         placeholders.put("suspectBankName", suspectInfo.getSuspectBankName());
         placeholders.put("suspectPhoneNumber", suspectInfo.getSuspectPhoneNumber());

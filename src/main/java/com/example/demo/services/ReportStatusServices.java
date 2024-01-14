@@ -23,5 +23,9 @@ public interface ReportStatusServices {
     List<Map<String, Object>> processData();
     public ReportStatusDto findReportByTrack(Integer id);
 
+    void addSuggestions(ReportStatusDto reportStatusDto);
+
+    Map<String,List<ReportStatusDto>> sortReportByDates();
+
 
 }
