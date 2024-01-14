@@ -1,9 +1,18 @@
 import React from "react";
 import Logo from "../../assets/brand/logo.png";
 import Image from "next/image";
+import { Button } from "@nextui-org/react";
+import useAuthStore from "@/app/utils/auth";
+import { useRouter } from "next/navigation";
 
 const ConfirmationBox: React.FC<any> = ({ trackId }) => {
+  const router = useRouter();
   console.log("trackId", trackId);
+  const signOut = useAuthStore((state: { signOut: any }) => state.signOut);
+  const handleClose = () => {
+    signOut();
+    router.push("/");
+  };
   return (
     <div className="flex flex-col items-center justify-center bg-green-50 p-10 rounded-lg shadow-md w-[70vw] max-w-screen-md mx-auto">
       <div className="flex items-center text-3xl font-extrabold mb-6">
@@ -33,12 +42,10 @@ const ConfirmationBox: React.FC<any> = ({ trackId }) => {
         Note: Please keep the tracking ID for future references.
       </div>
       <div className="flex space-x-4">
-        <button className="bg-primary text-white px-6 py-2 rounded-md hover:bg-opacity-80 focus:outline-none">
+        <Button color="primary" onClick={handleClose}>
           OK
-        </button>
-        <button className="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 focus:outline-none">
-          Close
-        </button>
+        </Button>
+        <Button onClick={handleClose}>Close</Button>
       </div>
     </div>
   );

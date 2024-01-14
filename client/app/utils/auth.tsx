@@ -89,7 +89,7 @@ const useAuthStore = create<any>(
           await signOut(auth);
           console.log("User Signed Out!!!");
           localStorage.removeItem("auth-storage");
-          set({ user: null, isLogedIn: false });
+          set({ user: null, isLogedIn: false, caseDetails: null });
         } catch (error) {
           console.error((error as Error).message);
         }

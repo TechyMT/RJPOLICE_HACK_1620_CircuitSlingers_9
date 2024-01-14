@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import usePush from "../components/usePush";
 const Confirmation = () => {
+  const [caseData, setCaseData] = React.useState<any>(null);
   const router = usePush();
   const caseDetails = useAuthStore(
     (state: { caseDetails: any }) => state.caseDetails
@@ -16,12 +17,14 @@ const Confirmation = () => {
       router("/");
       return;
     }
+    setCaseData(caseDetails);
   }, []);
-  caseDetails && (
-    <div className="flex justify-center m-12">
-      <ConfirmationBox trackId={caseDetails.trackId} />
-    </div>
-  );
+  if (caseData)
+    return (
+      <div className="flex justify-center m-12">
+        <ConfirmationBox trackId={caseData.trackId} />
+      </div>
+    );
 };
 
 export default Confirmation;
