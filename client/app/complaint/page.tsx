@@ -35,8 +35,8 @@ const Complaint = () => {
           email: user.email,
           phoneNumber: user.phoneNumber,
           emailVerified: user.emailVerified,
-          creationTime: user.metadata.creationTime,
-          lastSignInTime: user.metadata.lastSignInTime,
+          creationTime: user.createdAt,
+          lastSignInTime: user.lastLoginAt,
         }),
       });
       console.log("user added", addUser);

@@ -39,6 +39,7 @@ const ComplaintForm = () => {
   const router = useRouter();
   const user = useAuthStore((state: { user: any }) => state.user);
   console.log("final user", user);
+  
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<any>({
     name: "",
