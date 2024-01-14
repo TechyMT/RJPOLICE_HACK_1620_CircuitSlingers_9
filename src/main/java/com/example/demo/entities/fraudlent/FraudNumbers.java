@@ -17,4 +17,6 @@ public class FraudNumbers {
 
     private String phoneNumber;
 
+    private Integer reportCount;
+
 }

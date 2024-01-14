@@ -6,4 +6,6 @@ public interface FraudEmailServices {
     boolean isEmailFraud(String email);
 
     FraudEmails addFraudEmail(FraudEmails email);
+
+    void reportFraudEmail(FraudEmails email);
 }

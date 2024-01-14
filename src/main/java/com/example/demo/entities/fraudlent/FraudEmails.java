@@ -16,4 +16,6 @@ public class FraudEmails {
     private String id;
     private String email;
 
+    private Integer reportCount;
+
 }

@@ -16,4 +16,6 @@ public class FraudAccNumbers {
     private String id;
 
     private String accountNumber;
+
+    private Integer reportCount;
 }

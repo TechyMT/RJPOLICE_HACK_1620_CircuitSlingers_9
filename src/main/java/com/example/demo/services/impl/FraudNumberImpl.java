@@ -1,5 +1,6 @@
 package com.example.demo.services.impl;
 
+import com.example.demo.entities.fraudlent.FraudEmails;
 import com.example.demo.entities.fraudlent.FraudNumbers;
 import com.example.demo.repository.FraudNumbersRepository;
 import com.example.demo.services.FraudNumbersServices;
@@ -22,6 +23,18 @@ public class FraudNumberImpl implements FraudNumbersServices {
     @Override
     public FraudNumbers addFraudNumber(FraudNumbers number) {
         return numbersRepository.save(number);
+    }
+
+    @Override
+    public void reportFraudNumber(FraudNumbers numbers) {
+            String number = numbers.getPhoneNumber();
+            FraudNumbers existingNumber = numbersRepository.findByPhoneNumber(number);
+            if (existingNumber != null) {
+                existingNumber.setReportCount(existingNumber.getReportCount() + 1);
+            } else {
+                numbers.setReportCount(1);
+                numbersRepository.save(numbers);
+            }
     }
 
 

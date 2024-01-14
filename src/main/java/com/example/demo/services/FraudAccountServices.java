@@ -14,4 +14,5 @@ public interface FraudAccountServices {
 
     FraudAccNumbers addFraudAcc(FraudAccNumbers number);
 
+    void reportFraudAcc(FraudAccNumbers numbers);
 }

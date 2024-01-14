@@ -29,4 +29,16 @@ public class FraudAccNumberServicesImpl implements FraudAccountServices {
             throw new AlreadyExistsException("This fraud Account Number already exists in the Database");
         }
     }
+
+    @Override
+    public void reportFraudAcc(FraudAccNumbers numbers) {
+        String accountNumber = numbers.getAccountNumber();
+        FraudAccNumbers existingAccount = accountRepository.findByAccountNumber(accountNumber);
+        if (existingAccount != null) {
+            existingAccount.setReportCount(existingAccount.getReportCount() + 1);
+        } else {
+            numbers.setReportCount(1);
+            accountRepository.save(numbers);
+        }
+    }
 }
