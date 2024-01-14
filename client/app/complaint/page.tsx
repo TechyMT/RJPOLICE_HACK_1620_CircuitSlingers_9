@@ -18,8 +18,10 @@ const Complaint = () => {
   };
 
   useEffect(() => {
+    console.log("user", user);
+    console.log("loggedIn", loggedIn);
     const addUser = async () => {
-      await fetch(`${publicUrl()}/add`, {
+      const addUser = await fetch(`${publicUrl()}/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,21 +35,19 @@ const Complaint = () => {
           lastSignInTime: user.metadata.lastSignInTime,
         }),
       });
-      console.log("user", user);
+      console.log("user added", addUser);
     };
 
     if (user) {
       addUser();
-    ;
+      console.log("addedUser");
     }
 
     window.addEventListener("beforeunload", alertUser);
     return () => window.removeEventListener("beforeunload", alertUser);
   }, [user, push]);
 
-  
-    return <ComplaintForm />;
-
+  return <ComplaintForm />;
 
   // The return statement is not needed here
   // else {
