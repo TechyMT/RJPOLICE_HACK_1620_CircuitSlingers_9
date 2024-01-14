@@ -152,7 +152,7 @@ Future<int> submitReport() async {
   if (response.statusCode == 201) {
     functionController.isReportSubmitted.value = true;
     final Map<String, dynamic> responseData = jsonDecode(response.body);
-    var track_id = responseData['trackId'];
+    var track_id = responseData['track'];
     return track_id;
   } else {
     print('Error: ${response.statusCode}');
@@ -165,7 +165,6 @@ Future<List<ReportStatusDto>> fetchReportStatusList() async {
   // final ReportStatusController reportStatusController = Get.find();
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String? uid = sharedPreferences.getString('userId');
-
   final response = await http
       .get(Uri.parse('http://192.168.1.5:8080/api/admin/reports/$uid'));
 

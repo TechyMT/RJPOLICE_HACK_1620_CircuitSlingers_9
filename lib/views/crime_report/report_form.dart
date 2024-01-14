@@ -106,29 +106,29 @@ class _ReportFormState extends State<ReportForm> {
                     height: 8,
                   ),
                   TextFormField(
-                      controller: detailsController.emailController,
-                      style: const TextStyle(color: Colors.black),
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xFFCBD5E1),
-                        hintStyle:
-                            const TextStyle(color: Colors.black, fontSize: 15),
-                        labelText: 'E-Mail',
-                        labelStyle: const TextStyle(color: Colors.black),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.black),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.black),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                    controller: detailsController.emailController,
+                    style: const TextStyle(color: Colors.black),
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: const Color(0xFFCBD5E1),
+                      hintStyle:
+                          const TextStyle(color: Colors.black, fontSize: 15),
+                      labelText: 'E-Mail',
+                      labelStyle: const TextStyle(color: Colors.black),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      onSaved: (value) => detailsController
-                          .suspectNumberController.text = value!,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
-                    const SizedBox(height: 8.0),
+                    onSaved: (value) =>
+                        detailsController.suspectNumberController.text = value!,
+                  ),
+                  const SizedBox(height: 8.0),
                   TextFormField(
                     controller: detailsController.aadharNumberController,
                     style: const TextStyle(color: Colors.black),
@@ -277,7 +277,7 @@ class _ReportFormState extends State<ReportForm> {
                     ],
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: const Color(0xFFCBD5E1), 
+                      fillColor: const Color(0xFFCBD5E1),
                       hintText: 'Category - Online Bank or Other Fraud',
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
@@ -589,21 +589,28 @@ class _ReportFormState extends State<ReportForm> {
                   ),
                   Obx(
                     () => ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          await fetchQuestions(detailsController
-                              .incidentDescriptionController.text);
-                        }
-                        await detailsController.controllerInitialization();
-                        widget.pageController.nextPage(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.ease,
-                        );
-                      },
-                      child: controller.answerQuestions.value
-                          ? const Text('Answer Questions')
-                          : const Text('Submit'),
+                      onPressed: controller.isButtonEnabled.value
+                          ? () async {
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                                await fetchQuestions(
+                                  detailsController
+                                      .incidentDescriptionController.text,
+                                );
+                              }
+                              await detailsController
+                                  .controllerInitialization();
+                              widget.pageController.nextPage(
+                                duration: const Duration(milliseconds: 500),
+                                curve: Curves.ease,
+                              );
+                            }
+                          : null,
+                      child: controller.isButtonEnabled.value
+                          ? controller.answerQuestions.value
+                              ? const Text('Answer Questions')
+                              : const Text('Submit')
+                          : const CircularProgressIndicator(),
                     ),
                   ),
                 ],

@@ -52,118 +52,137 @@ class Login extends StatelessWidget {
             ),
           ),
           Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text(
-                      "Welcome back",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Text(
+                        "Welcome back",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      "Log in to your account",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
+                      const SizedBox(height: 10),
+                      const Text(
+                        "Log in to your account",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 10),
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                          labelText: "Email",
-                          labelStyle: TextStyle(color: Colors.white)),
-                      style: const TextStyle(color: Colors.white),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your Email-Id';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      controller: _passwordController,
-                      decoration: const InputDecoration(
-                        labelText: "Password",
-                        labelStyle: TextStyle(color: Colors.white),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                          controller: _emailController,
+                          style: const TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            filled: true,
+                            fillColor: const Color(0xFFCBD5E1),
+                            labelText: 'Email',
+                            labelStyle: const TextStyle(color: Colors.black),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.black),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.black),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          onSaved: (value) =>
+                              controller.emailController.text = value!),
+                      const SizedBox(
+                        height: 10,
                       ),
-                      style: const TextStyle(color: Colors.white),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your Password';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 30),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          await _login();
-                        }
-                      },
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Login"),
-                          Icon(Icons.login),
-                        ],
+                      TextFormField(
+                        obscureText: true,
+                        controller: _passwordController,
+                        style: const TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: const Color(0xFFCBD5E1),
+                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                          labelText: 'Password',
+                          labelStyle: const TextStyle(color: Colors.black),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.black),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.black),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        onSaved: (value) =>
+                            controller.passwordController.text = value!,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Row(children: <Widget>[
-                      Expanded(child: Divider()),
-                      Text(
-                        "OR",
-                        style: TextStyle(color: Colors.white),
+                      const SizedBox(height: 30),
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            await _login();
+                          }
+                        },
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Login"),
+                            Icon(Icons.login),
+                          ],
+                        ),
                       ),
-                      Expanded(child: Divider()),
-                    ]),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        await _signInWithGoogle();
-                      },
-                      child: const Text("Sign in with Google"),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Row(children: <Widget>[
-                      Expanded(child: Divider()),
-                      Text(
-                        "OR",
-                        style: TextStyle(color: Colors.white),
+                      const SizedBox(
+                        height: 10,
                       ),
-                      Expanded(child: Divider()),
-                    ]),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        await _loginWithFacebook();
-                      },
-                      child: const Text("Login with Facebook"),
-                    ),
-                    const SizedBox(height: 10),
-                  ],
+                      const Row(children: <Widget>[
+                        Expanded(child: Divider()),
+                        Text(
+                          "OR",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Expanded(child: Divider()),
+                      ]),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          await _signInWithGoogle();
+                        },
+                        child: const Text("Sign in with Google"),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Row(children: <Widget>[
+                        Expanded(child: Divider()),
+                        Text(
+                          "OR",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Expanded(child: Divider()),
+                      ]),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          await _loginWithFacebook();
+                        },
+                        child: const Text("Login with Facebook"),
+                      ),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
                 ),
               ),
             ),

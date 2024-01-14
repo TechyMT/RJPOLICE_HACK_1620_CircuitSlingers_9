@@ -72,7 +72,7 @@ class Register extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         const Text(
-                          "Registration",
+                          "Register Yourself",
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
@@ -84,38 +84,54 @@ class Register extends StatelessWidget {
                           height: 10,
                         ),
                         TextFormField(
-                          controller: controller.emailController,
-                          decoration: const InputDecoration(
-                            labelText: "Email",
-                            labelStyle: TextStyle(color: Colors.white),
-                          ),
-                          style: const TextStyle(color: Colors.white),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter your Email';
-                            }
-                            return null;
-                          },
-                        ),
+                            controller: controller.emailController,
+                            style: const TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                              filled: true,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              fillColor: const Color(0xFFCBD5E1),
+                              labelText: 'Email',
+                              labelStyle: const TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.black),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.black),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                            onSaved: (value) =>
+                                controller.emailController.text = value!),
                         const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
                           obscureText: true,
                           controller: controller.passwordController,
-                          decoration: const InputDecoration(
-                            labelText: "Password",
-                            labelStyle: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                            filled: true,
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            fillColor: const Color(0xFFCBD5E1),
+                            labelText: 'Password',
+                            labelStyle: const TextStyle(color: Colors.black),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.black),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.black),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                           ),
-                          style: const TextStyle(color: Colors.white),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter yor Password';
-                            }
-                            return null;
-                          },
+                          onSaved: (value) =>
+                              controller.passwordController.text = value!,
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 50),
                         ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
@@ -131,7 +147,7 @@ class Register extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         const Row(children: <Widget>[
                           Expanded(child: Divider()),
@@ -142,7 +158,7 @@ class Register extends StatelessWidget {
                           Expanded(child: Divider()),
                         ]),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         ElevatedButton(
                           onPressed: () async {
@@ -151,7 +167,7 @@ class Register extends StatelessWidget {
                           child: const Text("Sign up with Google"),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         const Row(children: <Widget>[
                           Expanded(child: Divider()),
@@ -162,7 +178,7 @@ class Register extends StatelessWidget {
                           Expanded(child: Divider()),
                         ]),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         ElevatedButton(
                           onPressed: () async {
@@ -188,7 +204,6 @@ class Register extends StatelessWidget {
     User? user = await _auth.signupWithEmailandPassword(email, password);
 
     if (user != null) {
-  
       await createUser();
       await controller.sign_login();
       await _firebaseMessage.getFirebaseToken();

@@ -62,7 +62,7 @@ class ApplicationStatus extends StatelessWidget {
               SharedPreferences sharedPreferences =
                   await SharedPreferences.getInstance();
               sharedPreferences.clear();
-              Get.offAll(() =>  OnBoarding());
+              Get.offAll(() => OnBoarding());
             },
             icon: const Icon(Icons.logout),
           ),
@@ -76,7 +76,7 @@ class ApplicationStatus extends StatelessWidget {
               future: fetchReportStatusList(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else {
@@ -88,21 +88,68 @@ class ApplicationStatus extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final reportStatus =
                             reportStatusController.reportStatusList[index];
-                          return ListTile(
-                            leading: IconButton(
-                              icon: Icon(Icons.download),
-                              onPressed: () async {
-                                  Uri uri = Uri.parse(reportStatusController.reportStatusList[index].reportUrl);
-                                      if (!await launchUrl(uri)) {
-                                                throw Exception('Could not launch $uri');
-                                        }
-                              },
-                            ),
-                            title: Text('Track ID: ${reportStatus.trackId}'),
-                            subtitle: Text(
-                                'Status: ${reportStatus.currentStatus ?? 'N/A'}'),
-                            onTap: () {},
-                          );
+                        return ListTile(
+                          title: Text('Track ID: ${reportStatus.trackId}'),
+                          subtitle: Text(
+                              'Status: ${reportStatus.currentStatus ?? 'N/A'}'),
+                          trailing: PopupMenuButton<String>(
+                            onSelected: (String choice) async {
+                              if (choice == 'download') {
+                                Uri uri = Uri.parse(reportStatusController
+                                    .reportStatusList[index].reportUrl);
+                                if (!await launchUrl(uri)) {
+                                  throw Exception('Could not launch $uri');
+                                }
+                              } else if (choice == 'showSuggestions') {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            const Text(
+                                              "Additional Information and Next Steps:",
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Text(
+                                              reportStatus.suggestions,
+                                              style:
+                                                  const TextStyle(fontSize: 16),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+                            },
+                            itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry<String>>[
+                              const PopupMenuItem<String>(
+                                value: 'download',
+                                child: ListTile(
+                                  leading: Icon(Icons.download),
+                                  title: Text('Download'),
+                                ),
+                              ),
+                              const PopupMenuItem<String>(
+                                value: 'showSuggestions',
+                                child: ListTile(
+                                  leading: Icon(Icons.info),
+                                  title: Text('Show Suggestions'),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                     ),
                   );

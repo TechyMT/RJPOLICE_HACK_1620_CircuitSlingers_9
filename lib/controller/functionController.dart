@@ -8,6 +8,7 @@ class FunctionController extends GetxController {
   var questionnaireList = Rx<QuestionnaireList?>(null);
   RxBool isLoading = false.obs;
   var answerQuestions = false.obs;
+  RxBool isButtonEnabled = true.obs;
 
   Future<void> fetchNews() async {
     try {
