@@ -22,7 +22,7 @@ const Confirmation = () => {
   if (caseData)
     return (
       <div className="flex justify-center m-12">
-        <ConfirmationBox trackId={caseData.trackId} />
+        <ConfirmationBox trackId={caseData.trackId} suggestions={caseDetails.suggestions} />
       </div>
     );
 };
