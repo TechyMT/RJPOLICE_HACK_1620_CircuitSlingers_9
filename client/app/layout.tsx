@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -6,7 +5,6 @@ import { Providers } from "./providers";
 import Navbar from "./components/Navbar";
 import HomeNav from "./components/HomeNav";
 import Footer from "./components/Footer";
-
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,14 +20,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
- 
   return (
     <html lang="en">
       <body className="main-blue">
         <Providers>
           <Navbar />
           <HomeNav />
-          
 
           {children}
           <Footer />
