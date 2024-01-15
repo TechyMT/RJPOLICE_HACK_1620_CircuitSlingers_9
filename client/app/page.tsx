@@ -67,45 +67,45 @@ export default function Home() {
             })}
           </Swiper>
           <div></div>
-          <div className="flex gap-20 justify-evenly z-10 relative mt-[-150px] bg-primary py-4 mx-8 rounded-3xl">
-            <Link href={"/online-reporting"}>
-              <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white">
-                <div>
-                  <Icon icon="report" width={130} />
-                </div>
-                <div className="text-2xl text-white">Report a crime.</div>
-              </div>
-            </Link>
-            <Link href={"/track-case"}>
-              <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
-                <div>
-                  <Icon icon="location" width={130} />
-                </div>
-                <div className="text-2xl text-white flex justify-center">
-                  Track your case
-                </div>
-              </div>
-            </Link>
-            <Link href={"/awareness-training"}>
-              <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
-                <div>
-                  <Icon icon="outreach" width={130} />
-                </div>
-                <div className="text-2xl text-white flex justify-center text-center">
-                  Awareness and Training
-                </div>
-              </div>
-            </Link>
-            <Link href={"/news"}>
-              <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
-                <div>
-                  <Icon icon="news" width={130} />
-                </div>
-                <div className="text-2xl text-white">News</div>
-              </div>
-            </Link>
-          </div>
-        </div>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-20 justify-center z-10 relative mt-[-150px] bg-primary py-4 mx-4 md:mx-8 rounded-3xl">
+  <Link href={"/online-reporting"} className="mb-4 md:mb-0">
+    <div className="flex flex-col items-center justify-around w-full md:w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white">
+      <div>
+        <Icon icon="report" width={130} />
+      </div>
+      <div className="text-2xl text-white">Report a crime.</div>
+    </div>
+  </Link>
+  <Link href={"/track-case"} className="mb-4 md:mb-0">
+    <div className="flex flex-col items-center justify-around w-full md:w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
+      <div>
+        <Icon icon="location" width={130} />
+      </div>
+      <div className="text-2xl text-white flex justify-center">
+        Track your case
+      </div>
+    </div>
+  </Link>
+  <Link href={"/awareness-training"} className="mb-4 md:mb-0">
+    <div className="flex flex-col items-center justify-around w-full md:w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
+      <div>
+        <Icon icon="outreach" width={130} />
+      </div>
+      <div className="text-2xl text-white flex justify-center text-center">
+        Awareness and Training
+      </div>
+    </div>
+  </Link>
+  <Link href={"/news"} className="mb-4 md:mb-0">
+    <div className="flex flex-col items-center justify-around w-full md:w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
+      <div>
+        <Icon icon="news" width={130} />
+      </div>
+      <div className="text-2xl text-white">News</div>
+    </div>
+  </Link>
+</div>
+</div>
 
         <div className="flex flex-col gap-12">
           <Heading>Cybercrime Guidelines </Heading>
