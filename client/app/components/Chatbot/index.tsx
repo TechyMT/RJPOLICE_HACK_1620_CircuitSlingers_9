@@ -1,7 +1,7 @@
 "use client";
 import { Avatar, Button, Input } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
-
+import { WindupChildren } from "windups";
 const Chatbot: React.FC = () => {
   const [showChatbox, setShowChatbox] = useState(false);
   const [userInput, setUserInput] = useState("");
@@ -108,7 +108,7 @@ const Chatbot: React.FC = () => {
                       <div>
                         <Avatar />
                       </div>
-                      <div>{message.message}</div>
+                      <WindupChildren>{`${message.message}`}</WindupChildren>
                     </div>
                   </>
                 )}

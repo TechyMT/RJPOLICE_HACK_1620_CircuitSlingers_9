@@ -135,7 +135,7 @@ const ComplaintForm = () => {
         aadharNumber: formData.adhaarNumber,
         incidentDescription: formData.description,
         dateOfCrime: formData.crimeDate,
-        dateOfReport: new Date().toISOString(),
+        dateOfReport: new Date(Date.now()).toLocaleString().split(",")[0],
         phoneNumber: formData.phoneNumber,
         evidencesURL: [],
         city: formData.location,
@@ -234,10 +234,7 @@ const ComplaintForm = () => {
           {/* Updated class to items-end */}
           <div>
             Now signed in as:{" "}
-            {user && (
-              <span className="text-primary">{user.displayName}</span>
-            )}
-                
+            {user && <span className="text-primary">{user.displayName}</span>}
           </div>
           <div>
             <Button onClick={handleSignOut} color="danger">

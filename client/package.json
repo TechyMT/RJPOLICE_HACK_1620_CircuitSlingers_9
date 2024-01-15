@@ -20,6 +20,7 @@
     "react-visibility-sensor": "^5.1.1",
     "react-youtube": "^10.1.0",
     "swiper": "^11.0.5",
+    "windups": "^1.2.2",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
