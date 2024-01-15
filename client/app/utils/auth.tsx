@@ -54,36 +54,44 @@ const useAuthStore = create<any>(
       },
       emailSignIn: async (email: string, password: string) => {
         try {
+          console.log("email", email);
           const userCredential = await signInWithEmailAndPassword(
             auth,
             email,
             password
-          );
-          const user = userCredential.user;
-          console.log("User Signed In!!!");
-          console.log(user);
-          localStorage.setItem("user", JSON.stringify(user));
-          set({ user, isLogedIn: true });
-        } catch (signInError) {
-          if ((signInError as any).code === "auth/user-not-found") {
-            try {
-              const newUserCredential = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-              );
-              const newUser = newUserCredential.user;
-              console.log("User Signed Up!!!");
-              console.log(newUser);
-              set({ user: newUser, isLogedIn: true });
-            } catch (signUpError) {
-              console.error((signUpError as Error).message);
-            }
-          } else {
-            console.error((signInError as Error).message);
-          }
+          )
+            .then((res) => {
+              console.log(userCredential);
+              set({ user: res.user, isLogedIn: true });
+            })
+            .catch((error) => {
+              console.log("error", error);
+            });
+          // const user = userCredential.user;
+          // console.log("User Signed In!!!");
+          // console.log(user);
+        } catch (signInError: any) {
+          console.log("signInError", signInError);
+          // if (signInError.code === "auth/user-not-found") {
+          //   try {
+          //     const newUserCredential = await createUserWithEmailAndPassword(
+          //       auth,
+          //       email,
+          //       password
+          //     );
+          //     const newUser = newUserCredential.user;
+          //     console.log("User Signed Up!!!");
+          //     console.log(newUser);
+          //     set({ user: newUser, isLogedIn: true });
+          //   } catch (signUpError: any) {
+          //     console.error(signUpError.message);
+          //   }
+          // } else {
+          //   console.error(signInError.message);
+          // }
         }
       },
+
       signOut: async () => {
         try {
           await signOut(auth);

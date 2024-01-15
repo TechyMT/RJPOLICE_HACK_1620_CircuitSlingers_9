@@ -3,18 +3,34 @@
 "use client";
 import { Button, Input } from "@nextui-org/react";
 import Image from "next/image";
-import { useEffect, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import Login from "../assets/images/login.jpg";
 import useAuthStore from "../utils/auth";
 import usePush from "../components/usePush";
 
 const SignInPage: FC = function () {
+  const [credentials, setCredentials] = useState<any>({
+    email: "",
+    password: "",
+  });
   const googleSignIn = useAuthStore(
     (state: { googleSignIn: any }) => state.googleSignIn
+  );
+  const emailSignIn = useAuthStore(
+    (state: { emailSignIn: any }) => state.emailSignIn
   );
   const isLoggedIn = useAuthStore(
     (state: { isLogedIn: any }) => state.isLogedIn
   );
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setCredentials((prevCredentials: any) => ({
+      ...prevCredentials,
+      [name]: value,
+    }));
+  };
+
   const push = usePush();
 
   useEffect(() => {
@@ -44,6 +60,8 @@ const SignInPage: FC = function () {
                 type="email"
                 label="Your email"
                 variant="bordered"
+                onChange={handleChange}
+                value={credentials.email}
               />
             </div>
             <div className="mb-6 flex flex-col gap-y-3">
@@ -54,6 +72,8 @@ const SignInPage: FC = function () {
                 type="password"
                 label="Your password"
                 variant="bordered"
+                value={credentials.password}
+                onChange={handleChange}
               />
             </div>
             <div className="mb-6">
@@ -61,6 +81,9 @@ const SignInPage: FC = function () {
                 color="primary"
                 type="submit"
                 className="w-full lg:w-auto"
+                onClick={() => {
+                  emailSignIn(credentials.email, credentials.password);
+                }}
               >
                 Login to your account
               </Button>
