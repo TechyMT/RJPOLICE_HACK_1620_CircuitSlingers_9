@@ -24,7 +24,7 @@ class Login extends StatelessWidget {
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            gradient: AppGradients.linearGradient,
+            color: Color(0xFF070288),
           ),
         ),
         title: Row(
@@ -48,7 +48,7 @@ class Login extends StatelessWidget {
         children: [
           Container(
             decoration: const BoxDecoration(
-              gradient: AppGradients.linearGradient,
+              color: Color(0xFF070288),
             ),
           ),
           Center(
@@ -110,7 +110,7 @@ class Login extends StatelessWidget {
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: const Color(0xFFCBD5E1),
-                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           labelText: 'Password',
                           labelStyle: const TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(
@@ -127,6 +127,9 @@ class Login extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 219, 11, 11),
+                        ),
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             await _login();
@@ -135,8 +138,14 @@ class Login extends StatelessWidget {
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Login"),
-                            Icon(Icons.login),
+                            Text(
+                              "Login",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Icon(
+                              Icons.login,
+                              color: Colors.white,
+                            ),
                           ],
                         ),
                       ),

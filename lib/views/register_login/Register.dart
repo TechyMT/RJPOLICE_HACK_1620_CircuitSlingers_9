@@ -5,6 +5,7 @@ import 'package:circuitslingers/models/constants.dart';
 import 'package:circuitslingers/views/Home.dart';
 
 import 'package:circuitslingers/views/networking/networking.dart';
+import 'package:circuitslingers/views/register_login/email_Auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,7 +25,7 @@ class Register extends StatelessWidget {
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            gradient: AppGradients.linearGradient,
+            color: Color(0xFF070288),
           ),
         ),
         title: Row(
@@ -47,7 +48,7 @@ class Register extends StatelessWidget {
         children: [
           Container(
             decoration: const BoxDecoration(
-              gradient: AppGradients.linearGradient,
+              color: Color(0xFF070288),
             ),
           ),
           Center(
@@ -117,7 +118,7 @@ class Register extends StatelessWidget {
                             filled: true,
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             fillColor: const Color(0xFFCBD5E1),
-                            labelText: 'Password',
+                            labelText: 'Enter a Strong Password',
                             labelStyle: const TextStyle(color: Colors.black),
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(color: Colors.black),
@@ -133,6 +134,9 @@ class Register extends StatelessWidget {
                         ),
                         const SizedBox(height: 50),
                         ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 219, 11, 11),
+                          ),
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               await _signup();
@@ -141,8 +145,14 @@ class Register extends StatelessWidget {
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Register"),
-                              Icon(Icons.login),
+                              Text(
+                                "Register",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Icon(
+                                Icons.login,
+                                color: Colors.white,
+                              ),
                             ],
                           ),
                         ),
@@ -204,10 +214,10 @@ class Register extends StatelessWidget {
     User? user = await _auth.signupWithEmailandPassword(email, password);
 
     if (user != null) {
-      await createUser();
+      //   await createUser();
       await controller.sign_login();
       await _firebaseMessage.getFirebaseToken();
-      Get.offAll(() => Home());
+      Get.offAll(() => EmailVerificationScreen());
     } else {
       Get.snackbar("Error", "Error in Registration");
     }
@@ -219,6 +229,7 @@ class Register extends StatelessWidget {
       await createUser();
       await controller.sign_login();
       await _firebaseMessage.getFirebaseToken();
+
       Get.offAll(() => Home());
       Get.snackbar("Success", "Google Sign-Up Successful");
     } else {

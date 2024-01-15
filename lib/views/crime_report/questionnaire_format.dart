@@ -56,8 +56,8 @@ class QuestionnaireFormat extends StatelessWidget {
             height: 12,
           ),
           const Text(
-            'Pls Answer These',
-            style: TextStyle(fontSize: 17, color: Colors.black),
+            'Answer These',
+            style: TextStyle(fontSize: 18, color: Colors.black),
           ),
           Expanded(
             child: Center(
@@ -83,33 +83,40 @@ class QuestionnaireFormat extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  pageController.previousPage(
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.ease,
-                  );
-                },
-                child: const Text('Previous'),
+              Container(
+                decoration: BoxDecoration(color: Color(0xFF070288)),
+                child: ElevatedButton(
+                  onPressed: () {
+                    pageController.previousPage(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.ease,
+                    );
+                  },
+                  child: const Text('Previous'),
+                ),
               ),
               SizedBox(
                 width: 30,
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  print(functionController.answersList);
-                  await functionController.submitAnswers();
-                  int track_id = await submitReport();
-                  if (functionController.isReportSubmitted.value) {
-                    await functionController.clearList();
-                    await controller.clearControllers();
-                    credentialController.tracking_ids.add(track_id);
-                    showSuccessDialog(context, track_id);
-                  } else {
-                    showFailureDialog(context);
-                  }
-                },
-                child: const Text('Submit Answers'),
+              Container(
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 219, 11, 11),
+                ),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await functionController.submitAnswers();
+                    int track_id = await submitReport();
+                    if (functionController.isReportSubmitted.value) {
+                      await functionController.clearList();
+                      await controller.clearControllers();
+                      credentialController.tracking_ids.add(track_id);
+                      showSuccessDialog(context, track_id);
+                    } else {
+                      showFailureDialog(context);
+                    }
+                  },
+                  child: const Text('Submit Answers'),
+                ),
               ),
             ],
           ),

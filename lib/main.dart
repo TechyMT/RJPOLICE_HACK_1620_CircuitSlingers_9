@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       future: _checkUserIdExists(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else {
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,

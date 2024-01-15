@@ -3,12 +3,12 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthServices {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   Future<User?> signupWithEmailandPassword(
       String email, String password) async {
     try {
-      UserCredential credential = await _auth.createUserWithEmailAndPassword(
+      UserCredential credential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       return credential.user;
     } catch (e) {
@@ -20,7 +20,7 @@ class FirebaseAuthServices {
   Future<User?> signinWithEmailandPassword(
       String email, String password) async {
     try {
-      UserCredential credential = await _auth.signInWithEmailAndPassword(
+      UserCredential credential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
       return credential.user;
     } catch (e) {
@@ -45,7 +45,7 @@ class FirebaseAuthServices {
       );
 
       final UserCredential authResult =
-          await _auth.signInWithCredential(credential);
+          await auth.signInWithCredential(credential);
       final User? user = authResult.user;
 
       return user;
@@ -70,7 +70,7 @@ class FirebaseAuthServices {
       );
 
       final UserCredential authResult =
-          await _auth.signInWithCredential(credential);
+          await auth.signInWithCredential(credential);
       final User? user = authResult.user;
 
       return user;
@@ -84,7 +84,7 @@ class FirebaseAuthServices {
       final LoginResult result = await FacebookAuth.instance.login();
       if (result.status == LoginStatus.success) {
         final AuthCredential credential = FacebookAuthProvider.credential(result.accessToken!.token);
-        final UserCredential authResult = await _auth.signInWithCredential(credential);
+        final UserCredential authResult = await auth.signInWithCredential(credential);
         final User? user = authResult.user;
         return user;
       } else {
@@ -103,7 +103,7 @@ class FirebaseAuthServices {
         final AuthCredential credential =
             FacebookAuthProvider.credential(result.accessToken!.token);
         final UserCredential authResult =
-            await _auth.signInWithCredential(credential);
+            await auth.signInWithCredential(credential);
         final User? user = authResult.user;
         return user;
       } else {

@@ -205,3 +205,56 @@ class OnBoarding extends StatelessWidget {
     );
   }
 }
+
+// import 'package:circuitslingers/models/constants.dart';
+// import 'package:circuitslingers/views/register_login/Register.dart';
+// import 'package:circuitslingers/views/register_login/login.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
+// import 'package:get/get.dart';
+
+// class OnBoarding extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       // appBar: AppBar(
+//       //   backgroundColor: Color(0xFF6A8CB1),
+//       // ),
+//       body: OnBoardingSlider(
+//         headerBackgroundColor: const Color(0xFF6A8CB1),
+//         //    pageBackgroundColor: const Color(0xFF6A8CB1),
+//         finishButtonText: 'Register',
+//         onFinish: () {
+//           Get.to(() => Register());
+//         },
+//         trailingFunction: () {
+//           Get.to(() => Login());
+//         },
+//         finishButtonStyle: const FinishButtonStyle(
+//           backgroundColor: Colors.black,
+//         ),
+//         skipTextButton: const Text(
+//           'Skip',
+//           style: TextStyle(color: Colors.black, fontSize: 20),
+//         ),
+//         trailing: const Text(
+//           'Login',
+//           style: TextStyle(color: Colors.black, fontSize: 20),
+//         ),
+//         background: [
+//           Image.asset('assets/onboarding-1.png'),
+//           Image.asset('assets/onboarding-2.png'),
+//           Image.asset('assets/onboarding-3.png')
+//         ],
+//         totalPage: 3,
+//         speed: 1.8,
+//         pageBodies: [
+//           Container(),
+//           Container(),
+//           Container(),
+//         ],
+//       ),
+//     );
+//   }
+// }

@@ -14,8 +14,8 @@ class FileAReport extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.5,
             child: Image.asset(
               'assets/Illustration.jpg',
-              height: MediaQuery.of(context).size.height * 0.5,
-              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.3,
+              width: MediaQuery.of(context).size.width * 0.8,
               fit: BoxFit.cover,
             ),
           ),
@@ -28,7 +28,7 @@ class FileAReport extends StatelessWidget {
             child: ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(
-                  const Color(0XFFFFE500),
+                  Color.fromARGB(255, 219, 11, 11),
                 ),
               ),
               onPressed: () {

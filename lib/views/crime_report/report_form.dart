@@ -16,7 +16,7 @@ class ReportForm extends StatefulWidget {
 }
 
 class _ReportFormState extends State<ReportForm> {
-  var selectedCategory = 'Online Bank Fraud';
+  var selectedCategory = 'Financial Fraud';
   final FunctionController controller = Get.put(FunctionController());
   final DetailsController detailsController = Get.put(DetailsController());
   final _formKey = GlobalKey<FormState>();
@@ -51,11 +51,11 @@ class _ReportFormState extends State<ReportForm> {
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: const Color(0xFFCBD5E1),
+                      fillColor: const Color(0xFFFFFFFF),
                       labelText: 'Full Name',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Color(0xFF5B57DC)),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -69,6 +69,8 @@ class _ReportFormState extends State<ReportForm> {
                       }
                       return null;
                     },
+                    onSaved: (value) =>
+                        detailsController.fullNameController.text = value!,
                   ),
                   const SizedBox(
                     height: 8,
@@ -78,14 +80,14 @@ class _ReportFormState extends State<ReportForm> {
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: const Color(0xFFCBD5E1),
+                      fillColor: const Color(0xFFFFFFFF),
                       labelText: 'Date of Birth',
                       hintText: 'dd-mm-yyyy Format',
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Color(0xFF5B57DC)),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -99,6 +101,18 @@ class _ReportFormState extends State<ReportForm> {
                       }
                       return null;
                     },
+                    onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now(),
+                      );
+                      if (pickedDate != null) {
+                        detailsController.dateOfBirthController.text =
+                            "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
+                      }
+                    },
                     onSaved: (value) =>
                         detailsController.dateOfBirthController.text = value!,
                   ),
@@ -111,13 +125,13 @@ class _ReportFormState extends State<ReportForm> {
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: const Color(0xFFCBD5E1),
+                      fillColor: const Color(0xFFFFFFFF),
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
                       labelText: 'E-Mail',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Color(0xFF5B57DC)),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -126,7 +140,7 @@ class _ReportFormState extends State<ReportForm> {
                       ),
                     ),
                     onSaved: (value) =>
-                        detailsController.suspectNumberController.text = value!,
+                        detailsController.emailController.text = value!,
                   ),
                   const SizedBox(height: 8.0),
                   TextFormField(
@@ -134,13 +148,13 @@ class _ReportFormState extends State<ReportForm> {
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: const Color(0xFFCBD5E1),
+                      fillColor: const Color(0xFFFFFFFF),
                       labelText: 'Aadhar Number',
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Color(0xFF5B57DC)),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -168,13 +182,13 @@ class _ReportFormState extends State<ReportForm> {
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: const Color(0xFFCBD5E1),
+                      fillColor: const Color(0xFFFFFFFF),
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
                       labelText: 'Incident Description',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Color(0xFF5B57DC)),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -201,14 +215,14 @@ class _ReportFormState extends State<ReportForm> {
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: const Color(0xFFCBD5E1),
+                      fillColor: const Color(0xFFFFFFFF),
                       hintText: "dd-mm-yyyy Format",
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
                       labelText: 'Date of Crime',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Color(0xFF5B57DC)),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -216,6 +230,18 @@ class _ReportFormState extends State<ReportForm> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
+                    onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now(),
+                      );
+                      if (pickedDate != null) {
+                        detailsController.dateOfCrimeController.text =
+                            "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
+                      }
+                    },
                     onSaved: (value) => detailsController
                         .dateOfTransactionController.text = value!,
                     validator: (value) {
@@ -233,13 +259,13 @@ class _ReportFormState extends State<ReportForm> {
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: const Color(0xFFCBD5E1),
+                      fillColor: const Color(0xFFFFFFFF),
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
                       labelText: 'City',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Color(0xFF5B57DC)),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -267,8 +293,24 @@ class _ReportFormState extends State<ReportForm> {
                     },
                     items: const [
                       DropdownMenuItem(
-                        value: 'Online Bank Fraud',
-                        child: Text('Online Bank Fraud'),
+                        value: 'Financial Fraud',
+                        child: Text('Financial Fraud'),
+                      ),
+                      DropdownMenuItem(
+                        value: 'Phishing Scams',
+                        child: Text('Phishing Scams'),
+                      ),
+                      DropdownMenuItem(
+                        value: 'Identity Theft',
+                        child: Text('Identity Theft'),
+                      ),
+                      DropdownMenuItem(
+                        value: 'Identity Theft',
+                        child: Text('Identity Theft'),
+                      ),
+                      DropdownMenuItem(
+                        value: 'Social Media Fraud',
+                        child: Text('Social Media Fraud'),
                       ),
                       DropdownMenuItem(
                         value: 'Other Fraud',
@@ -277,14 +319,14 @@ class _ReportFormState extends State<ReportForm> {
                     ],
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: const Color(0xFFCBD5E1),
-                      hintText: 'Category - Online Bank or Other Fraud',
+                      fillColor: const Color(0xFFFFFFFF),
+                      hintText: 'Category',
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
                       labelText: 'Category',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Color(0xFF5B57DC)),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -295,18 +337,44 @@ class _ReportFormState extends State<ReportForm> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
+                    controller: detailsController.messageorEmailController,
+                    style: const TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: const Color(0xFFFFFFFF),
+                      hintText: 'Type NA if not Available',
+                      hintStyle:
+                          const TextStyle(color: Colors.black, fontSize: 15),
+                      labelText: 'Email Text or Message Text',
+                      helperText:
+                          'Enter message or email received to identify phishing',
+                      labelStyle: const TextStyle(color: Colors.black),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Color(0xFF5B57DC)),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onSaved: (value) => detailsController
+                        .messageorEmailController.text = value!,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
                     controller: detailsController.pincodeController,
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: const Color(0xFFCBD5E1),
+                      fillColor: const Color(0xFFFFFFFF),
                       hintText: 'Type NA if not Available',
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
                       labelText: 'Pincode',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Color(0xFF5B57DC)),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -315,7 +383,7 @@ class _ReportFormState extends State<ReportForm> {
                       ),
                     ),
                     onSaved: (value) =>
-                        detailsController.suspectNumberController.text = value!,
+                        detailsController.pincodeController.text = value!,
                   ),
                   SwitchListTile(
                     activeColor: Colors.black,
@@ -343,14 +411,15 @@ class _ReportFormState extends State<ReportForm> {
                       style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: const Color(0xFFCBD5E1),
+                        fillColor: const Color(0xFFFFFFFF),
                         hintText: "Bank Account Number",
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
                         labelText: 'Bank Account Information',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.black),
+                          borderSide:
+                              const BorderSide(color: Color(0xFF5B57DC)),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -375,14 +444,15 @@ class _ReportFormState extends State<ReportForm> {
                       style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: const Color(0xFFCBD5E1),
+                        fillColor: const Color(0xFFFFFFFF),
                         hintText: 'Type NA if not Available',
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
                         labelText: 'Transaction ID',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.black),
+                          borderSide:
+                              const BorderSide(color: Color(0xFF5B57DC)),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -401,14 +471,15 @@ class _ReportFormState extends State<ReportForm> {
                       style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: const Color(0xFFCBD5E1),
+                        fillColor: const Color(0xFFFFFFFF),
                         hintText: "Type NA if not Applicable",
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
                         labelText: 'Amount Lost',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.black),
+                          borderSide:
+                              const BorderSide(color: Color(0xFF5B57DC)),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -431,14 +502,15 @@ class _ReportFormState extends State<ReportForm> {
                       style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: const Color(0xFFCBD5E1),
+                        fillColor: const Color(0xFFFFFFFF),
                         hintText: "dd-mm-yyyy Format/NA",
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
                         labelText: 'Date of Transaction',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.black),
+                          borderSide:
+                              const BorderSide(color: Color(0xFF5B57DC)),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -454,6 +526,18 @@ class _ReportFormState extends State<ReportForm> {
                         }
                         return null;
                       },
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime.now(),
+                        );
+                        if (pickedDate != null) {
+                          detailsController.dateOfTransactionController.text =
+                              "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
+                        }
+                      },
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
@@ -461,14 +545,15 @@ class _ReportFormState extends State<ReportForm> {
                       style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: const Color(0xFFCBD5E1),
+                        fillColor: const Color(0xFFFFFFFF),
                         hintText: 'Type NA if not Available',
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
                         labelText: 'User Bank Name',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.black),
+                          borderSide:
+                              const BorderSide(color: Color(0xFF5B57DC)),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -477,7 +562,7 @@ class _ReportFormState extends State<ReportForm> {
                         ),
                       ),
                       onSaved: (value) => detailsController
-                          .suspectNumberController.text = value!,
+                          .userBankNameController.text = value!,
                     ),
                   ],
                   SwitchListTile(
@@ -505,14 +590,15 @@ class _ReportFormState extends State<ReportForm> {
                       style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: const Color(0xFFCBD5E1),
+                        fillColor: const Color(0xFFFFFFFF),
                         hintText: 'Type NA if not Available',
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
                         labelText: 'Suspect Bank Name',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.black),
+                          borderSide:
+                              const BorderSide(color: Color(0xFF5B57DC)),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -521,7 +607,7 @@ class _ReportFormState extends State<ReportForm> {
                         ),
                       ),
                       onSaved: (value) => detailsController
-                          .suspectNumberController.text = value!,
+                          .suspectBankNameController.text = value!,
                     ),
                     const SizedBox(
                       height: 8,
@@ -531,14 +617,15 @@ class _ReportFormState extends State<ReportForm> {
                       style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: const Color(0xFFCBD5E1),
+                        fillColor: const Color(0xFFFFFFFF),
                         hintText: 'Type NA if not Available',
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
                         labelText: 'Suspect Account Details',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.black),
+                          borderSide:
+                              const BorderSide(color: Color(0xFF5B57DC)),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -555,14 +642,15 @@ class _ReportFormState extends State<ReportForm> {
                       style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: const Color(0xFFCBD5E1),
+                        fillColor: const Color(0xFFFFFFFF),
                         hintText: 'Type NA if not Available',
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
                         labelText: 'Suspect Phone Number',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.black),
+                          borderSide:
+                              const BorderSide(color: Color(0xFF5B57DC)),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -580,7 +668,9 @@ class _ReportFormState extends State<ReportForm> {
                       leading: const Icon(Icons.add),
                       title: detailsController.filesAdded.value
                           ? const Text('Files Added')
-                          : const Text('Add Files'),
+                          : detailsController.addingFiles.value
+                              ? const Text('Adding Files')
+                              : const Text('Add Files'),
                       onTap: () async {
                         await detailsController.pickAndUploadFiles();
                         print(detailsController.evidenceURLs);

@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
         child: BottomNavigationBar(
           type: BottomNavigationBarType.shifting,
           backgroundColor: const Color(0xFF0F0529),
-          selectedItemColor: const Color(0XFFFFE500),
+          selectedItemColor: Color.fromARGB(255, 219, 11, 11),
           unselectedItemColor: Colors.white,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

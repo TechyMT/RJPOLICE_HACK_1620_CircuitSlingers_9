@@ -6,10 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AppGradients {
   static const Color color1 = Color(0xFF0F0529);
-  static const Color color2 = Color(0xFF632EA6);
-  static const Color color3 = Color(0xFF0F006D);
+  static const Color color2 = Color(0xFFFF0000);
   static const LinearGradient linearGradient = LinearGradient(
-    colors: [color1, color2, color3],
+    colors: [color1, color2],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );

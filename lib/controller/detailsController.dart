@@ -26,6 +26,7 @@ class DetailsController extends GetxController {
   TextEditingController suspectBankNameController = TextEditingController();
   TextEditingController pincodeController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController messageorEmailController = TextEditingController();
   bool isBankAccInvolved = false;
   bool isSuspectDetailsInvolved = false;
   List<String> evidenceURLs = [];
@@ -47,18 +48,20 @@ class DetailsController extends GetxController {
     dateOfReportController.text = '';
     dateOfTransactionController.text = '';
     emailController.text = '';
+    messageorEmailController.text = '';
     evidenceURLs.clear();
     filesAdded.value = false;
   }
 
   List<PlatformFile> pickedFiles = [];
   RxBool filesAdded = false.obs;
-
+  RxBool addingFiles = false.obs;
   Future<void> pickAndUploadFiles() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? userName = sharedPreferences.getString('userId');
 
     final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+    addingFiles.value = true;
 
     if (result == null || result.files.isEmpty) {
       return;
@@ -78,6 +81,7 @@ class DetailsController extends GetxController {
         String fileUrl = await storageRef.getDownloadURL();
         evidenceURLs.add(fileUrl);
         filesAdded.value = true;
+        addingFiles.value = false;
       });
     }
   }
@@ -99,6 +103,7 @@ class DetailsController extends GetxController {
       dateOfReportController,
       dateOfTransactionController,
       emailController,
+      messageorEmailController,
       userBankNameController,
       suspectBankNameController,
       pincodeController,

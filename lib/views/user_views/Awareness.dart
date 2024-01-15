@@ -36,8 +36,7 @@ class _FraudCheckState extends State<FraudCheck> {
         appBar: AppBar(
           flexibleSpace: Container(
             decoration: const BoxDecoration(
-              gradient: AppGradients.linearGradient,
-            ),
+color: Color(0xFF070288),            ),
           ),
           leading: Builder(builder: (BuildContext context) {
             return IconButton(

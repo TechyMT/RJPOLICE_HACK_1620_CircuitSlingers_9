@@ -49,51 +49,51 @@ class _ChatPageState extends State<ChatInsights> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: AppGradients.linearGradient,
-            ),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            color: Color(0xFF080460),
           ),
-          leading: Builder(builder: (BuildContext context) {
-            return IconButton(
-              iconSize: 30,
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-            );
-          }),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset("assets/cyber.png", height: 60, width: 50),
-              const SizedBox(
-                width: 20,
-              ),
-              const Text(
-                "Dial 1930",
-                style: TextStyle(fontSize: 25, color: Colors.white),
-              ),
-            ],
-          ),
-          actions: [
-            IconButton(
-              iconSize: 40,
+        ),
+        leading: Builder(builder: (BuildContext context) {
+          return IconButton(
+            iconSize: 30,
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(
+              Icons.menu,
               color: Colors.white,
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                SharedPreferences sharedPreferences =
-                    await SharedPreferences.getInstance();
-                sharedPreferences.clear();
-                Get.offAll(() => const LandingPage());
-              },
-              icon: const Icon(Icons.account_circle),
+            ),
+          );
+        }),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/cyber.png", height: 60, width: 50),
+            const SizedBox(
+              width: 20,
+            ),
+            const Text(
+              "Dial 1930",
+              style: TextStyle(fontSize: 25, color: Colors.white),
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            iconSize: 40,
+            color: Colors.white,
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              SharedPreferences sharedPreferences =
+                  await SharedPreferences.getInstance();
+              sharedPreferences.clear();
+              Get.offAll(() => const LandingPage());
+            },
+            icon: const Icon(Icons.account_circle),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

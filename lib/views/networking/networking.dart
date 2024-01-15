@@ -6,6 +6,7 @@ import 'package:circuitslingers/models/ReportData.dart';
 import 'package:circuitslingers/models/ReportStatus.dart';
 import 'package:circuitslingers/models/questionnaire.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -34,7 +35,7 @@ Future<List<Article>> fetchNewsArticles() async {
 }
 
 Future<void> fetchData() async {
-  final url = 'http://192.168.1.5:8080/api/admin/status/715';
+  final url = 'http://192.168.85.81:8080/api/admin/status/715';
 
   try {
     final response = await http.get(Uri.parse(url));
@@ -50,7 +51,7 @@ Future<void> createUser() async {
   User? user = FirebaseAuth.instance.currentUser;
 
   if (user != null) {
-    final url = 'http://192.168.1.5:8080/api/add';
+    final url = 'http://192.168.85.81:8080/api/add';
     final headers = {'Content-Type': 'application/json'};
 
     final userData = {
@@ -74,9 +75,29 @@ Future<void> createUser() async {
   }
 }
 
+Future<void> updateUser() async {
+  User? user = FirebaseAuth.instance.currentUser;
+  if (user != null) {
+    final url = 'http://192.168.85.81:8080/api/update';
+    final headers = {'Content-Type': 'application/json'};
+
+    final userData = {'userUID': user.uid, 'emailVerified': true};
+
+    final response = await http.post(Uri.parse(url),
+        headers: headers, body: jsonEncode(userData));
+
+    if (response.statusCode == 200) {
+      print('Ok');
+    } else {
+      print('Not Ok');
+    }
+  }
+}
+
 Future<void> fetchQuestions(String description) async {
   final FunctionController functionController = Get.put(FunctionController());
-  final url = Uri.parse("http://192.168.1.5:8080/api/report/generateQuestions");
+  final url =
+      Uri.parse("http://192.168.85.81:8080/api/report/generateQuestions");
   try {
     functionController.isLoading.value = true;
     final response = await http.post(
@@ -100,7 +121,7 @@ Future<void> fetchQuestions(String description) async {
 Future<int> submitReport() async {
   final DetailsController controller = Get.put(DetailsController());
   final FunctionController functionController = Get.put(FunctionController());
-  const url = 'http://192.168.1.5:8080/api/report/add';
+  const url = 'http://192.168.85.81:8080/api/report/add';
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String? uid = sharedPreferences.getString('userId');
   String? token = sharedPreferences.getString('recipientToken');
@@ -152,7 +173,7 @@ Future<int> submitReport() async {
   if (response.statusCode == 201) {
     functionController.isReportSubmitted.value = true;
     final Map<String, dynamic> responseData = jsonDecode(response.body);
-    var track_id = responseData['track'];
+    var track_id = responseData['trackId'];
     return track_id;
   } else {
     print('Error: ${response.statusCode}');
@@ -166,7 +187,7 @@ Future<List<ReportStatusDto>> fetchReportStatusList() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String? uid = sharedPreferences.getString('userId');
   final response = await http
-      .get(Uri.parse('http://192.168.1.5:8080/api/admin/reports/$uid'));
+      .get(Uri.parse('http://192.168.85.81:8080/api/admin/reports/$uid'));
 
   if (response.statusCode == 200) {
     List<dynamic> jsonList = json.decode(response.body);
@@ -193,8 +214,8 @@ Future<List<ReportStatusDto>> fetchReportStatusList() async {
 
 Future<void> checkEmail(String email) async {
   final ReportStatusController controller = Get.put(ReportStatusController());
-  final response = await http
-      .get(Uri.parse('http://192.168.1.5:8080/api/fraud_search/emails/$email'));
+  final response = await http.get(
+      Uri.parse('http://192.168.85.81:8080/api/fraud_search/emails/$email'));
   controller.isEmailchecked.value = true;
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
@@ -213,7 +234,7 @@ Future<void> checkEmail(String email) async {
 Future<void> checkPhoneNumber(String phoneNumber) async {
   final ReportStatusController controller = Get.put(ReportStatusController());
   final response = await http.get(Uri.parse(
-      'http://192.168.1.5:8080/api/fraud_search/numbers/$phoneNumber'));
+      'http://192.168.85.81:8080/api/fraud_search/numbers/$phoneNumber'));
   controller.isPhoneNumberChecked.value = true;
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
@@ -234,7 +255,7 @@ Future<void> checkPhoneNumber(String phoneNumber) async {
 Future<void> checkAccountNumber(String accountNumber) async {
   final ReportStatusController controller = Get.put(ReportStatusController());
   final response = await http.get(Uri.parse(
-      'http://192.168.1.5:8080/api/fraud_search/accountNumbers/$accountNumber'));
+      'http://192.168.85.81:8080/api/fraud_search/accountNumbers/$accountNumber'));
   controller.isAccountNumberChecked.value = true;
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);

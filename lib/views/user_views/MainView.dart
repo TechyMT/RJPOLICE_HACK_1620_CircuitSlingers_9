@@ -20,7 +20,7 @@ class MainView extends StatelessWidget {
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            gradient: AppGradients.linearGradient,
+            color: Color(0xFF070288),
           ),
         ),
         leading: Builder(builder: (BuildContext context) {
@@ -57,7 +57,7 @@ class MainView extends StatelessWidget {
               SharedPreferences sharedPreferences =
                   await SharedPreferences.getInstance();
               sharedPreferences.clear();
-              Get.offAll(() =>  OnBoarding());
+              Get.offAll(() => OnBoarding());
             },
             icon: const Icon(Icons.logout),
           ),
@@ -69,7 +69,7 @@ class MainView extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.4,
             width: MediaQuery.of(context).size.width * 1,
             decoration: const BoxDecoration(
-              gradient: AppGradients.linearGradient,
+              color: Color(0xFF080460),
             ),
             child: Center(
               child: Image.asset("assets/cyber.png"),
@@ -83,7 +83,7 @@ class MainView extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.5,
                   decoration: const BoxDecoration(
-                    color: Color(0xFF6426BE),
+                    color: Color(0xFF080460),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(40),
                     ),
@@ -110,7 +110,7 @@ class MainView extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.5,
                   decoration: const BoxDecoration(
-                    color: Color(0xFF2E1F74),
+                    color: Color(0xFF412CBC),
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(40),
                     ),

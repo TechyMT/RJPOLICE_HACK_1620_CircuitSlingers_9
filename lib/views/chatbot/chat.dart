@@ -52,7 +52,7 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            gradient: AppGradients.linearGradient,
+            color: Color(0xFF080460),
           ),
         ),
         leading: Builder(builder: (BuildContext context) {
