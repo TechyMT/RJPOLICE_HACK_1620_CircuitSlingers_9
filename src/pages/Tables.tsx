@@ -3,6 +3,7 @@ import TableThree from '../components/TableThree';
 import { useEffect, useState } from 'react';
 import { publicUrl } from '../utils/publicUrl';
 import axios from 'axios';
+import { tableData } from '../data/constants';
 
 const Tables = () => {
   const [packages, setPackages] = useState<any>([]);
@@ -12,13 +13,14 @@ const Tables = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${publicUrl()}/admin/allStatus`, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        console.log(response.data);
-        setPackages(response.data);
+        // const response = await axios.get(`${publicUrl()}/admin/allStatus`, {
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        // });
+        // console.log(response.data);
+        // setPackages(response.data);
+        setPackages(tableData);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching data', error);

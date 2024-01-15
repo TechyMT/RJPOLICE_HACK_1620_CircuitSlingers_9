@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import WidgetPlaceholder from '../../components/WidgetPlaceholder.tsx';
 import { publicUrl } from '../../utils/publicUrl.ts';
-
+import { cardData, chartData } from '../../data/constants.ts';
 
 const ECommerce = () => {
   const [data, setData] = useState<any>(null);
@@ -18,25 +18,27 @@ const ECommerce = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const result = await axios.get(`${publicUrl()}/admin/allDetails`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        params: {
-          city: 'Pune',
-        },
-      });
-      console.log(result.data);
-      setData(result.data);
+      // const result = await axios.get(`${publicUrl()}/admin/allDetails`, {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   params: {
+      //     city: 'Pune',
+      //   },
+      // });
+      // console.log(result.data);
+      // setData(result.data);
+      setData(cardData);
 
-      const chartResult = await axios.get(`${publicUrl()}/admin/chart-data`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      // const chartResult = await axios.get(`${publicUrl()}/admin/chart-data`, {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      // });
 
-      console.log('chartResult', chartResult.data);
-      setChartData(chartResult.data);
+      // console.log('chartResult', chartResult.data);
+      // setChartData(chartResult.data);
+      setChartData(chartData);
       setLoading(false);
     };
 
