@@ -32,12 +32,12 @@ const TrackStatus = () => {
   };
 
   return (
-    <div className="container mx-auto mt-8  mb-48">
-      <div className="my-12">
+    <div className="container mx-auto mt-8 mb-8 md:mb-48 p-4">
+      <div className="my-6 md:my-12">
         <Heading>Track your complaint</Heading>
       </div>
-      <div className="flex items-center justify-center gap-4">
-        <div className="w-96">
+      <div className="flex flex-col items-center justify-center gap-4">
+        <div className="w-96 md:w-96">
           <Input
             type="number"
             placeholder="Enter Track ID"
@@ -47,20 +47,20 @@ const TrackStatus = () => {
             color="primary"
           />
         </div>
-        <Button onClick={handleSearch} color="primary" size="lg">
+        <Button onClick={handleSearch} color="primary" size="lg" className="w-full md:w-auto">
           Search
         </Button>
       </div>
       {status && (
         <>
-          <div className="flex flex-col border-gray border-2 w-unit-9xl items-center mx-auto p-4 gap-8 mt-20">
+          <div className="flex flex-col border-gray border-2 w-full md:w-unit-9xl items-center mx-auto p-4 gap-4 md:gap-8 mt-8 md:mt-20">
             <div>
               <SubHeading>
                 Status for Track ID:{" "}
                 <span className="text-primary">{trackId}</span>
               </SubHeading>
             </div>
-            <div className="flex justify-center mx-auto w-unit-8xl ">
+            <div className="flex justify-center mx-auto w-full md:w-unit-8xl ">
               <Progress
                 label={"Current Status: " + status.currentStatus}
                 value={status.flag === 0 ? 25 : status.flag === 1 ? 50 : 100}
@@ -115,9 +115,9 @@ const TrackStatus = () => {
               </Link>
             </div>
           </div>
-          <div>
-            <FAQComponent/>
-         </div>
+          <div className="mt-8">
+            <FAQComponent />
+          </div>
         </>
       )}
     </div>
