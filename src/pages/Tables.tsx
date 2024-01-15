@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import { publicUrl } from '../utils/publicUrl';
 import axios from 'axios';
 import { tableData } from '../data/constants';
+import { newTableData } from '../data/constants';
 
 const Tables = () => {
-  const [packages, setPackages] = useState<any>([]);
+  // console.log(newTableData);
+  const [packages, setPackages] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -20,7 +22,7 @@ const Tables = () => {
         // });
         // console.log(response.data);
         // setPackages(response.data);
-        setPackages(tableData);
+        setPackages(newTableData);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching data', error);
@@ -30,15 +32,18 @@ const Tables = () => {
     fetchData();
   }, []);
 
-  return (
-    <>
-      <Breadcrumb pageName="Tables" />
+  console.log('ayyo', packages);
+  if (packages) {
+    return (
+      <>
+        <Breadcrumb pageName="Tables" />
 
-      <div className="flex flex-col gap-10">
-        <TableThree packages={packages} loading={loading} />
-      </div>
-    </>
-  );
+        <div className="flex flex-col gap-10">
+          <TableThree loading={loading} packages={packages} />
+        </div>
+      </>
+    );
+  }
 };
 
 export default Tables;
