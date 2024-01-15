@@ -19,6 +19,12 @@ const PackageItem: React.FC<any> = ({
   const toggleAccordion = () => {
     onAccordionToggle();
   };
+  const [formData, setFormData] = useState<any>({
+    comments: '',
+    status: '',
+  });
+
+  const [isEdit, setIsEdit] = useState<boolean>(true);
 
   const getcurrentStatusClass = () => {
     if (currentStatus === 'Case Completed') {
@@ -230,46 +236,14 @@ const PackageItem: React.FC<any> = ({
           <td colSpan={6} className="p-4 w-full">
             {/* Your additional content goes here */}
             <div className="flex w-full">
-              <form className="w-full flex">
+              <form className="w-full flex flex-col">
                 <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                   <div className="w-full flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
                     <div className="flex flex-wrap items-center divide-gray-200 sm:divide-x sm:rtl:divide-x-reverse dark:divide-gray-600">
                       <div className="flex items-center space-x-1 rtl:space-x-reverse sm:pe-4">
-                        <button
-                          type="button"
-                          className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
-                        >
-                          <svg
-                            className="w-4 h-4"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 12 20"
-                          >
-                            <path
-                              stroke="currentColor"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M1 6v8a5 5 0 1 0 10 0V4.5a3.5 3.5 0 1 0-7 0V13a2 2 0 0 0 4 0V6"
-                            />
-                          </svg>
-                          <span className="sr-only">Attach file</span>
-                        </button>
-                        <button
-                          type="button"
-                          className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
-                        >
-                          <svg
-                            className="w-4 h-4"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM13.5 6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm-7 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm3.5 9.5A5.5 5.5 0 0 1 4.6 11h10.81A5.5 5.5 0 0 1 10 15.5Z" />
-                          </svg>
-                          <span className="sr-only">Add emoji</span>
-                        </button>
+                        <div className="text-black dark:text-white">
+                          Comments
+                        </div>
                       </div>
                     </div>
                     <button
@@ -304,16 +278,112 @@ const PackageItem: React.FC<any> = ({
                     </div>
                   </div>
                   <div className="px-4 py-2 bg-white rounded-b-lg dark:bg-gray-800">
-                    <label htmlFor="editor" className="sr-only">
-                      Publish post
-                    </label>
                     <textarea
                       id="editor"
                       rows={8}
                       className="block w-full px-0 text-sm text-gray-800 bg-white border-0 focus-within:border-0 focus-visible:border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                      placeholder="Write an article..."
+                      placeholder="Please Enter your comments for this case here..."
                       required
-                    ></textarea>
+                      value={''}
+                      disabled={isEdit}
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div>
+                      Update Case Status: 
+                    </div>
+                    <div>
+                      <button
+                        id="dropdownHoverButton"
+                        className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                        type="button"
+                        onClick={() => handleClick()}
+                      >
+                        {selectedOption && (
+                          <img
+                            className="w-9 h-9 p-1 rounded-full "
+                            src={User1}
+                            alt="Bordered avatar"
+                          />
+                        )}
+                        {selectedOption || 'Select Option'}{' '}
+                        {/* Display selected option or default text */}
+                        <svg
+                          className="-mr-1 ml-2 h-5 w-5"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 3a1 1 0 01.707.293l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414-1.414l5-5A1 1 0 0110 3zm0 11a1 1 0 01-1-1V4a1 1 0 012 0v9a1 1 0 01-1 1z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    {/* Dropdown menu */}
+                    <div
+                      id="dropdownHover"
+                      className={`absolute z-10 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 mt-12 ${
+                        isDropdownOpen ? 'block' : 'hidden'
+                      }`}
+                      // style={{ top: '90%', right: '0' }}
+                    >
+                      {/* Your modified list items */}
+                      <ul
+                        className="py-2 text-sm text-gray-700 dark:text-gray-200 overflow-y-auto h-[30vh]"
+                        aria-labelledby="dropdownHoverButton"
+                      >
+                        {policeData.map((data, index) => {
+                          return (
+                            <li key={index}>
+                              {data.isAssigned ? (
+                                <button
+                                  className=" block px-4 hover:cursor-not-allowed py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left focus:outline-none bg-gray-2 my-2"
+                                  onClick={() => handleOptionChange(data.name)}
+                                  disabled={data.isAssigned}
+                                >
+                                  <div className="flex gap-2 items-center">
+                                    <img
+                                      className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+                                      src={User1}
+                                      alt="Bordered avatar"
+                                    />
+                                    <div>{data.name}</div>
+                                  </div>
+                                </button>
+                              ) : (
+                                <button
+                                  className=" block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left focus:outline-none"
+                                  onClick={() => handleOptionChange(data.name)}
+                                  disabled={data.isAssigned}
+                                >
+                                  <div className="flex gap-2 items-center">
+                                    <img
+                                      className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+                                      src={User1}
+                                      alt="Bordered avatar"
+                                    />
+                                    <div>{data.name}</div>
+                                  </div>
+                                </button>
+                              )}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div>
+                      <button className="bg-primary text-white">edit</button>
+                    </div>
+                    <div>
+                      <button className="bg-primary text-white">save</button>
+                    </div>
                   </div>
                 </div>
                 {/* <button
