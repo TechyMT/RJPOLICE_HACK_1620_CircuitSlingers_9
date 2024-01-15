@@ -31,7 +31,11 @@ const Chatbot: React.FC = () => {
     const newMessages = [
       ...chatMessages,
       { role: "user", message: userInput },
-      { role: "chatbot", message: "Hello! How are you?" },
+      {
+        role: "chatbot",
+        message:
+          "Great question! Protecting your personal information and privacy online is crucial in today's digital age. Here are some measures you can take to safeguard your private data:\n\n1. Use strong, unique passwords: Use a combination of uppercase and lowercase letters, numbers, and special characters to create a sturdy password for each of your online accounts. Avoidusing the same password for multiple accounts.\n2. Enable two-factor authentication (2FA): This adds an extra layer of security to your accounts by requiring a second form of verification, such as a code sent to your phone or a biometric scan.\n3. Keep your software and apps up-to-date: Regularly update your operating system, browser, and apps to ensure you have the latest security patches and features.\n4. Be cautious of emails and messages: Be wary of suspicious emails or messages that ask for personal information or direct you to click on links or download attachments from unfamiliar sources.\n5. Use a reputable antivirus software: Install and regularly update antivirus software to protect your device from malware and viruses.\n6. Use a VPN: A virtual private network (VPN) can help encrypt your internet connection and protect your personal information when browsing public Wi-Fi networks.\n7. Use a password manager: Consider using a password manager to generate and store unique, complex passwords for each of your online accounts.\n8. Review your privacy settings: Take a close look at the privacy settings for your social media accounts, email, and other online platforms to ensure you're sharing your information with the right people.\n9. Use a browser extension to block trackers: Consider installing a browser extension that can block online trackers, which can help protect your personal information.\n10. Educate yourself: Stay informed about the latest online threats and cybersecurity measures by regularly reading reputable sources and subscribing to cybersecurity newsletters.\n\nRemember, protecting your personal information and privacy online requires ongoing effort and vigilance. By taking these measures, you can significantly reduce the risk of your information being compromised.",
+      },
     ];
     setChatMessages(newMessages);
 
