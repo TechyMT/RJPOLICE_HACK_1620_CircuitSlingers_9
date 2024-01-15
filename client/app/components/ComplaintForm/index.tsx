@@ -131,9 +131,11 @@ const ComplaintForm = () => {
       const yyyy = today.getFullYear();
       let mm = today.getMonth() + 1; // Months start at 0!
       let dd = today.getDate();
+      let MM = mm.toString();
+      let DD = dd.toString();
 
-      if (dd < 10) dd = "0" + dd;
-      if (mm < 10) mm = "0" + mm;
+      if (dd < 10) DD = "0" + DD;
+      if (mm < 10) MM = "0" + MM;
 
       const reportedDate = dd + "-" + mm + "-" + yyyy;
 
