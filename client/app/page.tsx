@@ -1,5 +1,7 @@
 "use client";
 import Image from "next/image";
+import "lottie-react";
+import Lottie from "lottie-react";
 import HeroImage_1 from "./assets/images/hero.jpg";
 import HeroImage_2 from "./assets/images/hero_1.jpg";
 import HeroImage_3 from "./assets/images/hero_2.jpg";
@@ -80,7 +82,11 @@ export default function Home() {
             <Link href={"/online-reporting"}>
               <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white">
                 <div>
-                  <Icon icon="report" width={130} />
+                <Icon icon="report" width={130} />
+                  {/* <Lottie
+                    animationData={ReportAnimation}
+                    
+                  style={{width:130,height:130}}/> */}
                 </div>
                 <div className="text-2xl text-white">Report a crime.</div>
               </div>
