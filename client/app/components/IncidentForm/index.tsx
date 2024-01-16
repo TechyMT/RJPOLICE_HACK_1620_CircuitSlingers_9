@@ -26,7 +26,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
   const [lostMoney, setLostMoney] = React.useState(false);
   const [suspectAccount, setSuspectAccount] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const user = useAuthStore((state: { user: any; }) => state.user);
+  const user = useAuthStore((state: { user: any }) => state.user);
   const handleChange = (value: string) => {
     onChange("isMoneyLost", value === "yes");
     setLostMoney(value === "yes");
@@ -65,7 +65,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
             not)
           </Checkbox>
         </div>
-        <div className="flex w-full">
+        {/* <div className="flex w-full">
           <Select
             label="Category of complaint"
             labelPlacement="outside-left"
@@ -74,6 +74,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               label: "w-48",
             }}
             variant="bordered"
+            color="primary"
             isRequired
             size="lg"
             onChange={(e) => {
@@ -88,7 +89,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               <SelectItem key={category.value}>{category.name}</SelectItem>
             )}
           </Select>
-        </div>
+        </div> */}
         <div className="flex w-full">
           <RadioGroup
             label="Have you lost money?"
@@ -140,6 +141,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
             )}
           </div>
         )}
+
         <Divider />
         <div className="flex w-full flex-col gap-10">
           <div className="flex w-full h-[8vh]">
@@ -157,6 +159,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
                 label: "w-[20vw] text-wrap text-start",
                 inputWrapper: "w-[30vw]",
               }}
+              color="primary"
             />
           </div>
           <div>
@@ -170,8 +173,20 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               labelPlacement="outside"
               size="lg"
               minRows={8}
+              color="primary"
             />
           </div>
+        </div>
+        <div className="flex w-full">
+          <Textarea
+            label="Suspicious Message"
+            labelPlacement="outside"
+            minRows={4}
+            color="primary"
+            variant="bordered"
+            value={formData.message}
+            onChange={(e) => onChange("message", e.target.value)}
+          />
         </div>
         <div>
           <div className="w-full">

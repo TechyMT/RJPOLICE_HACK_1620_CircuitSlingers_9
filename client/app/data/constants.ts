@@ -8,9 +8,19 @@ export const categories = [
         value: 'financialfraud',
     },
     {
-        name: "Other",
-        value: "other",
-    }
+        name: "Phishing Scams",
+        value: "phishingscams"
+    },
+    { name: "Identity Theft", value: "identitytheft" },
+    { name: "Online Shopping Fraud", value: "onlineshoppingfraud" },
+    {
+        name: "Ransomware Attacks",
+        value: "ransomwareattacks"
+    },
+    {
+        name: "Social Engineering",
+        value: "socialengineering"
+    },
 ];
 
 export const banks = [

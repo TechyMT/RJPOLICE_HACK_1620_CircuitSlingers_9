@@ -6,8 +6,9 @@ import HeroImage_1 from "./assets/images/hero.jpg";
 import HeroImage_2 from "./assets/images/hero_1.jpg";
 import HeroImage_3 from "./assets/images/hero_2.jpg";
 import HeroImage_4 from "./assets/images/hero_3.jpeg";
-import Icon from "./components/Icon"
-import ReportAnimation from "./assets/lottie/wired-outline-245-edit-document (2).json";
+import HeroImage_5 from "./assets/images/banner.png";
+import HeroImage_6 from "./assets/images/banner_1.png";
+import Icon from "./components/Icon";
 import Marquee from "react-fast-marquee";
 import AwarenessMarquee from "./components/Awareness";
 import Logo from "./assets/brand/logo.png";
@@ -23,7 +24,14 @@ import Link from "next/link";
 import Alert from "./components/AlertMaqrquee";
 import FAQComponent from "./components/FAQComponent";
 
-const HeroImages = [HeroImage_1, HeroImage_2, HeroImage_3, HeroImage_4];
+const HeroImages = [
+  HeroImage_1,
+  HeroImage_6,
+  HeroImage_2,
+  HeroImage_3,
+  HeroImage_4,
+  HeroImage_5,
+];
 
 export default function Home() {
   return (
@@ -69,8 +77,8 @@ export default function Home() {
               );
             })}
           </Swiper>
-          <div></div>
-          <div className="flex gap-20 justify-evenly z-10 relative mt-[-150px] bg-primary py-4 mx-8 rounded-3xl">
+
+          <div className="flex gap-20 justify-evenly z-10 relative mt-[10px] rounded-3xl mx-8 bg-primary py-4">
             <Link href={"/online-reporting"}>
               <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white">
                 <div>

@@ -49,7 +49,7 @@ const ComplaintForm = () => {
     location: "",
     pincode: "",
     description: "",
-    categoryOfComplaint: "root",
+    // categoryOfComplaint: "root",
     questionnaire: [],
     evidencesURL: [],
     isMoneyLost: false,
@@ -68,6 +68,7 @@ const ComplaintForm = () => {
     adhaarNumber: "",
     evidencesList: [],
     selfFill: false,
+    message: "",
   });
   const [step, setStep] = useState(1);
   const [dynamicForm, setDynamicForm] = useState<any>(null);
@@ -153,7 +154,7 @@ const ComplaintForm = () => {
         evidencesURL: [],
         city: formData.location,
         pincode: formData.pincode,
-        category: formData.categoryOfComplaint,
+        // category: formData.categoryOfComplaint,
         userAccountInfo: {
           amountLost: formData.victimAmountLost,
           bankName: formData.victimBank,
@@ -161,6 +162,7 @@ const ComplaintForm = () => {
           dateOfTransaction: formData.transactionDate,
           transaction: formData.victimTransactionId,
         },
+        analysisMaterial: formData.message,
         suspectInfo: {
           suspectBankName: formData.suspectBank,
           suspectAccountNumber: formData.suspectAccountNumber,
@@ -182,13 +184,24 @@ const ComplaintForm = () => {
       });
       const response = await data.json();
 
+      fetch(`${publicUrl()}/admin/getAnalysis`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          message: formData.message,
+          reportDate: reportedDate,
+        }),
+      });
+
       setFormData({
         name: "",
         phoneNumber: "",
         location: "",
         pincode: "",
         description: "",
-        categoryOfComplaint: "root",
+        // categoryOfComplaint: "root",
         isMoneyLost: false,
         victimBank: "root",
         victimAccountNumber: "NA",
@@ -207,10 +220,12 @@ const ComplaintForm = () => {
         evidencesList: [],
         questionnaire: [],
         selfFill: false,
+        message: "",
       });
       setSubmitLoading(false);
       setCaseDetails(response);
       setFormSubmitted(true);
+
       router.push(`/confirm`);
     }
 
