@@ -8,10 +8,10 @@ import RjLogo from "../../assets/brand/logo.png";
 import useWindowSize from "../../hooks/useWindowSize";
 import { usePathname } from "next/navigation";
 
-const useMediaQuery = (width) => {
+const useMediaQuery = (width: number) => {
   const [targetReached, setTargetReached] = useState(false);
 
-  const updateTarget = useCallback((e) => {
+  const updateTarget = useCallback((e: any) => {
     if (e.matches) {
       setTargetReached(true);
     } else {
@@ -27,7 +27,7 @@ const useMediaQuery = (width) => {
       // compatibility for browser that dont have addEventListener
       media.addListener(updateTarget);
     }
-    // Check on mount (callback is not called until a change occurs)
+    // Check on mount (callback is not called until Link change occurs)
     if (media.matches) {
       setTargetReached(true);
     }
@@ -52,19 +52,15 @@ const Navbar = () => {
     return (
       <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a
+          <Link
             href="#"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <img
-              src="https://flowbite.com/docs/images/logo.svg"
-              className="h-8"
-              alt="Flowbite Logo"
-            />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Flowbite
+            <Image src={RjLogo} alt="police logo" className="w-10 h-8" />
+            <span className="self-center text-2xl font-semibold md:whitespace-nowrap dark:text-white">
+              Rajasthan Police
             </span>
-          </a>
+          </Link>
           <button
             onClick={() => setOpenHamburger(!openHamburger)}
             type="button"
@@ -223,7 +219,7 @@ const Navbar = () => {
                 className="w-52 text-lg font-semibold bg-primary text-white"
                 color="primary"
               >
-                Report a crime
+                Report Link crime
               </Button>
             </Link>
           </div>

@@ -9,8 +9,8 @@ const Footer = () => {
           <div className="mb-6 md:mb-0 w-full md:w-auto">
             <a href="/" className="flex items-center">
               <Image src={Logo} className="w-32 h-28" alt="Logo" />
-              <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
-                Rajashthan Police Cyber Crime
+              <span className="self-center md:text-2xl font-semibold text-wrap text-lg text-white">
+                Rajasthan Police Cyber Crime
               </span>
             </a>
           </div>
