@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SuggestionDto {
 
+    private String trackId;
     private String description;
-    private String category;
 }

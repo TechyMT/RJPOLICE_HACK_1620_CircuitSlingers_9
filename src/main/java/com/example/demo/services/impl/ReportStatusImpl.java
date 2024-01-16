@@ -61,6 +61,8 @@ public class ReportStatusImpl implements ReportStatusServices {
                 existingStatus.setFlag(1);
                 existingStatus.setCurrentStatus(reportStatusDto.getCurrentStatus());
             }
+            existingStatus.setSuggestions(reportStatusDto.getSuggestions());
+            existingStatus.setComments(reportStatusDto.getComments());
             existingStatus.setUpdatedDate(sdf.format(new Date()));
             if (recipientToken != null && !recipientToken.isEmpty()) {
                 messagingService.sendUpdateNotifications(new UpdateNotifications(
@@ -98,8 +100,6 @@ public class ReportStatusImpl implements ReportStatusServices {
 
         if (userEntityOptional.isPresent()) {
             List<ReportStatusEntity> reportStatusEntities = statusRepository.findAllByUserId(id);
-    
-            System.out.println(reportStatusEntities.size());
             return reportStatusEntities.stream().map(reportMapper::mapFrom).collect(Collectors.toList());
         } else {
             throw new NotFoundException("User with " + id + " not found");
@@ -255,24 +255,32 @@ public class ReportStatusImpl implements ReportStatusServices {
             LocalDate currentDate = LocalDate.now();
             long daysDifference = ChronoUnit.DAYS.between(reportLocalDate, currentDate);
 
-            String category;
-            if (daysDifference <= 1) {
-                category = "Last Day Reports";
-            } else if (daysDifference <= 7) {
-                category = "Last 7 Days Reports";
-            } else if (daysDifference <= 30) {
-                category = "Last 30 Days Reports";
-            } else {
-                category = "Old Reports";
-            }
+            List<String> categories = new ArrayList<>();
 
-            categorizedReports
-                    .computeIfAbsent(category, k -> new ArrayList<>())
-                    .add(reportMapper.mapFrom(report));
+            if (daysDifference <= 1) {
+                categories.add("Last Day Reports");
+            }
+            if (daysDifference <= 7) {
+                categories.add("Last 7 Days Reports");
+            }
+            if (daysDifference <= 30) {
+                categories.add("Last 30 Days Reports");
+            }
+            for (String category : categories) {
+                categorizedReports
+                        .computeIfAbsent(category, k -> new ArrayList<>())
+                        .add(reportMapper.mapFrom(report));
+            }
         }
+        categorizedReports.computeIfAbsent("All Reports", k -> new ArrayList<>())
+                .addAll(allReports.stream()
+                        .map(reportMapper::mapFrom)
+                        .toList());
 
         return categorizedReports;
     }
+
+
 
 
 }

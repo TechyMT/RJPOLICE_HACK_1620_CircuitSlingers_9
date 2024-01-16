@@ -16,16 +16,11 @@ public class DataMapper {
         context.setVariable("phoneNumber", incidentReportDto.getPhoneNumber());
         context.setVariable("aadharNumber", incidentReportDto.getAadharNumber());
 
-        // Add other user attributes...
-
         context.setVariable("dateOfCrime", incidentReportDto.getDateOfCrime());
         context.setVariable("dateOfReport", incidentReportDto.getDateOfReport());
         context.setVariable("pincode", incidentReportDto.getPincode());
         context.setVariable("bankAccInvolved", incidentReportDto.isBankAccInvolved());
         context.setVariable("incidentDescription", incidentReportDto.getIncidentDescription());
-        context.setVariable("category", incidentReportDto.getCategory());
-
-        // Add other incident details...
 
         context.setVariable("evidencesURL", incidentReportDto.getEvidencesURL());
         context.setVariable("city", incidentReportDto.getCity());

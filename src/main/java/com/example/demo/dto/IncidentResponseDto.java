@@ -9,7 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class IncidentResponseDto {
 
-    private Integer track;
+    private Integer trackId;
 
-    private String suggestions;
+    private String description;
+
+    private String category;
+
+
 }

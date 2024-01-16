@@ -7,6 +7,8 @@ import com.example.demo.services.FraudNumbersServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -26,15 +28,21 @@ public class FraudNumberImpl implements FraudNumbersServices {
     }
 
     @Override
-    public void reportFraudNumber(FraudNumbers numbers) {
+    public Map<String,String> reportFraudNumber(FraudNumbers numbers) {
             String number = numbers.getPhoneNumber();
             FraudNumbers existingNumber = numbersRepository.findByPhoneNumber(number);
-            if (existingNumber != null) {
-                existingNumber.setReportCount(existingNumber.getReportCount() + 1);
-            } else {
+        Map<String,String> resultMap = new HashMap<>();
+        if (existingNumber != null) {
+            existingNumber.setReportCount(existingNumber.getReportCount() + 1);
+            numbersRepository.save(existingNumber);
+            resultMap.put("message","This "+numbers+" has been reported by "+existingNumber.getReportCount()+" users");
+        } else {
                 numbers.setReportCount(1);
                 numbersRepository.save(numbers);
-            }
+            resultMap.put("message","This"+ number+ " has been added to the black-listed list");
+
+        }
+        return resultMap;
     }
 
 

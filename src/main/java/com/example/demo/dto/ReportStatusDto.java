@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class ReportStatusDto {
 
     private Integer trackId;
-  //  private IncidentReportEntity incidentReport;
+
     private String currentStatus;
 
     private String userId;
@@ -23,6 +23,8 @@ public class ReportStatusDto {
     private String suggestions;
 
     private String reportURL;
+
+    private String comments;
 
     private String updatedDate;
 

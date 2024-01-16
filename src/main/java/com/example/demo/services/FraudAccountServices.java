@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 
 public interface FraudAccountServices {
@@ -14,5 +16,5 @@ public interface FraudAccountServices {
 
     FraudAccNumbers addFraudAcc(FraudAccNumbers number);
 
-    void reportFraudAcc(FraudAccNumbers numbers);
+    Map<String,String> reportFraudAcc(FraudAccNumbers numbers);
 }

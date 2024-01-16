@@ -8,6 +8,7 @@ import com.example.demo.entities.ReportStatusEntity;
 import com.example.demo.services.AnalysisServices;
 import com.example.demo.services.ReportStatusServices;
 import com.example.demo.services.impl.EmailSenderService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ public class ReportStatusController {
     private final EmailSenderService senderService;
     private final AnalysisServices analysisServices;
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PatchMapping(path = "/update")
     public ResponseEntity<ReportStatusDto> updateReport(
             @RequestBody ReportStatusDto reportStatusDto
@@ -128,9 +130,16 @@ public class ReportStatusController {
     @PostMapping(path = "/getAnalysis")
     public ResponseEntity<AnalyticsDto> getMessageAndDate(
             @RequestBody AnalyticsDto analyticsDto
-    ){
+    ) throws JsonProcessingException {
+        System.out.println("HEELO");
         AnalyticsDto createdDto = analysisServices.createAnalysis(analyticsDto);
         return new ResponseEntity<>(createdDto,HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/getAllAnalysis")
+    public ResponseEntity<List<AnalyticsDto>> getAll(){
+        List<AnalyticsDto> alldata = analysisServices.getAllAnalytics();
+        return new ResponseEntity<>(alldata,HttpStatus.OK);
     }
 
     @GetMapping(path = "/getSortedReports")

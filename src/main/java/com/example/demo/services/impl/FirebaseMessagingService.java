@@ -27,9 +27,6 @@ public class FirebaseMessagingService {
                 .setNotification(notification)
                 .build();
         System.out.println("Sent");
-        System.out.println(notifications.getRecipientToken());
-        System.out.println(notifications.getBody());
-        System.out.println(notifications.getTitle());
         try{
             firebaseMessaging.send(message);
         }catch (FirebaseMessagingException e){

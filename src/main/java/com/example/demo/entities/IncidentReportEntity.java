@@ -43,11 +43,11 @@ public class IncidentReportEntity {
 
     private String incidentDescription;
 
-    private String category;
-
     private SuspectInfo suspectInfo;
 
     private UserAccountInfo userAccountInfo;
+
+    private String analysisMaterial;
 
     private String email;
 

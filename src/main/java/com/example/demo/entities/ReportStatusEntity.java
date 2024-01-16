@@ -29,6 +29,8 @@ public class ReportStatusEntity {
 
     private String currentStatus;
 
+    private String comments;
+
     private String city;
 
     private String updatedDate;

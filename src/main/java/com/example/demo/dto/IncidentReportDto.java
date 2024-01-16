@@ -42,6 +42,8 @@ public class IncidentReportDto {
 
     private String email;
 
+    private String analysisMaterial;
+
     private List<String> evidencesURL;
 
     @NotBlank(message = "City has to be entered")
@@ -50,9 +52,6 @@ public class IncidentReportDto {
     @NotNull(message = "This is a required field")
     @JsonProperty("isBankAccInvolved")
     private boolean isBankAccInvolved;
-
-    @NotBlank(message = "Required Field")
-    private String category;
 
     private String pincode;
 

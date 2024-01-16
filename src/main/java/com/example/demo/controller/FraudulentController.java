@@ -79,4 +79,30 @@ public class FraudulentController {
         FraudAccNumbers fraudAccNumbers = fraudAccountServices.addFraudAcc(fraudAccNumber);
         return new ResponseEntity<>(fraudAccNumbers,HttpStatus.OK);
     }
+
+    @PostMapping(path = "reportAccNumber")
+    public ResponseEntity<Map<String,String>> reportAccNumber(
+            @RequestBody FraudAccNumbers fraudNumbers
+    ){
+        Map<String,String> resultMap;
+        resultMap = fraudAccountServices.reportFraudAcc(fraudNumbers);
+        return new ResponseEntity<>(resultMap,HttpStatus.OK);
+    }
+    @PostMapping(path = "reportPhoneNumber")
+    public ResponseEntity<Map<String,String>> reportPhoneNumber(
+            @RequestBody FraudNumbers fraudNumbers
+    ){
+        Map<String,String> resultMap;
+        resultMap = fraudNumbersServices.reportFraudNumber(fraudNumbers);
+        return new ResponseEntity<>(resultMap,HttpStatus.OK);
+    }
+    @PostMapping(path = "reportEmail")
+    public ResponseEntity<Map<String,String>> reportEmail(
+            @RequestBody FraudEmails fraudEmails
+    ){
+        Map<String,String> resultMap;
+        resultMap = fraudEmailServices.reportFraudEmail(fraudEmails);
+        return new ResponseEntity<>(resultMap,HttpStatus.OK);
+    }
+
 }

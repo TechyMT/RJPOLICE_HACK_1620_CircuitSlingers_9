@@ -7,6 +7,8 @@ import com.example.demo.services.FraudEmailServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -27,14 +29,21 @@ public class FraudEmailServicesImpl implements FraudEmailServices {
     }
 
     @Override
-    public void reportFraudEmail(FraudEmails email) {
+    public Map<String,String> reportFraudEmail(FraudEmails email) {
         String emails = email.getEmail();
         FraudEmails existingAccount = emailsRepository.findByEmail(emails);
+        Map<String,String> resultMap = new HashMap<>();
         if (existingAccount != null) {
             existingAccount.setReportCount(existingAccount.getReportCount() + 1);
+            emailsRepository.save(existingAccount);
+            resultMap.put("message","This mail has been reported by "+existingAccount.getReportCount()+" users");
+
         } else {
             email.setReportCount(1);
             emailsRepository.save(email);
+            resultMap.put("message","This"+ emails+ " has been added to the black-listed list");
+
         }
+        return resultMap;
     }
 }

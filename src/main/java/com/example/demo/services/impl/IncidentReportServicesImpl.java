@@ -1,9 +1,6 @@
 package com.example.demo.services.impl;
 
-import com.example.demo.dto.IncidentReportDto;
-import com.example.demo.dto.IncidentResponseDto;
-import com.example.demo.dto.ReportStatusDto;
-import com.example.demo.dto.ReportTemplate;
+import com.example.demo.dto.*;
 import com.example.demo.entities.*;
 import com.example.demo.entities.incidentchild.SuspectInfo;
 import com.example.demo.entities.incidentchild.UserAccountInfo;
@@ -17,8 +14,10 @@ import com.example.demo.mappers.impl.ReportStatusMapperImpl;
 import com.example.demo.repository.IncidentReportRepository;
 import com.example.demo.repository.ReportStatusRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.services.AnalysisServices;
 import com.example.demo.services.IncidentReportServices;
 import com.example.demo.services.ReportStatusServices;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
@@ -42,6 +41,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
     private final ReportStatusServices reportStatusServices;
     private final DataMapper dataMapper;
     private final EmailSenderService senderService;
+    private final AnalysisServices analysisServices;
     @Override
     public IncidentResponseDto createReport(IncidentReportDto incidentReportDto) {
 
@@ -53,10 +53,23 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         IncidentReportEntity createdReport = reportRepository.save(incidentReportEntity);
         ReportStatusDto reportStatusDto = createReport(userId,incidentReportDto,createdReport);
         createPdf(incidentReportDto, reportStatusDto);
-        CompletableFuture<Void> addSuggestionsFuture = addSuggestionsAsync(reportStatusDto);
+//        if (!incidentReportDto.getAnalysisMaterial().equals("NA")) {
+//            AnalyticsDto analyticsDto = new AnalyticsDto();
+//            analyticsDto.setMessage(incidentReportDto.getAnalysisMaterial());
+//            analyticsDto.setReportDate(incidentReportDto.getDateOfReport());
+//             CompletableFuture.runAsync(() ->
+//             {
+//                 try {
+//                     analysisServices.createAnalysis(analyticsDto);
+//                 } catch (JsonProcessingException e) {
+//                     throw new RuntimeException(e);
+//                 }
+//             });
+//        }
+
+   //     CompletableFuture<Void> addSuggestionsFuture = addSuggestionsAsync(reportStatusDto);
         CompletableFuture<Void> emailCompletionFuture = CompletableFuture.runAsync(() ->
-                senderService.sendCaseRegistrationCompletionEmail(incidentReportDto.getEmail(), reportStatusDto.getTrackId(), reportStatusDto.getReportURL())
-        );
+                senderService.sendCaseRegistrationCompletionEmail(incidentReportDto.getEmail(), reportStatusDto.getTrackId(), reportStatusDto.getReportURL()));
         CompletableFuture<Void> notificationAndEmailFutures = CompletableFuture.runAsync(() -> {
             String recipientToken = incidentReportDto.getRecipientToken();
             if (recipientToken != null && !recipientToken.isEmpty()) {
@@ -72,12 +85,12 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
             }
         });
         CompletableFuture<Void> efirConfirmationEmailFuture = CompletableFuture.runAsync(() ->
-                senderService.sendEFIRFilingConfirmationEmail(incidentReportDto.getEmail(), reportStatusDto.getTrackId())
-        );
-        CompletableFuture.allOf(addSuggestionsFuture,emailCompletionFuture, notificationAndEmailFutures, efirConfirmationEmailFuture).join();
+                senderService.sendEFIRFilingConfirmationEmail(incidentReportDto.getEmail(), reportStatusDto.getTrackId()));
+        CompletableFuture.allOf(emailCompletionFuture, notificationAndEmailFutures, efirConfirmationEmailFuture).join();
         IncidentResponseDto incidentResponseDto = new IncidentResponseDto();
-        incidentResponseDto.setTrack(reportStatusDto.getTrackId());
-        incidentResponseDto.setSuggestions(reportStatusDto.getSuggestions());
+        incidentResponseDto.setDescription(incidentReportDto.getIncidentDescription());
+        incidentResponseDto.setTrackId(reportStatusDto.getTrackId());
+//        incidentResponseDto.setCategory(incidentReportDto.getCategory());
         return incidentResponseDto;
     }
 
@@ -143,7 +156,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         placeholders.put("dateOfCrime", incidentReportDto.getDateOfCrime());
         placeholders.put("city",incidentReportDto.getCity());
         placeholders.put("pincode",incidentReportDto.getPincode());
-        placeholders.put("category",incidentReportDto.getCategory());
+  //      placeholders.put("category",incidentReportDto.getCategory());
         placeholders.put("dateOfReport",incidentReportDto.getDateOfReport());
         placeholders.put("evidencesURL",incidentReportDto.getEvidencesURL().toString());
         placeholders.put("questionnaire",incidentReportDto.getQuestionnaire().toString());
@@ -175,6 +188,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         reportStatusEntity.setTrackId(track_id);
         reportStatusEntity.setPending(true);
         reportStatusEntity.setUserId(userId);
+        reportStatusEntity.setComments("Pending");
         reportStatusEntity.setFlag(0);
         reportStatusEntity.setUpdatedDate(formattedDate);
         reportStatusEntity.setReportDate(incidentReportDto.getDateOfReport());

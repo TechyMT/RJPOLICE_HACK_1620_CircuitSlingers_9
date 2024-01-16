@@ -35,11 +35,10 @@ public class UserController {
 
     @PostMapping(path = "/update")
     public ResponseEntity<UserDto> updateUser(
-            @RequestParam(value = "userUID") String uid,
             @Validated
             @RequestBody UserDto userDto
     ){
-       UserDto userDto1 = userServices.updateUser(uid,userDto);
+       UserDto userDto1 = userServices.updateUser(userDto.getUserUID(),userDto);
        return new ResponseEntity<>(userDto1,HttpStatus.OK);
     }
 
