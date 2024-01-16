@@ -113,6 +113,20 @@ const HomeNav = () => {
         </div>
         <div className="flex">
           <Link
+            href="/report-mail"
+            className={`flex items-center ${
+              pathname === "/report-mail"
+                ? "underline underline-offset-8 decoration-red-500 decoration-4"
+                : ""
+            }`}
+          >
+            <div className="flex items-center text-white cursor-pointer text-lg font-semibold">
+              Report Mail
+            </div>
+          </Link>
+        </div>
+        <div className="flex">
+          <Link
             href="/about"
             className={`flex items-center ${
               pathname === "/about"
