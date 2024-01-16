@@ -49,7 +49,7 @@ const ComplaintForm = () => {
     location: "",
     pincode: "",
     description: "",
-    categoryOfComplaint: "root",
+    // categoryOfComplaint: "root",
     questionnaire: [],
     evidencesURL: [],
     isMoneyLost: false,
@@ -154,7 +154,7 @@ const ComplaintForm = () => {
         evidencesURL: [],
         city: formData.location,
         pincode: formData.pincode,
-        category: formData.categoryOfComplaint,
+        // category: formData.categoryOfComplaint,
         userAccountInfo: {
           amountLost: formData.victimAmountLost,
           bankName: formData.victimBank,
@@ -184,13 +184,24 @@ const ComplaintForm = () => {
       });
       const response = await data.json();
 
+      fetch(`${publicUrl()}/admin/getAnalysis`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          message: formData.message,
+          reportDate: reportedDate,
+        }),
+      });
+
       setFormData({
         name: "",
         phoneNumber: "",
         location: "",
         pincode: "",
         description: "",
-        categoryOfComplaint: "root",
+        // categoryOfComplaint: "root",
         isMoneyLost: false,
         victimBank: "root",
         victimAccountNumber: "NA",
@@ -214,6 +225,7 @@ const ComplaintForm = () => {
       setSubmitLoading(false);
       setCaseDetails(response);
       setFormSubmitted(true);
+
       router.push(`/confirm`);
     }
 
