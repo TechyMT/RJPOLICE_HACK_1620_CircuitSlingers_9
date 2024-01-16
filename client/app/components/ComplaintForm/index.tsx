@@ -68,6 +68,7 @@ const ComplaintForm = () => {
     adhaarNumber: "",
     evidencesList: [],
     selfFill: false,
+    message: "",
   });
   const [step, setStep] = useState(1);
   const [dynamicForm, setDynamicForm] = useState<any>(null);
@@ -161,6 +162,7 @@ const ComplaintForm = () => {
           dateOfTransaction: formData.transactionDate,
           transaction: formData.victimTransactionId,
         },
+        analysisMaterial: formData.message,
         suspectInfo: {
           suspectBankName: formData.suspectBank,
           suspectAccountNumber: formData.suspectAccountNumber,
@@ -207,6 +209,7 @@ const ComplaintForm = () => {
         evidencesList: [],
         questionnaire: [],
         selfFill: false,
+        message: "",
       });
       setSubmitLoading(false);
       setCaseDetails(response);

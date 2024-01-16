@@ -26,7 +26,14 @@ const Chatbot: React.FC = () => {
   const handleSubmit = () => {
     // Handle user input, e.g., send it to a chatbot API
     console.log("User input:", userInput);
-
+    const response = fetch("api/chat", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userInput),
+    });
     // Simulate chatbot response (replace this with actual API interaction)
     const newMessages = [
       ...chatMessages,
