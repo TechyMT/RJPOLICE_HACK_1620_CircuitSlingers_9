@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from "axios";
 
 async function fetchData({ query }: { query: string }): Promise<AxiosResponse> {
     console.log(query);
-    const apiUrl = http://779a-34-126-152-118.ngrok-free.app/get/${query}; // Replace with your API URL
+    const apiUrl = 'https://jsonplaceholder.typicode.com/todos/1'
     const response: AxiosResponse = await axios.get(apiUrl);
     return response;
 }
