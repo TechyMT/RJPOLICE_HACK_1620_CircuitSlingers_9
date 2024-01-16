@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import fakeNumberImage from "../assets/images/fraud_1.jpg";
+import fakeNumberImage from "../assets/images/fraud.jpg";
 import { publicUrl } from "../utils/publicURL";
 import { Button, Input, Spinner } from "@nextui-org/react";
 import Heading from "../components/Heading";

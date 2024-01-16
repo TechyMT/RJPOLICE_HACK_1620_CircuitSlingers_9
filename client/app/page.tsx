@@ -8,6 +8,7 @@ import HeroImage_3 from "./assets/images/hero_2.jpg";
 import HeroImage_4 from "./assets/images/hero_3.jpeg";
 import HeroImage_5 from "./assets/images/banner.png";
 import HeroImage_6 from "./assets/images/banner_1.png";
+import HeroImage_7 from "./assets/images/banner (2).png"
 import Icon from "./components/Icon";
 import Marquee from "react-fast-marquee";
 import AwarenessMarquee from "./components/Awareness";
@@ -28,9 +29,11 @@ const HeroImages = [
   HeroImage_1,
   HeroImage_6,
   HeroImage_2,
+  HeroImage_7,
   HeroImage_3,
   HeroImage_4,
   HeroImage_5,
+
 ];
 
 export default function Home() {
