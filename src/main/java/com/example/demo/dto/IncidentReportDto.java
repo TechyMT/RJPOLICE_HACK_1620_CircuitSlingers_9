@@ -59,7 +59,7 @@ public class IncidentReportDto {
 
     private SuspectInfo suspectInfo;
 
-
+    private String category;
     private String recipientToken;
 
     private List<Questionnaire> questionnaire;

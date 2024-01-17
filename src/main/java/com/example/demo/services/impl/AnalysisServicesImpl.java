@@ -32,7 +32,7 @@ public class AnalysisServicesImpl implements AnalysisServices {
         String message = analyticsDto.getMessage();
         String date = analyticsDto.getReportDate();
         String category = analyticsDto.getCategory();
-        String urlAPI = "http://9bd5-34-125-148-62.ngrok-free.app/2/get";
+        String urlAPI = "http://09d7-35-197-124-135.ngrok-free.app/analysis";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -55,8 +55,10 @@ public class AnalysisServicesImpl implements AnalysisServices {
 
         try {
             JsonNode jsonNode = objectMapper.readTree(responseBody);
+    //        String category = jsonNode.get("category").asText();
 
             String analysis = jsonNode.get("analysis").asText();
+    //        System.out.println("Category: " + category);
 
             System.out.println("Analysis: " + analysis);
 
@@ -73,7 +75,6 @@ public class AnalysisServicesImpl implements AnalysisServices {
         return analyticsMapper.mapFrom(analysisEntity);
 
     }
-
     @Override
     public List<AnalyticsDto> getAllAnalytics() {
         return analysisRepository.findAll().stream().map(analyticsMapper::mapFrom).collect(Collectors.toList());

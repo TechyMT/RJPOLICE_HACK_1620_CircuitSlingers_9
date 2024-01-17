@@ -28,7 +28,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DescriptionController {
 
-    public RestTemplate restTemplate;
+    public final RestTemplate restTemplate;
     public final IncidentReportServices reportServices;
     private final ReportStatusRepository statusRepository;
     private final ReportStatusServices statusServices;
@@ -46,7 +46,7 @@ public class DescriptionController {
     public ResponseEntity<QuestionnaireList> generateDesc(
             @RequestBody String description
     ){
-        String urlAPI = "http://0255-34-125-70-160.ngrok-free.app/home";
+        String urlAPI = "http://1b5e-34-70-71-178.ngrok-free.app/home";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> requestEntity = new HttpEntity<>(description, headers);
@@ -81,16 +81,14 @@ public class DescriptionController {
         System.out.println(output.getBody());
         try {
             QuestionnaireList questionnaireList = objectMapper.readValue(output.getBody(), QuestionnaireList.class);
+            if (questionnaireList.getQuestions() == null || questionnaireList.getQuestions().isEmpty()) {
+                output = restTemplate.postForEntity(urlAPI, requestEntity, String.class);
+                questionnaireList = objectMapper.readValue(output.getBody(), QuestionnaireList.class);
+            }
             return ResponseEntity.ok(questionnaireList);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-//        try {
-//            QuestionnaireList questionnaireList = objectMapper.readValue(output, QuestionnaireList.class);
-//            return ResponseEntity.ok(questionnaireList);
-//        } catch (JsonProcessingException e) {
-//            throw new RuntimeException(e);
-//        }
 
     }
 
@@ -101,10 +99,11 @@ public class DescriptionController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        String urlAPI = "http://9bd5-34-125-148-62.ngrok-free.app/1/get";
+        String urlAPI = "http://1c17-34-118-199-162.ngrok-free.app/suggest";
         HttpEntity<SuggestionDto> requestEntity = new HttpEntity<>(suggestionDto, headers);
         ResponseEntity<String> responseEntity = new RestTemplate().postForEntity(urlAPI, requestEntity, String.class);
         String apiResponse = responseEntity.getBody();
+        System.out.println(apiResponse);
         Optional<ReportStatusEntity> reportStatusEntity = statusRepository.findByTrackId(Integer.valueOf(suggestionDto.getTrackId()));
 //        String output ="Step 1: Secure Your Account and Personal Information\n" +
 //                "\n" +

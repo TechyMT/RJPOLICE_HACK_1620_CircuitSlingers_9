@@ -45,6 +45,8 @@ public class IncidentReportEntity {
 
     private SuspectInfo suspectInfo;
 
+    private String category;
+
     private UserAccountInfo userAccountInfo;
 
     private String analysisMaterial;

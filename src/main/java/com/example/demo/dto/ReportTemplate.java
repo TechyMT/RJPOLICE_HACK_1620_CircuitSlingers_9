@@ -128,6 +128,10 @@ public class ReportTemplate {
             "            <td>${evidencesURL}</td>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
+            "            <th>Category</th>\n" +
+            "            <td>${category}</td>\n" +
+            "        </tr>\n" +
+            "        <tr>\n" +
             "            <th>City</th>\n" +
             "            <td>${city}</td>\n" +
             "        </tr>\n" +

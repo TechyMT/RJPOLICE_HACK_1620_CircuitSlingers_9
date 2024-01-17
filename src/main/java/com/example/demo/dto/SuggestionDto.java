@@ -11,4 +11,5 @@ public class SuggestionDto {
 
     private String trackId;
     private String description;
+    private String category;
 }

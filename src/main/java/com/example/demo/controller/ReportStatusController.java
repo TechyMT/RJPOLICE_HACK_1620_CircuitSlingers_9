@@ -9,6 +9,7 @@ import com.example.demo.services.AnalysisServices;
 import com.example.demo.services.ReportStatusServices;
 import com.example.demo.services.impl.EmailSenderService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.api.Http;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -146,6 +147,14 @@ public class ReportStatusController {
     public ResponseEntity<Map<String,List<ReportStatusDto>>> getSortedReports(){
         Map<String,List<ReportStatusDto>>  sortedReports = reportStatusServices.sortReportByDates();
         return new ResponseEntity<>(sortedReports,HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/sendEmailNotif")
+    public ResponseEntity<String> sendEmailNotif(
+            @RequestParam("email") String email
+    ){
+        senderService.sendEmailNotification(email);
+        return new ResponseEntity<>("Message Sent", HttpStatus.OK)  ;
     }
 
 }

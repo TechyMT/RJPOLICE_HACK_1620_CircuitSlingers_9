@@ -90,7 +90,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         IncidentResponseDto incidentResponseDto = new IncidentResponseDto();
         incidentResponseDto.setDescription(incidentReportDto.getIncidentDescription());
         incidentResponseDto.setTrackId(reportStatusDto.getTrackId());
-//        incidentResponseDto.setCategory(incidentReportDto.getCategory());
+        incidentResponseDto.setCategory(incidentReportDto.getCategory());
         return incidentResponseDto;
     }
 
@@ -156,7 +156,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         placeholders.put("dateOfCrime", incidentReportDto.getDateOfCrime());
         placeholders.put("city",incidentReportDto.getCity());
         placeholders.put("pincode",incidentReportDto.getPincode());
-  //      placeholders.put("category",incidentReportDto.getCategory());
+        placeholders.put("category",incidentReportDto.getCategory());
         placeholders.put("dateOfReport",incidentReportDto.getDateOfReport());
         placeholders.put("evidencesURL",incidentReportDto.getEvidencesURL().toString());
         placeholders.put("questionnaire",incidentReportDto.getQuestionnaire().toString());

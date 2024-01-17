@@ -7,6 +7,8 @@ com\example\demo\repository\IncidentReportRepository.class
 com\example\demo\config\CorsConfig.class
 com\example\demo\entities\incidentchild\Questionnaire.class
 com\example\demo\services\impl\FraudEmailServicesImpl.class
+com\example\demo\dto\AnalyticsDto.class
+com\example\demo\dto\SMSSendRequest.class
 com\example\demo\exceptions\GlobalExceptionHandler.class
 com\example\demo\services\impl\FraudNumberImpl.class
 com\example\demo\entities\notifications\FIRClass.class
@@ -21,9 +23,12 @@ com\example\demo\services\impl\UserServicesImpl.class
 com\example\demo\services\impl\DocumentGenerator.class
 com\example\demo\dto\ReportStatusDto.class
 com\example\demo\mappers\impl\UserMapper.class
+com\example\demo\entities\AnalysisEntity.class
+com\example\demo\controller\SMSController.class
 com\example\demo\repository\FraudAccNumbersRepository.class
 com\example\demo\entities\incidentchild\QuestionnaireList.class
 com\example\demo\config\JavaMailSenderConfig.class
+com\example\demo\repository\AnalysisRepository.class
 com\example\demo\dto\IncidentReportDto.class
 com\example\demo\entities\ReportStatusEntity.class
 com\example\demo\services\impl\ReportStatusImpl.class
@@ -39,6 +44,7 @@ com\example\demo\config\RestConfig.class
 com\example\demo\dto\UserDto.class
 com\example\demo\exceptions\AlreadyExistsException.class
 com\example\demo\repository\UserRepository.class
+com\example\demo\dto\IncidentResponseDto.class
 com\example\demo\mappers\impl\DataMapper.class
 com\example\demo\config\TemplateEngineConfig.class
 com\example\demo\config\MapperConfig.class
@@ -54,10 +60,15 @@ com\example\demo\MongoApplication.class
 com\example\demo\controller\UserController.class
 com\example\demo\exceptions\NotFoundException.class
 com\example\demo\services\FraudAccountServices.class
+com\example\demo\services\AnalysisServices.class
+com\example\demo\mappers\impl\AnalyticsMapperImpl.class
+com\example\demo\dto\SuggestionDto.class
 com\example\demo\entities\incidentchild\UserAccountInfo.class
 com\example\demo\entities\fraudlent\FraudEmails.class
 com\example\demo\config\CorsConfig$1.class
 com\example\demo\services\FraudNumbersServices.class
 com\example\demo\mappers\impl\ReportStatusMapperImpl.class
+com\example\demo\services\impl\AnalysisServicesImpl.class
 com\example\demo\services\impl\FirebaseMessagingService.class
 com\example\demo\exceptions\UnauthorizedException.class
+com\example\demo\services\impl\SMSService.class

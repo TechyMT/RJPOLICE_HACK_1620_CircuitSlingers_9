@@ -6,6 +6,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class EmailSenderService
@@ -26,7 +28,7 @@ public class EmailSenderService
                         "Case Number: " + caseNumber + "\n"
                          + "Report: "+reportURL+ "\n" +
                         "Our team is diligently reviewing the details of the case, and you will be kept informed of any developments. Please make sure to reference the provided Case Number in any future communication related to this incident.\n\n" +
-                        "We appreciate your cooperation in this matter. If you have any further questions or concerns, feel free to contact us.\n\n" +
+                        "We appreciate your cooperation in this matter.Please check your app or website to check your current status and comments . If you have any further questions or concerns, feel free to contact us.\n\n" +
                         "Thank you for your understanding.\n\n" +
                         "Sincerely,\n\n";
     }
@@ -44,7 +46,7 @@ public class EmailSenderService
                         "We hope this email finds you well.\n\n" +
                         "This is to confirm that an Electronic First Information Report (eFIR) has been successfully filed for the reported incident associated with Case Number: " + caseNumber + ".\n\n" +
                         "Our team is diligently reviewing the details of the case, and you will be kept informed of any developments. Please make sure to reference the provided Case Number in any future communication related to this incident.\n\n" +
-                        "We appreciate your cooperation in this matter. If you have any further questions or concerns, feel free to contact us.\n\n" +
+                        "We appreciate your cooperation in this matter.Please check your app or website to check your current status and comments . If you have any further questions or concerns, feel free to contact us.\n\n" +
                         "Thank you for your understanding.\n\n" +
                         "Sincerely,\n\n";
     }
@@ -120,4 +122,22 @@ public class EmailSenderService
                         "We apologize for any inconvenience this may cause and appreciate your understanding in this matter.\n\n" +
                         "Thank you for your cooperation.\n\n" ;
     }
+
+    public String builtEmailNotification(String email){
+        return
+                "Dear " + email + ",\n" +
+                        "\n" +
+                        "To improve your experience, we recommend using our app or website for faster reporting. Due to high helpline traffic, these options offer quicker responses.\n" +
+                        "\n" +
+                        "Download the app or visit the website today!";
+    }
+
+    public void sendEmailNotification(String recipientEmail){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(recipientEmail);
+        message.setSubject("Large Traffic on Call");
+        message.setText(builtEmailNotification(recipientEmail));
+        mailSender.send(message);
+    }
+
 }

@@ -21,6 +21,7 @@ public class DataMapper {
         context.setVariable("pincode", incidentReportDto.getPincode());
         context.setVariable("bankAccInvolved", incidentReportDto.isBankAccInvolved());
         context.setVariable("incidentDescription", incidentReportDto.getIncidentDescription());
+        context.setVariable("category", incidentReportDto.getCategory());
 
         context.setVariable("evidencesURL", incidentReportDto.getEvidencesURL());
         context.setVariable("city", incidentReportDto.getCity());
