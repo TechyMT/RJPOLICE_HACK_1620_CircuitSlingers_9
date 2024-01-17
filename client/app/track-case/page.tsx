@@ -10,7 +10,7 @@ import Link from "next/link";
 import Loader from "../components/Loader";
 
 import Image from "next/image";
-import trackCase from "../assets/images/track.jpg"
+import trackCase from "../assets/images/track.jpg";
 const TrackStatus = () => {
   const [trackId, setTrackId] = useState<any>(null);
   const [status, setStatus] = useState<any>("");
@@ -48,7 +48,7 @@ const TrackStatus = () => {
       </div>
       <div className="flex flex-col items-center gap-4">
         <div className="w-60 h-36">
-          <Image src={trackCase} alt="track your case" width={1920}/>
+          <Image src={trackCase} alt="track your case" width={1920} />
         </div>
         <div className="w-96 pt-10">
           <Input
@@ -58,6 +58,9 @@ const TrackStatus = () => {
             onChange={(e) => setTrackId(e.target.value)}
             variant="bordered"
             color="primary"
+            classNames={{
+              inputWrapper: "bg-white",
+            }}
           />
         </div>
         <Button onClick={handleSearch} color="primary" size="lg">
@@ -66,7 +69,7 @@ const TrackStatus = () => {
       </div>
       {status && (
         <>
-          <div className="flex flex-col border-gray border-2 w-unit-9xl items-center mx-auto p-4 gap-8 mt-20">
+          <div className="flex flex-col border-gray border-2 w-unit-9xl items-center mx-auto p-4 gap-8 mt-20 bg-white bg-opacity-65">
             <div>
               <SubHeading>
                 Status for Track ID:{" "}
