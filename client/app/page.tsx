@@ -25,7 +25,7 @@ import Alert from "./components/AlertMarquee";
 import FAQComponent from "./components/FAQComponent";
 import HomeLottie from "./components/HomeLottie";
 import HomeBg from "./assets/images/home.png";
-import BannerRop from "./assets/images/bannerop.png"
+import BannerRop from "./assets/images/bannerop (1).png"
 const HeroImages = [
   HeroImage_1,
   HeroImage_6,
