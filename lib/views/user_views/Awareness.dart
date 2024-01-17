@@ -264,7 +264,9 @@ class _FraudCheckState extends State<FraudCheck> {
                             padding: const EdgeInsets.all(0),
                             text: controller.phoneNumberPhishingText.value,
                           )
-                        : const SizedBox.shrink(),
+                        : BlinkingText(
+                            text: controller.reportPhoneNumberText.value,
+                            padding: const EdgeInsets.all(0)),
                   ),
                 ],
               ),
@@ -356,7 +358,9 @@ class _FraudCheckState extends State<FraudCheck> {
                             padding: const EdgeInsets.all(0),
                             text: controller.accountNumberPhishingText.value,
                           )
-                        : const SizedBox.shrink(),
+                        : BlinkingText(
+                            text: controller.reportAccNumberText.value,
+                            padding: const EdgeInsets.all(0)),
                   ),
                 ],
               ),

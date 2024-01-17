@@ -302,7 +302,7 @@ Future<void> reportPhone(String phone) async {
 Future<void> checkAccountNumber(String accountNumber) async {
   final ReportStatusController controller = Get.put(ReportStatusController());
   final response = await http.get(Uri.parse(
-      'http://10.255.3.113:8080/api/fraud_search/accountNumbers/$accountNumber'));
+      'http://10.255.3.113:8080/api/fraud_search/accNumbers/$accountNumber'));
   controller.isAccountNumberChecked.value = true;
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
@@ -349,13 +349,13 @@ Future<void> giveSuggestions(int trackId) async {
 
   final response = await http.post(
     url,
-     headers: {
-        "Content-Type": "application/json",
-      },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: jsonEncode({
       'trackId': trackId,
       'description': controller.incidentDescriptionController.text,
-      'category':controller.categoryController.text
+      'category': controller.categoryController.text
     }),
   );
 
