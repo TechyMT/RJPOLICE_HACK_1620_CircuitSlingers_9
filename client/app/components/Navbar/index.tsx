@@ -20,7 +20,7 @@ const Navbar = () => {
               </div>
             </div>
             <div className="underline decoration-primaryRed decoration-2 underline-offset-4">
-              (+91) 9876543210
+              1930
             </div>
           </div>
           <div className="flex flex-col">
