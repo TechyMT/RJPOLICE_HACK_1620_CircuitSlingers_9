@@ -2,14 +2,12 @@
 
 ## Please Navigate to the respective branches.
 
-1) Frontend: (https://github.com/tejasthorat1549/RJPOLICE_HACK_1620_CircuitSlingers_9/tree/frontend)
+1) Frontend: (https://github.com/tejasthorat1549/RJPOLICE_HACK_1620_CircuitSlingers_9/tree/fe)
 2) Backend: (https://github.com/tejasthorat1549/RJPOLICE_HACK_1620_CircuitSlingers_9/tree/backend)
 3) ML: (https://github.com/tejasthorat1549/RJPOLICE_HACK_1620_CircuitSlingers_9/tree/ml)
 4) App: (https://github.com/tejasthorat1549/RJPOLICE_HACK_1620_CircuitSlingers_9/tree/app)
 
 ## Large Language Model API built with Flask
-
-![Landing-page](https://github.com/tejasthorat1549/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/97504422/8f2372cb-ff1f-4882-9d28-9027aa4d968b)
 
 ## Some sample questions and responces:
 
@@ -56,7 +54,7 @@ We use JSON Web Tokens (JWT) for authentication. JWT is a compact, URL-safe mean
 
 ### Database
 
-#### PostgreSQL
+#### MongoDb
 
 The project uses a PostgreSQL database to store and retrieve data. PostgreSQL is a powerful, open-source relational database system known for its reliability and performance.
 
@@ -64,17 +62,22 @@ The project uses a PostgreSQL database to store and retrieve data. PostgreSQL is
 
 The PostgreSQL database is containerized using [Docker](https://www.docker.com/), making it easy to manage and deploy across different environments.
 
-
-## Overview Of the App 
-
-![LandingPage](https://github.com/tejasthorat1549/RJPOLICE_HACK_1620_CircuitSlingers_9/blob/main/Image1)
-
-![LandingPage](https://github.com/tejasthorat1549/RJPOLICE_HACK_1620_CircuitSlingers_9/blob/main/Image2)
-
 ## Frontend Web Portal
 
 ### Typescript in Next Js Framework
 
 The project utilizes TypeScript seamlessly with Next.js, a React framework, to enhance the project with code quality, and improved developer experience by leveraging TypeScript's type checking and Next.js's server-side rendering capabilities in a seamless integration for building robust and scalable web application.
+
+## Overview of Web
+
+![Screenshot 2024-01-17 183747](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/be9835ec-ca59-4d59-8b1b-916d0218b612)
+
+## Overview of App
+
+![WhatsApp Image 2024-01-17 at 18 34 54 (1)](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/7febba4c-fdf7-4f0f-8fb5-6674c3aaaba2)
+![WhatsApp Image 2024-01-17 at 18 34 54](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/b1af1b67-0b5f-4d9c-8198-3081b5a86616)
+![WhatsApp Image 2024-01-17 at 18 34 53 (1)](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/f652077d-2519-4327-b91e-e51b42dc3797)
+![WhatsApp Image 2024-01-17 at 18 34 53](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/e392e628-0bda-495c-aafa-5f88d2f9ccf1)
+
 
 
