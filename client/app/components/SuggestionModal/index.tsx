@@ -11,7 +11,7 @@ import {
 import { publicUrl } from "@/app/utils/publicURL";
 import useAuthStore from "@/app/utils/auth";
 
-const ModalSuggestions: React.FC<any> = () => {
+const ModalSuggestions: React.FC<any> = ({ suggestions }) => {
   const caseDetails = useAuthStore(
     (state: { caseDetails: any }) => state.caseDetails
   );
@@ -42,7 +42,12 @@ const ModalSuggestions: React.FC<any> = () => {
   const handleOpen = () => {
     setLoading(true);
     setOpen(true);
-    fetchData();
+    if (!suggestions) {
+      fetchData();
+    } else {
+      setText(suggestions);
+      setLoading(false);
+    }
   };
   const handleClose = () => setOpen(false);
   const [text, setText] = useState("");
@@ -87,7 +92,7 @@ const ModalSuggestions: React.FC<any> = () => {
 
   return (
     <>
-      <Button onClick={handleOpen} color="primary">
+      <Button onClick={handleOpen} color="primary" size="lg">
         See AI Suggested Steps.
       </Button>
       <Modal

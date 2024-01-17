@@ -8,6 +8,7 @@ import FAQComponent from "../components/FAQComponent";
 import SubHeading from "../components/SubHeading";
 import Link from "next/link";
 import Loader from "../components/Loader";
+import ModalSuggestions from "../components/SuggestionModal";
 
 import Image from "next/image";
 import trackCase from "../assets/images/track.jpg";
@@ -123,17 +124,20 @@ const TrackStatus = () => {
                 labelPlacement="outside"
               />
             </div>
-            <div className="flex w-full">
+            <div className="flex w-full justify-between">
               <Link href={`${status.reportURL}`}>
                 <Button color="primary" size="lg">
                   Download Report
                 </Button>
               </Link>
+              <div>
+                <ModalSuggestions suggestions={status.suggestions} />
+              </div>
             </div>
           </div>
-          <div>
+          {/* <div>
             <FAQComponent />
-          </div>
+          </div> */}
         </>
       )}
     </div>
