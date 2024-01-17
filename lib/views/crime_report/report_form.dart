@@ -211,7 +211,7 @@ class _ReportFormState extends State<ReportForm> {
                     height: 8,
                   ),
                   TextFormField(
-                    controller: detailsController.dateOfTransactionController,
+                    controller: detailsController.dateOfCrimeController,
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       filled: true,
@@ -242,8 +242,8 @@ class _ReportFormState extends State<ReportForm> {
                             "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
                       }
                     },
-                    onSaved: (value) => detailsController
-                        .dateOfTransactionController.text = value!,
+                    onSaved: (value) =>
+                        detailsController.dateOfCrimeController.text = value!,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Date of Transaction has to be entered';
@@ -282,59 +282,6 @@ class _ReportFormState extends State<ReportForm> {
                     onSaved: (value) =>
                         detailsController.cityController.text = value!,
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  DropdownButtonFormField<String>(
-                    value: selectedCategory,
-                    onChanged: (newValue) {
-                      detailsController.categoryController.text = newValue!;
-                      selectedCategory = newValue;
-                    },
-                    items: const [
-                      DropdownMenuItem(
-                        value: 'Financial Fraud',
-                        child: Text('Financial Fraud'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Phishing Scams',
-                        child: Text('Phishing Scams'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Identity Theft',
-                        child: Text('Identity Theft'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Identity Theft',
-                        child: Text('Identity Theft'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Social Media Fraud',
-                        child: Text('Social Media Fraud'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Other Fraud',
-                        child: Text('Other Fraud'),
-                      ),
-                    ],
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: const Color(0xFFFFFFFF),
-                      hintText: 'Category',
-                      hintStyle:
-                          const TextStyle(color: Colors.black, fontSize: 15),
-                      labelText: 'Category',
-                      labelStyle: const TextStyle(color: Colors.black),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Color(0xFF5B57DC)),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ),
                   const SizedBox(height: 10),
                   TextFormField(
                     controller: detailsController.messageorEmailController,
@@ -362,6 +309,47 @@ class _ReportFormState extends State<ReportForm> {
                         .messageorEmailController.text = value!,
                   ),
                   const SizedBox(height: 10),
+                  DropdownButtonFormField<String>(
+                    value: selectedCategory,
+                    onChanged: (String? newValue) {
+                      if (newValue != null) {
+                        setState(() {
+                          selectedCategory = newValue;
+                          detailsController.categoryController.text = newValue;
+                        });
+                      }
+                    },
+                    items: <String>[
+                      'Financial Fraud',
+                      'Identity Theft',
+                      'Phishing Scam',
+                      'Online Shopping Fraud',
+                      'Ransomware Attacks',
+                      ' Social Engineering'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: const Color(0xFFFFFFFF),
+                      labelText: 'Category',
+                      labelStyle: const TextStyle(color: Colors.black),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Color(0xFF5B57DC)),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   TextFormField(
                     controller: detailsController.pincodeController,
                     style: const TextStyle(color: Colors.black),
@@ -679,29 +667,27 @@ class _ReportFormState extends State<ReportForm> {
                   ),
                   Obx(
                     () => ElevatedButton(
-                      onPressed: controller.isButtonEnabled.value
-                          ? () async {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
-                                await fetchQuestions(
-                                  detailsController
-                                      .incidentDescriptionController.text,
+                        onPressed: controller.isButtonEnabled.value
+                            ? () async {
+                                if (_formKey.currentState!.validate()) {
+                                  _formKey.currentState!.save();
+                                  print("Hello");
+                                  await fetchQuestions(
+                                    detailsController
+                                        .incidentDescriptionController.text,
+                                  );
+                                }
+                                await detailsController
+                                    .controllerInitialization();
+                                widget.pageController.nextPage(
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.ease,
                                 );
                               }
-                              await detailsController
-                                  .controllerInitialization();
-                              widget.pageController.nextPage(
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.ease,
-                              );
-                            }
-                          : null,
-                      child: controller.isButtonEnabled.value
-                          ? controller.answerQuestions.value
-                              ? const Text('Answer Questions')
-                              : const Text('Submit')
-                          : const CircularProgressIndicator(),
-                    ),
+                            : null,
+                        child: controller.isLoading.value
+                            ? const CircularProgressIndicator()
+                            : const Text('Submit')),
                   ),
                 ],
               ),

@@ -10,6 +10,10 @@ class ReportStatusController extends GetxController {
   final RxString phoneNumberPhishingText = ''.obs;
   final RxString accountNumberPhishingText = ''.obs;
 
+  final RxString reportEmailText = ''.obs;
+  final RxString reportPhoneNumberText = ''.obs;
+  final RxString reportAccNumberText = ''.obs;
+
   void setPhishingText(String text) {
     phishingText.value = text;
   }
@@ -21,8 +25,8 @@ class ReportStatusController extends GetxController {
   void setAccountNumberPhishingText(String text) {
     accountNumberPhishingText.value = text;
   }
+
   void setReportStatusList(List<ReportStatusDto> newList) {
     reportStatusList.assignAll(newList);
   }
-
 }

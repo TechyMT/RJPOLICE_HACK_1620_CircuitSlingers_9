@@ -1,4 +1,6 @@
 import 'package:circuitslingers/models/Article.dart';
+import 'package:circuitslingers/models/ArticleUtils.dart';
+import 'package:circuitslingers/models/news.dart';
 import 'package:flutter/material.dart';
 
 class NewsList extends StatelessWidget {
@@ -12,7 +14,9 @@ class NewsList extends StatelessWidget {
       itemCount: item.length,
       itemBuilder: (context, index) {
         final news = item[index];
-        return NewsCard(news: news);
+
+        final newsArticle = articleFromMap(newsjson);
+        return NewsCard(news: newsArticle);
       },
     );
   }
@@ -25,6 +29,7 @@ class NewsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(news.author);
     return GestureDetector(
       onTap: () {},
       child: Card(
@@ -36,7 +41,7 @@ class NewsCard extends StatelessWidget {
             child: Column(
               children: [
                 Image.network(
-                  news.url,
+                  news.url ?? '',
                   width: 200,
                   height: 100,
                   fit: BoxFit.fill,
@@ -47,21 +52,24 @@ class NewsCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Text(
-                        news.author,
+                        news.author ?? '',
                         maxLines: 1,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                       child: Text(
-                        news.description,
+                        news.description ??
+                            '', // Replace null description with an empty string
                         maxLines: 3,
                         style: const TextStyle(
                           fontSize: 11,
+                          color: Colors.black,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),

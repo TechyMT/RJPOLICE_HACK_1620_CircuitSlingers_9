@@ -17,22 +17,24 @@ class ReportStatusDto {
   bool pending;
   String reportDate;
   String suggestions;
+  String comments;
 
-  ReportStatusDto({
-    required this.trackId,
-    required this.currentStatus,
-    required this.userId,
-    required this.city,
-    required this.flag,
-    required this.reportUrl,
-    required this.updatedDate,
-    required this.pending,
-    required this.reportDate,
-    required this.suggestions,
-  });
+  ReportStatusDto(
+      {required this.trackId,
+      required this.currentStatus,
+      required this.userId,
+      required this.city,
+      required this.flag,
+      required this.reportUrl,
+      required this.updatedDate,
+      required this.pending,
+      required this.reportDate,
+      required this.suggestions,
+      required this.comments});
 
   factory ReportStatusDto.fromJson(Map<String, dynamic> json) =>
       ReportStatusDto(
+          comments: json["comments"],
           trackId: json["trackId"],
           currentStatus: json["currentStatus"],
           userId: json["userId"],
@@ -54,6 +56,7 @@ class ReportStatusDto {
         "updatedDate": updatedDate,
         "pending": pending,
         "reportDate": reportDate,
-        "suggestions": suggestions
+        "suggestions": suggestions,
+        "comments": comments
       };
 }

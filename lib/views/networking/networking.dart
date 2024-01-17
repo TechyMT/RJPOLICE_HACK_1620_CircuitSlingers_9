@@ -14,28 +14,28 @@ import 'package:intl/intl.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<List<Article>> fetchNewsArticles() async {
-  // const country = 'in';
-  // const apiKey = '0bc05e4fd0574e81aa4de8e8e1388d1d';
-  const query = 'cybercrime in india';
+// Future<List<Article>> fetchNewsArticles() async {
+//   // const country = 'in';
+//   // const apiKey = '0bc05e4fd0574e81aa4de8e8e1388d1d';
+//   const query = 'cybercrime in india';
 
-  final url = Uri.parse(
-      'https://newsapi.org/v2/everything?q=$query&language=en&apiKey=0bc05e4fd0574e81aa4de8e8e1388d1d');
-  final response = await http.get(url);
-  if (response.statusCode == 200) {
-    final Map<String, dynamic> data = json.decode(response.body);
+//   final url = Uri.parse(
+//       'https://newsapi.org/v2/everything?q=$query&language=en&apiKey=0bc05e4fd0574e81aa4de8e8e1388d1d');
+//   final response = await http.get(url);
+//   if (response.statusCode == 200) {
+//     final Map<String, dynamic> data = json.decode(response.body);
 
-    final List<dynamic> articlesData = data['articles'];
-    final articles =
-        articlesData.map((article) => Article.fromJson(article)).toList();
-    return articles;
-  } else {
-    throw Exception('Failed to load news articles');
-  }
-}
+//     final List<dynamic> articlesData = data['articles'];
+//     final articles =
+//         articlesData.map((article) => Article.fromJson(article)).toList();
+//     return articles;
+//   } else {
+//     throw Exception('Failed to load news articles');
+//   }
+// }
 
 Future<void> fetchData() async {
-  final url = 'http://192.168.85.81:8080/api/admin/status/715';
+  final url = 'http://10.255.3.113:8080/api/admin/status/715';
 
   try {
     final response = await http.get(Uri.parse(url));
@@ -51,7 +51,7 @@ Future<void> createUser() async {
   User? user = FirebaseAuth.instance.currentUser;
 
   if (user != null) {
-    final url = 'http://192.168.85.81:8080/api/add';
+    final url = 'http://10.255.3.113:8080/api/add';
     final headers = {'Content-Type': 'application/json'};
 
     final userData = {
@@ -78,7 +78,7 @@ Future<void> createUser() async {
 Future<void> updateUser() async {
   User? user = FirebaseAuth.instance.currentUser;
   if (user != null) {
-    final url = 'http://192.168.85.81:8080/api/update';
+    final url = 'http://10.255.3.113:8080/api/update';
     final headers = {'Content-Type': 'application/json'};
 
     final userData = {'userUID': user.uid, 'emailVerified': true};
@@ -97,7 +97,7 @@ Future<void> updateUser() async {
 Future<void> fetchQuestions(String description) async {
   final FunctionController functionController = Get.put(FunctionController());
   final url =
-      Uri.parse("http://192.168.85.81:8080/api/report/generateQuestions");
+      Uri.parse("http://10.255.3.113:8080/api/report/generateQuestions");
   try {
     functionController.isLoading.value = true;
     final response = await http.post(
@@ -105,8 +105,9 @@ Future<void> fetchQuestions(String description) async {
       body: jsonEncode({'description': description}),
       headers: {"Content-Type": "application/json"},
     );
-
+    print(response.body);
     if (response.statusCode == 200) {
+      print(response.statusCode);
       functionController.questionnaireList(
           QuestionnaireList.fromJson(json.decode(response.body)));
       functionController.answerQuestions.value = true;
@@ -121,7 +122,7 @@ Future<void> fetchQuestions(String description) async {
 Future<int> submitReport() async {
   final DetailsController controller = Get.put(DetailsController());
   final FunctionController functionController = Get.put(FunctionController());
-  const url = 'http://192.168.85.81:8080/api/report/add';
+  const url = 'http://10.255.3.113:8080/api/report/add';
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String? uid = sharedPreferences.getString('userId');
   String? token = sharedPreferences.getString('recipientToken');
@@ -154,6 +155,7 @@ Future<int> submitReport() async {
     "email": controller.emailController.text,
     "userAccountInfo": userAccInfo,
     "evidencesURL": controller.evidenceURLs,
+    "analysisMaterial": controller.messageorEmailController.text,
     "dateOfReport": date,
     "dateOfCrime": controller.dateOfCrimeController.text,
     "city": controller.cityController.text,
@@ -187,13 +189,12 @@ Future<List<ReportStatusDto>> fetchReportStatusList() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String? uid = sharedPreferences.getString('userId');
   final response = await http
-      .get(Uri.parse('http://192.168.85.81:8080/api/admin/reports/$uid'));
+      .get(Uri.parse('http://10.255.3.113:8080/api/admin/reports/$uid'));
 
   if (response.statusCode == 200) {
     List<dynamic> jsonList = json.decode(response.body);
     List<ReportStatusDto> reportList =
         jsonList.map((json) => ReportStatusDto.fromJson(json)).toList();
-
     return reportList;
   } else {
     print(response.statusCode);
@@ -215,14 +216,15 @@ Future<List<ReportStatusDto>> fetchReportStatusList() async {
 Future<void> checkEmail(String email) async {
   final ReportStatusController controller = Get.put(ReportStatusController());
   final response = await http.get(
-      Uri.parse('http://192.168.85.81:8080/api/fraud_search/emails/$email'));
+      Uri.parse('http://10.255.3.113:8080/api/fraud_search/emails/$email'));
   controller.isEmailchecked.value = true;
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
     if (jsonResponse.containsKey('isFraud') && jsonResponse['isFraud'] == 1) {
       controller.setPhishingText('Phishing Email');
     } else {
-      controller.setPhishingText('Data not in our database');
+      controller.setPhishingText(
+          "No suspicious activity found . \nReport if you think it's suspicious");
     }
     print(response.statusCode);
   } else {
@@ -231,10 +233,32 @@ Future<void> checkEmail(String email) async {
   }
 }
 
+Future<void> reportEmail(String email) async {
+  final ReportStatusController reportStatusController =
+      Get.put(ReportStatusController());
+  final url =
+      Uri.parse('http://10.255.3.113:8080/api/fraud_search/reportEmail');
+
+  final response = await http.post(
+    url,
+    body: jsonEncode({'email': email}),
+    headers: {"Content-Type": "application/json"},
+  );
+
+  if (response.statusCode == 200) {
+    reportStatusController.isEmailchecked.value = false;
+    print(response.body);
+    Map<String, dynamic> mpp = json.decode(response.body);
+    reportStatusController.reportEmailText.value = mpp["message"];
+  } else {
+    print('Error');
+  }
+}
+
 Future<void> checkPhoneNumber(String phoneNumber) async {
   final ReportStatusController controller = Get.put(ReportStatusController());
   final response = await http.get(Uri.parse(
-      'http://192.168.85.81:8080/api/fraud_search/numbers/$phoneNumber'));
+      'http://10.255.3.113:8080/api/fraud_search/numbers/$phoneNumber'));
   controller.isPhoneNumberChecked.value = true;
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
@@ -242,7 +266,8 @@ Future<void> checkPhoneNumber(String phoneNumber) async {
     if (jsonResponse.containsKey('isFraud') && jsonResponse['isFraud'] == 1) {
       controller.setPhoneNumberPhishingText('Phishing Phone Number');
     } else {
-      controller.setPhoneNumberPhishingText('Data not in our database');
+      controller.setPhoneNumberPhishingText(
+          "No suspicious activity found . \nReport if you think it's suspicious");
     }
 
     print(response.statusCode);
@@ -252,10 +277,32 @@ Future<void> checkPhoneNumber(String phoneNumber) async {
   }
 }
 
+Future<void> reportPhone(String phone) async {
+  final ReportStatusController reportStatusController =
+      Get.put(ReportStatusController());
+  final url =
+      Uri.parse('http://10.255.3.113:8080/api/fraud_search/reportPhoneNumber');
+
+  final response = await http.post(
+    url,
+    body: jsonEncode({'phoneNumber': phone}),
+    headers: {"Content-Type": "application/json"},
+  );
+
+  if (response.statusCode == 200) {
+    reportStatusController.isPhoneNumberChecked.value = false;
+    print(response.body);
+    Map<String, dynamic> mpp = json.decode(response.body);
+    reportStatusController.reportPhoneNumberText.value = mpp["message"];
+  } else {
+    print('Error');
+  }
+}
+
 Future<void> checkAccountNumber(String accountNumber) async {
   final ReportStatusController controller = Get.put(ReportStatusController());
   final response = await http.get(Uri.parse(
-      'http://192.168.85.81:8080/api/fraud_search/accountNumbers/$accountNumber'));
+      'http://10.255.3.113:8080/api/fraud_search/accountNumbers/$accountNumber'));
   controller.isAccountNumberChecked.value = true;
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
@@ -263,12 +310,90 @@ Future<void> checkAccountNumber(String accountNumber) async {
     if (jsonResponse.containsKey('isFraud') && jsonResponse['isFraud'] == 1) {
       controller.setAccountNumberPhishingText('Phishing Account Number');
     } else {
-      controller.setAccountNumberPhishingText('Data not in our database');
+      controller.setAccountNumberPhishingText(
+          "No suspicious activity found . \nReport if you think it's suspicious");
     }
 
     print(response.statusCode);
   } else {
     print(response.statusCode);
     throw Exception('Failed to Load Data');
+  }
+}
+
+Future<void> reportAccNumber(String accNumber) async {
+  final ReportStatusController reportStatusController =
+      Get.put(ReportStatusController());
+  final url =
+      Uri.parse('http://10.255.3.113:8080/api/fraud_search/reportAccNumber');
+
+  final response = await http.post(
+    url,
+    body: jsonEncode({'accountNumber': accNumber}),
+    headers: {"Content-Type": "application/json"},
+  );
+
+  if (response.statusCode == 200) {
+    reportStatusController.isPhoneNumberChecked.value = false;
+    print(response.body);
+    Map<String, dynamic> mpp = json.decode(response.body);
+    reportStatusController.reportPhoneNumberText.value = mpp["message"];
+  } else {
+    print('Error');
+  }
+}
+
+Future<void> giveSuggestions(int trackId) async {
+  final DetailsController controller = Get.put(DetailsController());
+  final url = Uri.parse('http://10.255.3.113:8080/api/report/getInformation');
+
+  final response = await http.post(
+    url,
+     headers: {
+        "Content-Type": "application/json",
+      },
+    body: jsonEncode({
+      'trackId': trackId,
+      'description': controller.incidentDescriptionController.text,
+      'category':controller.categoryController.text
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    print(response.body);
+  } else {
+    print('Error');
+  }
+}
+
+Future<void> makePostRequest() async {
+  final DetailsController detailsController = Get.put(DetailsController());
+  final String url = "http://10.255.3.113:8080/api/admin/getAnalysis";
+
+  Map<String, String> requestBody = {
+    "message": detailsController.messageorEmailController.text,
+    "reportDate": detailsController.dateOfReportController.text,
+  };
+
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonEncode(requestBody),
+    );
+
+    if (response.statusCode == 200) {
+      print("POST request successful");
+      print("Response: ${response.body}");
+      // Handle the response as needed
+    } else {
+      print("POST request failed with status: ${response.statusCode}");
+      print("Response: ${response.body}");
+      // Handle the error
+    }
+  } catch (e) {
+    print("Error making POST request: $e");
   }
 }

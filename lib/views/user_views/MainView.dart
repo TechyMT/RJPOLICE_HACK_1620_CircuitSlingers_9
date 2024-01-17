@@ -8,11 +8,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainView extends StatelessWidget {
   final FunctionController functionController = Get.put(FunctionController());
 
   MainView({super.key});
+  Future<void> _launchPhoneDialer(String phoneNumber) async {
+    final String uri = 'tel:$phoneNumber';
+    if (await canLaunch(uri)) {
+      await launch(uri);
+    } else {
+      throw 'Could not launch $uri';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +97,7 @@ class MainView extends StatelessWidget {
                       bottomLeft: Radius.circular(40),
                     ),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -99,9 +108,14 @@ class MainView extends StatelessWidget {
                         SizedBox(
                           width: 10,
                         ),
-                        Text(
-                          "Call Police",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        GestureDetector(
+                          onTap: () async {
+                            await _launchPhoneDialer("1930");
+                          },
+                          child: Text(
+                            "Call Police",
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
                         ),
                       ],
                     ),
@@ -137,44 +151,44 @@ class MainView extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.08,
-            width: MediaQuery.of(context).size.width * 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
-                  child: Text(
-                    "Latest Reports",
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: const Text(
-                      "See All",
-                      style: TextStyle(
-                          color: Colors.white,
-                          decoration: TextDecoration.underline,
-                          decorationColor: Colors.white,
-                          fontSize: 18),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          SizedBox(
+            height: 30,
           ),
+          // Container(
+          //   height: MediaQuery.of(context).size.height * 0.08,
+          //   width: MediaQuery.of(context).size.width * 1,
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       const Padding(
+          //         padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+          //         child: Text(
+          //           "Latest Reports",
+          //           style: TextStyle(fontSize: 18, color: Colors.black),
+          //         ),
+          //       ),
+          //       Padding(
+          //         padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
+          //         child: GestureDetector(
+          //           onTap: () {},
+          //           child: const Text(
+          //             "See All",
+          //             style: TextStyle(
+          //                 color: Colors.black,
+          //                 decoration: TextDecoration.underline,
+          //                 decorationColor: Colors.black,
+          //                 fontSize: 18),
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.22,
-            padding: const EdgeInsets.all(1),
-            width: MediaQuery.of(context).size.width,
-            child: NewsList(
-              item: functionController.news,
-            ),
-          ),
+              height: MediaQuery.of(context).size.height * 0.24,
+              padding: const EdgeInsets.all(1),
+              width: MediaQuery.of(context).size.width,
+              child: Image.asset('assets/banner.png')),
         ],
       ),
     );

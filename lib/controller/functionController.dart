@@ -10,14 +10,14 @@ class FunctionController extends GetxController {
   var answerQuestions = false.obs;
   RxBool isButtonEnabled = true.obs;
 
-  Future<void> fetchNews() async {
-    try {
-      final fetchedProducts = await fetchNewsArticles();
-      news.assignAll(fetchedProducts);
-    } catch (e) {
-      print("Error fetching products: $e");
-    }
-  }
+  // Future<void> fetchNews() async {
+  //   try {
+  //     final fetchedProducts = await fetchNewsArticles();
+  //     news.assignAll(fetchedProducts);
+  //   } catch (e) {
+  //     print("Error fetching products: $e");
+  //   }
+  // }
 
   List<Map<String, dynamic>> answersList = [];
   Future<void> submitAnswers() async {

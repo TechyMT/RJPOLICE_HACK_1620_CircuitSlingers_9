@@ -25,7 +25,8 @@ class ApplicationStatus extends StatelessWidget {
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-color: Color(0xFF070288),          ),
+            color: Color(0xFF070288),
+          ),
         ),
         leading: Builder(builder: (BuildContext context) {
           return IconButton(
@@ -80,7 +81,6 @@ color: Color(0xFF070288),          ),
                   return Text('Error: ${snapshot.error}');
                 } else {
                   reportStatusController.setReportStatusList(snapshot.data!);
-
                   return Expanded(
                     child: ListView.builder(
                       itemCount: reportStatusController.reportStatusList.length,
@@ -88,9 +88,10 @@ color: Color(0xFF070288),          ),
                         final reportStatus =
                             reportStatusController.reportStatusList[index];
                         return ListTile(
-                          title: Text('Track ID: ${reportStatus.trackId}'),
+                          title: Text(
+                              '     Track ID: ${reportStatus.trackId ?? 'N/A'}'),
                           subtitle: Text(
-                              'Status: ${reportStatus.currentStatus ?? 'N/A'}'),
+                              '      Status: ${reportStatus.currentStatus ?? 'N/A'}'),
                           trailing: PopupMenuButton<String>(
                             onSelected: (String choice) async {
                               if (choice == 'download') {
@@ -118,7 +119,8 @@ color: Color(0xFF070288),          ),
                                               height: 20,
                                             ),
                                             Text(
-                                              reportStatus.suggestions,
+                                              reportStatus.suggestions ??
+                                                  'No suggestions available',
                                               style:
                                                   const TextStyle(fontSize: 16),
                                             ),

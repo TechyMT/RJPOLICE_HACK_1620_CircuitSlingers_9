@@ -83,39 +83,43 @@ class QuestionnaireFormat extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                decoration: BoxDecoration(color: Color(0xFF070288)),
-                child: ElevatedButton(
-                  onPressed: () {
-                    pageController.previousPage(
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.ease,
-                    );
-                  },
-                  child: const Text('Previous'),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 219, 11, 11),
                 ),
+                onPressed: () {
+                  pageController.previousPage(
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.ease,
+                  );
+                },
+                child: const Text('Previous',
+                    style: TextStyle(color: Colors.white)),
               ),
               SizedBox(
                 width: 30,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 219, 11, 11),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF070288),
                 ),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await functionController.submitAnswers();
-                    int track_id = await submitReport();
-                    if (functionController.isReportSubmitted.value) {
-                      await functionController.clearList();
-                      await controller.clearControllers();
-                      credentialController.tracking_ids.add(track_id);
-                      showSuccessDialog(context, track_id);
-                    } else {
-                      showFailureDialog(context);
-                    }
-                  },
-                  child: const Text('Submit Answers'),
+                onPressed: () async {
+                  await functionController.submitAnswers();
+                  int track_id = await submitReport();
+                   makePostRequest();
+                   giveSuggestions(track_id);
+                  if (functionController.isReportSubmitted.value) {
+                    await functionController.clearList();
+                    await controller.clearControllers();
+                    credentialController.tracking_ids.add(track_id);
+                    showSuccessDialog(context, track_id);
+                  } else {
+                    showFailureDialog(context);
+                  }
+                },
+                child: const Text(
+                  'Submit Answers',
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ],

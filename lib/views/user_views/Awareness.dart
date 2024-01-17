@@ -36,7 +36,8 @@ class _FraudCheckState extends State<FraudCheck> {
         appBar: AppBar(
           flexibleSpace: Container(
             decoration: const BoxDecoration(
-color: Color(0xFF070288),            ),
+              color: Color(0xFF070288),
+            ),
           ),
           leading: Builder(builder: (BuildContext context) {
             return IconButton(
@@ -72,7 +73,7 @@ color: Color(0xFF070288),            ),
                 SharedPreferences sharedPreferences =
                     await SharedPreferences.getInstance();
                 sharedPreferences.clear();
-               Get.offAll(() =>  OnBoarding());
+                Get.offAll(() => OnBoarding());
               },
               icon: const Icon(Icons.logout),
             ),
@@ -94,7 +95,7 @@ color: Color(0xFF070288),            ),
               leading: _isEmailWidgetVisible
                   ? const Icon(Icons.arrow_downward_outlined)
                   : const Icon(Icons.arrow_forward_ios),
-              title: const Text('Check For Email'),
+              title: const Text('Check or Report For Email'),
               onTap: () {
                 setState(() {
                   _isEmailWidgetVisible = !_isEmailWidgetVisible;
@@ -115,7 +116,7 @@ color: Color(0xFF070288),            ),
                           hintStyle: const TextStyle(
                               color: Colors.black, fontSize: 15),
                           labelText: 'Email',
-                          hintText: 'Enter Email To Check',
+                          hintText: 'Enter Email To Check or Report',
                           labelStyle: const TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(color: Colors.black),
@@ -130,14 +131,39 @@ color: Color(0xFF070288),            ),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        await checkEmail(emailController.text);
-                      },
-                      child: const Text('Check'),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 219, 11, 11),
+                          ),
+                          onPressed: () async {
+                            await checkEmail(emailController.text);
+                          },
+                          child: const Text(
+                            'Check',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFF070288)),
+                          onPressed: () async {
+                            await reportEmail(emailController.text);
+                          },
+                          child: const Text(
+                            'Report',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
                   Obx(
@@ -146,7 +172,9 @@ color: Color(0xFF070288),            ),
                             padding: const EdgeInsets.all(0),
                             text: controller.phishingText.value,
                           )
-                        : const SizedBox.shrink(),
+                        : BlinkingText(
+                            text: controller.reportEmailText.value,
+                            padding: const EdgeInsets.all(0)),
                   ),
                 ],
               ),
@@ -194,14 +222,40 @@ color: Color(0xFF070288),            ),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        await checkPhoneNumber(phoneNumberController.text);
-                      },
-                      child: const Text('Check'),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 219, 11, 11),
+                          ),
+                          onPressed: () async {
+                            await checkPhoneNumber(phoneNumberController.text);
+                          },
+                          child: const Text(
+                            'Check',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF070288),
+                          ),
+                          onPressed: () async {
+                            await reportPhone(phoneNumberController.text);
+                          },
+                          child: const Text(
+                            'Report',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
                   Obx(
@@ -259,14 +313,41 @@ color: Color(0xFF070288),            ),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        await checkAccountNumber(accountNumberController.text);
-                      },
-                      child: const Text('Check'),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 219, 11, 11),
+                          ),
+                          onPressed: () async {
+                            await checkAccountNumber(
+                                accountNumberController.text);
+                          },
+                          child: const Text(
+                            'Check',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF070288),
+                          ),
+                          onPressed: () async {
+                            await reportAccNumber(accountNumberController.text);
+                          },
+                          child: const Text(
+                            'Report',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
                   Obx(
