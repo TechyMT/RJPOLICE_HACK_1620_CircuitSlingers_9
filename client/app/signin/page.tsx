@@ -4,7 +4,7 @@
 import { Button, Input } from "@nextui-org/react";
 import Image from "next/image";
 import { useEffect, useState, type FC } from "react";
-import Login from "../assets/images/login.jpg";
+import Login from "../assets/images/signup.jpg";
 import useAuthStore from "../utils/auth";
 import usePush from "../components/usePush";
 
@@ -44,7 +44,7 @@ const SignInPage: FC = function () {
       <div className="flex rounded-lg border border-gray-200 shadow-md dark:border-gray-700 dark:bg-gray-800 flex-col md:flex-row w-full md:max-w-[1024px] [&>img]:hidden md:[&>img]:w-96 md:[&>img]:p-0 md:[&>*]:w-full md:[&>*]:p-16 lg:[&>img]:block">
         <Image
           src={Login}
-          className="h-96 w-full rounded-t-lg object-cover md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+          className="h-70 rounded-t-lg object-cover px-8 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg "
           alt="login"
         />
         <div className="flex h-full flex-col justify-center gap-4 p-6">

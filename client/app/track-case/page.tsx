@@ -9,6 +9,8 @@ import SubHeading from "../components/SubHeading";
 import Link from "next/link";
 import Loader from "../components/Loader";
 
+import Image from "next/image";
+import trackCase from "../assets/images/track.jpg"
 const TrackStatus = () => {
   const [trackId, setTrackId] = useState<any>(null);
   const [status, setStatus] = useState<any>("");
@@ -44,8 +46,11 @@ const TrackStatus = () => {
       <div className="my-12">
         <Heading>Track your complaint</Heading>
       </div>
-      <div className="flex items-center justify-center gap-4">
-        <div className="w-96">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-60 h-36">
+          <Image src={trackCase} alt="track your case" width={1920}/>
+        </div>
+        <div className="w-96 pt-10">
           <Input
             type="number"
             placeholder="Enter Track ID"

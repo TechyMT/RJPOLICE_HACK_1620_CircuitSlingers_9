@@ -33,6 +33,7 @@ const HeroImages = [
   HeroImage_3,
   HeroImage_4,
   HeroImage_5,
+
 ];
 
 export default function Home() {
