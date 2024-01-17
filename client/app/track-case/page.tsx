@@ -7,14 +7,17 @@ import { Button, Input, Progress, Textarea } from "@nextui-org/react";
 import FAQComponent from "../components/FAQComponent";
 import SubHeading from "../components/SubHeading";
 import Link from "next/link";
+import Loader from "../components/Loader";
 
 const TrackStatus = () => {
   const [trackId, setTrackId] = useState<any>(null);
   const [status, setStatus] = useState<any>("");
+  const [loading, setLoading] = useState<boolean>(false); // Add loading state
 
   const handleSearch = async () => {
     try {
       // Replace the API_URL with the actual URL for fetching the status
+      setLoading(true);
       const response = await axios.get(
         `${publicUrl()}/admin/status/${trackId}`,
         {
@@ -25,11 +28,16 @@ const TrackStatus = () => {
       );
       console.log("response", response);
       setStatus(response.data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching track status:", error);
       setStatus("Error fetching status");
+      setLoading(false);
     }
   };
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="container mx-auto mt-8  mb-48">
@@ -76,7 +84,7 @@ const TrackStatus = () => {
             <div className="flex w-full">
               <Textarea
                 label="Comments"
-                value={"Your case is very difficult will do it later"}
+                value={status.comments}
                 placeholder="Your Response"
                 minRows={4}
                 variant="bordered"
@@ -116,8 +124,8 @@ const TrackStatus = () => {
             </div>
           </div>
           <div>
-            <FAQComponent/>
-         </div>
+            <FAQComponent />
+          </div>
         </>
       )}
     </div>

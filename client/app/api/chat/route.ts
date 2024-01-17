@@ -3,9 +3,15 @@ import { NextResponse } from "next/server";
 import axios, { AxiosResponse } from "axios";
 
 async function fetchData({ query }: { query: string }): Promise<AxiosResponse> {
-    console.log(query);
-    const apiUrl = 'https://jsonplaceholder.typicode.com/todos/1'
-    const response: AxiosResponse = await axios.get(apiUrl);
+    console.log("this is query", query);
+    const apiUrl = 'http://4745-35-197-79-114.ngrok-free.app/get'
+    const response: AxiosResponse = await axios.post(apiUrl, {
+        query: query,
+    }, {
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
     return response;
 }
 export const POST = async (req: Request, res: Response) => {
@@ -14,7 +20,8 @@ export const POST = async (req: Request, res: Response) => {
         console.log(query);
         const getResponse: AxiosResponse = await fetchData({ query });
 
-        const title = getResponse.data;
+        const { Response: title } = getResponse.data;
+        console.log(title);
         return NextResponse.json({ message: "OK", title }, { status: 200 });
     } catch (err) {
         console.log(err);

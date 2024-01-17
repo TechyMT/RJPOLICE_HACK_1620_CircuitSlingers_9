@@ -4,8 +4,8 @@ import React from 'react';
 
 const AboutUs = () => {
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-          <div className="max-w-2xl p-6 bg-white shadow-md rounded-md">
+    <div className="min-h-screen flex items-center justify-center">
+          <div className="max-w-2xl p-6 bg-white bg-opacity-50 shadow-md rounded-md">
           <p className=" bold text-2xl text-center text-red-500">Helpline: 1930</p>
         <h1 className="text-3xl font-semibold mb-4">About Us</h1>
 

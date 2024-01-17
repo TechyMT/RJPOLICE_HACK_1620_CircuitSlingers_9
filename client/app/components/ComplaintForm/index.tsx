@@ -17,7 +17,7 @@ import ConfirmForm from "../ConfirmForm";
 import { questionaire } from "../../data/constants";
 import DynamicForm from "../DynamicForm";
 import { useRouter } from "next/navigation";
-
+import Loader from "../Loader";
 export const categories = [
   "Identity Fraud",
   "Criminal Trespass",
@@ -43,6 +43,7 @@ const ComplaintForm = () => {
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
 
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<any>({
     name: "",
     phoneNumber: "",
@@ -108,20 +109,26 @@ const ComplaintForm = () => {
         alert("Please upload evidence");
         return;
       }
+      setLoading(true);
+      try {
+        const data = await fetch(`${publicUrl()}/report/generateQuestions`, {
+          method: "POST",
+          body: JSON.stringify({ description: formData.description }),
+        });
+        const { questions } = await data.json();
 
-      const data = await fetch(`${publicUrl()}/report/generateQuestions`, {
-        method: "POST",
-        body: JSON.stringify(formData.description),
-      });
-      const { questions } = await data.json();
+        // console.log("questions", questions);
 
-      // console.log("questions", questions);
-
-      questions &&
-        setFormData((prevData: any) => ({
-          ...prevData,
-          questionnaire: questions,
-        }));
+        questions &&
+          setFormData((prevData: any) => ({
+            ...prevData,
+            questionnaire: questions,
+          }));
+        setLoading(false);
+      } catch (error) {
+        console.log("error", error);
+        setLoading(false);
+      }
     } else if (step === 4) {
       // Handle form submission logic here
       console.log("Form Data:", formData);
@@ -138,8 +145,8 @@ const ComplaintForm = () => {
       if (dd < 10) DD = "0" + DD;
       if (mm < 10) MM = "0" + MM;
 
-      const reportedDate = dd + "-" + mm + "-" + yyyy;
-
+      const reportedDate = DD + "-" + MM + "-" + yyyy;
+      console.log("reportedDate", reportedDate);
       // Reset the form after submission if needed
       const body = {
         email: user.email,
@@ -154,7 +161,7 @@ const ComplaintForm = () => {
         evidencesURL: [],
         city: formData.location,
         pincode: formData.pincode,
-        // category: formData.categoryOfComplaint,
+        category: formData.categoryOfComplaint,
         userAccountInfo: {
           amountLost: formData.victimAmountLost,
           bankName: formData.victimBank,
@@ -174,59 +181,64 @@ const ComplaintForm = () => {
       };
       console.log("body", body);
       console.log("okay user", user);
+      try {
+        const data = await fetch(`${publicUrl()}/report/add`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify(body),
+        });
+        const response = await data.json();
 
-      const data = await fetch(`${publicUrl()}/report/add`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(body),
-      });
-      const response = await data.json();
+        fetch(`${publicUrl()}/admin/getAnalysis`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify({
+            category: formData.categoryOfComplaint,
+            message: formData.message,
+            reportDate: reportedDate,
+          }),
+        });
 
-      fetch(`${publicUrl()}/admin/getAnalysis`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify({
-          message: formData.message,
-          reportDate: reportedDate,
-        }),
-      });
+        setFormData({
+          name: "",
+          phoneNumber: "",
+          location: "",
+          pincode: "",
+          description: "",
+          // categoryOfComplaint: "root",
+          isMoneyLost: false,
+          victimBank: "root",
+          victimAccountNumber: "NA",
+          victimTransactionId: "NA",
+          victimAmountLost: "NA",
+          suspect: false,
+          suspectBank: "root",
+          suspectAccountNumber: "NA",
+          suspectPhoneNumber: "NA",
+          suspectTransactionId: "NA",
+          transactionDate: "NA",
+          evidencesURL: [],
+          crimeDate: "",
+          dob: "",
+          adhaarNumber: "",
+          evidencesList: [],
+          questionnaire: [],
+          selfFill: false,
+          message: "",
+        });
+        setSubmitLoading(false);
+        setCaseDetails(response);
+        setFormSubmitted(true);
 
-      setFormData({
-        name: "",
-        phoneNumber: "",
-        location: "",
-        pincode: "",
-        description: "",
-        // categoryOfComplaint: "root",
-        isMoneyLost: false,
-        victimBank: "root",
-        victimAccountNumber: "NA",
-        victimTransactionId: "NA",
-        victimAmountLost: "NA",
-        suspect: false,
-        suspectBank: "root",
-        suspectAccountNumber: "NA",
-        suspectPhoneNumber: "NA",
-        suspectTransactionId: "NA",
-        transactionDate: "NA",
-        evidencesURL: [],
-        crimeDate: "",
-        dob: "",
-        adhaarNumber: "",
-        evidencesList: [],
-        questionnaire: [],
-        selfFill: false,
-        message: "",
-      });
-      setSubmitLoading(false);
-      setCaseDetails(response);
-      setFormSubmitted(true);
-
-      router.push(`/confirm`);
+        router.push(`/confirm`);
+      } catch (error) {
+        console.log("error", error);
+        setSubmitLoading(false);
+      }
     }
 
     // Move to the next step or submit the form
@@ -248,6 +260,9 @@ const ComplaintForm = () => {
       window.removeEventListener("beforeunload", alertUser);
     };
   }, [formSubmitted]);
+  if (loading || submitLoading) {
+    return <Loader />;
+  }
   return (
     <div className="flex flex-col justify-around items-center gap-10 py-8 ">
       <div className="flex justify-center items-center w-full">

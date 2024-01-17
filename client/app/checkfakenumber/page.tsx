@@ -6,6 +6,7 @@ import { publicUrl } from "../utils/publicURL";
 import { Button, Input, Spinner } from "@nextui-org/react";
 import Heading from "../components/Heading";
 import { set } from "firebase/database";
+import Loader from "../components/Loader";
 
 const FakeNumberChecker = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -17,17 +18,25 @@ const FakeNumberChecker = () => {
     // const fakePrefixes = ['555', '666', '123']; // Example fake prefixes
     // const isFakeNumber = fakePrefixes.some((prefix) => phoneNumber.startsWith(prefix));
     // setIsFake(isFakeNumber);
-    setLoading(true);
-    const response = await fetch(
-      `${publicUrl()}/fraud_search/numbers/${phoneNumber}`
-    );
-    const { isFraud: isFakeNumber } = await response.json();
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${publicUrl()}/fraud_search/numbers/${phoneNumber}`
+      );
+      const { isFraud: isFakeNumber } = await response.json();
 
-    console.log(isFakeNumber);
-    setIsFake(isFakeNumber);
-    setLoading(false);
+      console.log(isFakeNumber);
+      setIsFake(isFakeNumber);
+      setLoading(false);
+    } catch (error) {
+      console.log("error while checking fake number");
+      setLoading(false);
+    }
   };
 
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div
       style={{

@@ -2,6 +2,8 @@
 import { Avatar, Button, Input } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { WindupChildren } from "windups";
+import UserAvatar from "../../assets/images/avatar_user.jpeg";
+import AIAvatar from "../../assets/images/avatar.jpg";
 const Chatbot: React.FC = () => {
   const [showChatbox, setShowChatbox] = useState(false);
   const [userInput, setUserInput] = useState("");
@@ -17,37 +19,50 @@ const Chatbot: React.FC = () => {
     setUserInput(e.target.value);
   };
 
+  const [loading, setLoading] = useState<boolean>(false); // Add loading state
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSubmit();
     }
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Handle user input, e.g., send it to a chatbot API
     console.log("User input:", userInput);
-    const response = fetch("api/chat", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userInput),
-    });
-    // Simulate chatbot response (replace this with actual API interaction)
-    const newMessages = [
-      ...chatMessages,
-      { role: "user", message: userInput },
-      {
-        role: "chatbot",
-        message:
-          "Great question! Protecting your personal information and privacy online is crucial in today's digital age. Here are some measures you can take to safeguard your private data:\n\n1. Use strong, unique passwords: Use a combination of uppercase and lowercase letters, numbers, and special characters to create a sturdy password for each of your online accounts. Avoidusing the same password for multiple accounts.\n2. Enable two-factor authentication (2FA): This adds an extra layer of security to your accounts by requiring a second form of verification, such as a code sent to your phone or a biometric scan.\n3. Keep your software and apps up-to-date: Regularly update your operating system, browser, and apps to ensure you have the latest security patches and features.\n4. Be cautious of emails and messages: Be wary of suspicious emails or messages that ask for personal information or direct you to click on links or download attachments from unfamiliar sources.\n5. Use a reputable antivirus software: Install and regularly update antivirus software to protect your device from malware and viruses.\n6. Use a VPN: A virtual private network (VPN) can help encrypt your internet connection and protect your personal information when browsing public Wi-Fi networks.\n7. Use a password manager: Consider using a password manager to generate and store unique, complex passwords for each of your online accounts.\n8. Review your privacy settings: Take a close look at the privacy settings for your social media accounts, email, and other online platforms to ensure you're sharing your information with the right people.\n9. Use a browser extension to block trackers: Consider installing a browser extension that can block online trackers, which can help protect your personal information.\n10. Educate yourself: Stay informed about the latest online threats and cybersecurity measures by regularly reading reputable sources and subscribing to cybersecurity newsletters.\n\nRemember, protecting your personal information and privacy online requires ongoing effort and vigilance. By taking these measures, you can significantly reduce the risk of your information being compromised.",
-      },
-    ];
-    setChatMessages(newMessages);
-
+    const newUserMessage = { role: "user", message: userInput };
+    setChatMessages((prevData) => [...prevData, newUserMessage]);
+    console.log("chatMessages", chatMessages);
     // Clear the input after submission
     setUserInput("");
+    setLoading(true);
+    try {
+      const response = await fetch("api/chat", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: userInput,
+        }),
+      });
+      const message = await response.json();
+      console.log("message", message);
+
+      // Simulate chatbot response (replace this with actual API interaction)
+      const newChatbotMessage = { role: "chatbot", message: message.title };
+      setChatMessages((prevData) => [...prevData, newChatbotMessage]);
+      console.log("chatMessages", chatMessages);
+      const chatbox = document.getElementById("chatbox-content");
+      if (chatbox) {
+        chatbox.scrollTop = chatbox.scrollHeight;
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+      setLoading(false);
+    }
+    // Scroll to the bottom when a new message is added
   };
 
   useEffect(() => {
@@ -79,13 +94,13 @@ const Chatbot: React.FC = () => {
       {showChatbox && (
         <div className="chatbox fixed bottom-10 right-10 w-[25vw] h-[70vh] bg-white rounded-2xl shadow-lg flex flex-col justify-between">
           {/* Chatbox Header */}
-          <div className="flex justify-between mb-2 p-4 bg-primaryRed rounded-t-2xl">
+          <div className="flex justify-between mb-2 p-4 bg-primary rounded-t-2xl">
             <div className="text-lg font-semibold text-white">
               Chat with Expert
             </div>
             <div
               onClick={toggleChatbox}
-              className="cursor-pointer text-primary"
+              className="cursor-pointer bg-primaryRed border-1 border-primaryRed rounded-2xl p-2 text-white"
             >
               Close
             </div>
@@ -100,32 +115,47 @@ const Chatbot: React.FC = () => {
             {chatMessages.map((message, index) => (
               <div
                 key={index}
-                className={`mb-6 ${
-                  message.role === "user" ? "text-right" : "text-left"
-                }`}
+                className={`mb-2 ${
+                  message.role === "user" ? "justify-end" : "justify-start"
+                } flex items-center`}
               >
-                {message.role === "user" ? (
-                  <>
-                    <div className="flex items-center gap-4 justify-end">
-                      <div>{message.message}</div>
-                      <div>
-                        <Avatar></Avatar>
-                      </div>
-                    </div>
-                  </>
+                {message.role !== "user" ? (
+                  <Avatar src="/avatar.jpg"></Avatar>
                 ) : (
-                  <>
-                    <div className="flex items-center gap-4">
-                      <div>
-                        <Avatar />
-                      </div>
-                      <WindupChildren>{`${message.message}`}</WindupChildren>
-                    </div>
-                  </>
+                  <></>
                 )}
+                <div
+                  className={`p-3 rounded-lg max-w-[70%] ${
+                    message.role === "user"
+                      ? "bg-primary text-white self-end"
+                      : "bg-gray-200"
+                  }`}
+                >
+                  <WindupChildren>{message.message}</WindupChildren>
+                </div>
+                <div className="ml-2">
+                  {message.role === "user" ? (
+                    <Avatar src="/avatar_user.jpeg"></Avatar>
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </div>
             ))}
           </div>
+
+          {/* Loading Animation with Chatbot Avatar */}
+          {loading && (
+            <div className="flex justify-start items-end">
+              <div>
+                <Avatar src="/avatar.jpg"></Avatar>
+              </div>
+              <div className="p-3 bg-gray-200 rounded-lg max-w-[70%]">
+                {/* You can replace this with your loading animation or component */}
+                Loading...
+              </div>
+            </div>
+          )}
 
           <div className="flex gap-4 items-center p-2">
             {/* User Input */}

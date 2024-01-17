@@ -15,42 +15,69 @@ const ModalSuggestions: React.FC<any> = () => {
   const caseDetails = useAuthStore(
     (state: { caseDetails: any }) => state.caseDetails
   );
+
+  const fetchData = async () => {
+    try {
+      const suggestions = await fetch(`${publicUrl()}/report/getInformation`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          trackId: caseDetails.trackId,
+          category: caseDetails.category,
+          description: caseDetails.description,
+        }),
+      });
+      console.log("text", suggestions);
+      setText(await suggestions.json());
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+    } finally {
+      setLoading(false); // Set loading to false once data is fetched
+    }
+  };
+
   const [isOpen, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setLoading(true);
+    setOpen(true);
+    fetchData();
+  };
   const handleClose = () => setOpen(false);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(true); // Add loading state
 
   console.log("caseDetails", caseDetails);
+  // keeping for production
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const suggestions = await fetch(
+  //         `${publicUrl()}/report/getInformation`,
+  //         {
+  //           method: "POST",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //           body: JSON.stringify({
+  //             trackId: caseDetails.trackId,
+  //             // category: caseDetails.category,
+  //             description: caseDetails.description,
+  //           }),
+  //         }
+  //       );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const suggestions = await fetch(
-          `${publicUrl()}/report/getInformation`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              trackId: caseDetails.trackId,
-              // category: caseDetails.category,
-              description: caseDetails.description,
-            }),
-          }
-        );
-
-        console.log("text", suggestions);
-        setText(await suggestions.json());
-      } catch (error) {
-        console.error("Error fetching suggestions:", error);
-      } finally {
-        setLoading(false); // Set loading to false once data is fetched
-      }
-    };
-    fetchData();
-  }, []);
+  //       console.log("text", suggestions);
+  //       setText(await suggestions.json());
+  //     } catch (error) {
+  //       console.error("Error fetching suggestions:", error);
+  //     } finally {
+  //       setLoading(false); // Set loading to false once data is fetched
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   // Split the text based on newline characters
   let suggestionLines: any[] = [];

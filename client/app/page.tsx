@@ -21,9 +21,11 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import Link from "next/link";
-import Alert from "./components/AlertMaqrquee";
+import Alert from "./components/AlertMarquee";
 import FAQComponent from "./components/FAQComponent";
-
+import HomeLottie from "./components/HomeLottie";
+import HomeBg from "./assets/images/home.png";
+import BannerRop from "./assets/images/bannerop.png"
 const HeroImages = [
   HeroImage_1,
   HeroImage_6,
@@ -36,6 +38,7 @@ const HeroImages = [
 export default function Home() {
   return (
     <main>
+      <HomeLottie />
       <div className="absolute z-20 w-full">
         <Alert />
       </div>
@@ -82,7 +85,7 @@ export default function Home() {
             <Link href={"/online-reporting"}>
               <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white">
                 <div>
-                <Icon icon="report" width={130} />
+                  <Icon icon="report" width={130} />
                   {/* <Lottie
                     animationData={ReportAnimation}
                     
@@ -126,8 +129,8 @@ export default function Home() {
           <Heading>Cybercrime Guidelines </Heading>
           <AwarenessMarquee />
         </div>
-        <div className="flex bg-primary my-8">
-          <Image src={PM} alt="PM" width={600} height={200} />
+        <div className="flex bg-primary my-12 justify-center items-center w-full h-[700px]">
+          {/* <Image src={PM} alt="PM" width={600} height={200} />
           <div className="border-2 border-white rounded-3xl w-[50vw] flex justify-center items-center mx-auto m-8">
             <figure className="max-w-screen-md mx-auto text-center">
               <div className="flex justify-center p-4">
@@ -151,7 +154,8 @@ export default function Home() {
                 </div>
               </figcaption>
             </figure>
-          </div>
+          </div> */}
+          <Image src={BannerRop} alt="PM" className="object-cover flex"/>
         </div>
         <div>
           <FAQComponent />

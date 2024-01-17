@@ -6,6 +6,7 @@ import { publicUrl } from "../utils/publicURL";
 import Heading from "../components/Heading";
 import { Button, Input } from "@nextui-org/react";
 import { Spinner } from "@nextui-org/react";
+import Loader from "../components/Loader";
 
 const FakeNumberChecker: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
@@ -28,8 +29,12 @@ const FakeNumberChecker: React.FC = () => {
       setLoading(false);
     }
   };
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
+  
     <div
       style={{
         textAlign: "center",

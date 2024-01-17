@@ -65,7 +65,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
             not)
           </Checkbox>
         </div>
-        {/* <div className="flex w-full">
+        <div className="flex w-full">
           <Select
             label="Category of complaint"
             labelPlacement="outside-left"
@@ -89,7 +89,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               <SelectItem key={category.value}>{category.name}</SelectItem>
             )}
           </Select>
-        </div> */}
+        </div>
         <div className="flex w-full">
           <RadioGroup
             label="Have you lost money?"
@@ -157,7 +157,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               size="lg"
               classNames={{
                 label: "w-[20vw] text-wrap text-start",
-                inputWrapper: "w-[30vw]",
+                inputWrapper: "w-[30vw] bg-white",
               }}
               color="primary"
             />
@@ -174,6 +174,9 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               size="lg"
               minRows={8}
               color="primary"
+              classNames={{
+                inputWrapper:"bg-white"
+              }}
             />
           </div>
         </div>
