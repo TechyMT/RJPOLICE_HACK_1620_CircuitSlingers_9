@@ -2,12 +2,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { policeData } from '../data/constants';
 import User1 from '../images/user/user-01.png';
+import axios from 'axios';
+import { publicUrl } from '../utils/publicUrl';
+import Loader from '../common/Loader';
+import { statusData } from '../data/constants';
 
 const PackageItem: React.FC<any> = ({
   trackId,
   reportDate,
   currentStatus,
   city,
+  flag,
+  comments,
   isStripped = false,
   reportURL,
   isAccordionOpen,
@@ -18,9 +24,11 @@ const PackageItem: React.FC<any> = ({
     setIsEdit(false);
   };
   const [formData, setFormData] = useState<any>({
-    comments: '',
-    status: '',
+    comments: `${comments}`,
+    status: `${currentStatus}`,
   });
+
+  const [loading, setIsloading] = useState<boolean>(false);
 
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
@@ -36,7 +44,9 @@ const PackageItem: React.FC<any> = ({
   const [selectedOption, setSelectedOption] = useState(''); // To store the selected option
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // To toggle dropdown visibility
 
-  const [selectedStatus, setSelectedStatus] = useState(''); // To store the selected option
+  const [selectedStatus, setSelectedStatus] = useState(
+    statusData[flag.toString()],
+  ); // To store the selected option
   const [statusDropdown, setStatusDropdown] = useState(false); // To toggle dropdown visibility
   const handleOptionChange = (option: string) => {
     // Handle the option change\
@@ -73,9 +83,27 @@ const PackageItem: React.FC<any> = ({
     setIsEdit(true);
   };
 
-  const handleClickSave = () => {
+  const handleClickSave = async () => {
     console.log('formData', formData);
+    setIsloading(true);
     setIsEdit(false);
+    const res = await axios.patch(
+      `${publicUrl()}/admin/update`,
+      {
+        trackId,
+        comments: formData.comments,
+        currentStatus: formData.status,
+        pending: formData.status === 'Case Completed' ? false : true,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    console.log('updated', res);
+    setIsloading(false);
+
     // Add logic here to save changes if needed
   };
 
@@ -303,34 +331,50 @@ const PackageItem: React.FC<any> = ({
                   <div className="flex items-center gap-4">
                     <div>Update Case Status:</div>
                     <div>
-                      <button
-                        id="dropdownHoverButton"
-                        className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                        type="button"
-                        onClick={() => handleStatusClick()}
-                      >
-                        {selectedStatus && (
-                          <img
-                            className="w-9 h-9 p-1 rounded-full "
-                            src={User1}
-                            alt="Bordered avatar"
-                          />
-                        )}
-                        {selectedStatus || 'Select Option'}{' '}
-                        {/* Display selected option or default text */}
-                        <svg
-                          className="-mr-1 ml-2 h-5 w-5"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
+                      {flag !== 2 ? (
+                        <button
+                          id="dropdownHoverButton"
+                          className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                          type="button"
+                          onClick={() => handleStatusClick()}
                         >
-                          <path
-                            fillRule="evenodd"
-                            d="M10 3a1 1 0 01.707.293l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414-1.414l5-5A1 1 0 0110 3zm0 11a1 1 0 01-1-1V4a1 1 0 012 0v9a1 1 0 01-1 1z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </button>
+                          {selectedStatus || 'Select Option'}{' '}
+                          {/* Display selected option or default text */}
+                          <svg
+                            className="-mr-1 ml-2 h-5 w-5"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 3a1 1 0 01.707.293l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414-1.414l5-5A1 1 0 0110 3zm0 11a1 1 0 01-1-1V4a1 1 0 012 0v9a1 1 0 01-1 1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                      ) : (
+                        <button
+                          id="dropdownHoverButton"
+                          className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 cursor-not-allowed"
+                          type="button"
+                        >
+                          {selectedStatus || 'Select Option'}{' '}
+                          {/* Display selected option or default text */}
+                          <svg
+                            className="-mr-1 ml-2 h-5 w-5"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 3a1 1 0 01.707.293l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414-1.414l5-5A1 1 0 0110 3zm0 11a1 1 0 01-1-1V4a1 1 0 012 0v9a1 1 0 01-1 1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                      )}
                     </div>
                     {/* Dropdown menu */}
                     <div
@@ -342,74 +386,75 @@ const PackageItem: React.FC<any> = ({
                     >
                       {/* Your modified list items */}
                       <ul
-                        className="py-2 text-sm text-gray-700 dark:text-gray-200 overflow-y-auto h-[30vh]"
+                        className="py-4 text-sm text-gray-700 dark:text-gray-200 overflow-y-auto h-[20vh] "
                         aria-labelledby="dropdownHoverButton"
                       >
-                        {policeData.map((data, index) => {
-                          return (
+                        {Object.entries(statusData).map(
+                          ([key, value], index) => (
                             <li key={index}>
-                              {data.isAssigned ? (
-                                <button
-                                  className=" block px-4 hover:cursor-not-allowed py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left focus:outline-none bg-gray-2 my-2"
-                                  onClick={() => handleStatusChange(data.name)}
-                                  disabled={data.isAssigned}
-                                  type="button"
-                                >
-                                  <div className="flex gap-2 items-center">
-                                    <img
-                                      className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-                                      src={User1}
-                                      alt="Bordered avatar"
-                                    />
-                                    <div>{data.name}</div>
-                                  </div>
-                                </button>
-                              ) : (
-                                <button
-                                  className=" block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left focus:outline-none"
-                                  onClick={() => handleStatusChange(data.name)}
-                                  disabled={data.isAssigned}
-                                  type="button"
-                                >
-                                  <div className="flex gap-2 items-center">
-                                    <img
-                                      className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-                                      src={User1}
-                                      alt="Bordered avatar"
-                                    />
-                                    <div>{data.name}</div>
-                                  </div>
-                                </button>
-                              )}
+                              <button
+                                className={`block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left focus:outline-none ${
+                                  value === currentStatus
+                                    ? 'cursor-not-allowed bg-gray-2'
+                                    : ''
+                                }`}
+                                onClick={() => handleStatusChange(value)}
+                                disabled={value === currentStatus}
+                                type="button"
+                              >
+                                <div className="flex gap-2 items-center">
+                                  <div>{value}</div>
+                                </div>
+                              </button>
                             </li>
-                          );
-                        })}
+                          ),
+                        )}
                       </ul>
                     </div>
                   </div>
                   <div className="flex gap-4">
                     <div>
-                      <button
-                        type="button"
-                        className={`bg-primary text-white ${
-                          isEdit ? ' cursor-not-allowed' : ''
-                        }`}
-                        onClick={handleClickEdit}
-                        disabled={isEdit}
-                      >
-                        Edit
-                      </button>
+                      {flag !== 2 ? (
+                        <button
+                          type="button"
+                          className={`bg-primary text-white rounded-3xl px-4 py-2 ${
+                            isEdit ? ' cursor-not-allowed' : ''
+                          }`}
+                          onClick={handleClickEdit}
+                          disabled={isEdit}
+                        >
+                          Edit
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className={`bg-primary text-white rounded-3xl px-4 py-2 cursor-not-allowed
+                          `}
+                          disabled={true}
+                        >
+                          Edit
+                        </button>
+                      )}
                     </div>
                     <div>
-                      <button
-                        className={`bg-primary text-white ${
-                          !isEdit ? ' cursor-not-allowed' : ''
-                        }`}
-                        onClick={handleClickSave}
-                        disabled={!isEdit}
-                      >
-                        Save
-                      </button>
+                      {flag !== 2 ? (
+                        <button
+                          className={`bg-primary text-white rounded-3xl px-4 py-2 ${
+                            !isEdit ? ' cursor-not-allowed' : ''
+                          }`}
+                          onClick={handleClickSave}
+                          disabled={!isEdit}
+                        >
+                          {loading ? 'Saving...' : 'Save'}
+                        </button>
+                      ) : (
+                        <button
+                          className={`bg-primary text-white rounded-3xl px-4 py-2 cursor-not-allowed`}
+                          disabled={true}
+                        >
+                          Save
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

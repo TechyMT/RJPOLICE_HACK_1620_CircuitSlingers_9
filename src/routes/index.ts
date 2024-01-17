@@ -15,6 +15,8 @@ import Profile from '../pages/Profile';
 import Settings from '../pages/Settings';
 import Tables from '../pages/Tables';
 import Report from '../pages/Report';
+import Analysis from '../pages/Analysis';
+import Simulation from '../pages/Simulation';
 
 const coreRoutes = [
   {
@@ -54,9 +56,18 @@ const coreRoutes = [
   },
   {
     title: "/report",
-    path: "/report",
-    components: Report,
-    
+    path: "Report",
+    component: Report,
+  },
+  {
+    path: "/analysis",
+    title: "Analysis",
+    component: Analysis,
+  },
+  {
+    path: "/simulation",
+    title: "Simulation",
+    component: Simulation,
   }
 ];
 

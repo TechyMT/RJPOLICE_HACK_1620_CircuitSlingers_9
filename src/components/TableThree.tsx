@@ -148,7 +148,7 @@ const TableThree: React.FC<any> = ({ packages, loading }) => {
             placeholder="Search for items"
           />
         </div>
-
+        {/* Table Element */}
         <table className="flex flex-col w-full table-auto mb-12">
           <thead className="w-full flex">
             <tr className="flex w-full bg-gray-2 text-left dark:bg-meta-4">
@@ -218,7 +218,7 @@ const TableThree: React.FC<any> = ({ packages, loading }) => {
             </tbody>
           )}
         </table>
-
+        {/* Pagination Element */}
         <div className="flex flex-col items-center">
           <span className="text-sm text-gray-700 dark:text-gray-400">
             Showing{' '}
@@ -235,6 +235,7 @@ const TableThree: React.FC<any> = ({ packages, loading }) => {
             </span>{' '}
             Entries
           </span>
+          {/* Pagination Element */}
           <div className="inline-flex mt-2 xs:mt-0">
             <button
               className="flex items-center justify-center px-3 h-8 text-sm font-medium dark:text-white text-black bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"

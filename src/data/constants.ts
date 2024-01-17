@@ -1,4 +1,4 @@
-export const chartData = {
+export const initialChartData = {
     "week": {
         "categories": [
             "Week 1",
@@ -841,3 +841,9 @@ export const cardData = {
     "percentagePending": 34.61538461538461
 }
 
+
+export const statusData: { [key: string]: string } = {
+    "0": "Case Register , E-FIR filed",
+    "1": "Investigation in Progress",
+    "2": "Case Completed",
+}

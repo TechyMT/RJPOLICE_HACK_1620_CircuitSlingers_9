@@ -15,14 +15,14 @@ const Tables = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        // const response = await axios.get(`${publicUrl()}/admin/allStatus`, {
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        // });
-        // console.log(response.data);
-        // setPackages(response.data);
-        setPackages(newTableData);
+        const response = await axios.get(`${publicUrl()}/admin/getSortedReports`, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log(response.data);
+        setPackages(response.data);
+        // setPackages(newTableData);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching data', error);
