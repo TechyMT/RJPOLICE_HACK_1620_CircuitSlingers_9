@@ -31,7 +31,7 @@ const Simulation = () => {
       // If no node with a true flag is found, do nothing or handle as needed
       setLoading(true);
       await axios
-        .get(`${publicUrl()}admin/sendEmailNotif?email=${input}`)
+        .get(`${publicUrl()}/admin/sendEmailNotif?email=${input}`)
         .then((res) => {
           console.log(res);
         });

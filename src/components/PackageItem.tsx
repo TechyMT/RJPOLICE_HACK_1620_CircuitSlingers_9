@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { policeData } from '../data/constants';
-import User1 from '../images/user/user-01.png';
+import User1 from '../images/user/avatar.jpg';
 import axios from 'axios';
 import { publicUrl } from '../utils/publicUrl';
 import Loader from '../common/Loader';
