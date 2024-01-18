@@ -78,10 +78,8 @@ The project utilizes TypeScript seamlessly with Next.js, a React framework, to e
 
 ## Overview of App
 
-![WhatsApp Image 2024-01-17 at 18 34 54 (1)](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/7febba4c-fdf7-4f0f-8fb5-6674c3aaaba2)
-![WhatsApp Image 2024-01-17 at 18 34 54](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/b1af1b67-0b5f-4d9c-8198-3081b5a86616)
-![WhatsApp Image 2024-01-17 at 18 34 53 (1)](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/f652077d-2519-4327-b91e-e51b42dc3797)
-![WhatsApp Image 2024-01-17 at 18 34 53](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/e392e628-0bda-495c-aafa-5f88d2f9ccf1)
+![app](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/ad35c8e8-f699-4c42-8118-b3b4c4e4ae55)
+
 
 ## Presentation- 
 https://www.canva.com/design/DAF6CL-Pg0w/VRHqz1zEF31u187MTZF4iQ/edit
