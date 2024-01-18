@@ -67,7 +67,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
           </Checkbox>
           <AudioPlayer audioSource="/voice/4.mp3" />
         </div>
-        <div className="flex w-full">
+        <div className="flex w-full gap-4">
           <Select
             label="Category of complaint"
             labelPlacement="outside-left"
@@ -116,10 +116,11 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
             <Divider orientation="horizontal" />
             <div className="flex p-4 bg-primary justify-center text-white w-1/6">
               Victim Account Details
+              <AudioPlayer audioSource="/voice/victimAc.mp3" />
             </div>
             <VictimForm formData={formData} onChange={onChange} />
             <Divider />
-            <div>
+            <div className="flex w-full gap-4">
               <RadioGroup
                 label="Do you have suspect account details?"
                 isRequired
@@ -133,6 +134,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
                 <Radio value="yes">Yes</Radio>
                 <Radio value="no">No</Radio>
               </RadioGroup>
+              <AudioPlayer audioSource="/voice/QnSuscpect.mp3" />
             </div>
 
             {formData.suspect && (
@@ -140,6 +142,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
                 <Divider />
                 <div className="flex p-4 bg-primary justify-center text-white w-1/6">
                   Suspect Account Details
+                  <AudioPlayer audioSource="/voice/suspectAc.mp3" />
                 </div>
                 <SuspectForm formData={formData} onChange={onChange} />
               </div>
@@ -169,7 +172,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
                       <AudioPlayer audioSource="/voice/1.mp3" />
 
           </div>
-          <div>
+          <div className="flex w-full gap-4">
             <Textarea
               label="Brief description of the incident"
               placeholder="Enter brief description"
@@ -185,9 +188,10 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
                 inputWrapper: "bg-white",
               }}
             />
+            <AudioPlayer audioSource="/voice/briefDesc.mp3" />
           </div>
         </div>
-        <div className="flex w-full">
+        <div className="flex w-full gap-4">
           <Textarea
             label="Suspicious Message"
             labelPlacement="outside"
@@ -197,6 +201,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
             value={formData.message}
             onChange={(e) => onChange("message", e.target.value)}
           />
+          <AudioPlayer audioSource="/voice/Scam.mp3" />
         </div>
         <div>
           <div className="w-full">
