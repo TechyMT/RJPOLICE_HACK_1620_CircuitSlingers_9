@@ -1,5 +1,6 @@
 import React from "react";
 import { Input, Button } from "@nextui-org/react";
+import AudioPlayer from "../VoicePlayer";
 
 interface FormProps {
   formData: any;
@@ -11,6 +12,7 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
     <>
       <div className="flex flex-1 w-full gap-6">
         <div className="flex flex-col gap-10 w-1/2">
+          <div className="flex flex-col w-full">
           <Input
             label="Name/पूरा नाम"
             placeholder="Enter your name"
@@ -22,8 +24,10 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
             color="primary"
             labelPlacement="outside"
             size="lg"
-          />
-
+            />
+            <AudioPlayer audioSource="/voice/name.mp3" />
+          </div>
+          <div className="flex flex-col  w-full">
           <Input
             label="Phone Number/फ़ोन नंबर"
             placeholder="Enter your Phone Number"
@@ -35,7 +39,10 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
             color="primary"
             labelPlacement="outside"
             size="lg"
-          />
+            />
+             <AudioPlayer audioSource="/voice/phone.mp3" />
+          </div>
+          <div className="flex flex-col  w-full">
           <Input
             label="City/शहर"
             placeholder="Enter your city"
@@ -47,10 +54,11 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
             color="primary"
             labelPlacement="outside"
             size="lg"
-          />
+            />
+             <AudioPlayer audioSource="/voice/city.mp3" />
         </div>
 
-        <div className="flex gap-10 flex-col w-1/2">
+        <div className="flex flex-col w-full">
           <Input
             label="Aadhaar Number/आधार नंबर"
             placeholder="Enter your Adhaar Number"
@@ -62,8 +70,10 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
             color="primary"
             labelPlacement="outside"
             size="lg"
-          />
-
+            />
+             <AudioPlayer audioSource="/voice/aadhar.mp3" />
+          </div>
+          <div className="flex flex-col w-full">
           <Input
             label="Date of Birth/जन्म की तारीख"
             placeholder="Enter your Date of Birth"
@@ -75,7 +85,10 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
             color="primary"
             labelPlacement="outside"
             size="lg"
-          />
+            />
+             <AudioPlayer audioSource="/voice/dob.mp3" />
+          </div>
+          <div className="flex flex-col  w-full">
           <Input
             label="Pincode/पिनकोड"
             placeholder="Enter your Pincode"
@@ -87,7 +100,9 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
             color="primary"
             labelPlacement="outside"
             size="lg"
-          />
+            />
+             <AudioPlayer audioSource="/voice/pincode.mp3" />
+            </div>
         </div>
       </div>
     </>
