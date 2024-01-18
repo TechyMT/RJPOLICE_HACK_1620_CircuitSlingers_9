@@ -35,7 +35,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // }
 
 Future<void> fetchData() async {
-  final url = 'http://10.255.3.113:8080/api/admin/status/715';
+  final url = 'http://192.168.137.1:8080/api/admin/status/715';
 
   try {
     final response = await http.get(Uri.parse(url));
@@ -51,7 +51,7 @@ Future<void> createUser() async {
   User? user = FirebaseAuth.instance.currentUser;
 
   if (user != null) {
-    final url = 'http://10.255.3.113:8080/api/add';
+    final url = 'http://192.168.137.1:8080/api/add';
     final headers = {'Content-Type': 'application/json'};
 
     final userData = {
@@ -78,7 +78,7 @@ Future<void> createUser() async {
 Future<void> updateUser() async {
   User? user = FirebaseAuth.instance.currentUser;
   if (user != null) {
-    final url = 'http://10.255.3.113:8080/api/update';
+    final url = 'http://192.168.137.1:8080/api/update';
     final headers = {'Content-Type': 'application/json'};
 
     final userData = {'userUID': user.uid, 'emailVerified': true};
@@ -97,7 +97,7 @@ Future<void> updateUser() async {
 Future<void> fetchQuestions(String description) async {
   final FunctionController functionController = Get.put(FunctionController());
   final url =
-      Uri.parse("http://10.255.3.113:8080/api/report/generateQuestions");
+      Uri.parse("http://192.168.137.1:8080/api/report/generateQuestions");
   try {
     functionController.isLoading.value = true;
     final response = await http.post(
@@ -122,7 +122,7 @@ Future<void> fetchQuestions(String description) async {
 Future<int> submitReport() async {
   final DetailsController controller = Get.put(DetailsController());
   final FunctionController functionController = Get.put(FunctionController());
-  const url = 'http://10.255.3.113:8080/api/report/add';
+  const url = 'http://192.168.137.1:8080/api/report/add';
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String? uid = sharedPreferences.getString('userId');
   String? token = sharedPreferences.getString('recipientToken');
@@ -153,6 +153,7 @@ Future<int> submitReport() async {
     "pincode": controller.pincodeController.text,
     "suspectInfo": suspectInfo,
     "email": controller.emailController.text,
+    "phoneNumber":controller.phoneNumberController.text,
     "userAccountInfo": userAccInfo,
     "evidencesURL": controller.evidenceURLs,
     "analysisMaterial": controller.messageorEmailController.text,
@@ -189,7 +190,7 @@ Future<List<ReportStatusDto>> fetchReportStatusList() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String? uid = sharedPreferences.getString('userId');
   final response = await http
-      .get(Uri.parse('http://10.255.3.113:8080/api/admin/reports/$uid'));
+      .get(Uri.parse('http://192.168.137.1:8080/api/admin/reports/$uid'));
 
   if (response.statusCode == 200) {
     List<dynamic> jsonList = json.decode(response.body);
@@ -216,7 +217,7 @@ Future<List<ReportStatusDto>> fetchReportStatusList() async {
 Future<void> checkEmail(String email) async {
   final ReportStatusController controller = Get.put(ReportStatusController());
   final response = await http.get(
-      Uri.parse('http://10.255.3.113:8080/api/fraud_search/emails/$email'));
+      Uri.parse('http://192.168.137.1:8080/api/fraud_search/emails/$email'));
   controller.isEmailchecked.value = true;
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
@@ -237,7 +238,7 @@ Future<void> reportEmail(String email) async {
   final ReportStatusController reportStatusController =
       Get.put(ReportStatusController());
   final url =
-      Uri.parse('http://10.255.3.113:8080/api/fraud_search/reportEmail');
+      Uri.parse('http://192.168.137.1:8080/api/fraud_search/reportEmail');
 
   final response = await http.post(
     url,
@@ -258,7 +259,7 @@ Future<void> reportEmail(String email) async {
 Future<void> checkPhoneNumber(String phoneNumber) async {
   final ReportStatusController controller = Get.put(ReportStatusController());
   final response = await http.get(Uri.parse(
-      'http://10.255.3.113:8080/api/fraud_search/numbers/$phoneNumber'));
+      'http://192.168.137.1:8080/api/fraud_search/numbers/$phoneNumber'));
   controller.isPhoneNumberChecked.value = true;
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
@@ -281,7 +282,7 @@ Future<void> reportPhone(String phone) async {
   final ReportStatusController reportStatusController =
       Get.put(ReportStatusController());
   final url =
-      Uri.parse('http://10.255.3.113:8080/api/fraud_search/reportPhoneNumber');
+      Uri.parse('http://192.168.137.1:8080/api/fraud_search/reportPhoneNumber');
 
   final response = await http.post(
     url,
@@ -302,7 +303,7 @@ Future<void> reportPhone(String phone) async {
 Future<void> checkAccountNumber(String accountNumber) async {
   final ReportStatusController controller = Get.put(ReportStatusController());
   final response = await http.get(Uri.parse(
-      'http://10.255.3.113:8080/api/fraud_search/accNumbers/$accountNumber'));
+      'http://192.168.137.1:8080/api/fraud_search/accNumbers/$accountNumber'));
   controller.isAccountNumberChecked.value = true;
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
@@ -325,7 +326,7 @@ Future<void> reportAccNumber(String accNumber) async {
   final ReportStatusController reportStatusController =
       Get.put(ReportStatusController());
   final url =
-      Uri.parse('http://10.255.3.113:8080/api/fraud_search/reportAccNumber');
+      Uri.parse('http://192.168.137.1:8080/api/fraud_search/reportAccNumber');
 
   final response = await http.post(
     url,
@@ -345,7 +346,7 @@ Future<void> reportAccNumber(String accNumber) async {
 
 Future<void> giveSuggestions(int trackId) async {
   final DetailsController controller = Get.put(DetailsController());
-  final url = Uri.parse('http://10.255.3.113:8080/api/report/getInformation');
+  final url = Uri.parse('http://192.168.137.1:8080/api/report/getInformation');
 
   final response = await http.post(
     url,
@@ -368,7 +369,7 @@ Future<void> giveSuggestions(int trackId) async {
 
 Future<void> makePostRequest() async {
   final DetailsController detailsController = Get.put(DetailsController());
-  final String url = "http://10.255.3.113:8080/api/admin/getAnalysis";
+  final String url = "http://192.168.137.1:8080/api/admin/getAnalysis";
 
   Map<String, String> requestBody = {
     "message": detailsController.messageorEmailController.text,

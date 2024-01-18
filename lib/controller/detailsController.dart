@@ -14,7 +14,7 @@ class DetailsController extends GetxController {
   TextEditingController cityController = TextEditingController();
   TextEditingController onlineAccountInformationController =
       TextEditingController();
-   TextEditingController categoryController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
   TextEditingController transactionIdController = TextEditingController();
   TextEditingController suspectNumberController = TextEditingController();
   TextEditingController suspectAccController = TextEditingController();
@@ -27,6 +27,7 @@ class DetailsController extends GetxController {
   TextEditingController pincodeController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController messageorEmailController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
   bool isBankAccInvolved = false;
   bool isSuspectDetailsInvolved = false;
   List<String> evidenceURLs = [];
@@ -38,13 +39,14 @@ class DetailsController extends GetxController {
     cityController.text = '';
     incidentDescriptionController.text = '';
     aadharNumberController.text = '';
-       categoryController.text = '';
+    categoryController.text = '';
     transactionIdController.text = '';
     suspectAccController.text = '';
     suspectAccController.text = '';
     isBankAccInvolved = false;
     amountLostController.text = '';
     dateOfCrimeController.text = '';
+    phoneNumberController.text = '';
     dateOfReportController.text = '';
     dateOfTransactionController.text = '';
     emailController.text = '';
@@ -97,6 +99,7 @@ class DetailsController extends GetxController {
       categoryController,
       transactionIdController,
       suspectNumberController,
+      phoneNumberController,
       suspectAccController,
       amountLostController,
       dateOfCrimeController,

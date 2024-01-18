@@ -106,8 +106,8 @@ class QuestionnaireFormat extends StatelessWidget {
                 onPressed: () async {
                   await functionController.submitAnswers();
                   int track_id = await submitReport();
-                   makePostRequest();
-                   giveSuggestions(track_id);
+                  //         makePostRequest();
+                  giveSuggestions(track_id);
                   if (functionController.isReportSubmitted.value) {
                     await functionController.clearList();
                     await controller.clearControllers();

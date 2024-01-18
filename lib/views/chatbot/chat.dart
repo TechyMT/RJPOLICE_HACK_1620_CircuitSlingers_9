@@ -24,7 +24,7 @@ class _ChatPageState extends State<ChatPage> {
         isLoading = true;
       });
 
-      final url = 'http://b027-34-16-160-76.ngrok-free.app/get';
+      final url = 'http://2b6d-34-91-124-127.ngrok-free.app/hi/get';
       final Map<String, String> body = {'query': text};
       print(body);
       try {

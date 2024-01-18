@@ -5,6 +5,7 @@ import 'package:circuitslingers/controller/functionController.dart';
 import 'package:circuitslingers/views/networking/networking.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class ReportForm extends StatefulWidget {
   final PageController pageController;
@@ -20,8 +21,16 @@ class _ReportFormState extends State<ReportForm> {
   final FunctionController controller = Get.put(FunctionController());
   final DetailsController detailsController = Get.put(DetailsController());
   final _formKey = GlobalKey<FormState>();
-
+  FlutterTts flutterTts = FlutterTts();
   List<String> witnesses = [];
+
+  Future _speak(String text) async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.5);
+
+    await flutterTts.speak(text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +61,7 @@ class _ReportFormState extends State<ReportForm> {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: const Color(0xFFFFFFFF),
-                      labelText: 'Full Name',
+                      labelText: 'Full Name/पूरा नाम',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Color(0xFF5B57DC)),
@@ -73,7 +82,36 @@ class _ReportFormState extends State<ReportForm> {
                         detailsController.fullNameController.text = value!,
                   ),
                   const SizedBox(
-                    height: 8,
+                    height: 14,
+                  ),
+                  TextFormField(
+                    controller: detailsController.phoneNumberController,
+                    style: const TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: const Color(0xFFFFFFFF),
+                      labelText: 'Phone Number/फ़ोन नंबर',
+                      labelStyle: const TextStyle(color: Colors.black),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Color(0xFF5B57DC)),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Number cannot be blank';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) =>
+                        detailsController.phoneNumberController.text = value!,
+                  ),
+                  const SizedBox(
+                    height: 14,
                   ),
                   TextFormField(
                     controller: detailsController.dateOfBirthController,
@@ -81,7 +119,7 @@ class _ReportFormState extends State<ReportForm> {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: const Color(0xFFFFFFFF),
-                      labelText: 'Date of Birth',
+                      labelText: 'Date of Birth/जन्म की तारीख',
                       hintText: 'dd-mm-yyyy Format',
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
@@ -117,7 +155,7 @@ class _ReportFormState extends State<ReportForm> {
                         detailsController.dateOfBirthController.text = value!,
                   ),
                   const SizedBox(
-                    height: 8,
+                    height: 14,
                   ),
                   TextFormField(
                     controller: detailsController.emailController,
@@ -128,7 +166,7 @@ class _ReportFormState extends State<ReportForm> {
                       fillColor: const Color(0xFFFFFFFF),
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
-                      labelText: 'E-Mail',
+                      labelText: 'E-Mail/ईमेल',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Color(0xFF5B57DC)),
@@ -142,14 +180,14 @@ class _ReportFormState extends State<ReportForm> {
                     onSaved: (value) =>
                         detailsController.emailController.text = value!,
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 14.0),
                   TextFormField(
                     controller: detailsController.aadharNumberController,
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: const Color(0xFFFFFFFF),
-                      labelText: 'Aadhar Number',
+                      labelText: 'Aadhar Number/आधार नंबर',
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
                       labelStyle: const TextStyle(color: Colors.black),
@@ -175,7 +213,7 @@ class _ReportFormState extends State<ReportForm> {
                         detailsController.aadharNumberController.text = value!,
                   ),
                   const SizedBox(
-                    height: 8,
+                    height: 14,
                   ),
                   TextFormField(
                     controller: detailsController.incidentDescriptionController,
@@ -185,7 +223,7 @@ class _ReportFormState extends State<ReportForm> {
                       fillColor: const Color(0xFFFFFFFF),
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
-                      labelText: 'Incident Description',
+                      labelText: 'Incident Description/घटना का विवरण',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Color(0xFF5B57DC)),
@@ -208,7 +246,7 @@ class _ReportFormState extends State<ReportForm> {
                         .incidentDescriptionController.text = value!,
                   ),
                   const SizedBox(
-                    height: 8,
+                    height: 14,
                   ),
                   TextFormField(
                     controller: detailsController.dateOfCrimeController,
@@ -219,7 +257,7 @@ class _ReportFormState extends State<ReportForm> {
                       hintText: "dd-mm-yyyy Format",
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
-                      labelText: 'Date of Crime',
+                      labelText: 'Date of Crime/अपराध की तारीख',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Color(0xFF5B57DC)),
@@ -246,13 +284,13 @@ class _ReportFormState extends State<ReportForm> {
                         detailsController.dateOfCrimeController.text = value!,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Date of Transaction has to be entered';
+                        return 'Date of Crime has to be entered';
                       }
                       return null;
                     },
                   ),
                   const SizedBox(
-                    height: 8,
+                    height: 14,
                   ),
                   TextFormField(
                     controller: detailsController.cityController,
@@ -262,7 +300,7 @@ class _ReportFormState extends State<ReportForm> {
                       fillColor: const Color(0xFFFFFFFF),
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
-                      labelText: 'City',
+                      labelText: 'City/शहर',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Color(0xFF5B57DC)),
@@ -292,7 +330,8 @@ class _ReportFormState extends State<ReportForm> {
                       hintText: 'Type NA if not Available',
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
-                      labelText: 'Email Text or Message Text',
+                      labelText:
+                          'Email Text or Message Text/ईमेल टेक्स्ट या संदेश टेक्स्ट',
                       helperText:
                           'Enter message or email received to identify phishing',
                       labelStyle: const TextStyle(color: Colors.black),
@@ -335,7 +374,7 @@ class _ReportFormState extends State<ReportForm> {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: const Color(0xFFFFFFFF),
-                      labelText: 'Category',
+                      labelText: 'Category/श्रेणी',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Color(0xFF5B57DC)),
@@ -348,7 +387,7 @@ class _ReportFormState extends State<ReportForm> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 14,
                   ),
                   TextFormField(
                     controller: detailsController.pincodeController,
@@ -359,7 +398,7 @@ class _ReportFormState extends State<ReportForm> {
                       hintText: 'Type NA if not Available',
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
-                      labelText: 'Pincode',
+                      labelText: 'Pincode/पिनकोड',
                       labelStyle: const TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Color(0xFF5B57DC)),
@@ -383,7 +422,7 @@ class _ReportFormState extends State<ReportForm> {
                       });
                     },
                     title: const Text(
-                      'Is Bank Account Involved',
+                      'Is Bank Account Involved/क्या बैंक शामिल है',
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -391,7 +430,7 @@ class _ReportFormState extends State<ReportForm> {
                   ),
                   if (detailsController.isBankAccInvolved) ...[
                     const SizedBox(
-                      height: 8,
+                      height: 14,
                     ),
                     TextFormField(
                       controller:
@@ -403,7 +442,7 @@ class _ReportFormState extends State<ReportForm> {
                         hintText: "Bank Account Number",
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
-                        labelText: 'Bank Account Information',
+                        labelText: 'Bank Account Information/बैंक खाता संख्या',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
                           borderSide:
@@ -425,7 +464,7 @@ class _ReportFormState extends State<ReportForm> {
                       },
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 14,
                     ),
                     TextFormField(
                       controller: detailsController.transactionIdController,
@@ -436,7 +475,7 @@ class _ReportFormState extends State<ReportForm> {
                         hintText: 'Type NA if not Available',
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
-                        labelText: 'Transaction ID',
+                        labelText: 'Transaction ID/c',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
                           borderSide:
@@ -452,7 +491,7 @@ class _ReportFormState extends State<ReportForm> {
                           .transactionIdController.text = value!,
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 14,
                     ),
                     TextFormField(
                       controller: detailsController.amountLostController,
@@ -463,7 +502,7 @@ class _ReportFormState extends State<ReportForm> {
                         hintText: "Type NA if not Applicable",
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
-                        labelText: 'Amount Lost',
+                        labelText: 'Amount Lost/गुम हुआ राशि',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
                           borderSide:
@@ -494,7 +533,7 @@ class _ReportFormState extends State<ReportForm> {
                         hintText: "dd-mm-yyyy Format/NA",
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
-                        labelText: 'Date of Transaction',
+                        labelText: 'Date of Transaction/लेन-देन की तारीख',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
                           borderSide:
@@ -537,7 +576,7 @@ class _ReportFormState extends State<ReportForm> {
                         hintText: 'Type NA if not Available',
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
-                        labelText: 'User Bank Name',
+                        labelText: 'User Bank Name/उपभोक्ता बैंक का नाम',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
                           borderSide:
@@ -563,7 +602,7 @@ class _ReportFormState extends State<ReportForm> {
                       });
                     },
                     title: const Text(
-                      'Do You have Suspect Details',
+                      'Do You have Suspect Details/क्या आपके पास संदेहजनक विवरण हैं',
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -571,7 +610,7 @@ class _ReportFormState extends State<ReportForm> {
                   ),
                   if (detailsController.isSuspectDetailsInvolved) ...[
                     const SizedBox(
-                      height: 8,
+                      height: 14,
                     ),
                     TextFormField(
                       controller: detailsController.suspectBankNameController,
@@ -582,7 +621,7 @@ class _ReportFormState extends State<ReportForm> {
                         hintText: 'Type NA if not Available',
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
-                        labelText: 'Suspect Bank Name',
+                        labelText: 'Bank Name/शंका जनक बैंक का नाम',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
                           borderSide:
@@ -598,7 +637,7 @@ class _ReportFormState extends State<ReportForm> {
                           .suspectBankNameController.text = value!,
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 14,
                     ),
                     TextFormField(
                       controller: detailsController.suspectAccController,
@@ -609,7 +648,7 @@ class _ReportFormState extends State<ReportForm> {
                         hintText: 'Type NA if not Available',
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
-                        labelText: 'Suspect Account Details',
+                        labelText: 'Account Details/शंका जनक खाता संख्या',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
                           borderSide:
@@ -634,7 +673,7 @@ class _ReportFormState extends State<ReportForm> {
                         hintText: 'Type NA if not Available',
                         hintStyle:
                             const TextStyle(color: Colors.black, fontSize: 15),
-                        labelText: 'Suspect Phone Number',
+                        labelText: 'Phone Number/शंका जनक फ़ोन नंबर',
                         labelStyle: const TextStyle(color: Colors.black),
                         focusedBorder: OutlineInputBorder(
                           borderSide:
@@ -653,12 +692,16 @@ class _ReportFormState extends State<ReportForm> {
                   ],
                   Obx(
                     () => ListTile(
-                      leading: const Icon(Icons.add),
+                      leading: detailsController.filesAdded.value
+                          ? Icon(Icons.done)
+                          : detailsController.addingFiles.value
+                              ? CircularProgressIndicator()
+                              : Icon(Icons.add),
                       title: detailsController.filesAdded.value
                           ? const Text('Files Added')
                           : detailsController.addingFiles.value
                               ? const Text('Adding Files')
-                              : const Text('Add Files'),
+                              : const Text('Add Evidences/सबूत जोड़ें'),
                       onTap: () async {
                         await detailsController.pickAndUploadFiles();
                         print(detailsController.evidenceURLs);

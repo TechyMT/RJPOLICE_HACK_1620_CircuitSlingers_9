@@ -61,6 +61,8 @@ dependencies:
   permission_handler: ^11.1.0
   url_launcher: ^6.2.3
   flutter_onboarding_slider: ^1.0.11
+  flutter_tts: ^3.8.5
+  flutter_localization: ^0.2.0
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +84,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
