@@ -35,6 +35,7 @@ public class ReportStatusImpl implements ReportStatusServices {
     private final UserRepository userRepository;
     private final FirebaseMessagingService messagingService;
     private final EmailSenderService senderService;
+    private final MessengerService messengerService;
 
     @Override
     public ReportStatusDto createReportStatus(ReportStatusDto reportStatusDto) {
@@ -53,6 +54,9 @@ public class ReportStatusImpl implements ReportStatusServices {
             String recipientToken = incidentReportEntity.getRecipientToken();
             ReportStatusEntity existingStatus = reportStatus.get();
             if (!reportStatusDto.isPending()) {
+                if(incidentReportEntity.isBankAccInvolved()){
+                    senderService.sendAmountRecoveredEmail(incidentReportEntity.getEmail(),incidentReportEntity.getUserAccountInfo().getAmountLost());
+                }
                 senderService.sendCaseCompletionEmail(incidentReportEntity.getEmail());
                 existingStatus.setFlag(2);
                 existingStatus.setCurrentStatus("Case Completed");
@@ -60,6 +64,7 @@ public class ReportStatusImpl implements ReportStatusServices {
                 senderService.sendCaseUnderInvestigationEmail(incidentReportEntity.getEmail());
                 existingStatus.setFlag(1);
                 existingStatus.setCurrentStatus(reportStatusDto.getCurrentStatus());
+
             }
             existingStatus.setSuggestions(reportStatusDto.getSuggestions());
             existingStatus.setComments(reportStatusDto.getComments());
@@ -80,6 +85,23 @@ public class ReportStatusImpl implements ReportStatusServices {
         }
     }
 
+    @Override
+    public ReportStatusDto updateReportStatusWithSuggestions(ReportStatusDto reportStatusDto,String response) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        Optional<ReportStatusEntity> reportStatus = statusRepository.findByTrackId(reportStatusDto.getTrackId());
+
+        if (reportStatus.isPresent()) {
+            ReportStatusEntity existingStatus = reportStatus.get();
+            existingStatus.setSuggestions(response);
+            existingStatus.setComments(reportStatusDto.getComments());
+            existingStatus.setUpdatedDate(sdf.format(new Date()));
+            ReportStatusEntity updatedReport = statusRepository.save(existingStatus);
+            System.out.println("Added");
+            return reportMapper.mapFrom(updatedReport);
+        } else {
+            throw new NotFoundException("ReportStatus of the " + reportStatusDto.getTrackId() + " was not found");
+        }
+    }
     @Override
     public List<ReportStatusDto> getAllReports() {
         return statusRepository.findAll().stream().map(reportMapper::mapFrom).collect(Collectors.toList());

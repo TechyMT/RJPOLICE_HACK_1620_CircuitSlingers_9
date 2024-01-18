@@ -129,7 +129,7 @@ public class EmailSenderService
                         "\n" +
                         "To improve your experience, we recommend using our app or website for faster reporting. Due to high helpline traffic, these options offer quicker responses.\n" +
                         "\n" +
-                        "Download the app or visit the website today!";
+                        "Download the app or visit the website today at https://rjpolice.netlify.app/!";
     }
 
     public void sendEmailNotification(String recipientEmail){
@@ -139,5 +139,25 @@ public class EmailSenderService
         message.setText(builtEmailNotification(recipientEmail));
         mailSender.send(message);
     }
+    public void sendAmountRecoveredEmail(String recipientEmail, String amountRecovered) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(recipientEmail);
+        message.setSubject("Amount Recovery Update");
+        message.setText(buildAmountRecoveredEmailBody(amountRecovered));
+
+        mailSender.send(message);
+    }
+
+    private String buildAmountRecoveredEmailBody(String amountRecovered) {
+        return
+                "Dear User,\n\n" +
+                        "We are pleased to inform you that the amount frozen "+amountRecovered+"in relation to your case has been successfully recovered. The recovered funds are now being processed for refunding with the banks.\n\n" +
+                        "Our team has worked diligently to resolve this matter, and we appreciate your cooperation throughout the process. We understand the impact this may have had on you, and we aim to expedite the refund process as efficiently as possible.\n\n" +
+                        "Once the refund process is completed, you will receive further communication regarding the status and details of the refund. If you have any questions or concerns, feel free to reach out to us.\n\n" +
+                        "Thank you for your patience and understanding.\n\n" +
+                        "Sincerely,\n" +
+                        "Law Enforcement Team";
+    }
+
 
 }

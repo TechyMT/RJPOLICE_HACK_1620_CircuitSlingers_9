@@ -41,7 +41,7 @@ public class FraudEmailServicesImpl implements FraudEmailServices {
         } else {
             email.setReportCount(1);
             emailsRepository.save(email);
-            resultMap.put("message","This"+ emails+ " has been added to the black-listed list");
+            resultMap.put("message","This has been added to the black-listed list");
 
         }
         return resultMap;

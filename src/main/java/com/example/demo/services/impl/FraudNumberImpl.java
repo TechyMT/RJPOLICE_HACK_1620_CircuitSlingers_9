@@ -35,11 +35,11 @@ public class FraudNumberImpl implements FraudNumbersServices {
         if (existingNumber != null) {
             existingNumber.setReportCount(existingNumber.getReportCount() + 1);
             numbersRepository.save(existingNumber);
-            resultMap.put("message","This "+numbers+" has been reported by "+existingNumber.getReportCount()+" users");
+            resultMap.put("message","This  has been reported by "+existingNumber.getReportCount()+" users");
         } else {
                 numbers.setReportCount(1);
                 numbersRepository.save(numbers);
-            resultMap.put("message","This"+ number+ " has been added to the black-listed list");
+            resultMap.put("message","This has been added to the black-listed list");
 
         }
         return resultMap;

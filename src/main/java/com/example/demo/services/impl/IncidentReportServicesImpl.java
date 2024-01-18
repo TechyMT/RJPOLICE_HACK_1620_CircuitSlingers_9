@@ -18,6 +18,7 @@ import com.example.demo.services.AnalysisServices;
 import com.example.demo.services.IncidentReportServices;
 import com.example.demo.services.ReportStatusServices;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.netty.util.concurrent.CompleteFuture;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
@@ -42,6 +43,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
     private final DataMapper dataMapper;
     private final EmailSenderService senderService;
     private final AnalysisServices analysisServices;
+    private final MessengerService messengerService;
     @Override
     public IncidentResponseDto createReport(IncidentReportDto incidentReportDto) {
 
@@ -68,6 +70,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
 //        }
 
    //     CompletableFuture<Void> addSuggestionsFuture = addSuggestionsAsync(reportStatusDto);
+   //     CompletableFuture<Void> futureMessageService = messengerService.sendSubmissionMessage(incidentReportDto.getPhoneNumber());
         CompletableFuture<Void> emailCompletionFuture = CompletableFuture.runAsync(() ->
                 senderService.sendCaseRegistrationCompletionEmail(incidentReportDto.getEmail(), reportStatusDto.getTrackId(), reportStatusDto.getReportURL()));
         CompletableFuture<Void> notificationAndEmailFutures = CompletableFuture.runAsync(() -> {
@@ -76,6 +79,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
                 if (createdReport.isBankAccInvolved()) {
                     System.out.println("Sending bank-related notification...");
                     messagingService.sendNotificationByToken(new Notifications(recipientToken));
+        //            messengerService.sendBankFreezeMessage(incidentReportDto.getPhoneNumber());
                 }
                 System.out.println("Sending FIR notification...");
                 senderService.sendAccountFreezeNotificationEmail(incidentReportDto.getEmail(), incidentReportDto.getUserAccountInfo().getAccountNumber());
@@ -86,7 +90,10 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
         });
         CompletableFuture<Void> efirConfirmationEmailFuture = CompletableFuture.runAsync(() ->
                 senderService.sendEFIRFilingConfirmationEmail(incidentReportDto.getEmail(), reportStatusDto.getTrackId()));
-        CompletableFuture.allOf(emailCompletionFuture, notificationAndEmailFutures, efirConfirmationEmailFuture).join();
+        CompletableFuture.allOf(emailCompletionFuture, notificationAndEmailFutures, efirConfirmationEmailFuture
+
+               // ,futureMessageService
+        ).join();
         IncidentResponseDto incidentResponseDto = new IncidentResponseDto();
         incidentResponseDto.setDescription(incidentReportDto.getIncidentDescription());
         incidentResponseDto.setTrackId(reportStatusDto.getTrackId());

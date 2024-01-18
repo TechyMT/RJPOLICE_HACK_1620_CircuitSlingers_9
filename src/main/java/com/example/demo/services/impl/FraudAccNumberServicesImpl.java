@@ -40,11 +40,11 @@ public class FraudAccNumberServicesImpl implements FraudAccountServices {
         if (existingAccount != null) {
             existingAccount.setReportCount(existingAccount.getReportCount() + 1);
             accountRepository.save(existingAccount);
-            resultMap.put("message","This "+accountNumber+" has been reported by "+existingAccount.getReportCount()+" users");
+            resultMap.put("message","This has been reported by "+existingAccount.getReportCount()+" users");
 
         } else {
             numbers.setReportCount(1);
-            resultMap.put("message","This"+ accountNumber+ " has been added to the black-listed list");
+            resultMap.put("message","This has been added to the black-listed list");
             accountRepository.save(numbers);
         }
         return resultMap;
