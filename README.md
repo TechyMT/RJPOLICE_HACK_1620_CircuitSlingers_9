@@ -69,8 +69,12 @@ The PostgreSQL database is containerized using [Docker](https://www.docker.com/)
 The project utilizes TypeScript seamlessly with Next.js, a React framework, to enhance the project with code quality, and improved developer experience by leveraging TypeScript's type checking and Next.js's server-side rendering capabilities in a seamless integration for building robust and scalable web application.
 
 ## Overview of Web
-
+## Web Portal
 ![Screenshot 2024-01-17 183747](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/be9835ec-ca59-4d59-8b1b-916d0218b612)
+
+## Police Dashboard
+![Screenshot 2024-01-18 025103](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/67d4a2ad-be83-4b60-b1bc-e90bd58c0676)
+
 
 ## Overview of App
 
@@ -79,5 +83,6 @@ The project utilizes TypeScript seamlessly with Next.js, a React framework, to e
 ![WhatsApp Image 2024-01-17 at 18 34 53 (1)](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/f652077d-2519-4327-b91e-e51b42dc3797)
 ![WhatsApp Image 2024-01-17 at 18 34 53](https://github.com/TechyMT/RJPOLICE_HACK_1620_CircuitSlingers_9/assets/106727641/e392e628-0bda-495c-aafa-5f88d2f9ccf1)
 
-
+## Presentation- 
+https://www.canva.com/design/DAF6CL-Pg0w/VRHqz1zEF31u187MTZF4iQ/edit
 
