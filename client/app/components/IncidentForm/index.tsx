@@ -69,7 +69,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
         </div>
         <div className="flex w-full">
           <Select
-            label="Category of complaint"
+            label="Category of complaint/श्रेणी"
             labelPlacement="outside-left"
             classNames={{
               trigger: "bg-white",
@@ -96,7 +96,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
         </div>
         <div className="flex w-full gap-4">
           <RadioGroup
-            label="Have you lost money?"
+            label="Have you lost money?/क्या बैंक शामिल है"
             classNames={{}}
             isRequired
             size="lg"
@@ -151,7 +151,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
         <div className="flex w-full flex-col gap-10">
           <div className="flex w-full h-[8vh] gap-4">
             <Input
-              label="Approximate date & time of Incident/receiving/viewing of content"
+              label="Approximate date & time of Incident/receiving/viewing of content/अपराध की तारीख'"
               placeholder="Enter transaction date"
               type="date"
               value={formData.crimeDate}
@@ -171,7 +171,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
           </div>
           <div>
             <Textarea
-              label="Brief description of the incident"
+              label="Brief description of the incident/घटना का विवरण"
               placeholder="Enter brief description"
               value={formData.description}
               onChange={(e) => onChange("description", e.target.value)}

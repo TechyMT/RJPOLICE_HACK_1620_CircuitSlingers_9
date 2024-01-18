@@ -12,7 +12,7 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
       <div className="flex flex-1 w-full gap-6">
         <div className="flex flex-col gap-10 w-1/2">
           <Input
-            label="Name"
+            label="Name/पूरा नाम"
             placeholder="Enter your name"
             type="text"
             value={formData.name}
@@ -25,7 +25,7 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
           />
 
           <Input
-            label="Phone Number"
+            label="Phone Number/फ़ोन नंबर"
             placeholder="Enter your Phone Number"
             type="number"
             value={formData.phoneNumber}
@@ -37,7 +37,7 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
             size="lg"
           />
           <Input
-            label="City"
+            label="City/शहर"
             placeholder="Enter your city"
             type="text"
             value={formData.location}
@@ -52,7 +52,7 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
 
         <div className="flex gap-10 flex-col w-1/2">
           <Input
-            label="Adhaar Number"
+            label="Aadhaar Number/आधार नंबर"
             placeholder="Enter your Adhaar Number"
             type="number"
             value={formData.adhaarNumber}
@@ -65,7 +65,7 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
           />
 
           <Input
-            label="Date of Birth"
+            label="Date of Birth/जन्म की तारीख"
             placeholder="Enter your Date of Birth"
             type="date"
             value={formData.dob}
@@ -77,7 +77,7 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
             size="lg"
           />
           <Input
-            label="Pincode"
+            label="Pincode/पिनकोड"
             placeholder="Enter your Pincode"
             type="number"
             value={formData.pincode}

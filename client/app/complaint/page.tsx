@@ -20,21 +20,25 @@ const Complaint = () => {
       return;
     }
     const addUser = async () => {
-      const addUser = await fetch(`${publicUrl()}/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userUID: user.uid,
-          email: user.email,
-          phoneNumber: user.phoneNumber,
-          emailVerified: user.emailVerified,
-          creationTime: user.createdAt,
-          lastSignInTime: user.lastLoginAt,
-        }),
-      });
-      console.log("user added", addUser);
+      try {
+        const addUser = await fetch(`${publicUrl()}/add`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userUID: user.uid,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            emailVerified: user.emailVerified,
+            creationTime: user.createdAt,
+            lastSignInTime: user.lastLoginAt,
+          }),
+        });
+        console.log("user added", addUser);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     if (user) {
