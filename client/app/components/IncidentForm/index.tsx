@@ -16,6 +16,7 @@ import { categories } from "../../data/constants";
 import EvidenceBox from "../EvidentBox";
 import { uploadFiles } from "../../utils/firebase";
 import useAuthStore from "../../utils/auth";
+import AudioPlayer from "../VoicePlayer";
 
 interface FormProps {
   formData: any;
@@ -59,11 +60,12 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
   return (
     <>
       <div className="flex flex-col gap-10 items-center">
-        <div className="flex justify-start w-full">
+        <div className="flex justify-start w-full gap-4">
           <Checkbox onChange={(e) => onChange("selfFill", e.target.checked)}>
             I am filling the form for myself (keep this unchecked if you are
             not)
           </Checkbox>
+          <AudioPlayer audioSource="/voice/4.mp3" />
         </div>
         <div className="flex w-full">
           <Select
@@ -89,8 +91,10 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               <SelectItem key={category.value}>{category.name}</SelectItem>
             )}
           </Select>
+          <AudioPlayer audioSource="/voice/2.mp3" />
+
         </div>
-        <div className="flex w-full">
+        <div className="flex w-full gap-4">
           <RadioGroup
             label="Have you lost money?"
             classNames={{}}
@@ -105,6 +109,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
             <Radio value="yes">Yes</Radio>
             <Radio value="no">No</Radio>
           </RadioGroup>
+          <AudioPlayer audioSource="/voice/3.mp3" />
         </div>
         {formData.isMoneyLost && (
           <div className="flex flex-col w-full gap-10">
@@ -144,9 +149,9 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
 
         <Divider />
         <div className="flex w-full flex-col gap-10">
-          <div className="flex w-full h-[8vh]">
+          <div className="flex w-full h-[8vh] gap-4">
             <Input
-              label="Approximate date & time of Incident/receiving/viewing of content "
+              label="Approximate date & time of Incident/receiving/viewing of content"
               placeholder="Enter transaction date"
               type="date"
               value={formData.crimeDate}
@@ -161,6 +166,8 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               }}
               color="primary"
             />
+                      <AudioPlayer audioSource="/voice/1.mp3" />
+
           </div>
           <div>
             <Textarea
@@ -175,7 +182,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               minRows={8}
               color="primary"
               classNames={{
-                inputWrapper:"bg-white"
+                inputWrapper: "bg-white",
               }}
             />
           </div>

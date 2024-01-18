@@ -5,21 +5,21 @@ export const categories = [
     },
     {
         name: "Financial Fraud",
-        value: 'financialfraud',
+        value: 'Financial Fraud',
     },
     {
         name: "Phishing Scams",
-        value: "phishingscams"
+        value: "Phishing Scams"
     },
-    { name: "Identity Theft", value: "identitytheft" },
-    { name: "Online Shopping Fraud", value: "onlineshoppingfraud" },
+    { name: "Identity Theft", value: "Identity Theft" },
+    { name: "Online Shopping Fraud", value: "Online Shopping Fraud" },
     {
         name: "Ransomware Attacks",
-        value: "ransomwareattacks"
+        value: "Ransomware Attacks"
     },
     {
         name: "Social Engineering",
-        value: "socialengineering"
+        value: "Social Engineering"
     },
 ];
 
