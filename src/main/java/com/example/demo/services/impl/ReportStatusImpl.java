@@ -50,6 +50,7 @@ public class ReportStatusImpl implements ReportStatusServices {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Optional<ReportStatusEntity> reportStatus = statusRepository.findByTrackId(reportStatusDto.getTrackId());
         if (reportStatus.isPresent()) {
+
             IncidentReportEntity incidentReportEntity = reportRepository.findByTrackId(reportStatusDto.getTrackId());
             String recipientToken = incidentReportEntity.getRecipientToken();
             ReportStatusEntity existingStatus = reportStatus.get();

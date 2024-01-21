@@ -46,7 +46,7 @@ public class DescriptionController {
     public ResponseEntity<QuestionnaireList> generateDesc(
             @RequestBody String description
     ){
-        String urlAPI = "http://7a93-35-227-94-79.ngrok-free.app/home";
+        String urlAPI = "http://dc72-35-230-31-202.ngrok-free.app/home";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> requestEntity = new HttpEntity<>(description, headers);
@@ -98,7 +98,7 @@ public class DescriptionController {
     ) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        String urlAPI = "http://0189-34-121-251-160.ngrok-free.app/suggest";
+        String urlAPI = "http://4661-34-125-11-202.ngrok-free.app/suggest";
         HttpEntity<SuggestionDto> requestEntity = new HttpEntity<>(suggestionDto, headers);
         ResponseEntity<String> responseEntity = new RestTemplate().postForEntity(urlAPI, requestEntity, String.class);
         String apiResponse = responseEntity.getBody();

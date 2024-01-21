@@ -79,7 +79,7 @@ public class IncidentReportServicesImpl implements IncidentReportServices {
                 if (createdReport.isBankAccInvolved()) {
                     System.out.println("Sending bank-related notification...");
                     messagingService.sendNotificationByToken(new Notifications(recipientToken));
-        //            messengerService.sendBankFreezeMessage(incidentReportDto.getPhoneNumber());
+                    messengerService.sendBankFreezeMessage(incidentReportDto.getPhoneNumber());
                 }
                 System.out.println("Sending FIR notification...");
                 senderService.sendAccountFreezeNotificationEmail(incidentReportDto.getEmail(), incidentReportDto.getUserAccountInfo().getAccountNumber());

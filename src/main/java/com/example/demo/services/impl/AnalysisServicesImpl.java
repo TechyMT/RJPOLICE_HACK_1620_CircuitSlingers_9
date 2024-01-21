@@ -32,7 +32,7 @@ public class AnalysisServicesImpl implements AnalysisServices {
         String message = analyticsDto.getMessage();
         String date = analyticsDto.getReportDate();
         String category = analyticsDto.getCategory();
-        String urlAPI = "http://9a58-34-147-40-212.ngrok-free.app/analysis";
+        String urlAPI = "http://2dde-34-90-120-65.ngrok-free.app/analysis";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
