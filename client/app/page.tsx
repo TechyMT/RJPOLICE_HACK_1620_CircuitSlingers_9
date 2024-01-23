@@ -25,7 +25,7 @@ import Alert from "./components/AlertMarquee";
 import FAQComponent from "./components/FAQComponent";
 import HomeLottie from "./components/HomeLottie";
 import HomeBg from "./assets/images/home.png";
-import BannerRop from "./assets/images/bannerop (1).png";
+import BannerRop from "./assets/images/bannerop.png";
 import AudioPlayer from "./components/VoicePlayer";
 const HeroImages = [
   HeroImage_1,
@@ -156,7 +156,12 @@ export default function Home() {
               </figcaption>
             </figure>
           </div> */}
-          <Image src={BannerRop} alt="PM" className="object-cover flex" />
+          <Image
+            src={BannerRop}
+            alt="PM"
+            className="object-cover flex"
+            
+          />
         </div>
         <div>
           <FAQComponent />
