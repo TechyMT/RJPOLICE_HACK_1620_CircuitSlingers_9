@@ -16,22 +16,41 @@ const TrackStatus = () => {
   const [trackId, setTrackId] = useState<any>(null);
   const [status, setStatus] = useState<any>("");
   const [loading, setLoading] = useState<boolean>(false); // Add loading state
+  const flagNum = Math.floor(Math.random() * 3);
 
   const handleSearch = async () => {
     try {
       // Replace the API_URL with the actual URL for fetching the status
       setLoading(true);
-      const response = await axios.get(
-        `${publicUrl()}/admin/status/${trackId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log("response", response);
-      setStatus(response.data);
-      setLoading(false);
+      // const response = await axios.get(
+      //   `${publicUrl()}/admin/status/${trackId}`,
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   }
+      // );
+      // console.log("response", response);
+      setTimeout(() => {
+        setStatus({
+          currentStatus:
+            flagNum === 0
+              ? "Case File, E-FIR Register"
+              : flagNum === 1
+              ? "Investigating"
+              : "Completed",
+          flag: flagNum,
+          reportDate: "21-07-2024",
+          updatedDate: "22-07-2024",
+          comments:
+            "We are proffestionals at work, your case will be solved, please stay patient.",
+          reportURL:
+            "https://storage.googleapis.com/rjpolicehackathon.appspot.com/user-reports/BxgDoMHJppZlA7h6A9OcSauo7Dy1/report?GoogleAccessId=firebase-adminsdk-dlk05@rjpolicehackathon.iam.gserviceaccount.com&Expires=1707835854&Signature=XuqsAGit0OfHCDDwP6Bum8f3%2BRJyd9obWOKEXd%2FV1KnchFXrEeruwKCWr5OMVJxyEr3WIWnxu4Ln%2FmioBLco8NhimAkTtDvr6N9zHCfBdFg6IFQTA02Nka%2FwSxSglVb9UMb%2BXOBYWVz0AcXsc4I8W2satO4Pj3S0dvFqWwpGGGc4y0Vt1oCML2WosxG9cG1y9mTHoVBe25zEJGnaNs0Wmw1IALocPYrgW9arD%2B8PBcS6OC55qZCZwRI7%2FPP65aVgwO0NmdIQ6v0DSFJ9vQdiIGLamWVOAfukMqw7QZVJdD5VDxt2uqyBYNSRmDB6EnaEAhw38DiRcYqo5uHih3bJWQ%3D%3D",
+          suggestions:
+            "This is a demo suggestion box, you will get optimised suggestion based on your description. We have not connected it with the model. To see the full demo contact us.",
+        });
+        setLoading(false);
+      }, 3000);
     } catch (error) {
       console.error("Error fetching track status:", error);
       setStatus("Error fetching status");

@@ -18,19 +18,22 @@ const ModalSuggestions: React.FC<any> = ({ suggestions }) => {
 
   const fetchData = async () => {
     try {
-      const suggestions = await fetch(`${publicUrl()}/report/getInformation`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          trackId: caseDetails.trackId,
-          category: caseDetails.category,
-          description: caseDetails.description,
-        }),
-      });
-      console.log("text", suggestions);
-      setText(await suggestions.json());
+      // const suggestions = await fetch(`${publicUrl()}/report/getInformation`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     trackId: caseDetails.trackId,
+      //     category: caseDetails.category,
+      //     description: caseDetails.description,
+      //   }),
+      // });
+      // console.log("text", suggestions);
+      // setText(await suggestions.json());
+      setTimeout(() => {
+        setText(caseDetails.suggestions)
+      })
     } catch (error) {
       console.error("Error fetching suggestions:", error);
     } finally {

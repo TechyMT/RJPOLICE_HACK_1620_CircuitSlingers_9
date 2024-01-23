@@ -13,7 +13,7 @@ const Alert = () => {
             🚨 Fraud Alert: Beware of phishing emails posing as bank
             communication. They may contain malicious links aimed at stealing
             your personal financial information. Always verify the source before
-            clicking any link. 🚨
+            clicking any link.
           </div>
         </div>
       </Marquee>

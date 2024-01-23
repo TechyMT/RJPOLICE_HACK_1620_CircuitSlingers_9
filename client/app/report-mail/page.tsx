@@ -14,21 +14,23 @@ const ReportMail = () => {
   const handleClick = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${publicUrl()}/fraud_search/reportEmail`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-        }),
-      });
-      console.log(res);
-      const data = await res.json();
-      console.log(data);
-      setMessage(data.message);
-      setEmail("");
-      setLoading(false);
+      // const res = await fetch(`${publicUrl()}/fraud_search/reportEmail`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     email: email,
+      //   }),
+      // });
+      // console.log(res);
+      // const data = await res.json();
+      // console.log(data);
+      setTimeout(() => {
+        setMessage("Email saved successfully");
+        setEmail("");
+        setLoading(false);
+      },1000);
     } catch (error) {
       console.log("error reporting email");
       setLoading(false);

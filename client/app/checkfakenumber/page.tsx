@@ -20,14 +20,14 @@ const FakeNumberChecker = () => {
     // setIsFake(isFakeNumber);
     try {
       setLoading(true);
-      const response = await fetch(
-        `${publicUrl()}/fraud_search/numbers/${phoneNumber}`
-      );
-      const { isFraud: isFakeNumber } = await response.json();
-
-      console.log(isFakeNumber);
-      setIsFake(isFakeNumber);
-      setLoading(false);
+      // const response = await fetch(
+      //   `${publicUrl()}/fraud_search/numbers/${phoneNumber}`
+      // );
+      // const { isFraud: isFakeNumber } = await response.json();
+      setTimeout(() => {
+        setIsFake(Math.random() >= 0.5);
+        setLoading(false);
+      }, 1000);
     } catch (error) {
       console.log("error while checking fake number");
       setLoading(false);

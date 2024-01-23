@@ -35,7 +35,10 @@ const useAuthStore = create<any>(
     (set) => ({
       user: auth.currentUser, // Set initial user state based on current user
       isLogedIn: auth.currentUser !== null,
-      caseDetails: null,
+      caseDetails: {
+        trackId: 69,
+        suggestions: "This is a demo suggestion box, you will get optimised suggestion based on your description. We have not connected it with the model. To see the full demo contact us."
+      },
       setCaseDetails: (caseDetails: any) => set({ caseDetails }),
       setUser: (user: null) => set({ user, isLogedIn: user !== null }),
       googleSignIn: async () => {

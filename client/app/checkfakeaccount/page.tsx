@@ -17,13 +17,15 @@ const FakeNumberChecker: React.FC = () => {
     // Basic logic to determine if a number is fake or not (you can replace this with your own logic)
     setLoading(true);
     try {
-      const response = await fetch(
-        `${publicUrl()}/fraud_search/accounts/${phoneNumber}`
-      );
-      const { isFraud: isFakeNumber } = await response.json();
+      // const response = await fetch(
+      //   `${publicUrl()}/fraud_search/accounts/${phoneNumber}`
+      // );
+      // const { isFraud: isFakeNumber } = await response.json();
 
-      setIsFake(isFakeNumber);
-      setLoading(false);
+      setTimeout(() => {
+        setIsFake(Math.random() >= 0.5);
+        setLoading(false);
+      }, 1000);
     } catch (err) {
       console.log(err);
       setLoading(false);
@@ -34,7 +36,6 @@ const FakeNumberChecker: React.FC = () => {
   }
 
   return (
-  
     <div
       style={{
         textAlign: "center",

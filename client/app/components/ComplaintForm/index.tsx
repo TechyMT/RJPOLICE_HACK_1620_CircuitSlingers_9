@@ -182,26 +182,26 @@ const ComplaintForm = () => {
       console.log("body", body);
       console.log("okay user", user);
       try {
-        const data = await fetch(`${publicUrl()}/report/add`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "POST",
-          body: JSON.stringify(body),
-        });
-        const response = await data.json();
+        // const data = await fetch(`${publicUrl()}/report/add`, {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   method: "POST",
+        //   body: JSON.stringify(body),
+        // });
+        // const response = await data.json();
 
-        fetch(`${publicUrl()}/admin/getAnalysis`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "POST",
-          body: JSON.stringify({
-            category: formData.categoryOfComplaint,
-            message: formData.message,
-            reportDate: reportedDate,
-          }),
-        });
+        // fetch(`${publicUrl()}/admin/getAnalysis`, {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   method: "POST",
+        //   body: JSON.stringify({
+        //     category: formData.categoryOfComplaint,
+        //     message: formData.message,
+        //     reportDate: reportedDate,
+        //   }),
+        // });
 
         setFormData({
           name: "",
@@ -230,11 +230,17 @@ const ComplaintForm = () => {
           selfFill: false,
           message: "",
         });
-        setSubmitLoading(false);
-        setCaseDetails(response);
-        setFormSubmitted(true);
+        setTimeout(() => {
+          setSubmitLoading(false);
+          setCaseDetails({
+            trackId: 69,
+            suggestions:
+              "This is a demo suggestion box, you will get optimised suggestion based on your description. We have not connected it with the model. To see the full demo contact us.",
+          });
+          setFormSubmitted(true);
 
-        router.push(`/confirm`);
+          router.push(`/confirm`);
+        },3000);
       } catch (error) {
         console.log("error", error);
         setSubmitLoading(false);
