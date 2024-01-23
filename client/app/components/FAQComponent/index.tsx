@@ -39,8 +39,10 @@ const App = () => {
         alt="RBI guidelines"
         className="-z-50 absolute max-h-screen object-cover opacity-65 max-w-full overflow-x-hidden"
       />
-      <div className="max-w-screen-xl mx-auto mt-8">
-        <Heading>Frequently Asked Questions</Heading>
+      <div className="md:max-w-screen-xl mx-auto mt-8">
+        <div className="flex justify-center items-center text-center">
+          <Heading>Frequently Asked Questions</Heading>
+        </div>
         <div className="flex flex-wrap my-12">
           {faqs.map((faq, index) => (
             <FaqItem

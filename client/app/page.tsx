@@ -132,7 +132,7 @@ export default function Home() {
           <Heading>Cybercrime Guidelines </Heading>
           <AwarenessMarquee />
         </div>
-        <div className="flex bg-primary my-12 justify-center items-center w-full md:h-[700px]">
+        <div className="flex bg-primary my-12 justify-center items-center w-full h-[350px] md:h-[700px]">
           {/* <Image src={PM} alt="PM" width={600} height={200} />
           <div className="border-2 border-white rounded-3xl w-[50vw] flex justify-center items-center mx-auto m-8">
             <figure className="max-w-screen-md mx-auto text-center">
@@ -158,7 +158,7 @@ export default function Home() {
               </figcaption>
             </figure>
           </div> */}
-          <Image src={BannerRop} alt="PM" className="object-cover flex" />
+          <Image src={BannerRop} alt="PM" className="md:object-cover h-96 md:h-auto flex" />
         </div>
         <div>
           <FAQComponent />
