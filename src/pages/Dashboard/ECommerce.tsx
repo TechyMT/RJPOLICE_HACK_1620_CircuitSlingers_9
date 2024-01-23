@@ -4,11 +4,11 @@ import CardThree from '../../components/CardThree.tsx';
 import CardTwo from '../../components/CardTwo.tsx';
 import ChartOne from '../../components/ChartOne.tsx';
 import ChartThree from '../../components/ChartThree.tsx';
-import MapOne from '../../components/MapOne.tsx';
+// import MapOne from '../../components/MapOne.tsx';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import WidgetPlaceholder from '../../components/WidgetPlaceholder.tsx';
-import { publicUrl } from '../../utils/publicUrl.ts';
+// import { publicUrl } from '../../utils/publicUrl.ts';
 import { cardData, initialChartData } from '../../data/constants.ts';
 
 const ECommerce = () => {
@@ -17,29 +17,32 @@ const ECommerce = () => {
   const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
-      const result = await axios.get(`${publicUrl()}/admin/allDetails`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        params: {
-          city: 'Pune',
-        },
-      });
-      console.log(result.data);
-      setData(result.data);
-      // setData(cardData);
+      // setLoading(true);
+      // const result = await axios.get(`${publicUrl()}/admin/allDetails`, {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   params: {
+      //     city: 'Pune',
+      //   },
+      // });
+      // console.log(result.data);
+      // setData(result.data);
+      setTimeout(() => {
+        setData(cardData);
+        setChartData(initialChartData);
 
-      const chartResult = await axios.get(`${publicUrl()}/admin/chart-data`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+        setLoading(false);
+      }, 3000);
 
-      console.log('chartResult', chartResult.data);
-      setChartData(chartResult.data);
-      // setChartData(initialChartData);
-      setLoading(false);
+      // const chartResult = await axios.get(`${publicUrl()}/admin/chart-data`, {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      // });
+
+      // console.log('chartResult', chartResult.data);
+      // setChartData(chartResult.data);
     };
 
     fetchData();
@@ -79,7 +82,7 @@ const ECommerce = () => {
           )
         )}
         <ChartThree />
-        <MapOne />
+        {/* <MapOne /> */}
         <div className="col-span-12 xl:col-span-8"></div>
       </div>
     </>
