@@ -4,7 +4,7 @@
 import { Button, Input } from "@nextui-org/react";
 import Image from "next/image";
 import { useEffect, useState, type FC } from "react";
-import Login from "../assets/images/signup.jpg";
+import Login from "../assets/images/login.jpg";
 import useAuthStore from "../utils/auth";
 import usePush from "../components/usePush";
 
