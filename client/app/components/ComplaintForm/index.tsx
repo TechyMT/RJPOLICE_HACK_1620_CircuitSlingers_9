@@ -50,7 +50,7 @@ const ComplaintForm = () => {
     location: "",
     pincode: "",
     description: "",
-    // categoryOfComplaint: "root",
+    categoryOfComplaint: "root",
     questionnaire: [],
     evidencesURL: [],
     isMoneyLost: false,
@@ -111,20 +111,20 @@ const ComplaintForm = () => {
       }
       setLoading(true);
       try {
-        const data = await fetch(`${publicUrl()}/report/generateQuestions`, {
-          method: "POST",
-          body: JSON.stringify({ description: formData.description }),
-        });
-        const { questions } = await data.json();
+        // const data = await fetch(`${publicUrl()}/report/generateQuestions`, {
+        //   method: "POST",
+        //   body: JSON.stringify({ description: formData.description }),
+        // });
+        // const { questions } = await data.json();
 
-        // console.log("questions", questions);
-
-        questions &&
+        console.log("questions", questionaire);
+        setTimeout(() => {
           setFormData((prevData: any) => ({
             ...prevData,
-            questionnaire: questions,
+            questionnaire: questionaire.questions,
           }));
-        setLoading(false);
+          setLoading(false);
+        }, 2000);
       } catch (error) {
         console.log("error", error);
         setLoading(false);
@@ -209,7 +209,7 @@ const ComplaintForm = () => {
           location: "",
           pincode: "",
           description: "",
-          // categoryOfComplaint: "root",
+          categoryOfComplaint: "root",
           isMoneyLost: false,
           victimBank: "root",
           victimAccountNumber: "NA",

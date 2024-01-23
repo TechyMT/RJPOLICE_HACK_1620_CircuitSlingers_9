@@ -32,7 +32,7 @@ export default function RootLayout({
           <Image
             src={HomeBg}
             alt="RBI guidelines"
-            className="-z-50 absolute opacity-65 overflow-x-hidden w-full min-h-screen max-h-screen object-cover"
+            className="-z-50 absolute opacity-50 overflow-x-hidden w-full min-h-screen max-h-screen object-cover "
           />
           {children}
 

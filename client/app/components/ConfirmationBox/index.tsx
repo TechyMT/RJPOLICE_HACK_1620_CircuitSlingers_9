@@ -6,7 +6,7 @@ import useAuthStore from "@/app/utils/auth";
 import { useRouter } from "next/navigation";
 import ModalSuggestions from "../SuggestionModal";
 
-const ConfirmationBox: React.FC<any> = ({ trackId }) => {
+const ConfirmationBox: React.FC<any> = ({ trackId = 69 }) => {
   const router = useRouter();
   console.log("trackId", trackId);
   const signOut = useAuthStore((state: { signOut: any }) => state.signOut);
@@ -45,7 +45,7 @@ const ConfirmationBox: React.FC<any> = ({ trackId }) => {
           Note: Please keep the tracking ID for future references.
         </div>
         <div className="flex space-x-4">
-          <ModalSuggestions  />
+          <ModalSuggestions />
           <Button onClick={handleClose}>Close</Button>
         </div>
       </div>

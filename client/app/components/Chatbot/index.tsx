@@ -36,18 +36,19 @@ const Chatbot: React.FC = () => {
     setUserInput("");
     setLoading(true);
     try {
-      const response = await fetch("api/chat", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query: userInput,
-        }),
-      });
-      const message = await response.json();
-      console.log("message", message);
+      // const response = await fetch("api/chat", {
+      //   method: "POST",
+      //   headers: {
+      //     Accept: "application/json",
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     query: userInput,
+      //   }),
+      // });
+      // const message = await response.json();
+      // console.log("message", message);
+      const message = { title: "This is a test response, as we have stopped the model, and this is the demo stream of text for you. To see an actual demo contact us." };
 
       // Simulate chatbot response (replace this with actual API interaction)
       const newChatbotMessage = { role: "chatbot", message: message.title };
