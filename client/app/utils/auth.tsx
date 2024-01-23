@@ -35,7 +35,10 @@ const useAuthStore = create<any>(
     (set) => ({
       user: auth.currentUser, // Set initial user state based on current user
       isLogedIn: auth.currentUser !== null,
-      caseDetails: null,
+      caseDetails: {
+        trackId: 69,
+        suggestions: "This is a demo suggestion box, you will get optimised suggestion based on your description. We have not connected it with the model. To see the full demo contact us."
+      },
       setCaseDetails: (caseDetails: any) => set({ caseDetails }),
       setUser: (user: null) => set({ user, isLogedIn: user !== null }),
       googleSignIn: async () => {
@@ -54,36 +57,44 @@ const useAuthStore = create<any>(
       },
       emailSignIn: async (email: string, password: string) => {
         try {
+          console.log("email", email);
           const userCredential = await signInWithEmailAndPassword(
             auth,
             email,
             password
-          );
-          const user = userCredential.user;
-          console.log("User Signed In!!!");
-          console.log(user);
-          localStorage.setItem("user", JSON.stringify(user));
-          set({ user, isLogedIn: true });
-        } catch (signInError) {
-          if ((signInError as any).code === "auth/user-not-found") {
-            try {
-              const newUserCredential = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-              );
-              const newUser = newUserCredential.user;
-              console.log("User Signed Up!!!");
-              console.log(newUser);
-              set({ user: newUser, isLogedIn: true });
-            } catch (signUpError) {
-              console.error((signUpError as Error).message);
-            }
-          } else {
-            console.error((signInError as Error).message);
-          }
+          )
+            .then((res) => {
+              console.log(userCredential);
+              set({ user: res.user, isLogedIn: true });
+            })
+            .catch((error) => {
+              console.log("error", error);
+            });
+          // const user = userCredential.user;
+          // console.log("User Signed In!!!");
+          // console.log(user);
+        } catch (signInError: any) {
+          console.log("signInError", signInError);
+          // if (signInError.code === "auth/user-not-found") {
+          //   try {
+          //     const newUserCredential = await createUserWithEmailAndPassword(
+          //       auth,
+          //       email,
+          //       password
+          //     );
+          //     const newUser = newUserCredential.user;
+          //     console.log("User Signed Up!!!");
+          //     console.log(newUser);
+          //     set({ user: newUser, isLogedIn: true });
+          //   } catch (signUpError: any) {
+          //     console.error(signUpError.message);
+          //   }
+          // } else {
+          //   console.error(signInError.message);
+          // }
         }
       },
+
       signOut: async () => {
         try {
           await signOut(auth);

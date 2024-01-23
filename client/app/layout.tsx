@@ -5,6 +5,9 @@ import { Providers } from "./providers";
 import Navbar from "./components/Navbar";
 import HomeNav from "./components/HomeNav";
 import Footer from "./components/Footer";
+import HomeLottie from "./lotties/home.json";
+import Image from "next/image";
+import HomeBg from "./assets/images/home.png";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,8 +29,13 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           <HomeNav />
-
+          <Image
+            src={HomeBg}
+            alt="RBI guidelines"
+            className="-z-50 absolute opacity-50 overflow-x-hidden w-full min-h-screen max-h-screen object-cover "
+          />
           {children}
+
           <Footer />
         </Providers>
       </body>

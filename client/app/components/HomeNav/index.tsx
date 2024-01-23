@@ -121,7 +121,7 @@ const HomeNav = () => {
           </div>
           <div className="flex">
             <Link
-              href="/check-fake-number"
+              href="/checkfakenumber"
               className={`flex items-center ${
                 pathname === "/checkfakenumber"
                   ? "underline underline-offset-8 decoration-primaryRed decoration-4"
@@ -135,7 +135,7 @@ const HomeNav = () => {
           </div>
           <div className="flex">
             <Link
-              href="/check-fake-account"
+              href="/checkfakeaccount"
               className={`flex items-center ${
                 pathname === "/checkfakeaccount"
                   ? "underline underline-offset-8 decoration-red-500 decoration-4"
@@ -144,6 +144,20 @@ const HomeNav = () => {
             >
               <div className="flex items-center text-white cursor-pointer text-lg font-semibold">
                 Check fake account
+              </div>
+            </Link>
+          </div>
+          <div className="flex">
+            <Link
+              href="/report-mail"
+              className={`flex items-center ${
+                pathname === "/report-mail"
+                  ? "underline underline-offset-8 decoration-red-500 decoration-4"
+                  : ""
+              }`}
+            >
+              <div className="flex items-center text-white cursor-pointer text-lg font-semibold">
+                Report Mail
               </div>
             </Link>
           </div>
@@ -164,36 +178,80 @@ const HomeNav = () => {
           <div className="flex items-center gap-4">
             <div>
               <Link
-                href="https://www.instagram.com/PoliceRajasthan/ "
-                target="_blank"
-                className={`flex items-center`}
+                href="/check-fake-number"
+                className={`flex items-center ${
+                  pathname === "/checkfakenumber"
+                    ? "underline underline-offset-8 decoration-primaryRed decoration-4"
+                    : ""
+                }`}
               >
-                <div>
-                  <Icon icon="instagram" width={30} />
+                <div className="flex items-center text-white cursor-pointer text-lg font-semibold">
+                  Check fake number
                 </div>
               </Link>
             </div>
-            <div>
+            <div className="flex">
               <Link
-                href="https://www.facebook.com/PoliceRajasthan/?locale=hi_IN"
-                target="_blank"
-                className={`flex items-center`}
+                href="/check-fake-account"
+                className={`flex items-center ${
+                  pathname === "/checkfakeaccount"
+                    ? "underline underline-offset-8 decoration-red-500 decoration-4"
+                    : ""
+                }`}
               >
-                <div>
-                  <Icon icon="facebook" width={30} />
+                <div className="flex items-center text-white cursor-pointer text-lg font-semibold">
+                  Check fake account
                 </div>
               </Link>
             </div>
-            <div>
+            <div className="flex">
               <Link
-                href="https://twitter.com/PoliceRajasthan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
-                target="_blank"
-                className={`flex items-center`}
+                href="/about"
+                className={`flex items-center ${
+                  pathname === "/about"
+                    ? "underline underline-offset-8 decoration-red-500 decoration-4"
+                    : ""
+                }`}
               >
-                <div>
-                  <Icon icon="twitter" width={30} />
+                <div className="flex items-center text-white cursor-pointer text-lg font-semibold">
+                  About
                 </div>
               </Link>
+            </div>
+            <div className="flex items-center gap-4">
+              <div>
+                <Link
+                  href="https://www.instagram.com/PoliceRajasthan/ "
+                  target="_blank"
+                  className={`flex items-center`}
+                >
+                  <div>
+                    <Icon icon="instagram" width={30} />
+                  </div>
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="https://www.facebook.com/PoliceRajasthan/?locale=hi_IN"
+                  target="_blank"
+                  className={`flex items-center`}
+                >
+                  <div>
+                    <Icon icon="facebook" width={30} />
+                  </div>
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="https://twitter.com/PoliceRajasthan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+                  target="_blank"
+                  className={`flex items-center`}
+                >
+                  <div>
+                    <Icon icon="twitter" width={30} />
+                  </div>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

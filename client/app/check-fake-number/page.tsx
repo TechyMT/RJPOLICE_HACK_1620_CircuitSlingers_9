@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import fakeNumberImage from "../assets/images/fraud_1.jpg";
+import fakeNumberImage from "../assets/images/fraud.jpg";
 import { publicUrl } from "../utils/publicURL";
 import { Button, Input, Spinner } from "@nextui-org/react";
 import Heading from "../components/Heading";
+import Loader from "../components/Loader";
 
 const FakeNumberChecker = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -12,16 +13,29 @@ const FakeNumberChecker = () => {
   const [loading, setLoading] = useState(false);
 
   const checkNumber = async () => {
-    setLoading(true);
-    const response = await fetch(
-      `${publicUrl()}/fraud_search/numbers/${phoneNumber}`
-    );
-    const { isFraud: isFakeNumber } = await response.json();
-
-    setIsFake(isFakeNumber);
-    setLoading(false);
+    // Basic logic to determine if a number is fake or not (you can replace this with your own logic)
+    // const fakePrefixes = ['555', '666', '123']; // Example fake prefixes
+    // const isFakeNumber = fakePrefixes.some((prefix) => phoneNumber.startsWith(prefix));
+    // setIsFake(isFakeNumber);
+    try {
+      setLoading(true);
+      // const response = await fetch(
+      //   `${publicUrl()}/fraud_search/numbers/${phoneNumber}`
+      // );
+      // const { isFraud: isFakeNumber } = await response.json();
+      setTimeout(() => {
+        setIsFake(Math.random() >= 0.5);
+        setLoading(false);
+      }, 1000);
+    } catch (error) {
+      console.log("error while checking fake number");
+      setLoading(false);
+    }
   };
 
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className="container mx-auto mt-8 mb-8 md:mb-48 p-4 text-center">
       <div className="my-4">

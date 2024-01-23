@@ -17,6 +17,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
         </div>
         <div className="flex gap-6 w-full">
           <Input
+            classNames={{
+              inputWrapper: "bg-white",
+            }}
             label="Name"
             value={formData.name}
             disabled
@@ -26,6 +29,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
             labelPlacement="outside"
           />
           <Input
+            classNames={{
+              inputWrapper: "bg-white",
+            }}
             label="Phone Number"
             value={formData.phoneNumber}
             disabled
@@ -35,6 +41,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
             labelPlacement="outside"
           />
           <Input
+            classNames={{
+              inputWrapper: "bg-white",
+            }}
             label="DOB"
             value={formData.dob}
             disabled
@@ -46,6 +55,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
         </div>
         <div className="flex gap-6 w-full">
           <Input
+            classNames={{
+              inputWrapper: "bg-white",
+            }}
             label="City"
             value={formData.location}
             disabled
@@ -55,6 +67,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
             labelPlacement="outside"
           />
           <Input
+            classNames={{
+              inputWrapper: "bg-white",
+            }}
             label="Pincode"
             value={formData.pincode}
             disabled
@@ -64,6 +79,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
             labelPlacement="outside"
           />
           <Input
+            classNames={{
+              inputWrapper: "bg-white",
+            }}
             label="Have you lost money?"
             value={formData.isMoneyLost ? "Yes" : "No"}
             disabled
@@ -75,6 +93,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
         </div>
         <div className="flex gap-6 w-full">
           <Input
+            classNames={{
+              inputWrapper: "bg-white",
+            }}
             label="Adhaar Number"
             value={formData.adhaarNumber}
             disabled
@@ -84,6 +105,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
             labelPlacement="outside"
           />
           <Input
+            classNames={{
+              inputWrapper: "bg-white",
+            }}
             label="Type of Complaint"
             value={formData.categoryOfComplaint}
             disabled
@@ -93,6 +117,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
             labelPlacement="outside"
           />
           <Input
+            classNames={{
+              inputWrapper: "bg-white",
+            }}
             label="Date of Incident"
             value={formData.crimeDate}
             disabled
@@ -115,31 +142,63 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
             color="primary"
             size="lg"
             labelPlacement="outside"
+            classNames={{
+              inputWrapper: "bg-white",
+            }}
           />
         </div>
-        <Divider />
 
-        <SubHeading>Questionnaire</SubHeading>
-        {formData.questionnaire.map((question: any, index: number) => (
-          <div className="flex gap-6 w-full" key={index}>
+        {formData.questionnaire && formData.questionnaire.response && (
+          <>
+            <Divider />
+            <SubHeading>Questionnaire</SubHeading>
+            {formData.questionnaire.map((question: any, index: number) => (
+              <div className="flex gap-6 w-full" key={index}>
+                <Textarea
+                  label={question.question}
+                  value={question.response}
+                  disabled
+                  variant="bordered"
+                  color="primary"
+                  size="lg"
+                  labelPlacement="outside"
+                  classNames={{
+                    inputWrapper: "bg-white",
+                  }}
+                />
+              </div>
+            ))}
+          </>
+        )}
+        {formData.message && (
+          <>
+            <Divider />
+            <SubHeading>Suspicious Message</SubHeading>
             <Textarea
-              label={question.question}
-              value={question.response}
+              label="Suspicious Message"
+              value={formData.message}
               disabled
               variant="bordered"
               color="primary"
               size="lg"
               labelPlacement="outside"
+              classNames={{
+                inputWrapper: "bg-white",
+              }}
             />
-          </div>
-        ))}
-        <Divider />
+          </>
+        )}
+
         {formData.isMoneyLost && (
           <div className="flex flex-col gap-10 items-center w-full">
+            <Divider />
             <SubHeading>Victim Account Details</SubHeading>
 
             <div className="flex gap-6 w-full">
               <Input
+                classNames={{
+                  inputWrapper: "bg-white",
+                }}
                 label="Bank"
                 value={formData.victimBank}
                 disabled
@@ -149,6 +208,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
                 labelPlacement="outside"
               />
               <Input
+                classNames={{
+                  inputWrapper: "bg-white",
+                }}
                 label="Account Number"
                 value={formData.victimAccountNumber}
                 disabled
@@ -160,6 +222,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
             </div>
             <div className="flex gap-6 w-full">
               <Input
+                classNames={{
+                  inputWrapper: "bg-white",
+                }}
                 label="Transaction ID"
                 value={formData.victimTransactionId}
                 disabled
@@ -169,6 +234,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
                 labelPlacement="outside"
               />
               <Input
+                classNames={{
+                  inputWrapper: "bg-white",
+                }}
                 label="Amount Lost"
                 value={formData.victimAmountLost}
                 disabled
@@ -178,6 +246,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
                 labelPlacement="outside"
               />
               <Input
+                classNames={{
+                  inputWrapper: "bg-white",
+                }}
                 label="Date"
                 value={formData.transactionDate}
                 disabled
@@ -195,6 +266,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
 
                 <div className="flex gap-6 w-full">
                   <Input
+                    classNames={{
+                      inputWrapper: "bg-white",
+                    }}
                     label="Account Number"
                     value={formData.suspectAccountNumber}
                     disabled
@@ -204,6 +278,9 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
                     labelPlacement="outside"
                   />
                   <Input
+                    classNames={{
+                      inputWrapper: "bg-white",
+                    }}
                     label="Phone Number"
                     value={formData.suspectBank}
                     disabled

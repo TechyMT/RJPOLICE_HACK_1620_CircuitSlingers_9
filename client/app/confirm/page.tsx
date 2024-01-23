@@ -19,12 +19,16 @@ const Confirmation = () => {
     }
     setCaseData(caseDetails);
   }, []);
-  if (caseData)
+  if (caseDetails) {
     return (
       <div className="flex justify-center m-12">
-        <ConfirmationBox trackId={caseData.trackId} />
+        <ConfirmationBox
+          trackId={caseDetails.trackId}
+          suggestions={caseDetails.suggestions}
+        />
       </div>
     );
+  }
 };
 
 export default Confirmation;

@@ -5,12 +5,12 @@ import Marquee from "react-fast-marquee";
 
 import AwarenessImage_1 from "../../assets/images/aware_1.jpeg";
 import AwarenessImage_2 from "../../assets/images/aware_2.jpeg";
-import AwarenessImage_3 from "../../assets/images/aware_3.jpeg";
-import AwarenessImage_4 from "../../assets/images/aware_4.jpeg";
-import AwarenessImage_5 from "../../assets/images/aware_5.jpeg";
-import AwarenessImage_6 from "../../assets/images/aware_6.jpeg";
-import AwarenessImage_7 from "../../assets/images/aware_7.jpeg";
-import AwarenessImage_8 from "../../assets/images/aware_8.jpg";
+import AwarenessImage_3 from "../../assets/images/aware_3.png";
+import AwarenessImage_4 from "../../assets/images/aware_4.png";
+import AwarenessImage_5 from "../../assets/images/aware_5.png";
+import AwarenessImage_6 from "../../assets/images/aware_6.png";
+import AwarenessImage_7 from "../../assets/images/aware_7.png";
+import AwarenessImage_8 from "../../assets/images/aware_8.png";
 
 const awarenessImages = [
   AwarenessImage_1,
@@ -32,7 +32,7 @@ const AwarenessMarquee = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const isOpen = selectedImage ? true : false;
 
-  const openModal = (image:any) => {
+  const openModal = (image: any) => {
     setSelectedImage(image);
   };
 

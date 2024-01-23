@@ -16,6 +16,7 @@ import { categories } from "../../data/constants";
 import EvidenceBox from "../EvidentBox";
 import { uploadFiles } from "../../utils/firebase";
 import useAuthStore from "../../utils/auth";
+import AudioPlayer from "../VoicePlayer";
 
 interface FormProps {
   formData: any;
@@ -26,7 +27,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
   const [lostMoney, setLostMoney] = React.useState(false);
   const [suspectAccount, setSuspectAccount] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const user = useAuthStore((state: { user: any; }) => state.user);
+  const user = useAuthStore((state: { user: any }) => state.user);
   const handleChange = (value: string) => {
     onChange("isMoneyLost", value === "yes");
     setLostMoney(value === "yes");
@@ -59,21 +60,23 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
   return (
     <>
       <div className="flex flex-col gap-10 items-center">
-        <div className="flex justify-start w-full">
+        <div className="flex justify-start w-full gap-4">
           <Checkbox onChange={(e) => onChange("selfFill", e.target.checked)}>
             I am filling the form for myself (keep this unchecked if you are
             not)
           </Checkbox>
+          <AudioPlayer audioSource="/voice/4.mp3" />
         </div>
-        <div className="flex w-full">
+        <div className="flex w-full gap-4">
           <Select
-            label="Category of complaint"
+            label="Category of complaint/श्रेणी"
             labelPlacement="outside-left"
             classNames={{
               trigger: "bg-white",
               label: "w-48",
             }}
             variant="bordered"
+            color="primary"
             isRequired
             size="lg"
             onChange={(e) => {
@@ -88,10 +91,12 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               <SelectItem key={category.value}>{category.name}</SelectItem>
             )}
           </Select>
+          <AudioPlayer audioSource="/voice/2.mp3" />
+
         </div>
-        <div className="flex w-full">
+        <div className="flex w-full gap-4">
           <RadioGroup
-            label="Have you lost money?"
+            label="Have you lost money?/क्या बैंक शामिल है"
             classNames={{}}
             isRequired
             size="lg"
@@ -104,16 +109,18 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
             <Radio value="yes">Yes</Radio>
             <Radio value="no">No</Radio>
           </RadioGroup>
+          <AudioPlayer audioSource="/voice/3.mp3" />
         </div>
         {formData.isMoneyLost && (
           <div className="flex flex-col w-full gap-10">
             <Divider orientation="horizontal" />
             <div className="flex p-4 bg-primary justify-center text-white w-1/6">
               Victim Account Details
+              <AudioPlayer audioSource="/voice/victimAc.mp3" />
             </div>
             <VictimForm formData={formData} onChange={onChange} />
             <Divider />
-            <div>
+            <div className="flex w-full gap-4">
               <RadioGroup
                 label="Do you have suspect account details?"
                 isRequired
@@ -127,6 +134,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
                 <Radio value="yes">Yes</Radio>
                 <Radio value="no">No</Radio>
               </RadioGroup>
+              <AudioPlayer audioSource="/voice/QnSuscpect.mp3" />
             </div>
 
             {formData.suspect && (
@@ -134,17 +142,19 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
                 <Divider />
                 <div className="flex p-4 bg-primary justify-center text-white w-1/6">
                   Suspect Account Details
+                  <AudioPlayer audioSource="/voice/suspectAc.mp3" />
                 </div>
                 <SuspectForm formData={formData} onChange={onChange} />
               </div>
             )}
           </div>
         )}
+
         <Divider />
         <div className="flex w-full flex-col gap-10">
-          <div className="flex w-full h-[8vh]">
+          <div className="flex w-full h-[8vh] gap-4">
             <Input
-              label="Approximate date & time of Incident/receiving/viewing of content "
+              label="Approximate date & time of Incident/receiving/viewing of content/अपराध की तारीख'"
               placeholder="Enter transaction date"
               type="date"
               value={formData.crimeDate}
@@ -155,13 +165,16 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               size="lg"
               classNames={{
                 label: "w-[20vw] text-wrap text-start",
-                inputWrapper: "w-[30vw]",
+                inputWrapper: "w-[30vw] bg-white",
               }}
+              color="primary"
             />
+                      <AudioPlayer audioSource="/voice/1.mp3" />
+
           </div>
-          <div>
+          <div className="flex w-full gap-4">
             <Textarea
-              label="Brief description of the incident"
+              label="Brief description of the incident/घटना का विवरण"
               placeholder="Enter brief description"
               value={formData.description}
               onChange={(e) => onChange("description", e.target.value)}
@@ -170,8 +183,25 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               labelPlacement="outside"
               size="lg"
               minRows={8}
+              color="primary"
+              classNames={{
+                inputWrapper: "bg-white",
+              }}
             />
+            <AudioPlayer audioSource="/voice/briefDesc.mp3" />
           </div>
+        </div>
+        <div className="flex w-full gap-4">
+          <Textarea
+            label="Suspicious Message"
+            labelPlacement="outside"
+            minRows={4}
+            color="primary"
+            variant="bordered"
+            value={formData.message}
+            onChange={(e) => onChange("message", e.target.value)}
+          />
+          <AudioPlayer audioSource="/voice/Scam.mp3" />
         </div>
         <div>
           <div className="w-full">

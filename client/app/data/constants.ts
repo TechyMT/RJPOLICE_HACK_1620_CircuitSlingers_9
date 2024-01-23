@@ -5,12 +5,22 @@ export const categories = [
     },
     {
         name: "Financial Fraud",
-        value: 'financialfraud',
+        value: 'Financial Fraud',
     },
     {
-        name: "Other",
-        value: "other",
-    }
+        name: "Phishing Scams",
+        value: "Phishing Scams"
+    },
+    { name: "Identity Theft", value: "Identity Theft" },
+    { name: "Online Shopping Fraud", value: "Online Shopping Fraud" },
+    {
+        name: "Ransomware Attacks",
+        value: "Ransomware Attacks"
+    },
+    {
+        name: "Social Engineering",
+        value: "Social Engineering"
+    },
 ];
 
 export const banks = [

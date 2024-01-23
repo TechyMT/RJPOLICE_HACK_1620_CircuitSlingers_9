@@ -6,7 +6,7 @@ const SuspectForm = ({ formData, onChange }: any) => {
     <div className="flex flex-col gap-10">
       <div className="flex gap-6 items-center">
         <Select
-          label="Bank/ (Wallet/ PG/ PA) /Merchant"
+          label="Bank/ (Wallet/ PG/ PA) /Merchan/शंका जनक बैंक का नाम"
           placeholder="--Select--"
           size="lg"
           labelPlacement="outside"
@@ -25,7 +25,7 @@ const SuspectForm = ({ formData, onChange }: any) => {
       </div>
       <div className="flex gap-6">
         <Input
-          label="Account No./Wallet Id/Merchant Id/UPI Id"
+          label="Account No./Wallet Id/Merchant Id/UPI Id/शंका जनक खाता संख्या"
           placeholder="Enter account number"
           type="number"
           value={formData.suspectAccountNumber}

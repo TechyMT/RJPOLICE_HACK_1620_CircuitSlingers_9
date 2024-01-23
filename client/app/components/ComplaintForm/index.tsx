@@ -17,7 +17,7 @@ import ConfirmForm from "../ConfirmForm";
 import { questionaire } from "../../data/constants";
 import DynamicForm from "../DynamicForm";
 import { useRouter } from "next/navigation";
-
+import Loader from "../Loader";
 export const categories = [
   "Identity Fraud",
   "Criminal Trespass",
@@ -43,6 +43,7 @@ const ComplaintForm = () => {
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
 
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<any>({
     name: "",
     phoneNumber: "",
@@ -68,6 +69,7 @@ const ComplaintForm = () => {
     adhaarNumber: "",
     evidencesList: [],
     selfFill: false,
+    message: "",
   });
   const [step, setStep] = useState(1);
   const [dynamicForm, setDynamicForm] = useState<any>(null);
@@ -107,25 +109,44 @@ const ComplaintForm = () => {
         alert("Please upload evidence");
         return;
       }
+      setLoading(true);
+      try {
+        // const data = await fetch(`${publicUrl()}/report/generateQuestions`, {
+        //   method: "POST",
+        //   body: JSON.stringify({ description: formData.description }),
+        // });
+        // const { questions } = await data.json();
 
-      const data = await fetch(`${publicUrl()}/report/generateQuestions`, {
-        method: "POST",
-        body: JSON.stringify(formData.description),
-      });
-      const { questions } = await data.json();
-
-      // console.log("questions", questions);
-
-      questions &&
-        setFormData((prevData: any) => ({
-          ...prevData,
-          questionnaire: questions,
-        }));
+        console.log("questions", questionaire);
+        setTimeout(() => {
+          setFormData((prevData: any) => ({
+            ...prevData,
+            questionnaire: questionaire.questions,
+          }));
+          setLoading(false);
+        }, 2000);
+      } catch (error) {
+        console.log("error", error);
+        setLoading(false);
+      }
     } else if (step === 4) {
       // Handle form submission logic here
       console.log("Form Data:", formData);
       console.log("user", user);
       setSubmitLoading(true);
+
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      let mm = today.getMonth() + 1; // Months start at 0!
+      let dd = today.getDate();
+      let MM = mm.toString();
+      let DD = dd.toString();
+
+      if (dd < 10) DD = "0" + DD;
+      if (mm < 10) MM = "0" + MM;
+
+      const reportedDate = DD + "-" + MM + "-" + yyyy;
+      console.log("reportedDate", reportedDate);
       // Reset the form after submission if needed
       const body = {
         email: user.email,
@@ -135,7 +156,7 @@ const ComplaintForm = () => {
         aadharNumber: formData.adhaarNumber,
         incidentDescription: formData.description,
         dateOfCrime: formData.crimeDate,
-        dateOfReport: new Date().toISOString(),
+        dateOfReport: reportedDate,
         phoneNumber: formData.phoneNumber,
         evidencesURL: [],
         city: formData.location,
@@ -148,6 +169,7 @@ const ComplaintForm = () => {
           dateOfTransaction: formData.transactionDate,
           transaction: formData.victimTransactionId,
         },
+        analysisMaterial: formData.message,
         suspectInfo: {
           suspectBankName: formData.suspectBank,
           suspectAccountNumber: formData.suspectAccountNumber,
@@ -159,46 +181,70 @@ const ComplaintForm = () => {
       };
       console.log("body", body);
       console.log("okay user", user);
+      try {
+        // const data = await fetch(`${publicUrl()}/report/add`, {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   method: "POST",
+        //   body: JSON.stringify(body),
+        // });
+        // const response = await data.json();
 
-      const data = await fetch(`${publicUrl()}/report/add`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(body),
-      });
-      const response = await data.json();
+        // fetch(`${publicUrl()}/admin/getAnalysis`, {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   method: "POST",
+        //   body: JSON.stringify({
+        //     category: formData.categoryOfComplaint,
+        //     message: formData.message,
+        //     reportDate: reportedDate,
+        //   }),
+        // });
 
-      setFormData({
-        name: "",
-        phoneNumber: "",
-        location: "",
-        pincode: "",
-        description: "",
-        categoryOfComplaint: "root",
-        isMoneyLost: false,
-        victimBank: "root",
-        victimAccountNumber: "NA",
-        victimTransactionId: "NA",
-        victimAmountLost: "NA",
-        suspect: false,
-        suspectBank: "root",
-        suspectAccountNumber: "NA",
-        suspectPhoneNumber: "NA",
-        suspectTransactionId: "NA",
-        transactionDate: "NA",
-        evidencesURL: [],
-        crimeDate: "",
-        dob: "",
-        adhaarNumber: "",
-        evidencesList: [],
-        questionnaire: [],
-        selfFill: false,
-      });
-      setSubmitLoading(false);
-      setCaseDetails(response);
-      setFormSubmitted(true);
-      router.push(`/confirm`);
+        setFormData({
+          name: "",
+          phoneNumber: "",
+          location: "",
+          pincode: "",
+          description: "",
+          categoryOfComplaint: "root",
+          isMoneyLost: false,
+          victimBank: "root",
+          victimAccountNumber: "NA",
+          victimTransactionId: "NA",
+          victimAmountLost: "NA",
+          suspect: false,
+          suspectBank: "root",
+          suspectAccountNumber: "NA",
+          suspectPhoneNumber: "NA",
+          suspectTransactionId: "NA",
+          transactionDate: "NA",
+          evidencesURL: [],
+          crimeDate: "",
+          dob: "",
+          adhaarNumber: "",
+          evidencesList: [],
+          questionnaire: [],
+          selfFill: false,
+          message: "",
+        });
+        setTimeout(() => {
+          setSubmitLoading(false);
+          setCaseDetails({
+            trackId: 69,
+            suggestions:
+              "This is a demo suggestion box, you will get optimised suggestion based on your description. We have not connected it with the model. To see the full demo contact us.",
+          });
+          setFormSubmitted(true);
+
+          router.push(`/confirm`);
+        },3000);
+      } catch (error) {
+        console.log("error", error);
+        setSubmitLoading(false);
+      }
     }
 
     // Move to the next step or submit the form
@@ -220,6 +266,9 @@ const ComplaintForm = () => {
       window.removeEventListener("beforeunload", alertUser);
     };
   }, [formSubmitted]);
+  if (loading || submitLoading) {
+    return <Loader />;
+  }
   return (
     <div className="flex flex-col justify-around items-center gap-10 py-8 ">
       <div className="flex justify-center items-center w-full">
@@ -234,10 +283,7 @@ const ComplaintForm = () => {
           {/* Updated class to items-end */}
           <div>
             Now signed in as:{" "}
-            {user && (
-              <span className="text-primary">{user.displayName}</span>
-            )}
-                
+            {user && <span className="text-primary">{user.displayName}</span>}
           </div>
           <div>
             <Button onClick={handleSignOut} color="danger">

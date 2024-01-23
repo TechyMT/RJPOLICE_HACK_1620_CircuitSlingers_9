@@ -1,0 +1,12 @@
+@keyframes rgbEffect {
+    0% { color: red; }
+    25% { color: green; }
+    50% { color: pink; }
+    75% { color: yellow; }
+    100% { color: red; }
+  }
+  
+  .rgbText {
+    animation: rgbEffect 2s linear infinite;
+  }
+  

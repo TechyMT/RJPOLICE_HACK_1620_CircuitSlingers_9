@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { faqs } from "@/app/data/constants";
 import Heading from "../Heading";
+import Image from "next/image";
+import HomeBg from "../../assets/images/home.png";
 
 const FaqItem: React.FC<any> = ({ question, answer, isOpen, toggle }) => (
   <div className="flex flex-col w-full md:w-1/2 lg:w-1/3 p-2">
@@ -31,20 +33,27 @@ const App = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto mt-8">
-      <Heading>Frequently Asked Questions</Heading>
-      <div className="flex flex-wrap my-12">
-        {faqs.map((faq, index) => (
-          <FaqItem
-            key={index}
-            question={faq.question}
-            answer={faq.answer}
-            isOpen={openFaq === index}
-            toggle={() => toggleFaq(index)}
-          />
-        ))}
+    <>
+      <Image
+        src={HomeBg}
+        alt="RBI guidelines"
+        className="-z-50 absolute max-h-screen object-cover opacity-65 max-w-full overflow-x-hidden"
+      />
+      <div className="max-w-screen-xl mx-auto mt-8">
+        <Heading>Frequently Asked Questions</Heading>
+        <div className="flex flex-wrap my-12">
+          {faqs.map((faq, index) => (
+            <FaqItem
+              key={index}
+              question={faq.question}
+              answer={faq.answer}
+              isOpen={openFaq === index}
+              toggle={() => toggleFaq(index)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
