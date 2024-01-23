@@ -60,14 +60,14 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
   return (
     <>
       <div className="flex flex-col gap-10 items-center">
-        <div className="flex justify-start w-full gap-4">
+        <div className="flex flex-col md:flex-row justify-start w-full gap-4">
           <Checkbox onChange={(e) => onChange("selfFill", e.target.checked)}>
             I am filling the form for myself (keep this unchecked if you are
             not)
           </Checkbox>
           <AudioPlayer audioSource="/voice/4.mp3" />
         </div>
-        <div className="flex w-full gap-4">
+        <div className="flex flex-col md:flex-row justify-start w-full gap-4">
           <Select
             label="Category of complaint/श्रेणी"
             labelPlacement="outside-left"
@@ -92,9 +92,8 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
             )}
           </Select>
           <AudioPlayer audioSource="/voice/2.mp3" />
-
         </div>
-        <div className="flex w-full gap-4">
+        <div className="flex flex-col md:flex-row justify-start w-full gap-4">
           <RadioGroup
             label="Have you lost money?/क्या बैंक शामिल है"
             classNames={{}}
@@ -114,13 +113,13 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
         {formData.isMoneyLost && (
           <div className="flex flex-col w-full gap-10">
             <Divider orientation="horizontal" />
-            <div className="flex p-4 bg-primary justify-center text-white w-1/6">
+            <div className="flex gap-4 p-4 bg-primary justify-center text-white md:w-1/6">
               Victim Account Details
               <AudioPlayer audioSource="/voice/victimAc.mp3" />
             </div>
             <VictimForm formData={formData} onChange={onChange} />
             <Divider />
-            <div className="flex w-full gap-4">
+            <div className="flex flex-col md:flex-row justify-start w-full gap-4">
               <RadioGroup
                 label="Do you have suspect account details?"
                 isRequired
@@ -140,7 +139,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
             {formData.suspect && (
               <div className="flex flex-col w-full gap-8">
                 <Divider />
-                <div className="flex p-4 bg-primary justify-center text-white w-1/6">
+                <div className="flex p-4 bg-primary justify-center text-white md:w-1/6 gap-4">
                   Suspect Account Details
                   <AudioPlayer audioSource="/voice/suspectAc.mp3" />
                 </div>
@@ -152,7 +151,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
 
         <Divider />
         <div className="flex w-full flex-col gap-10">
-          <div className="flex w-full h-[8vh] gap-4">
+          <div className="flex w-full md:h-[8vh] flex-col md:flex-row gap-4">
             <Input
               label="Approximate date & time of Incident/receiving/viewing of content/अपराध की तारीख'"
               placeholder="Enter transaction date"
@@ -164,15 +163,14 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
               labelPlacement="outside-left"
               size="lg"
               classNames={{
-                label: "w-[20vw] text-wrap text-start",
-                inputWrapper: "w-[30vw] bg-white",
+                label: "md:w-[20vw] text-wrap text-start",
+                inputWrapper: "md:w-[30vw] bg-white",
               }}
               color="primary"
             />
-                      <AudioPlayer audioSource="/voice/1.mp3" />
-
+            <AudioPlayer audioSource="/voice/1.mp3" />
           </div>
-          <div className="flex w-full gap-4">
+          <div className="flex flex-col md:flex-row justify-start w-full gap-4">
             <Textarea
               label="Brief description of the incident/घटना का विवरण"
               placeholder="Enter brief description"
@@ -191,7 +189,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
             <AudioPlayer audioSource="/voice/briefDesc.mp3" />
           </div>
         </div>
-        <div className="flex w-full gap-4">
+        <div className="flex flex-col md:flex-row justify-start w-full gap-4">
           <Textarea
             label="Suspicious Message"
             labelPlacement="outside"

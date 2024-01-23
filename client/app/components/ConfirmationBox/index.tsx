@@ -17,10 +17,10 @@ const ConfirmationBox: React.FC<any> = ({ trackId = 69 }) => {
 
   if (trackId) {
     return (
-      <div className="flex flex-col items-center justify-center bg-green-50 p-10 rounded-lg shadow-md w-[70vw] max-w-screen-md mx-auto">
+      <div className="flex flex-col items-center justify-center bg-green-50 p-10 rounded-lg shadow-md md:w-[70vw] max-w-screen-md mx-auto">
         <div className="flex items-center text-3xl font-extrabold mb-6">
           <div className="mr-2">
-            <Image src={Logo} alt="logo" className="w-10 h-8" />
+            <Image src={Logo} alt="logo" className="md:w-10 w-12 h-8" />
           </div>
           <div>
             <span className="text-2xl">Rajasthan Police</span>{" "}
@@ -46,7 +46,7 @@ const ConfirmationBox: React.FC<any> = ({ trackId = 69 }) => {
         </div>
         <div className="flex space-x-4">
           <ModalSuggestions />
-          <Button onClick={handleClose}>Close</Button>
+          <Button size="lg" onClick={handleClose}>Close</Button>
         </div>
       </div>
     );

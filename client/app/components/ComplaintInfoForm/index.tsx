@@ -12,8 +12,8 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
     <>
       <div className="flex flex-1 w-full gap-6">
         <div className="flex flex-col gap-10 w-full">
-          <div className="flex w-full gap-8">
-            <div className="flex flex-col w-full">
+          <div className="flex w-full gap-8 flex-col md:flex-row">
+            <div className="flex flex-col w-full gap-4 md:gap-2">
               <Input
                 classNames={{
                   inputWrapper: "bg-white",
@@ -31,7 +31,7 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
               />
               <AudioPlayer audioSource="/voice/name.mp3" />
             </div>
-            <div className="flex flex-col  w-full">
+            <div className="flex flex-col w-full gap-4 md:gap-2">
               <Input
                 classNames={{
                   inputWrapper: "bg-white",
@@ -50,8 +50,8 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
               <AudioPlayer audioSource="/voice/phone.mp3" />
             </div>
           </div>
-          <div className="flex w-full gap-8">
-            <div className="flex flex-col  w-full">
+          <div className="flex w-full gap-8 flex-col md:flex-row">
+            <div className="flex flex-col w-full gap-4 md:gap-2">
               <Input
                 classNames={{
                   inputWrapper: "bg-white",
@@ -69,7 +69,7 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
               />
               <AudioPlayer audioSource="/voice/city.mp3" />
             </div>
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full gap-4 md:gap-2">
               <Input
                 classNames={{
                   inputWrapper: "bg-white",
@@ -88,8 +88,8 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
               <AudioPlayer audioSource="/voice/aadhar.mp3" />
             </div>
           </div>
-          <div className="flex w-full gap-8">
-            <div className="flex flex-col w-full">
+          <div className="flex w-full gap-8 flex-col md:flex-row">
+            <div className="flex flex-col w-full gap-4 md:gap-2">
               <Input
                 classNames={{
                   inputWrapper: "bg-white",
@@ -107,7 +107,7 @@ const ComplaintInfoForm: React.FC<FormProps> = ({ formData, onChange }) => {
               />
               <AudioPlayer audioSource="/voice/dob.mp3" />
             </div>
-            <div className="flex flex-col  w-full">
+            <div className="flex flex-col w-full gap-4 md:gap-2">
               <Input
                 classNames={{
                   inputWrapper: "bg-white",

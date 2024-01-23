@@ -8,7 +8,7 @@ const Alert = () => {
       <Marquee>
         <div className="flex animate-pulse">
           <div
-            className={`font-extrabold text-xl bg-clip-text m-2 ${styles.rgbText}`}
+            className={`font-extrabold text-md md:text-xl bg-clip-text m-2 ${styles.rgbText}`}
           >
             🚨 Fraud Alert: Beware of phishing emails posing as bank
             communication. They may contain malicious links aimed at stealing

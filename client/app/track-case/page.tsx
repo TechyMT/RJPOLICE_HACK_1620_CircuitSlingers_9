@@ -89,14 +89,14 @@ const TrackStatus = () => {
       </div>
       {status && (
         <>
-          <div className="flex flex-col border-gray border-2 w-unit-9xl items-center mx-auto p-4 gap-8 mt-20 bg-white bg-opacity-65">
+          <div className="flex flex-col border-gray border-2 md:w-unit-9xl  items-center mx-8 md:mx-auto p-4 gap-8 mt-20 bg-white bg-opacity-65">
             <div>
               <SubHeading>
                 Status for Track ID:{" "}
                 <span className="text-primary">{trackId}</span>
               </SubHeading>
             </div>
-            <div className="flex justify-center mx-auto w-unit-8xl ">
+            <div className="flex justify-center mx-auto md:w-unit-8xl ">
               <Progress
                 label={"Current Status: " + status.currentStatus}
                 value={status.flag === 0 ? 25 : status.flag === 1 ? 50 : 100}

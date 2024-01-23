@@ -45,11 +45,11 @@ export default function Home() {
       </div>
       <div className="flex flex-col gap-20">
         <div className="flex flex-col w-full relative">
-          <div className="flex absolute z-10 top-56 cursor-pointer right-4 hover:bg-white bg-black bg-opacity-25 p-4 rounded-full image-swiper-button-next ">
+          <div className="flex absolute z-10 top-56 cursor-pointer right-4 hover:bg-white bg-black bg-opacity-25 md:p-4 rounded-full image-swiper-button-next ">
             <Icon icon="navright" width={30} />
           </div>
-          <div className="flex absolute z-10 top-56 cursor-pointer left-4 hover:bg-white bg-black bg-opacity-25 p-4 rounded-full image-swiper-button-prev">
-            <Icon icon="navleft" />
+          <div className="flex absolute z-10 top-56 cursor-pointer left-4 hover:bg-white bg-black bg-opacity-25 md:p-4 rounded-full image-swiper-button-prev">
+            <Icon icon="navleft" width={30} />
           </div>
           <Swiper
             slidesPerView={1}
@@ -71,7 +71,7 @@ export default function Home() {
                 <SwiperSlide key={index}>
                   <Image
                     key={index}
-                    className="object-fill w-full h-[80vh]"
+                    className="object-fill w-full md:h-[80vh] h-[60vh]"
                     src={image}
                     alt="hero"
                     loading="lazy"
@@ -82,45 +82,47 @@ export default function Home() {
             })}
           </Swiper>
 
-          <div className="flex gap-20 justify-evenly z-10 relative mt-[10px] rounded-3xl mx-8 bg-primary py-4">
+          <div className="flex flex-col md:flex-row gap-20 items-center md:justify-evenly z-10 relative mt-[10px] rounded-3xl mx-16 md:mx-8 bg-primary py-4">
             <Link href={"/online-reporting"}>
-              <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white">
+              <div className="flex flex-col items-center justify-around w-[50vw] md:w-[15vw] md:h-[40vh] h-[30vh] p-2 bg-primary rounded-3xl border-2 border-white">
                 <div>
-                  <Icon icon="report" width={130} />
+                  <Icon icon="report" className="md:w-[130px] w-[70px]" />
                   {/* <Lottie
                     animationData={ReportAnimation}
                     
                   style={{width:130,height:130}}/> */}
                 </div>
-                <div className="text-2xl text-white">Report a crime.</div>
+                <div className="md:text-2xl text-xl text-white">
+                  Report a crime.
+                </div>
               </div>
             </Link>
             <Link href={"/track-case"}>
-              <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
+              <div className="flex flex-col items-center justify-around w-[50vw] md:w-[15vw] md:h-[40vh] h-[30vh] p-2 bg-primary rounded-3xl border-2 border-white">
                 <div>
-                  <Icon icon="location" width={130} />
+                  <Icon icon="location" className="md:w-[130px] w-[70px]" />
                 </div>
-                <div className="text-2xl text-white flex justify-center">
+                <div className="md:text-2xl text-xl text-white flex justify-center">
                   Track your case
                 </div>
               </div>
             </Link>
             <Link href={"/awareness-training"}>
-              <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
+              <div className="flex flex-col items-center justify-around w-[50vw] md:w-[15vw] md:h-[40vh] h-[30vh] p-2 bg-primary rounded-3xl border-2 border-white">
                 <div>
-                  <Icon icon="outreach" width={130} />
+                  <Icon icon="outreach" className="md:w-[130px] w-[70px]" />
                 </div>
-                <div className="text-2xl text-white flex justify-center text-center">
+                <div className="md:text-2xl text-xl text-white flex justify-center text-center">
                   Awareness and Training
                 </div>
               </div>
             </Link>
             <Link href={"/news"}>
-              <div className="flex flex-col items-center justify-around w-[15vw] h-[40vh] p-2 bg-primary rounded-3xl border-2 border-white cursor-pointer">
+              <div className="flex flex-col items-center justify-around w-[50vw] md:w-[15vw] md:h-[40vh] h-[30vh] p-2 bg-primary rounded-3xl border-2 border-white">
                 <div>
-                  <Icon icon="news" width={130} />
+                  <Icon icon="news" className="md:w-[130px] w-[70px]" />
                 </div>
-                <div className="text-2xl text-white">News</div>
+                <div className="md:text-2xl text-xl text-white">News</div>
               </div>
             </Link>
           </div>
@@ -130,7 +132,7 @@ export default function Home() {
           <Heading>Cybercrime Guidelines </Heading>
           <AwarenessMarquee />
         </div>
-        <div className="flex bg-primary my-12 justify-center items-center w-full h-[700px]">
+        <div className="flex bg-primary my-12 justify-center items-center w-full md:h-[700px]">
           {/* <Image src={PM} alt="PM" width={600} height={200} />
           <div className="border-2 border-white rounded-3xl w-[50vw] flex justify-center items-center mx-auto m-8">
             <figure className="max-w-screen-md mx-auto text-center">
@@ -156,12 +158,7 @@ export default function Home() {
               </figcaption>
             </figure>
           </div> */}
-          <Image
-            src={BannerRop}
-            alt="PM"
-            className="object-cover flex"
-            
-          />
+          <Image src={BannerRop} alt="PM" className="object-cover flex" />
         </div>
         <div>
           <FAQComponent />

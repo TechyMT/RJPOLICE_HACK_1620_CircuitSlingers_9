@@ -23,7 +23,7 @@ const SuspectForm = ({ formData, onChange }: any) => {
           {(bank) => <SelectItem key={bank.value}>{bank.name}</SelectItem>}
         </Select>
       </div>
-      <div className="flex gap-6">
+      <div className="flex flex-col md:flex-row md:gap-6 gap-12">
         <Input
           label="Account No./Wallet Id/Merchant Id/UPI Id/शंका जनक खाता संख्या"
           placeholder="Enter account number"
@@ -50,7 +50,7 @@ const SuspectForm = ({ formData, onChange }: any) => {
         />
       </div>
 
-      <div className="flex gap-6 w-1/2">
+      <div className="flex gap-6 md:w-1/2">
         <Input
           label="Suspect Phone Number"
           placeholder="Enter suspect phone number"

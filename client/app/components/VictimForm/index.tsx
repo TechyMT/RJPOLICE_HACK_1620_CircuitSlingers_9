@@ -24,7 +24,7 @@ const VictimForm = ({ formData, onChange }: any) => {
           {(bank) => <SelectItem key={bank.value}>{bank.name}</SelectItem>}
         </Select>
       </div>
-      <div className="flex gap-6">
+      <div className="flex flex-col md:flex-row gap-12 md:gap-6">
         <Input
           label="Account No./Wallet Id/Merchant Id/UPI Id"
           placeholder="Enter account number"

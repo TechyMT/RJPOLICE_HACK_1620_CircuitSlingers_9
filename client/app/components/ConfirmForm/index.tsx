@@ -15,7 +15,7 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
 
           <SubHeading>Personal Details</SubHeading>
         </div>
-        <div className="flex gap-6 w-full">
+        <div className="flex flex-col md:flex-row gap-6 w-full">
           <Input
             classNames={{
               inputWrapper: "bg-white",
@@ -53,7 +53,7 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
             labelPlacement="outside"
           />
         </div>
-        <div className="flex gap-6 w-full">
+        <div className="flex flex-col md:flex-row gap-6 w-full">
           <Input
             classNames={{
               inputWrapper: "bg-white",
@@ -91,7 +91,7 @@ const ConfirmForm: React.FC<FormProps> = ({ formData }) => {
             labelPlacement="outside"
           />
         </div>
-        <div className="flex gap-6 w-full">
+        <div className="flex flex-col md:flex-row gap-6 w-full">
           <Input
             classNames={{
               inputWrapper: "bg-white",

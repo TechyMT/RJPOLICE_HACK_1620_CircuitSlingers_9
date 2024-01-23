@@ -240,7 +240,7 @@ const ComplaintForm = () => {
           setFormSubmitted(true);
 
           router.push(`/confirm`);
-        },3000);
+        }, 3000);
       } catch (error) {
         console.log("error", error);
         setSubmitLoading(false);
@@ -271,16 +271,14 @@ const ComplaintForm = () => {
   }
   return (
     <div className="flex flex-col justify-around items-center gap-10 py-8 ">
-      <div className="flex justify-center items-center w-full">
+      <div className="flex flex-col md:flex-row gap-10 md:gap-0 justify-center items-center w-full">
         <div className="flex items-center">
           {/* Adjusted styles for centering Heading */}
           <div className="flex items-center justify-center">
             <Heading>Complaint Form</Heading>
           </div>
         </div>
-        <div className="flex flex-col absolute right-20 items-center">
-          {" "}
-          {/* Updated class to items-end */}
+        <div className="flex flex-col md:absolute right-20 items-center">
           <div>
             Now signed in as:{" "}
             {user && <span className="text-primary">{user.displayName}</span>}

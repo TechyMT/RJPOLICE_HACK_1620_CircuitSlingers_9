@@ -93,7 +93,7 @@ const Chatbot: React.FC = () => {
 
       {/* Chatbox */}
       {showChatbox && (
-        <div className="chatbox fixed bottom-10 right-10 w-[25vw] h-[70vh] bg-white rounded-2xl shadow-lg flex flex-col justify-between">
+        <div className="chatbox fixed bottom-10 w-[70vw] right-10 md:w-[25vw] h-[70vh] bg-white rounded-2xl shadow-lg flex flex-col justify-between">
           {/* Chatbox Header */}
           <div className="flex justify-between mb-2 p-4 bg-primary rounded-t-2xl">
             <div className="text-lg font-semibold text-white">
