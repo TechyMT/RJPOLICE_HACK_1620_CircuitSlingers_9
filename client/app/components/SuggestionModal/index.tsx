@@ -95,7 +95,7 @@ const ModalSuggestions: React.FC<any> = ({ suggestions }) => {
 
   return (
     <>
-      <Button onClick={handleOpen} color="primary" size="lg">
+      <Button onClick={handleOpen} color="primary" size="lg" className="w-full md:w-auto">
         See AI Suggested Steps.
       </Button>
       <Modal

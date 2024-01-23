@@ -52,7 +52,7 @@ const Navbar = () => {
       <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
-            href="#"
+            href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <Image src={RjLogo} alt="police logo" className="w-10 h-8" />
@@ -88,7 +88,10 @@ const Navbar = () => {
             className={`w-full ${openHamburger ? "block" : "hidden"}`}
             id="navbar-hamburger"
           >
-            <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700" onClick={()=> setOpenHamburger(!openHamburger)}>
+            <ul
+              className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
+              onClick={() => setOpenHamburger(!openHamburger)}
+            >
               <li>
                 <Link
                   href={"/"}
@@ -147,6 +150,18 @@ const Navbar = () => {
                   }`}
                 >
                   Check Fake Account
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/report-mail"
+                  className={`block py-2 px-3 ${
+                    pathName === "/report-mail"
+                      ? "bg-primary text-white"
+                      : "text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                  }`}
+                >
+                  Report Mail
                 </Link>
               </li>
               <li>

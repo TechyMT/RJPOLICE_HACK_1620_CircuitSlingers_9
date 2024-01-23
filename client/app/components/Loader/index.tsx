@@ -15,7 +15,7 @@ const Loader: React.FC = () => {
 
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-start mt-28">
-      <div className="h-1/4 w-1/4">{View}</div>
+      <div className="md:h-1/4 md:w-1/4">{View}</div>
     </div>
   );
 };

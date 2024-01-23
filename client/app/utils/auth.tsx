@@ -15,7 +15,6 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { useRouter } from "next/navigation";
 import { auth } from "./firebase";
 
 interface State {

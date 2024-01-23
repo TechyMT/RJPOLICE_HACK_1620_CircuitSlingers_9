@@ -143,9 +143,9 @@ const TrackStatus = () => {
                 labelPlacement="outside"
               />
             </div>
-            <div className="flex w-full justify-between">
+            <div className="flex flex-col md:flex-row gap-10 md:gap-0 w-full justify-between">
               <Link href={`${status.reportURL}`}>
-                <Button color="primary" size="lg">
+                <Button color="primary" size="lg" className="w-full md:w-auto">
                   Download Report
                 </Button>
               </Link>
