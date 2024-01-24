@@ -123,7 +123,7 @@ const HomeNav = () => {
           </div>
           <div className="flex">
             <Link
-              href="/checkfakenumber"
+              href="/check-fake-number"
               className={`flex items-center ${
                 pathname === "/checkfakenumber"
                   ? "underline underline-offset-8 decoration-primaryRed decoration-4"
@@ -137,7 +137,7 @@ const HomeNav = () => {
           </div>
           <div className="flex">
             <Link
-              href="/checkfakeaccount"
+              href="/check-fake-account"
               className={`flex items-center ${
                 pathname === "/checkfakeaccount"
                   ? "underline underline-offset-8 decoration-red-500 decoration-4"
