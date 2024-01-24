@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { publicUrl } from '../utils/publicUrl';
 import TablePlaceholder from '../components/TablePlaceholder';
+import { analysisData } from '../data/constants';
 
 type Product = {
   name: string;
@@ -18,14 +19,16 @@ const Analysis: React.FC = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const data = await axios.get(`${publicUrl()}/admin/getAllAnalysis`, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        console.log(data);
-        setTableData(data.data);
-        setIsLoading(false);
+        // const data = await axios.get(`${publicUrl()}/admin/getAllAnalysis`, {
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        // });
+        // console.log(data);
+        setTimeout(() => {
+          setTableData(analysisData);
+          setIsLoading(false);
+        }, 1000);
       } catch (error: any) {
         console.log('error', error);
       }
@@ -35,8 +38,8 @@ const Analysis: React.FC = () => {
 
   return (
     <div className="relative overflow-x-auto">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table className="hidden md:block w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-black dark:text-gray">
           <tr>
             <th scope="col" className="px-6 py-3">
               Message Number
@@ -57,7 +60,7 @@ const Analysis: React.FC = () => {
             {tableData.map((data: any, index: number) => (
               <tr
                 key={index}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                className="bg-white border-b dark:bg-body dark:border-gray-700"
               >
                 <th
                   scope="row"
@@ -84,6 +87,9 @@ const Analysis: React.FC = () => {
           </tbody>
         )}
       </table>
+      <div className="flex p-20 bg-white dark:bg-body text-black dark:text-white md:hidden">
+        Please use a larger screen to view the table
+      </div>
     </div>
   );
 };

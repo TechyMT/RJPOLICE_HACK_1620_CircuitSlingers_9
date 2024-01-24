@@ -2,7 +2,7 @@ import React from 'react';
 import Avatar from '../images/user/avatar.jpg';
 const TreeGraph = ({ nodes }: { nodes: any[] }) => {
   return (
-    <div className="absolute -mb-48 top-4 ml-20">
+    <div className="absolute md:-mb-48 md:top-4 md:ml-20 scale-50 md:scale-100">
       {nodes.map((node, index) => (
         <div
           key={node.id}

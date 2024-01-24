@@ -17,7 +17,7 @@ const ECommerce = () => {
   const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     const fetchData = async () => {
-      // setLoading(true);
+      setLoading(true);
       // const result = await axios.get(`${publicUrl()}/admin/allDetails`, {
       //   headers: {
       //     'Content-Type': 'application/json',

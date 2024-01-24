@@ -19,6 +19,10 @@ const Simulation = () => {
 
   const handleInputChange = async () => {
     // Find the first node with a true flag
+    if (!input || input.length < 10) {
+      alert('Please enter a valid phone number');
+      return;
+    }
     const nodeToTurnRed = nodes.find((node) => node.flag);
 
     // If found, set its flag to false
@@ -26,17 +30,23 @@ const Simulation = () => {
       const updatedNodes = nodes.map((node) =>
         node.id === nodeToTurnRed.id ? { ...node, flag: false } : node,
       );
+      alert('Call assigned to the Police');
+      setInput('');
       setNodes(updatedNodes);
     } else {
       // If no node with a true flag is found, do nothing or handle as needed
       setLoading(true);
-      await axios
-        .get(`${publicUrl()}/admin/sendEmailNotif?email=${input}`)
-        .then((res) => {
-          console.log(res);
-        });
-      setLoading(false);
-      alert('Email sent to the user');
+      // await axios
+      //   .get(`${publicUrl()}/admin/sendEmailNotif?email=${input}`)
+      //   .then((res) => {
+      //     console.log(res);
+      //   });
+      // setLoading(false);
+      setTimeout(() => {
+        alert('SMS sent to the user with the details of the portal');
+        setLoading(false);
+        setInput('');
+      }, 1500);
     }
   };
 
@@ -46,7 +56,7 @@ const Simulation = () => {
         <TreeGraph nodes={nodes} />
       </div>
       <div className="flex">
-        <input type="text" onChange={handleChange} />
+        <input placeholder='enter phone number' type="number" required onChange={handleChange} value={input} />
         <button
           className="bg-primary p-2 text-white"
           onClick={handleInputChange}

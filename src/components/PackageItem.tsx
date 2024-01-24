@@ -87,22 +87,25 @@ const PackageItem: React.FC<any> = ({
     console.log('formData', formData);
     setIsloading(true);
     setIsEdit(false);
-    const res = await axios.patch(
-      `${publicUrl()}/admin/update`,
-      {
-        trackId,
-        comments: formData.comments,
-        currentStatus: formData.status,
-        pending: formData.status === 'Case Completed' ? false : true,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    );
-    console.log('updated', res);
-    setIsloading(false);
+    // const res = await axios.patch(
+    //   `${publicUrl()}/admin/update`,
+    //   {
+    //     trackId,
+    //     comments: formData.comments,
+    //     currentStatus: formData.status,
+    //     pending: formData.status === 'Case Completed' ? false : true,
+    //   },
+    //   {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //   },
+    // );
+    // console.log('updated', res);
+    setTimeout(() => {
+      alert('Case Updated Successfully');
+      setIsloading(false);
+    });
 
     // Add logic here to save changes if needed
   };
@@ -120,7 +123,7 @@ const PackageItem: React.FC<any> = ({
     <>
       <tr
         className={`flex w-full items-center border-b border-[#eee] dark:border-strokedark ${
-          isStripped ? 'bg-gray' : ''
+          isStripped ? 'bg-gray dark:bg-body dark:text-white' : ''
         } ${isAccordionOpen ? 'border-meta-3' : ''} transition-bg`}
         // Toggle accordion on row click
         style={{ cursor: 'pointer' }}
@@ -178,7 +181,7 @@ const PackageItem: React.FC<any> = ({
         <td className="dark:text-white min-w-[183px] justify-center flex p-4">
           <button
             id="dropdownHoverButton"
-            className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-body dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-2"
             type="button"
             onClick={() => handleClick()}
           >
@@ -208,7 +211,7 @@ const PackageItem: React.FC<any> = ({
           {/* Dropdown menu */}
           <div
             id="dropdownHover"
-            className={`absolute z-10 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 mt-12 ${
+            className={`absolute z-10 w-48 bg-white dark:bg-black divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 mt-12 ${
               isDropdownOpen ? 'block' : 'hidden'
             }`}
             // style={{ top: '90%', right: '0' }}
@@ -223,7 +226,7 @@ const PackageItem: React.FC<any> = ({
                   <li key={index}>
                     {data.isAssigned ? (
                       <button
-                        className=" block px-4 hover:cursor-not-allowed py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left focus:outline-none bg-gray-2 my-2"
+                        className=" block px-4 hover:cursor-not-allowed py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left focus:outline-none bg-gray-2 dark:bg-black-2 my-2"
                         onClick={() => handleOptionChange(data.name)}
                         disabled={data.isAssigned}
                       >
@@ -238,7 +241,7 @@ const PackageItem: React.FC<any> = ({
                       </button>
                     ) : (
                       <button
-                        className=" block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left focus:outline-none"
+                        className=" block px-4 py-2 hover:bg-body dark:hover:bg-gray-600 dark:hover:text-white w-full text-left focus:outline-none "
                         onClick={() => handleOptionChange(data.name)}
                         disabled={data.isAssigned}
                       >
@@ -311,11 +314,11 @@ const PackageItem: React.FC<any> = ({
                       <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </div>
-                  <div className="px-4 py-2 bg-white rounded-b-lg dark:bg-gray-800">
+                  <div className="px-4 py-2 bg-white dark:bg-black rounded-b-lg dark:bg-gray-800">
                     <textarea
                       id="editor"
                       rows={8}
-                      className={`block w-full px-0 text-sm text-gray-800 bg-white border-0 focus-within:border-0 focus-visible:border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400 ${
+                      className={`block w-full px-0 text-sm text-gray-800 bg-white border-0 focus-within:border-0 focus-visible:border-0 dark:bg-black focus:ring-0 dark:text-white dark:placeholder-gray-400 ${
                         isEdit ? '' : 'cursor-not-allowed'
                       }`}
                       placeholder="Please Enter your comments for this case here..."
@@ -334,7 +337,7 @@ const PackageItem: React.FC<any> = ({
                       {flag !== 2 ? (
                         <button
                           id="dropdownHoverButton"
-                          className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                          className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-black dark:text-white dark:border-gray-2 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                           type="button"
                           onClick={() => handleStatusClick()}
                         >
@@ -379,7 +382,7 @@ const PackageItem: React.FC<any> = ({
                     {/* Dropdown menu */}
                     <div
                       id="dropdownHover"
-                      className={`absolute z-10 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 mt-12 ${
+                      className={`absolute z-10 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-black dark:divide-gray-600 mt-12 ${
                         statusDropdown ? 'block' : 'hidden'
                       }`}
                       // style={{ top: '90%', right: '0' }}
@@ -395,7 +398,7 @@ const PackageItem: React.FC<any> = ({
                               <button
                                 className={`block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left focus:outline-none ${
                                   value === currentStatus
-                                    ? 'cursor-not-allowed bg-gray-2'
+                                    ? 'cursor-not-allowed bg-gray-2 dark:bg-black-2'
                                     : ''
                                 }`}
                                 onClick={() => handleStatusChange(value)}

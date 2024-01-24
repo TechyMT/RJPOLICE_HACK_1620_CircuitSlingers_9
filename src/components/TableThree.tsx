@@ -42,10 +42,10 @@ const TableThree: React.FC<any> = ({ packages, loading }) => {
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-      <div className="max-w-full overflow-x-hidden mb-6">
+      <div className="max-w-full hidden md:block overflow-x-hidden mb-6">
         <div className="relative flex justify-between text-left my-12">
           <button
-            className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-black dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-graydark dark:focus:ring-gray-700"
             type="button"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
@@ -65,7 +65,7 @@ const TableThree: React.FC<any> = ({ packages, loading }) => {
             </svg>
           </button>
           <div
-            className={`absolute z-10 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 mt-1 ${
+            className={`absolute z-10 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-graydark dark:divide-gray mt-1 ${
               isDropdownOpen ? 'block' : 'hidden'
             }`}
             style={{ top: '100%', left: 0 }}
@@ -78,7 +78,7 @@ const TableThree: React.FC<any> = ({ packages, loading }) => {
               aria-labelledby="dropdownRadioButton"
             >
               <li>
-                <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                <div className="flex items-center p-2 rounded hover:bg-body dark:hover:bg-body">
                   <input
                     id="filter-radio-example-1"
                     type="radio"
@@ -102,7 +102,7 @@ const TableThree: React.FC<any> = ({ packages, loading }) => {
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     onChange={() => handleOptionChange('Last 7 Days Reports')}
                   />
-                  <label className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                  <label className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-3">
                     Last 7 days
                   </label>
                 </div>
@@ -144,7 +144,7 @@ const TableThree: React.FC<any> = ({ packages, loading }) => {
           <input
             type="text"
             id="table-search"
-            className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search for items"
           />
         </div>
@@ -283,6 +283,9 @@ const TableThree: React.FC<any> = ({ packages, loading }) => {
             </button>
           </div>
         </div>
+      </div>
+      <div className='flex p-12 md:hidden'>
+        Please view this on a larger screen for optimised experience
       </div>
     </div>
   );
