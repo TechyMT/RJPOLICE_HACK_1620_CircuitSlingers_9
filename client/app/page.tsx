@@ -133,32 +133,11 @@ export default function Home() {
           <AwarenessMarquee />
         </div>
         <div className="flex bg-primary my-12 justify-center items-center w-full h-[350px] md:h-[700px]">
-          {/* <Image src={PM} alt="PM" width={600} height={200} />
-          <div className="border-2 border-white rounded-3xl w-[50vw] flex justify-center items-center mx-auto m-8">
-            <figure className="max-w-screen-md mx-auto text-center">
-              <div className="flex justify-center p-4">
-                <Icon icon="quote" width={50} />
-              </div>
-              <blockquote>
-                <div className="text-2xl italic font-medium text-white">
-                  {`Can we secure the world from a bloodless war? I'm talking
-                  about Cyber Security. India must take the lead in cyber
-                  security through innovation.`}
-                </div>
-              </blockquote>
-              <figcaption className="flex items-center justify-center mt-6 space-x-3">
-                <div className="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
-                  <cite className="pe-3 font-medium text-white">
-                    Shri Narendra Modi
-                  </cite>
-                  <cite className="ps-3 text-sm text-gray-50">
-                    Honorable Prime Minister
-                  </cite>
-                </div>
-              </figcaption>
-            </figure>
-          </div> */}
-          <Image src={BannerRop} alt="PM" className="md:object-cover h-96 md:h-auto flex" />
+          <Image
+            src={BannerRop}
+            alt="PM"
+            className="md:object-cover h-96 md:h-auto flex"
+          />
         </div>
         <div>
           <FAQComponent />
