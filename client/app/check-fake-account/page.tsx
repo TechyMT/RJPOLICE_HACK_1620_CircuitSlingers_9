@@ -65,12 +65,14 @@ const FakeNumberChecker: React.FC = () => {
         </div>
         <div className="w-96">
           <Input
-            type="text"
+            type="number"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
             placeholder="Enter bank account"
             color="primary"
             variant="bordered"
+            classNames={{ inputWrapper: "bg-white" }}
+            size="lg"
           />
         </div>
         <Button

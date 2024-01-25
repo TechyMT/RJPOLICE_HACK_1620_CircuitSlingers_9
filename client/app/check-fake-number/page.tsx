@@ -67,13 +67,16 @@ const FakeNumberChecker = () => {
         </div>
         <div className="w-96">
           <Input
-            type="text"
+            type="number"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
             placeholder="Enter phone number"
             color="primary"
             variant="bordered"
             size="lg"
+            classNames={{
+              inputWrapper:"bg-white"
+            }}
           />
         </div>
         <Button

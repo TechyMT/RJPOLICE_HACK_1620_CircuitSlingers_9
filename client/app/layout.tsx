@@ -30,11 +30,11 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           <HomeNav />
-          <Image
+          {/* <Image
             src={HomeBg}
             alt="RBI guidelines"
             className="-z-50 absolute opacity-50 overflow-x-hidden w-full min-h-screen max-h-screen object-cover "
-          />
+          /> */}
           {children}
 
           <Footer />

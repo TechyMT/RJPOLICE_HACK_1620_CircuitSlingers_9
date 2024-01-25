@@ -5,9 +5,9 @@ import Image from "next/image";
 import HomeBg from "../../assets/images/home.png";
 
 const FaqItem: React.FC<any> = ({ question, answer, isOpen, toggle }) => (
-  <div className="flex flex-col w-full md:w-1/2 lg:w-1/3 p-2">
+  <div className="flex flex-col w-full md:w-1/2 lg:w-1/3 p-2 ">
     <div
-      className="flex justify-between items-center p-4 cursor-pointer border-2 rounded-3xl"
+      className="flex justify-between items-center p-4 cursor-pointer border-2 rounded-3xl bg-white"
       onClick={toggle}
     >
       <div className="font-semibold text-primary">{question}</div>
@@ -34,11 +34,7 @@ const App = () => {
 
   return (
     <>
-      <Image
-        src={HomeBg}
-        alt="RBI guidelines"
-        className="-z-50 absolute max-h-screen object-cover opacity-65 max-w-full overflow-x-hidden"
-      />
+      
       <div className="md:max-w-screen-xl mx-auto mt-8">
         <div className="flex justify-center items-center text-center">
           <Heading>Frequently Asked Questions</Heading>

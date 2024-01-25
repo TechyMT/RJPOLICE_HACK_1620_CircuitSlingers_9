@@ -44,7 +44,7 @@ const ConfirmationBox: React.FC<any> = ({ trackId = 69 }) => {
         <div className="text-base mb-4">
           Note: Please keep the tracking ID for future references.
         </div>
-        <div className="flex flex-col md:flex-row space-x-4">
+        <div className="flex flex-col gap-4 w-full md:w-auto md:flex-row space-x-4">
           <ModalSuggestions />
           <Button size="lg" onClick={handleClose} className="w-full md:w-auto">
             Close
